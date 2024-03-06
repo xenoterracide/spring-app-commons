@@ -1,0 +1,23 @@
+name: Publish to GitHub Packages
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+      - run: ./gradlew build buildHealth --scan
+      - run: ./gradlew publish --no-configuration-cache --scan
+        env:
+          ORG_GRADLE_PROJECT_GHUsername: ${{ secrets.GITHUB_ACTOR }}
+          ORG_GRADLE_PROJECT_GHPassword: ${{ secrets.GITHUB_TOKEN }}
