@@ -8,9 +8,10 @@ plugins {
 
 version = semver.maven
 
+val repo = "spring-app-commons"
 val username = "xenoterracide"
 val githubUrl = "https://github.com"
-val repoShort = "$username/java-commons"
+val repoShort = "$username/$repo"
 
 publishing {
   publications {
@@ -32,10 +33,16 @@ publishing {
         url = "$githubUrl/$repoShort"
         licenses {
           license {
+            name = "AGPL-3.0-or-later"
+            url = "https://choosealicense.com/licenses/agpl-3.0/"
+            distribution = "repo"
+            comments = "Java - for everyone"
+          }
+          license {
             name = "Apache-2.0"
             url = "https://choosealicense.com/licenses/apache-2.0/"
             distribution = "repo"
-            comments = "Java"
+            comments = "Java - for Individuals, Contributers, Sponsors, and Open Source projects. Contact for Sponsorship"
           }
           license {
             name = "MIT"
