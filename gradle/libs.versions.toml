@@ -28,6 +28,7 @@ jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-d
 jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names" }
 java-parser = "com.github.javaparser:javaparser-core:3.+"
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
+jakarta-persistence = { module = "jakarta.persistence:jakarta.persistence-api" }
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
 jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
 jspecify = "org.jspecify:jspecify:0.+"

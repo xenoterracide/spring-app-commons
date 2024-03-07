@@ -6,14 +6,15 @@ buildscript { dependencyLocking.lockAllConfigurations() }
 plugins { our.javalibrary }
 
 dependencies {
-  compileOnlyApi(libs.jspecify)
+  compileOnly(libs.jspecify)
   implementation(platform(libs.spring.bom))
   implementation(libs.jakarta.validation)
+  implementation(libs.jakarta.persistence)
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.starter.validation)
   testImplementation(libs.junit.api)
 }
 
 tasks.compileJava {
-  options.release = 11
+  options.release = 17
 }

@@ -4,6 +4,7 @@
 package com.xenoterracide.jpa;
 
 import jakarta.validation.constraints.Pattern;
+import java.io.Serializable;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -11,7 +12,7 @@ import org.jspecify.annotations.Nullable;
  *
  * @param <ID> the type of the identifier.
  */
-public interface Identifiable<ID> {
+public interface Identifiable<ID extends Serializable> {
   /**
    * Returns the identifier of this entity.
    *
