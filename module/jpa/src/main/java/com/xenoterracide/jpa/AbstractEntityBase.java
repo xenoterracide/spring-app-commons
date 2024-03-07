@@ -10,31 +10,66 @@ import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+/**
+ * The type Abstract entity base.
+ *
+ * @param <ID> the type parameter
+ */
 @MappedSuperclass
 public abstract class AbstractEntityBase<ID extends Serializable> implements Identifiable<ID> {
 
-  public AbstractEntityBase() {}
+  /**
+   * The Identifier.
+   */
+  private @Nullable ID id;
+
+  /**
+   * Instantiates a new Abstract entity base.
+   */
+  protected AbstractEntityBase() {}
+
+  /**
+   * Instantiates a new Abstract entity base.
+   *
+   * @param id the id
+   */
+  protected AbstractEntityBase(@NonNull ID id) {
+    this.id = id;
+  }
 
   @Id
   @Nullable
   @Override
   public ID getId() {
-    return null;
+    return id;
+  }
+
+  /**
+   * Sets id.
+   *
+   * @param id the id
+   */
+  protected void setId(ID id) {
+    this.id = id;
   }
 
   @Override
-  public int hashCode() {
+  public final int hashCode() {
     return Objects.hashCode(this.getId());
   }
 
+  /**
+   * Can equal boolean.
+   *
+   * @param that the that
+   * @return the boolean
+   */
   protected abstract boolean canEqual(@NonNull AbstractEntityBase<?> that);
 
   @Override
-  public boolean equals(@Nullable Object other) {
+  public final boolean equals(@Nullable Object other) {
     if (other instanceof AbstractEntityBase<?> that) {
-      if (!(that.canEqual(this) && Objects.equals(this.getId(), that.getId()))) {
-        return false;
-      }
+      return that.canEqual(this) && Objects.equals(this.getId(), that.getId());
     }
     return false;
   }

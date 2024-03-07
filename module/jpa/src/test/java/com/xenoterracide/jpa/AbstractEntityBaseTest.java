@@ -3,10 +3,17 @@
 
 package com.xenoterracide.jpa;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.Test;
 
 class AbstractEntityBaseTest {
 
   @Test
   void getId() {}
+
+  @Test
+  void equality() {
+    EqualsVerifier.forClass(TestEntity.class).withRedefinedSuperclass().suppress(Warning.SURROGATE_KEY).verify();
+  }
 }
