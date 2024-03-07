@@ -21,7 +21,6 @@ guava = "com.google.guava:guava:+"
 immutables-bom = "org.immutables:bom:2+"
 immutables-annotations = { module = "org.immutables:value-annotations" }
 immutables-core = { module = "org.immutables:value" }
-infer-annotations = "com.facebook.infer.annotation:infer-annotation:0.+"
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations" }
 jackson-core = { module = "com.fasterxml.jackson.core:jackson-core" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }

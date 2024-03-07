@@ -28,6 +28,7 @@ public class TestEntity extends AbstractEntityBase<@NonNull UUID> {
     return name;
   }
 
+  @Initializer
   protected void setName(@NonNull String name) {
     this.name = name;
   }
