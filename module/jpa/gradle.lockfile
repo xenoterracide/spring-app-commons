@@ -14,6 +14,7 @@ com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.5=spotless16595539
 com.fasterxml.jackson:jackson-bom:2.13.5=spotless1659553931
 com.fasterxml:classmate:1.6.0=testCompileClasspath,testRuntimeClasspath
 com.github.ben-manes.caffeine:caffeine:3.0.5=annotationProcessor,errorprone,testAnnotationProcessor,testFixturesAnnotationProcessor
+com.github.f4b6a3:uuid-creator:5.3.7=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 com.github.javaparser:javaparser-core:3.25.3=spotless1659553931
 com.github.javaparser:javaparser-symbol-solver-core:3.25.3=spotless1659553931
 com.github.kevinstern:software-and-algorithms:1.0=annotationProcessor,errorprone,testAnnotationProcessor,testFixturesAnnotationProcessor

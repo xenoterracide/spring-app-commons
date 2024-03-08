@@ -7,9 +7,12 @@ plugins { our.javalibrary }
 
 dependencies {
   compileOnly(libs.jspecify)
+
   implementation(platform(libs.spring.bom))
   implementation(libs.jakarta.validation)
   implementation(libs.jakarta.persistence)
+  implementation(libs.uuid.creator)
+
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.starter.validation)
   testImplementation(libs.junit.api)

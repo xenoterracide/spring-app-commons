@@ -3,53 +3,45 @@
 
 package com.xenoterracide.jpa;
 
+import com.github.f4b6a3.uuid.UuidCreator;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
  * The type Abstract entity base.
- *
- * @param <ID> the type parameter
  */
 @MappedSuperclass
-public abstract class AbstractEntityBase<ID extends Serializable> implements Identifiable<ID> {
+public abstract class AbstractUuidEntityBase implements Identifiable<UUID> {
 
   /**
    * The Identifier.
    */
-  private @Nullable ID id;
+  private UUID id = UuidCreator.getTimeOrderedEpoch();
 
   /**
    * Instantiates a new Abstract entity base.
    */
-  protected AbstractEntityBase() {}
-
-  /**
-   * Instantiates a new Abstract entity base.
-   *
-   * @param id the id
-   */
-  protected AbstractEntityBase(@NonNull ID id) {
-    this.id = id;
-  }
+  protected AbstractUuidEntityBase() {}
 
   @Id
+  @Column(name = "id", updatable = false, nullable = false)
   @Nullable
   @Override
-  public ID getId() {
+  public UUID getId() {
     return id;
   }
 
   /**
-   * Sets id.
+   * Sets id. Called by JPA Provider
    *
    * @param id the id
    */
-  protected void setId(ID id) {
+  void setId(@NonNull UUID id) {
     this.id = id;
   }
 
@@ -64,11 +56,11 @@ public abstract class AbstractEntityBase<ID extends Serializable> implements Ide
    * @param that the that
    * @return the boolean
    */
-  protected abstract boolean canEqual(@NonNull AbstractEntityBase<?> that);
+  protected abstract boolean canEqual(@NonNull AbstractUuidEntityBase that);
 
   @Override
   public final boolean equals(@Nullable Object other) {
-    if (other instanceof AbstractEntityBase<?> that) {
+    if (other instanceof AbstractUuidEntityBase that) {
       return that.canEqual(this) && Objects.equals(this.getId(), that.getId());
     }
     return false;

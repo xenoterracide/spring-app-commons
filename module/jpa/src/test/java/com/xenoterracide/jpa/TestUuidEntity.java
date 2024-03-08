@@ -6,19 +6,22 @@ package com.xenoterracide.jpa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
-import java.util.UUID;
 import org.jspecify.annotations.NonNull;
 
 @Entity
-public class TestEntity extends AbstractEntityBase<@NonNull UUID> {
+public class TestUuidEntity extends AbstractUuidEntityBase {
 
-  private @NonNull String name;
+  private String name;
 
-  protected TestEntity() {}
+  protected TestUuidEntity() {}
 
-  public TestEntity(@NonNull UUID id, @NonNull String name) {
-    super(id);
+  public TestUuidEntity(@NonNull String name) {
     this.name = name;
+  }
+
+  @Override
+  protected boolean canEqual(@NonNull AbstractUuidEntityBase that) {
+    return that instanceof TestUuidEntity;
   }
 
   @NonNull
@@ -29,12 +32,7 @@ public class TestEntity extends AbstractEntityBase<@NonNull UUID> {
   }
 
   @Initializer
-  protected void setName(@NonNull String name) {
+  void setName(@NonNull String name) {
     this.name = name;
-  }
-
-  @Override
-  protected boolean canEqual(@NonNull AbstractEntityBase<?> that) {
-    return that instanceof TestEntity;
   }
 }
