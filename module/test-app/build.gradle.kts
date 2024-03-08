@@ -1,7 +1,7 @@
 // © Copyright 2023-2024 Caleb Cushing
 // SPDX-License-Identifier: MIT
 
-buildscript { dependencyLocking.lockAllConfigurations() }
+buildscript { dependencyLocking { lockAllConfigurations() } }
 
 plugins { our.javalibrary }
 
