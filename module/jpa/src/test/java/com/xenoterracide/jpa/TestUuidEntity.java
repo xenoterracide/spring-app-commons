@@ -5,22 +5,25 @@ package com.xenoterracide.jpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
 import org.jspecify.annotations.NonNull;
 
 @Entity
-public class TestUuidEntity extends AbstractUuidEntityBase {
+public class TestUuidEntity extends AbstractUuidEntityBase<TestUuidEntity.@NonNull TestUuidEntityId> {
 
-  private String name;
-
-  protected TestUuidEntity() {}
+  private @NonNull String name;
 
   public TestUuidEntity(@NonNull String name) {
+    super(new TestUuidEntityId());
     this.name = name;
   }
 
+  public TestUuidEntity() {}
+
   @Override
-  protected boolean canEqual(@NonNull AbstractUuidEntityBase that) {
+  protected boolean canEqual(@NonNull AbstractUuidEntityBase<?> that) {
     return that instanceof TestUuidEntity;
   }
 
@@ -34,5 +37,17 @@ public class TestUuidEntity extends AbstractUuidEntityBase {
   @Initializer
   void setName(@NonNull String name) {
     this.name = name;
+  }
+
+  public static class TestUuidEntityId extends AbstractUuidDomainId {
+
+    @Serial
+    @Transient
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected boolean canEqual(@NonNull AbstractUuidDomainId that) {
+      return that instanceof TestUuidEntityId;
+    }
   }
 }

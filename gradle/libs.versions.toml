@@ -18,6 +18,7 @@ errorprone-core = { module = "com.google.errorprone:error_prone_core", version.r
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
 google-java-format = "com.google.googlejavaformat:google-java-format:+"
 guava = "com.google.guava:guava:+"
+hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
 immutables-bom = "org.immutables:bom:2+"
 immutables-annotations = { module = "org.immutables:value-annotations" }
 immutables-core = { module = "org.immutables:value" }

@@ -12,6 +12,7 @@ dependencies {
   implementation(libs.jakarta.validation)
   implementation(libs.jakarta.persistence)
   implementation(libs.uuid.creator)
+  implementation(libs.hibernate.orm.core)
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.starter.validation)

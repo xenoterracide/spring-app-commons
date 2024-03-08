@@ -3,45 +3,44 @@
 
 package com.xenoterracide.jpa;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The type Abstract entity base.
+ * The type Abstract uuid domain id.
  */
-@MappedSuperclass
-public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> implements Identifiable<@NonNull T> {
+public abstract class AbstractUuidDomainId implements Serializable {
 
-  private @NonNull T id;
+  @Serial
+  @Transient
+  private static final long serialVersionUID = 1L;
 
-  protected AbstractUuidEntityBase() {}
+  private UUID id = UuidCreator.getTimeOrderedEpoch();
 
   /**
-   * Instantiates a new Abstract entity base.
+   * Gets id.
+   *
+   * @return the id
    */
-  protected AbstractUuidEntityBase(@NonNull T id) {
-    this.id = id;
-  }
-
-  @Id
   @Column(name = "id", updatable = false, nullable = false)
-  @Override
-  public @NonNull T getId() {
+  UUID getId() {
     return id;
   }
 
   /**
-   * Sets id. Called by JPA Provider
+   * Sets id.
    *
    * @param id the id
    */
-
   @Initializer
-  void setId(@NonNull T id) {
+  void setId(@NonNull UUID id) {
     this.id = id;
   }
 
@@ -56,13 +55,18 @@ public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> imp
    * @param that the that
    * @return the boolean
    */
-  protected abstract boolean canEqual(@NonNull AbstractUuidEntityBase<?> that);
+  protected abstract boolean canEqual(@NonNull AbstractUuidDomainId that);
 
   @Override
   public final boolean equals(@Nullable Object other) {
-    if (other instanceof AbstractUuidEntityBase<?> that) {
+    if (other instanceof AbstractUuidDomainId that) {
       return that.canEqual(this) && Objects.equals(this.getId(), that.getId());
     }
     return false;
+  }
+
+  @Override
+  public final String toString() {
+    return this.id.toString();
   }
 }
