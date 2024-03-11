@@ -83,6 +83,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   /**
    * The type Abstract uuid domain id.
    */
+  @MappedSuperclass
   public abstract static class AbstractIdentity implements Serializable {
 
     @Serial
