@@ -11,20 +11,20 @@ import java.io.Serial;
 import org.jspecify.annotations.NonNull;
 
 @Entity
-public class TestUuidEntity extends AbstractUuidEntityBase<TestUuidEntity.@NonNull Id> {
+public class TestEntity extends AbstractUuidEntityBase<TestEntity.@NonNull Id> {
 
   private @NonNull String name;
 
-  public TestUuidEntity(@NonNull String name) {
+  public TestEntity(@NonNull String name) {
     super(new Id());
     this.name = name;
   }
 
-  public TestUuidEntity() {}
+  public TestEntity() {}
 
   @Override
   protected boolean canEqual(@NonNull AbstractUuidEntityBase<?> that) {
-    return that instanceof TestUuidEntity;
+    return that instanceof TestEntity;
   }
 
   @NonNull

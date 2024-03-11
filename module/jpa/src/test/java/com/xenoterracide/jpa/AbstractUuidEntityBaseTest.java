@@ -11,9 +11,9 @@ class AbstractUuidEntityBaseTest {
 
   @Test
   void equality() {
-    EqualsVerifier.forClass(TestUuidEntity.class)
+    EqualsVerifier.forClass(TestEntity.class)
       .withRedefinedSuperclass()
-      .withPrefabValues(AbstractUuidEntityBase.AbstractIdentity.class, new TestUuidEntity.Id(), new TestUuidEntity.Id())
+      .withPrefabValues(AbstractUuidEntityBase.AbstractIdentity.class, new TestEntity.Id(), new TestEntity.Id())
       .suppress(Warning.SURROGATE_KEY)
       .verify();
   }

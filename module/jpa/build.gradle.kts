@@ -14,11 +14,15 @@ dependencies {
   implementation(libs.uuid.creator)
   implementation(libs.hibernate.orm.core)
 
+  testRuntimeOnly(platform(libs.spring.bom))
+  testRuntimeOnly(libs.h2)
+
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.starter.validation)
   testImplementation(libs.starter.data.jpa)
   testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)
+  testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(projects.testApp)
 }
 

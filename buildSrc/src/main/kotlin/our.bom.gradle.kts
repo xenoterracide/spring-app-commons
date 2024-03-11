@@ -40,3 +40,14 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
   exclude(group = "com.google.errorprone", module = "error_prone_annotations")
   exclude(group = "org.checkerframework", module = "checker-qual")
 }
+
+dependencies {
+  modules {
+    module("org.springframework.boot:spring-boot-starter-logging") {
+      replacedBy(
+        "org.springframework.boot:spring-boot-starter-log4j2",
+        "Use Log4j2 instead of Logback",
+      )
+    }
+  }
+}
