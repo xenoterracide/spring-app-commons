@@ -22,7 +22,15 @@ public abstract class AbstractUuidDomainId implements Serializable {
   @Transient
   private static final long serialVersionUID = 1L;
 
+  /**
+   * The actual database UUID for id.
+   */
   private UUID id = UuidCreator.getTimeOrderedEpoch();
+
+  /**
+   * NO-OP Parent Constuctor.
+   */
+  protected AbstractUuidDomainId() {}
 
   /**
    * Gets id.
@@ -52,7 +60,7 @@ public abstract class AbstractUuidDomainId implements Serializable {
   /**
    * Can equal boolean.
    *
-   * @param that the that
+   * @param that the other object
    * @return the boolean
    */
   protected abstract boolean canEqual(@NonNull AbstractUuidDomainId that);

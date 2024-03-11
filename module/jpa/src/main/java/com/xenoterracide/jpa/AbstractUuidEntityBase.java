@@ -11,17 +11,27 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The type Abstract entity base.
+ * The type Abstract uuid entity base.
+ *
+ * @param <T> the type parameter
  */
 @MappedSuperclass
 public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> implements Identifiable<@NonNull T> {
 
+  /**
+   * Surrogate Identifier.
+   */
   private @NonNull T id;
 
+  /**
+   * NO-OP Parent Constuctor.
+   */
   protected AbstractUuidEntityBase() {}
 
   /**
-   * Instantiates a new Abstract entity base.
+   * Instantiates a new Abstract uuid entity base.
+   *
+   * @param id the id
    */
   protected AbstractUuidEntityBase(@NonNull T id) {
     this.id = id;
@@ -35,11 +45,10 @@ public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> imp
   }
 
   /**
-   * Sets id. Called by JPA Provider
+   * Sets id.
    *
    * @param id the id
    */
-
   @Initializer
   void setId(@NonNull T id) {
     this.id = id;
@@ -53,7 +62,7 @@ public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> imp
   /**
    * Can equal boolean.
    *
-   * @param that the that
+   * @param that the other object to compare to
    * @return the boolean
    */
   protected abstract boolean canEqual(@NonNull AbstractUuidEntityBase<?> that);
