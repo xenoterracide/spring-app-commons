@@ -11,6 +11,10 @@ import org.jspecify.annotations.NonNull;
 @Entity
 public class TestAggregate extends AbstractUuidEntityBase<TestAggregate.@NonNull Id> {
 
+  public TestAggregate() {
+    super(new Id());
+  }
+
   @Override
   protected boolean canEqual(@NonNull AbstractUuidEntityBase<?> that) {
     return that instanceof TestAggregate;

@@ -5,7 +5,7 @@ package com.xenoterracide.jpa;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
 import java.io.Serial;
@@ -43,7 +43,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     this.id = id;
   }
 
-  @EmbeddedId
+  @Id
   @Override
   public @NonNull ID getId() {
     return id;
