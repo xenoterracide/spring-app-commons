@@ -3,8 +3,12 @@
 
 package com.xenoterracide.jpa;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
 /**
  * The interface Initializer.
  */
+@Target(ElementType.METHOD)
 public @interface Initializer {
 }
