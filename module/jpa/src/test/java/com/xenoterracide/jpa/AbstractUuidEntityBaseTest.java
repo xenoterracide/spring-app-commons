@@ -11,6 +11,10 @@ class AbstractUuidEntityBaseTest {
 
   @Test
   void equality() {
-    EqualsVerifier.forClass(TestUuidEntity.class).withRedefinedSuperclass().suppress(Warning.SURROGATE_KEY).verify();
+    EqualsVerifier.forClass(TestUuidEntity.class)
+      .withRedefinedSuperclass()
+      .withPrefabValues(AbstractUuidDomainId.class, new TestUuidEntity.Id(), new TestUuidEntity.Id())
+      .suppress(Warning.SURROGATE_KEY)
+      .verify();
   }
 }

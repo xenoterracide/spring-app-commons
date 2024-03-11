@@ -11,12 +11,12 @@ import java.io.Serial;
 import org.jspecify.annotations.NonNull;
 
 @Entity
-public class TestUuidEntity extends AbstractUuidEntityBase<TestUuidEntity.@NonNull TestUuidEntityId> {
+public class TestUuidEntity extends AbstractUuidEntityBase<TestUuidEntity.@NonNull Id> {
 
   private @NonNull String name;
 
   public TestUuidEntity(@NonNull String name) {
-    super(new TestUuidEntityId());
+    super(new Id());
     this.name = name;
   }
 
@@ -39,7 +39,7 @@ public class TestUuidEntity extends AbstractUuidEntityBase<TestUuidEntity.@NonNu
     this.name = name;
   }
 
-  public static class TestUuidEntityId extends AbstractUuidDomainId {
+  public static class Id extends AbstractUuidDomainId {
 
     @Serial
     @Transient
@@ -47,7 +47,7 @@ public class TestUuidEntity extends AbstractUuidEntityBase<TestUuidEntity.@NonNu
 
     @Override
     protected boolean canEqual(@NonNull AbstractUuidDomainId that) {
-      return that instanceof TestUuidEntityId;
+      return that instanceof Id;
     }
   }
 }
