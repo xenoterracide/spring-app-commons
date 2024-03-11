@@ -3,8 +3,7 @@
 
 package com.xenoterracide.jpa;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 import java.util.Objects;
 import org.jspecify.annotations.NonNull;
@@ -37,8 +36,7 @@ public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> imp
     this.id = id;
   }
 
-  @Id
-  @Column(name = "id", updatable = false, nullable = false)
+  @EmbeddedId
   @Override
   public @NonNull T getId() {
     return id;
