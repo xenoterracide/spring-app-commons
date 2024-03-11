@@ -16,8 +16,10 @@ dependencies {
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.starter.validation)
+  testImplementation(libs.starter.data.jpa)
   testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)
+  testImplementation(projects.testApp)
 }
 
 tasks.compileJava {

@@ -3,24 +3,31 @@
 
 package com.xenoterracide.jpa;
 
+import com.github.f4b6a3.uuid.UuidCreator;
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
  * The type Abstract uuid entity base.
  *
- * @param <T> the type parameter
+ * @param <ID> the type parameter
  */
 @MappedSuperclass
-public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> implements Identifiable<@NonNull T> {
+public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.AbstractIdentity>
+  implements Identifiable<@NonNull ID> {
 
   /**
    * Surrogate Identifier.
    */
-  private @NonNull T id;
+  private @NonNull ID id;
 
   /**
    * NO-OP Parent Constuctor.
@@ -32,13 +39,13 @@ public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> imp
    *
    * @param id the id
    */
-  protected AbstractUuidEntityBase(@NonNull T id) {
+  protected AbstractUuidEntityBase(@NonNull ID id) {
     this.id = id;
   }
 
   @EmbeddedId
   @Override
-  public @NonNull T getId() {
+  public @NonNull ID getId() {
     return id;
   }
 
@@ -48,7 +55,7 @@ public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> imp
    * @param id the id
    */
   @Initializer
-  void setId(@NonNull T id) {
+  void setId(@NonNull ID id) {
     this.id = id;
   }
 
@@ -71,5 +78,71 @@ public abstract class AbstractUuidEntityBase<T extends AbstractUuidDomainId> imp
       return that.canEqual(this) && Objects.equals(this.getId(), that.getId());
     }
     return false;
+  }
+
+  /**
+   * The type Abstract uuid domain id.
+   */
+  public abstract static class AbstractIdentity implements Serializable {
+
+    @Serial
+    @Transient
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * The actual database UUID for id.
+     */
+    private UUID id = UuidCreator.getTimeOrderedEpoch();
+
+    /**
+     * NO-OP Parent Constuctor.
+     */
+    protected AbstractIdentity() {}
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
+    UUID getId() {
+      return id;
+    }
+
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    @Initializer
+    void setId(@NonNull UUID id) {
+      this.id = id;
+    }
+
+    @Override
+    public final int hashCode() {
+      return Objects.hashCode(this.getId());
+    }
+
+    /**
+     * Can equal boolean.
+     *
+     * @param that the other object
+     * @return the boolean
+     */
+    protected abstract boolean canEqual(@NonNull AbstractIdentity that);
+
+    @Override
+    public final boolean equals(@Nullable Object other) {
+      if (other instanceof AbstractIdentity that) {
+        return that.canEqual(this) && Objects.equals(this.getId(), that.getId());
+      }
+      return false;
+    }
+
+    @Override
+    public final String toString() {
+      return this.id.toString();
+    }
   }
 }

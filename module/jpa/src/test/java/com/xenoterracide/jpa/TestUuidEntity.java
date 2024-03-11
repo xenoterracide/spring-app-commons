@@ -39,14 +39,14 @@ public class TestUuidEntity extends AbstractUuidEntityBase<TestUuidEntity.@NonNu
     this.name = name;
   }
 
-  public static class Id extends AbstractUuidDomainId {
+  public static class Id extends AbstractIdentity {
 
     @Serial
     @Transient
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected boolean canEqual(@NonNull AbstractUuidDomainId that) {
+    protected boolean canEqual(@NonNull AbstractIdentity that) {
       return that instanceof Id;
     }
   }
