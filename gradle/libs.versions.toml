@@ -60,6 +60,7 @@ spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools
 spring-beans = { module = "org.springframework:spring-beans" }
 spring-context = { module = "org.springframework:spring-context" }
 spring-core = { module = "org.springframework:spring-core" }
+spring-data-jpa = { module = "org.springframework.data:spring-data-jpa" }
 spring-test = { module = "org.springframework:spring-test" }
 spring-security-core = { module = "org.springframework.security:spring-security-core" }
 spring-security-oauth2-core = { module = "org.springframework.security:spring-security-oauth2" }
