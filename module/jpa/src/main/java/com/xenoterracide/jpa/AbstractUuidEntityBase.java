@@ -4,15 +4,18 @@
 package com.xenoterracide.jpa;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Transient;
-import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -34,6 +37,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
    * Surrogate Identifier.
    */
   private @Nullable ID id;
+  private @NonNull Metadata metadata = new Metadata();
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -102,11 +106,27 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   }
 
   /**
+   * Gets metadata.
+   *
+   * @return the metadata
+   */
+  @Embedded
+  public @NonNull Metadata getMetadata() {
+    return metadata;
+  }
+
+  void setMetadata(@NonNull Metadata metadata) {
+    this.metadata = metadata;
+  }
+
+  /**
    * The type Metadata.
    */
+  @Embeddable
   public static class Metadata {
 
     private @Nullable ZonedDateTime created;
+
     private @Nullable ZonedDateTime modified;
 
     /**
@@ -114,11 +134,24 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      */
     protected Metadata() {}
 
+    @PrePersist
+    void onPersist() {
+      var now = ZonedDateTime.now(ZoneId.systemDefault());
+      this.created = now;
+      this.modified = now;
+    }
+
+    @PreUpdate
+    void onUpdate() {
+      this.modified = ZonedDateTime.now(ZoneId.systemDefault());
+    }
+
     /**
      * Gets created.
      *
      * @return the created
      */
+    @Column(updatable = false, nullable = false)
     public @Nullable ZonedDateTime getCreated() {
       return created;
     }
@@ -137,7 +170,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      *
      * @return the modified
      */
-    @Version
+    @Column(updatable = false, nullable = false)
     public @Nullable ZonedDateTime getModified() {
       return modified;
     }
