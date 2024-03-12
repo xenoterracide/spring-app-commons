@@ -20,6 +20,8 @@ dependencies {
   testRuntimeOnly(libs.h2)
 
   testImplementation(platform(libs.spring.bom))
+  testImplementation(libs.spring.beans)
+  testImplementation(libs.spring.data.jpa)
   testImplementation(libs.starter.validation)
   testImplementation(libs.starter.data.jpa)
   testImplementation(libs.junit.api)
