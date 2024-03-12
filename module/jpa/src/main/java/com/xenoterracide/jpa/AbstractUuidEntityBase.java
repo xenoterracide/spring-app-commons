@@ -48,8 +48,9 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   @Id
   @NotNull
   @Override
+  @SuppressWarnings("NullAway") // shouldn't be null at runtime, makes validator error better
   public @NonNull ID getId() {
-    return Objects.requireNonNull(id);
+    return this.id;
   }
 
   /**
@@ -130,9 +131,9 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      */
     @NotNull
     @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
-    @NonNull
-    UUID getId() {
-      return Objects.requireNonNull(id);
+    @SuppressWarnings("NullAway") // shouldn't be null at runtime, makes validator error better
+    public @NonNull UUID getId() {
+      return this.id;
     }
 
     /**
