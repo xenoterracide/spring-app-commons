@@ -1,6 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: MIT
 
+rootProject.name = "spring-app-commons"
 rootDir.resolve("module").listFiles()?.forEach { file ->
   if (file.isDirectory && file?.list { _, name -> name == "build.gradle.kts" }
       ?.isNotEmpty() == true

@@ -5,7 +5,6 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked module com.xenoterracide.jpa {
   requires static org.jspecify;
-  requires static org.jetbrains.annotations;
   requires java.base;
   requires jakarta.validation;
   requires jakarta.persistence;
