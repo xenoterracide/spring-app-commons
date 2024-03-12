@@ -30,9 +30,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   private @NonNull ID id;
 
   /**
-   * NO-OP Parent Constuctor.
-   *
-   * @apiNote for JPA use only
+   * NO-OP parent constuctor for JPA only.
    */
   protected AbstractUuidEntityBase() {}
 
@@ -99,9 +97,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     private UUID id;
 
     /**
-     * NO-OP Parent Constuctor.
-     *
-     * @apiNote for JPA use only
+     * NO-OP parent constuctor for JPA only.
      */
     @VisibleForTesting
     protected AbstractIdentity() {}
