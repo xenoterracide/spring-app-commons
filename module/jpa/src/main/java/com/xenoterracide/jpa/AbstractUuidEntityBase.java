@@ -9,9 +9,11 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import org.jspecify.annotations.NonNull;
@@ -50,7 +52,6 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   @Override
   @SuppressWarnings("NullAway") // shouldn't be null at runtime, makes validator error better
   public @NonNull ID getId() {
-    assert this.id != null;
     return this.id;
   }
 
@@ -68,7 +69,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   @PostLoad
   void ensureId() {
     Objects.requireNonNull(this.id, "use static factory method to create new id");
-    Objects.requireNonNull(this.id.getId(), "use static factory method to create new id");
+    this.id.ensureId();
   }
 
   @Override
@@ -93,6 +94,30 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
       return that.canEqual(this) && Objects.equals(this.id, that.id);
     }
     return false;
+  }
+
+  public static class Metadata {
+
+    private @Nullable ZonedDateTime created;
+
+    private @Nullable ZonedDateTime modified;
+
+    public @Nullable ZonedDateTime getCreated() {
+      return created;
+    }
+
+    void setCreated(@NonNull ZonedDateTime created) {
+      this.created = created;
+    }
+
+    @Version
+    public @Nullable ZonedDateTime getModified() {
+      return modified;
+    }
+
+    void setModified(@NonNull ZonedDateTime modified) {
+      this.modified = modified;
+    }
   }
 
   /**
@@ -124,6 +149,10 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
       this.id = id;
     }
 
+    protected void ensureId() {
+      Objects.requireNonNull(this.id, "use static factory method to create new id");
+    }
+
     /**
      * Gets id.
      *
@@ -134,7 +163,6 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
     @SuppressWarnings("NullAway") // shouldn't be null at runtime, makes validator error better
     public @NonNull UUID getId() {
-      assert this.id != null;
       return this.id;
     }
 

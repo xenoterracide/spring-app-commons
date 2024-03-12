@@ -9,7 +9,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.orm.jpa.JpaSystemException;
 
 @DataJpaTest
 public class JpaAggregateTest {
@@ -28,7 +27,7 @@ public class JpaAggregateTest {
 
   @Test
   void noId() {
-    assertThatExceptionOfType(JpaSystemException.class).isThrownBy(() -> repository.save(new TestAggregate()));
+    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> repository.save(new TestAggregate()));
   }
 
   @Test
