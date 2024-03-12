@@ -3,16 +3,24 @@
 
 package com.xenoterracide.jpa;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import java.io.Serial;
+import java.util.UUID;
 import org.jspecify.annotations.NonNull;
 
 @Entity
 public class TestAggregate extends AbstractUuidEntityBase<TestAggregate.@NonNull Id> {
 
-  public TestAggregate() {
-    super(new Id());
+  /**
+   * NO-OP Constuctor.
+   * @apiNote for JPA use only
+   */
+  protected TestAggregate() {}
+
+  public TestAggregate(@NonNull Id id) {
+    super(id);
   }
 
   @Override
@@ -26,9 +34,23 @@ public class TestAggregate extends AbstractUuidEntityBase<TestAggregate.@NonNull
     @Transient
     private static final long serialVersionUID = 1L;
 
+    /**
+     * NO-OP Constuctor.
+     * @apiNote for JPA use only
+     */
+    protected Id() {}
+
+    private Id(@NonNull UUID id) {
+      super(id);
+    }
+
     @Override
     protected boolean canEqual(@NonNull AbstractIdentity that) {
       return that instanceof Id;
+    }
+
+    public static Id create() {
+      return new Id(UuidCreator.getTimeOrderedEpoch());
     }
   }
 }

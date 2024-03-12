@@ -13,7 +13,7 @@ class AbstractUuidEntityBaseTest {
   void equality() {
     EqualsVerifier.forClass(TestEntity.class)
       .withRedefinedSuperclass()
-      .withPrefabValues(AbstractUuidEntityBase.AbstractIdentity.class, new TestEntity.Id(), new TestEntity.Id())
+      .withPrefabValues(AbstractUuidEntityBase.AbstractIdentity.class, TestEntity.Id.create(), TestEntity.Id.create())
       .suppress(Warning.SURROGATE_KEY)
       .verify();
   }

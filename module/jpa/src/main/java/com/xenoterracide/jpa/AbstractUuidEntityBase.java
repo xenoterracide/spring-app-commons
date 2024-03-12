@@ -3,7 +3,6 @@
 
 package com.xenoterracide.jpa;
 
-import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
@@ -12,6 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
+import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -31,6 +31,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
 
   /**
    * NO-OP Parent Constuctor.
+   * @apiNote for JPA use only
    */
   protected AbstractUuidEntityBase() {}
 
@@ -51,7 +52,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
 
   /**
    * Sets id.
-   *
+   * @apiNote for JPA use only
    * @param id the id
    */
   @Initializer
@@ -93,18 +94,26 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     /**
      * The actual database UUID for id.
      */
-    private UUID id = UuidCreator.getTimeOrderedEpoch();
+    private UUID id;
 
     /**
      * NO-OP Parent Constuctor.
+     * @apiNote for JPA use only
      */
+    @VisibleForTesting
     protected AbstractIdentity() {}
+
+    protected AbstractIdentity(@NonNull UUID id) {
+      this.id = id;
+    }
 
     /**
      * Gets id.
      *
+     * @apiNote for JPA use only
      * @return the id
      */
+    @SuppressWarnings("dep-ann")
     @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
     UUID getId() {
       return id;
@@ -113,8 +122,10 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     /**
      * Sets id.
      *
+     * @apiNote for JPA use only
      * @param id the id
      */
+    @VisibleForTesting
     @Initializer
     void setId(@NonNull UUID id) {
       this.id = id;

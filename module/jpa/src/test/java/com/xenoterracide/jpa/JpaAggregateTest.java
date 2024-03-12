@@ -4,10 +4,12 @@
 package com.xenoterracide.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.orm.jpa.JpaSystemException;
 
 @DataJpaTest
 public class JpaAggregateTest {
@@ -16,11 +18,16 @@ public class JpaAggregateTest {
   TestRepository repository;
 
   @Test
-  void testEntity() {
-    var newAgg = new TestAggregate();
+  void withId() {
+    var newAgg = new TestAggregate(new TestAggregate.Id());
 
     var persisted = repository.save(newAgg);
 
     assertThat(persisted.getId()).isNotNull().isEqualTo(newAgg.getId());
+  }
+
+  @Test
+  void noId() {
+    assertThatExceptionOfType(JpaSystemException.class).isThrownBy(() -> repository.save(new TestAggregate()));
   }
 }

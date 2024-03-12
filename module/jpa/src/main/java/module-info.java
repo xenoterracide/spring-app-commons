@@ -4,8 +4,9 @@ import org.jspecify.annotations.NullMarked;
  * JPA utilities.
  */
 @NullMarked module com.xenoterracide.jpa {
+  requires static org.jspecify;
+  requires static org.jetbrains.annotations;
   requires java.base;
-  requires org.jspecify;
   requires jakarta.validation;
   requires jakarta.persistence;
   requires com.github.f4b6a3.uuid;

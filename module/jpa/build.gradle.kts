@@ -7,6 +7,7 @@ plugins { our.javalibrary }
 
 dependencies {
   compileOnly(libs.jspecify)
+  compileOnly(libs.jetbrains.annotations)
 
   implementation(platform(libs.spring.bom))
   implementation(libs.jakarta.validation)
