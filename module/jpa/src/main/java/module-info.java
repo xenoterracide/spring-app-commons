@@ -8,7 +8,6 @@ import org.jspecify.annotations.NullMarked;
   requires transitive jakarta.validation;
   requires transitive jakarta.persistence;
   requires java.base;
-  requires com.github.f4b6a3.uuid;
-  requires org.hibernate.orm.core;
+  exports com.xenoterracide.jpa;
   opens com.xenoterracide.jpa; // TODO: figure out how to do only for jpa vendors
 }
