@@ -206,7 +206,6 @@
     <!-- Modifier Checks                                    -->
     <!-- See https://checkstyle.org/config_modifiers.html -->
     <module name="RedundantModifier" />
-    <module name="AbstractClassName" />
 
     <!-- https://checkstyle.sourceforge.io/checks/blocks/ -->
     <module name="AvoidNestedBlocks">

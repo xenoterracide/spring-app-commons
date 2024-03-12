@@ -18,6 +18,8 @@ errorprone-core = { module = "com.google.errorprone:error_prone_core", version.r
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
 google-java-format = "com.google.googlejavaformat:google-java-format:+"
 guava = "com.google.guava:guava:+"
+h2 = { module = "com.h2database:h2" }
+hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
 immutables-bom = "org.immutables:bom:2+"
 immutables-annotations = { module = "org.immutables:value-annotations" }
 immutables-core = { module = "org.immutables:value" }
@@ -28,7 +30,9 @@ jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-d
 jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names" }
 java-parser = "com.github.javaparser:javaparser-core:3.+"
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
-jakarta-validation = { module = "jakarta.annotation:jakarta.validation-api" }
+jakarta-persistence = { module = "jakarta.persistence:jakarta.persistence-api" }
+jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
+jetbrains-annotations = "org.jetbrains:annotations:+"
 jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
 jspecify = "org.jspecify:jspecify:0.+"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
@@ -56,6 +60,7 @@ spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools
 spring-beans = { module = "org.springframework:spring-beans" }
 spring-context = { module = "org.springframework:spring-context" }
 spring-core = { module = "org.springframework:spring-core" }
+spring-data-jpa = { module = "org.springframework.data:spring-data-jpa" }
 spring-test = { module = "org.springframework:spring-test" }
 spring-security-core = { module = "org.springframework.security:spring-security-core" }
 spring-security-oauth2-core = { module = "org.springframework.security:spring-security-oauth2" }
@@ -64,6 +69,7 @@ spring-data-neo4j = { module = "org.springframework.data:spring-data-neo4j" }
 starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 starter-core = { module = "org.springframework.boot:spring-boot-starter" }
 starter-jackson = { module = "org.springframework.boot:spring-boot-starter-jackson" }
+starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
 starter-log4j2 = { module = "org.springframework.boot:spring-boot-starter-log4j2" }
 starter-neo4j = { module = "org.springframework.boot:spring-boot-starter-data-neo4j" }
 starter-oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client" }
