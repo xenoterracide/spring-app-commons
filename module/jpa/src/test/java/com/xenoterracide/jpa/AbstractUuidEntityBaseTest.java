@@ -10,11 +10,16 @@ import org.junit.jupiter.api.Test;
 class AbstractUuidEntityBaseTest {
 
   @Test
-  void equality() {
+  void abstractUuidEntityEquality() {
     EqualsVerifier.forClass(TestEntity.class)
       .withRedefinedSuperclass()
       .withPrefabValues(AbstractUuidEntityBase.AbstractIdentity.class, TestEntity.Id.create(), TestEntity.Id.create())
       .suppress(Warning.SURROGATE_KEY)
       .verify();
+  }
+
+  @Test
+  void abstractIdentitityEquality() {
+    EqualsVerifier.forClass(TestEntity.Id.class).withRedefinedSuperclass().verify();
   }
 }

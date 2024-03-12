@@ -6,6 +6,8 @@ package com.xenoterracide.jpa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PostLoad;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Transient;
 import java.io.Serial;
 import java.io.Serializable;
@@ -26,7 +28,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   /**
    * Surrogate Identifier.
    */
-  private @NonNull ID id;
+  private @Nullable ID id;
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -45,7 +47,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   @Id
   @Override
   public @NonNull ID getId() {
-    return id;
+    return Objects.requireNonNull(id);
   }
 
   /**
@@ -54,14 +56,20 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
    * @apiNote for JPA use only
    * @param id the id
    */
-  @Initializer
   void setId(@NonNull ID id) {
     this.id = id;
   }
 
+  @PrePersist
+  @PostLoad
+  void ensureId() {
+    Objects.requireNonNull(this.id, "use static factory method to create new id");
+    Objects.requireNonNull(this.id.getId(), "use static factory method to create new id");
+  }
+
   @Override
   public final int hashCode() {
-    return Objects.hashCode(this.getId());
+    return Objects.hashCode(this.id);
   }
 
   /**
@@ -78,13 +86,13 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   @Override
   public final boolean equals(@Nullable Object other) {
     if (other instanceof AbstractUuidEntityBase<?> that) {
-      return that.canEqual(this) && Objects.equals(this.getId(), that.getId());
+      return that.canEqual(this) && Objects.equals(this.id, that.id);
     }
     return false;
   }
 
   /**
-   * The type Abstract uuid domain id.
+   * Abstract domain identifier.
    */
   @MappedSuperclass
   public abstract static class AbstractIdentity implements Serializable {
@@ -96,7 +104,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     /**
      * The actual database UUID for id.
      */
-    private UUID id;
+    private @Nullable UUID id;
 
     /**
      * NO-OP parent constuctor for JPA only.
@@ -119,8 +127,9 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      * @return the id
      */
     @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
+    @NonNull
     UUID getId() {
-      return id;
+      return Objects.requireNonNull(id);
     }
 
     /**
@@ -129,14 +138,13 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      * @apiNote for JPA use only
      * @param id the id
      */
-    @Initializer
     void setId(@NonNull UUID id) {
       this.id = id;
     }
 
     @Override
     public final int hashCode() {
-      return Objects.hashCode(this.getId());
+      return Objects.hashCode(this.id);
     }
 
     /**
@@ -153,14 +161,14 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     @Override
     public final boolean equals(@Nullable Object other) {
       if (other instanceof AbstractIdentity that) {
-        return that.canEqual(this) && Objects.equals(this.getId(), that.getId());
+        return that.canEqual(this) && Objects.equals(this.id, that.id);
       }
       return false;
     }
 
     @Override
     public final String toString() {
-      return this.id.toString();
+      return String.valueOf(this.id);
     }
   }
 }

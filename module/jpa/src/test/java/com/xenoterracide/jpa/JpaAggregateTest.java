@@ -19,7 +19,7 @@ public class JpaAggregateTest {
 
   @Test
   void withId() {
-    var newAgg = new TestAggregate(new TestAggregate.Id());
+    var newAgg = new TestAggregate(TestAggregate.Id.create());
 
     var persisted = repository.save(newAgg);
 
@@ -29,5 +29,13 @@ public class JpaAggregateTest {
   @Test
   void noId() {
     assertThatExceptionOfType(JpaSystemException.class).isThrownBy(() -> repository.save(new TestAggregate()));
+  }
+
+  @Test
+  void identityMustHaveUuid() {
+    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> {
+      var agg = new TestAggregate(new TestAggregate.Id());
+      repository.save(agg);
+    });
   }
 }

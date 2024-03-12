@@ -13,10 +13,6 @@ import org.jspecify.annotations.NonNull;
 @Entity
 public class TestAggregate extends AbstractUuidEntityBase<TestAggregate.@NonNull Id> {
 
-  /**
-   * NO-OP Constuctor.
-   * @apiNote for JPA use only
-   */
   protected TestAggregate() {}
 
   public TestAggregate(@NonNull Id id) {
@@ -34,10 +30,6 @@ public class TestAggregate extends AbstractUuidEntityBase<TestAggregate.@NonNull
     @Transient
     private static final long serialVersionUID = 1L;
 
-    /**
-     * NO-OP Constuctor.
-     * @apiNote for JPA use only
-     */
     protected Id() {}
 
     private Id(@NonNull UUID id) {
