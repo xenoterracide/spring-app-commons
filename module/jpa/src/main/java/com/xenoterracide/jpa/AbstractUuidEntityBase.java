@@ -50,6 +50,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   @Override
   @SuppressWarnings("NullAway") // shouldn't be null at runtime, makes validator error better
   public @NonNull ID getId() {
+    assert this.id != null;
     return this.id;
   }
 
@@ -133,6 +134,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
     @SuppressWarnings("NullAway") // shouldn't be null at runtime, makes validator error better
     public @NonNull UUID getId() {
+      assert this.id != null;
       return this.id;
     }
 
