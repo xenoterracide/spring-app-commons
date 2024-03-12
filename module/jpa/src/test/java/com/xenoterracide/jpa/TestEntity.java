@@ -43,23 +43,23 @@ public class TestEntity extends AbstractUuidEntityBase<TestEntity.@NonNull Id> {
 
   public static class Id extends AbstractIdentity {
 
+    @Serial
+    @Transient
+    private static final long serialVersionUID = 1L;
+
     protected Id() {}
 
     private Id(@NonNull UUID id) {
       super(id);
     }
 
-    @Serial
-    @Transient
-    private static final long serialVersionUID = 1L;
+    public static Id create() {
+      return new Id(UuidCreator.getTimeOrderedEpoch());
+    }
 
     @Override
     protected boolean canEqual(@NonNull AbstractIdentity that) {
       return that instanceof Id;
-    }
-
-    public static Id create() {
-      return new Id(UuidCreator.getTimeOrderedEpoch());
     }
   }
 }

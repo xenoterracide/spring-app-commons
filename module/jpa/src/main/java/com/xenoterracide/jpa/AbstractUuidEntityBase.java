@@ -31,6 +31,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
 
   /**
    * NO-OP Parent Constuctor.
+   *
    * @apiNote for JPA use only
    */
   protected AbstractUuidEntityBase() {}
@@ -52,6 +53,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
 
   /**
    * Sets id.
+   *
    * @apiNote for JPA use only
    * @param id the id
    */
@@ -98,6 +100,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
 
     /**
      * NO-OP Parent Constuctor.
+     *
      * @apiNote for JPA use only
      */
     @VisibleForTesting
