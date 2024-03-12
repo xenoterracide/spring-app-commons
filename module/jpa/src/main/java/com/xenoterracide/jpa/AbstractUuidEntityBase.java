@@ -28,6 +28,8 @@ import org.jspecify.annotations.Nullable;
 public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.AbstractIdentity>
   implements Identifiable<@NonNull ID> {
 
+  private static final String NPE_MESSAGE = "use static factory method to create new id";
+
   /**
    * Surrogate Identifier.
    */
@@ -58,17 +60,20 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   /**
    * Sets id.
    *
-   * @apiNote for JPA use only
    * @param id the id
+   * @apiNote for JPA use only
    */
   void setId(@NonNull ID id) {
     this.id = id;
   }
 
+  /**
+   * Ensure id.
+   */
   @PrePersist
   @PostLoad
   void ensureId() {
-    Objects.requireNonNull(this.id, "use static factory method to create new id");
+    Objects.requireNonNull(this.id, NPE_MESSAGE);
     this.id.ensureId();
   }
 
@@ -96,25 +101,52 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     return false;
   }
 
+  /**
+   * The type Metadata.
+   */
   public static class Metadata {
 
     private @Nullable ZonedDateTime created;
-
     private @Nullable ZonedDateTime modified;
 
+    /**
+     * NO-OP parent constuctor for JPA only.
+     */
+    protected Metadata() {}
+
+    /**
+     * Gets created.
+     *
+     * @return the created
+     */
     public @Nullable ZonedDateTime getCreated() {
       return created;
     }
 
+    /**
+     * Sets created.
+     *
+     * @param created the created
+     */
     void setCreated(@NonNull ZonedDateTime created) {
       this.created = created;
     }
 
+    /**
+     * Gets modified.
+     *
+     * @return the modified
+     */
     @Version
     public @Nullable ZonedDateTime getModified() {
       return modified;
     }
 
+    /**
+     * Sets modified.
+     *
+     * @param modified the modified
+     */
     void setModified(@NonNull ZonedDateTime modified) {
       this.modified = modified;
     }
@@ -149,15 +181,18 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
       this.id = id;
     }
 
+    /**
+     * Ensure id.
+     */
     protected void ensureId() {
-      Objects.requireNonNull(this.id, "use static factory method to create new id");
+      Objects.requireNonNull(this.id, NPE_MESSAGE);
     }
 
     /**
      * Gets id.
      *
-     * @apiNote for JPA use only
      * @return the id
+     * @apiNote for JPA use only
      */
     @NotNull
     @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
@@ -169,8 +204,8 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     /**
      * Sets id.
      *
-     * @apiNote for JPA use only
      * @param id the id
+     * @apiNote for JPA use only
      */
     void setId(@NonNull UUID id) {
       this.id = id;
