@@ -106,6 +106,11 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     @VisibleForTesting
     protected AbstractIdentity() {}
 
+    /**
+     * Instantiates a new Abstract identity.
+     *
+     * @param id the id
+     */
     protected AbstractIdentity(@NonNull UUID id) {
       this.id = id;
     }
@@ -116,7 +121,6 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      * @apiNote for JPA use only
      * @return the id
      */
-    @SuppressWarnings("dep-ann")
     @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
     UUID getId() {
       return id;
