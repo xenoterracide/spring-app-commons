@@ -71,14 +71,22 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     this.id = id;
   }
 
-  /**
-   * Ensure id.
-   */
   @PrePersist
-  @PostLoad
-  void ensureId() {
+  void prePersist() {
     Objects.requireNonNull(this.id, NPE_MESSAGE);
     this.id.ensureId();
+    this.metadata.onPersist();
+  }
+
+  @PostLoad
+  void postLoad() {
+    Objects.requireNonNull(this.id, NPE_MESSAGE);
+    this.id.ensureId();
+  }
+
+  @PreUpdate
+  void preUpdate() {
+    this.metadata.onUpdate();
   }
 
   @Override
@@ -134,14 +142,12 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      */
     protected Metadata() {}
 
-    @PrePersist
     void onPersist() {
       var now = ZonedDateTime.now(ZoneId.systemDefault());
       this.created = now;
       this.modified = now;
     }
 
-    @PreUpdate
     void onUpdate() {
       this.modified = ZonedDateTime.now(ZoneId.systemDefault());
     }
