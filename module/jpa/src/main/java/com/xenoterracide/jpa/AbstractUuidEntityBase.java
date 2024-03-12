@@ -11,7 +11,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
-import org.jetbrains.annotations.VisibleForTesting;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -66,10 +65,13 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   }
 
   /**
-   * Can equal boolean.
+   * That is an {@code instanceof} this concrete class.
    *
-   * @param that the other object to compare to
+   * @param that the other object
    * @return the boolean
+   * @see <a href="https://www.artima.com/articles/how-to-write-an-equality-method-in-java">
+   *   How to Write an Equality Method in Java
+   *   </a>
    */
   protected abstract boolean canEqual(@NonNull AbstractUuidEntityBase<?> that);
 
@@ -99,7 +101,6 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     /**
      * NO-OP parent constuctor for JPA only.
      */
-    @VisibleForTesting
     protected AbstractIdentity() {}
 
     /**
@@ -128,7 +129,6 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      * @apiNote for JPA use only
      * @param id the id
      */
-    @VisibleForTesting
     @Initializer
     void setId(@NonNull UUID id) {
       this.id = id;
@@ -140,10 +140,13 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
     }
 
     /**
-     * Can equal boolean.
+     * That is an {@code instanceof} this concrete class.
      *
      * @param that the other object
      * @return the boolean
+     * @see <a href="https://www.artima.com/articles/how-to-write-an-equality-method-in-java">
+     *   How to Write an Equality Method in Java
+     *   </a>
      */
     protected abstract boolean canEqual(@NonNull AbstractIdentity that);
 
