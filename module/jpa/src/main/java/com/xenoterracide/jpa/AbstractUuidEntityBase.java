@@ -9,6 +9,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
@@ -45,6 +46,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
   }
 
   @Id
+  @NotNull
   @Override
   public @NonNull ID getId() {
     return Objects.requireNonNull(id);
@@ -126,6 +128,7 @@ public abstract class AbstractUuidEntityBase<ID extends AbstractUuidEntityBase.A
      * @apiNote for JPA use only
      * @return the id
      */
+    @NotNull
     @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
     @NonNull
     UUID getId() {
