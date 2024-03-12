@@ -16,6 +16,7 @@ dependencies {
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.starter.validation)
   testRuntimeOnly(libs.starter.data.jpa)
+  testRuntimeOnly(projects.testApp)
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.spring.beans)
@@ -24,7 +25,6 @@ dependencies {
   testImplementation(libs.equalsverifier)
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.uuid.creator)
-  testImplementation(projects.testApp)
 }
 
 tasks.compileJava {
