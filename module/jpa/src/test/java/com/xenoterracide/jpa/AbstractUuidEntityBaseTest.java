@@ -30,9 +30,9 @@ class AbstractUuidEntityBaseTest {
       var agg = new TestAggregate();
       var res = validator.validate(agg);
       assertThat(res)
-        .hasSize(1)
+        .hasSize(2)
         .extracting(ConstraintViolation::getMessage, cv -> cv.getPropertyPath().toString())
-        .containsExactly(Tuple.tuple("must not be null", "id"));
+        .containsOnly(Tuple.tuple("must not be null", "id"), Tuple.tuple("must not be null", "name"));
     }
   }
 
