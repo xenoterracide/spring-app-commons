@@ -16,7 +16,7 @@ tasks.javadoc {
 dependencies {
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.log4j2)
-  runtimeOnly(libs.bundles.spring.test)
+  runtimeOnly(libs.spring.test)
 
   implementation(platform(libs.spring.bom))
   implementation(libs.spring.boot.autoconfigure)
