@@ -6,7 +6,7 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 plugins { our.javalibrary }
 
 dependencies {
-  compileOnly(libs.jspecify)
+  compileOnlyApi(libs.jspecify)
 
   api(platform(libs.spring.bom))
   api(libs.jakarta.validation)

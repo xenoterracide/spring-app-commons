@@ -14,6 +14,7 @@ tasks.javadoc {
 }
 
 dependencies {
+  compileOnlyApi(libs.jspecify)
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.log4j2)
   runtimeOnly(libs.spring.test)
