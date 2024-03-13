@@ -27,7 +27,10 @@ val available = tasks.register("tests available") {
 
 tasks.withType<Test>().configureEach {
   useJUnitPlatform()
-
+  reports {
+    junitXml.required.set(false)
+    html.required.set(false)
+  }
   testLogging {
     lifecycle {
       showStandardStreams = true
