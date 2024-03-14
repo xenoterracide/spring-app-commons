@@ -13,9 +13,9 @@ import org.jspecify.annotations.NonNull;
  * @param <ID> the type parameter
  */
 @MappedSuperclass
-public abstract class AbstractUuidAggregate<ID extends AbstractIdentity<? extends Serializable>>
+public abstract class AbstractAggregate<ID extends AbstractIdentity<? extends Serializable>>
   extends AbstractEntity<ID>
   implements Identifiable<@NonNull ID> {
 
-  protected AbstractUuidAggregate() {}
+  protected AbstractAggregate() {}
 }
