@@ -11,13 +11,12 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.UUID;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 @Entity
-public class TestAggregate extends AbstractUuidEntityBase<TestAggregate.@NonNull Id> {
+public class TestAggregate extends AbstractEntity<TestAggregate.@NonNull Id> {
 
   @Column(nullable = false)
-  private @Nullable String name;
+  private String name;
 
   protected TestAggregate() {}
 
@@ -27,21 +26,21 @@ public class TestAggregate extends AbstractUuidEntityBase<TestAggregate.@NonNull
   }
 
   @NotNull
-  @SuppressWarnings("MultipleNullnessAnnotations")
-  public @Nullable String getName() {
+  public @NonNull String getName() {
     return name;
   }
 
+  @Initializer
   void setName(@NonNull String name) {
     this.name = name;
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractUuidEntityBase<?> that) {
+  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
     return that instanceof TestAggregate;
   }
 
-  public static class Id extends AbstractIdentity {
+  public static class Id extends AbstractIdentity<@NonNull UUID> {
 
     @Serial
     @Transient
@@ -58,7 +57,7 @@ public class TestAggregate extends AbstractUuidEntityBase<TestAggregate.@NonNull
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentity that) {
+    protected boolean canEqual(@NonNull AbstractIdentity<?> that) {
       return that instanceof Id;
     }
   }

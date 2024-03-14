@@ -12,6 +12,11 @@ dependencies {
   api(libs.jakarta.validation)
   api(libs.jakarta.persistence)
 
+  implementation(platform(libs.spring.bom))
+  implementation(libs.spring.beans)
+  implementation(libs.spring.context)
+  implementation(libs.spring.transaction)
+
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.starter.validation)

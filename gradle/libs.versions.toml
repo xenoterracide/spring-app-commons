@@ -62,6 +62,7 @@ spring-context = { module = "org.springframework:spring-context" }
 spring-core = { module = "org.springframework:spring-core" }
 spring-data-jpa = { module = "org.springframework.data:spring-data-jpa" }
 spring-test = { module = "org.springframework:spring-test" }
+spring-transaction = { module = "org.springframework:spring-tx" }
 spring-security-core = { module = "org.springframework.security:spring-security-core" }
 spring-security-oauth2-core = { module = "org.springframework.security:spring-security-oauth2" }
 spring-data-commons = { module = "org.springframework.data:spring-data-commons" }

@@ -13,7 +13,7 @@ import java.util.UUID;
 import org.jspecify.annotations.NonNull;
 
 @Entity
-public class TestEntity extends AbstractUuidEntityBase<TestEntity.@NonNull Id> {
+public class TestEntity extends AbstractEntity<TestEntity.@NonNull Id> {
 
   private @NonNull String name;
 
@@ -25,7 +25,7 @@ public class TestEntity extends AbstractUuidEntityBase<TestEntity.@NonNull Id> {
   public TestEntity() {}
 
   @Override
-  protected boolean canEqual(@NonNull AbstractUuidEntityBase<?> that) {
+  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
     return that instanceof TestEntity;
   }
 
@@ -41,7 +41,7 @@ public class TestEntity extends AbstractUuidEntityBase<TestEntity.@NonNull Id> {
     this.name = name;
   }
 
-  public static class Id extends AbstractIdentity {
+  public static class Id extends AbstractIdentity<@NonNull UUID> {
 
     @Serial
     @Transient
@@ -58,7 +58,7 @@ public class TestEntity extends AbstractUuidEntityBase<TestEntity.@NonNull Id> {
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentity that) {
+    protected boolean canEqual(@NonNull AbstractIdentity<?> that) {
       return that instanceof Id;
     }
   }
