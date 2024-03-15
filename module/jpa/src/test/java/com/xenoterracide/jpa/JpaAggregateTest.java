@@ -51,7 +51,7 @@ public class JpaAggregateTest {
     assertThat(f1)
       .isNotNull()
       .isNotSameAs(newAgg)
-      .isNotEqualTo(newAgg)
+      .isEqualTo(newAgg)
       .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
       .extracting(Identifiable::getId, AbstractEntity::getVersion, Foo::getName)
       .containsExactly(f0.getId(), 1, "updating");
@@ -69,7 +69,7 @@ public class JpaAggregateTest {
     assertThat(f2)
       .isNotNull()
       .isNotSameAs(newAgg)
-      .isNotEqualTo(newAgg)
+      .isEqualTo(newAgg)
       .satisfies(agg -> {
         assertThat(Hibernate.isInitialized(agg.getBars())).isFalse().describedAs("initialized");
         assertThat(agg.getBars())

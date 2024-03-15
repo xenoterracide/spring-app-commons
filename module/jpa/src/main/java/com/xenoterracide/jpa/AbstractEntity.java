@@ -11,8 +11,7 @@ import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.ObjectUtils;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -115,6 +114,6 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    return String.format("%s@%s[%s]", this.getClass().getSimpleName(), ObjectUtils.identityHashCodeHex(this), this.id);
   }
 }

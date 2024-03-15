@@ -15,18 +15,32 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.support.SimpleTransactionScope;
 
+/**
+ * The type Transaction bean post processor.
+ */
 @Configuration
 class TransactionBeanPostProcessor implements BeanFactoryPostProcessor {
 
   private static final String TX_SCOPE = "transaction";
   private static final ZoneId UTC = ZoneId.of("UTC");
 
+  /**
+   * Zoned date time now zoned date time.
+   *
+   * @return the zoned date time
+   */
   @Bean
   @Scope(TX_SCOPE)
   ZonedDateTime zonedDateTimeNow() {
     return ZonedDateTime.now(UTC);
   }
 
+  /**
+   * Offset date time now offset date time.
+   *
+   * @param zonedDateTimeNow the zoned date time now
+   * @return the offset date time
+   */
   @Bean
   @Scope(TX_SCOPE)
   OffsetDateTime offsetDateTimeNow(@NonNull ZonedDateTime zonedDateTimeNow) {
