@@ -19,22 +19,25 @@ public class Bar extends AbstractEntity<Bar.@NonNull Id> {
 
   private @NonNull String name;
 
-  public Bar(@NonNull String name) {
-    super(new Id());
+  Bar(@NonNull Id id, @NonNull String name) {
+    super(id);
     this.name = name;
   }
 
   public Bar() {}
+
+  static @NonNull Bar create(@NonNull String name) {
+    return new Bar(Id.create(), name);
+  }
 
   @Override
   protected boolean canEqual(@NonNull AbstractEntity<?> that) {
     return that instanceof Bar;
   }
 
-  @NonNull
   @NotNull
   @Column(nullable = false)
-  public String getName() {
+  public @NonNull String getName() {
     return name;
   }
 

@@ -10,7 +10,6 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -33,7 +32,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
    */
   private ID id;
 
-  private @Nullable Instant version;
+  private @Nullable Integer version;
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -51,11 +50,12 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
 
   @Version
   @Nullable
-  Instant getVersion() {
+  Integer getVersion() {
     return version;
   }
 
-  void setVersion(Instant version) {
+  @Initializer
+  void setVersion(@NonNull Integer version) {
     this.version = version;
   }
 
@@ -91,7 +91,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
 
   @Override
   public final int hashCode() {
-    return Objects.hashCode(this.id);
+    return Objects.hash(this.id, this.version);
   }
 
   /**

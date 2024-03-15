@@ -7,11 +7,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import jakarta.persistence.EntityManager;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
+@TestPropertySource(properties = "logging.level.org.hibernate.orm.jdbc.bind = trace")
 public class JpaAggregateTest {
 
   @Autowired
@@ -21,33 +24,62 @@ public class JpaAggregateTest {
   EntityManager entityManager;
 
   @Test
-  void withId() {
+  void overallTest() {
     var newAgg = new Foo(Foo.Id.create(), "new");
+    newAgg.getBars().add(Bar.create("new"));
 
     repository.save(newAgg);
     entityManager.flush();
     entityManager.clear();
-    var persisted = repository.findById(newAgg.getId()).orElse(null);
+    var f0 = repository.findById(newAgg.getId()).orElse(null);
 
-    assertThat(persisted)
+    assertThat(f0)
       .isNotNull()
       .isNotSameAs(newAgg)
       .isEqualTo(newAgg)
-      .extracting(Identifiable::getId, Foo::getName)
-      .containsExactly(newAgg.getId(), "new");
+      .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
+      .extracting(Identifiable::getId, AbstractEntity::getVersion, Foo::getName)
+      .containsExactly(newAgg.getId(), 0, "new");
 
-    persisted.setName("updating");
-    repository.save(persisted);
+    f0.setName("updating");
+
+    repository.save(f0);
     entityManager.flush();
     entityManager.clear();
-    var updated = repository.findById(newAgg.getId()).orElse(null);
+    var f1 = repository.findById(newAgg.getId()).orElse(null);
 
-    assertThat(updated)
+    assertThat(f1)
       .isNotNull()
       .isNotSameAs(newAgg)
       .isNotEqualTo(newAgg)
-      .extracting(Identifiable::getId, Foo::getName)
-      .containsExactly(persisted.getId(), "updating");
+      .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
+      .extracting(Identifiable::getId, AbstractEntity::getVersion, Foo::getName)
+      .containsExactly(f0.getId(), 1, "updating");
+
+    f0.getBars().add(Bar.create("new1"));
+    f0.getBars().add(Bar.create("new2"));
+    f0.getBars().add(Bar.create("new3"));
+
+    repository.save(f0);
+    entityManager.flush();
+    entityManager.clear();
+
+    var f2 = repository.findById(newAgg.getId()).orElse(null);
+
+    assertThat(f2)
+      .isNotNull()
+      .isNotSameAs(newAgg)
+      .isNotEqualTo(newAgg)
+      .satisfies(agg -> {
+        assertThat(Hibernate.isInitialized(agg.getBars())).isFalse().describedAs("initialized");
+        assertThat(agg.getBars())
+          .hasSize(4)
+          .extracting(Bar::getName)
+          .containsExactlyInAnyOrder("new", "new1", "new2", "new3");
+        assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
+      })
+      .extracting(Identifiable::getId, AbstractEntity::getVersion, Foo::getName)
+      .containsExactly(f0.getId(), 2, "updating");
   }
 
   @Test

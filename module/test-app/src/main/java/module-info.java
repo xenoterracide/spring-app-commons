@@ -5,7 +5,7 @@ import org.jspecify.annotations.NullMarked;
  * Applications. Simply include the module on your classpath.
  */
 @NullMarked module com.xenoterracide {
-  requires transitive static org.jspecify;
+  requires static org.jspecify;
   requires spring.boot.autoconfigure;
   opens com.xenoterracide to spring.core;
 }

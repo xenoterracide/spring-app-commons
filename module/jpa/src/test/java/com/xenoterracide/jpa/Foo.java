@@ -4,8 +4,11 @@
 package com.xenoterracide.jpa;
 
 import com.github.f4b6a3.uuid.UuidCreator;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
@@ -32,7 +35,8 @@ public class Foo extends AbstractEntity<Foo.@NonNull Id> {
     this.name = name;
   }
 
-  @OneToMany(orphanRemoval = true)
+  @JoinColumn(nullable = false, name = "foo_id")
+  @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   public @NonNull Set<@NonNull Bar> getBars() {
     return bars;
   }

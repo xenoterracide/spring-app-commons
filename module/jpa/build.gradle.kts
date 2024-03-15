@@ -29,6 +29,7 @@ dependencies {
   testImplementation(libs.spring.beans)
   testImplementation(libs.spring.data.jpa)
   testImplementation(libs.spring.data.envers)
+  testImplementation(libs.spring.test)
   testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)
   testImplementation(libs.spring.boot.test.autoconfigure)

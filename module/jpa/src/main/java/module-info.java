@@ -4,7 +4,7 @@ import org.jspecify.annotations.NullMarked;
  * JPA utilities.
  */
 @NullMarked module com.xenoterracide.jpa {
-  requires transitive static org.jspecify;
+  requires static org.jspecify;
   requires transitive jakarta.persistence;
   requires transitive jakarta.validation;
   requires java.base;
