@@ -31,9 +31,18 @@ public abstract class AbstractAggregate<ID extends AbstractIdentity<? extends Se
   protected AbstractAggregate() {}
 
   /**
+   * Instantiates a new Abstract aggregate.
+   *
+   * @param id the id
+   */
+  protected AbstractAggregate(@NonNull ID id) {
+    super(id);
+  }
+
+  /**
    * Registers the given event object for publication on a call to a Spring Data repository's save or delete methods.
    *
-   * @param <T> the type of event
+   * @param <T>   the type of event
    * @param event must not be {@literal null}.
    * @return the event that has been added.
    */

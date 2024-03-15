@@ -21,7 +21,7 @@ import org.jspecify.annotations.NonNull;
 
 @Entity
 @Audited
-public class Foo extends AbstractEntity<Foo.@NonNull Id> {
+public class Foo extends AbstractAggregate<Foo.@NonNull Id> {
 
   @Column(nullable = false)
   private String name;
