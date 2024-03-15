@@ -33,8 +33,8 @@ public class JpaAggregateTest {
       .isNotNull()
       .isNotSameAs(newAgg)
       .isEqualTo(newAgg)
-      .extracting(Identifiable::getId, TestAggregate::getName)
-      .containsExactly(newAgg.getId(), "new");
+      .extracting(Identifiable::getId, TestAggregate::getVersion, TestAggregate::getName)
+      .containsExactly(newAgg.getId(), 0, "new");
 
     persisted.setName("updating");
     repository.save(persisted);
