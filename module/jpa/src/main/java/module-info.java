@@ -12,6 +12,7 @@ import org.jspecify.annotations.NullMarked;
   requires org.hibernate.orm.envers;
   requires spring.beans;
   requires spring.context;
+  requires spring.data.commons;
   requires spring.tx;
   exports com.xenoterracide.jpa;
   opens com.xenoterracide.jpa; // TODO: figure out how to do only for jpa vendors
