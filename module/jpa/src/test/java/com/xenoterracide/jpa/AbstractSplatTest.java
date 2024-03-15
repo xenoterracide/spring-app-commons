@@ -9,13 +9,23 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.apache.commons.lang3.ObjectUtils;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 
 class AbstractSplatTest {
 
   @Test
-  void abstractUuidEntityEquality() {
+  void abstractAggregateEquality() {
+    EqualsVerifier.forClass(Foo.class)
+      .withRedefinedSuperclass()
+      .withPrefabValues(AbstractIdentity.class, Bar.Id.create(), Bar.Id.create())
+      .suppress(Warning.SURROGATE_KEY)
+      .verify();
+  }
+
+  @Test
+  void abstractEntityEquality() {
     EqualsVerifier.forClass(Bar.class)
       .withRedefinedSuperclass()
       .withPrefabValues(AbstractIdentity.class, Bar.Id.create(), Bar.Id.create())
@@ -39,5 +49,11 @@ class AbstractSplatTest {
   @Test
   void abstractIdentitityEquality() {
     EqualsVerifier.forClass(Bar.Id.class).withRedefinedSuperclass().verify();
+  }
+
+  @Test
+  void abstractEntityToString() {
+    var bar = new Bar();
+    assertThat(bar).hasToString("Bar@%s[%s]", ObjectUtils.identityHashCodeHex(bar), bar.getId());
   }
 }
