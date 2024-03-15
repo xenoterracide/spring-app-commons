@@ -9,10 +9,12 @@ dependencies {
   compileOnlyApi(libs.jspecify)
 
   api(platform(libs.spring.bom))
-  api(libs.jakarta.validation)
   api(libs.jakarta.persistence)
+  api(libs.jakarta.validation)
 
   implementation(platform(libs.spring.bom))
+  implementation(libs.commons.lang)
+  implementation(libs.hibernate.envers)
   implementation(libs.spring.beans)
   implementation(libs.spring.context)
   implementation(libs.spring.transaction)
@@ -26,6 +28,7 @@ dependencies {
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.spring.beans)
   testImplementation(libs.spring.data.jpa)
+  testImplementation(libs.spring.data.envers)
   testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)
   testImplementation(libs.spring.boot.test.autoconfigure)

@@ -10,9 +10,11 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.UUID;
+import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 
 @Entity
+@Audited
 public class TestAggregate extends AbstractEntity<TestAggregate.@NonNull Id> {
 
   @Column(nullable = false)

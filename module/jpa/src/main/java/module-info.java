@@ -5,9 +5,11 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked module com.xenoterracide.jpa {
   requires transitive static org.jspecify;
-  requires transitive jakarta.validation;
   requires transitive jakarta.persistence;
+  requires transitive jakarta.validation;
   requires java.base;
+  requires org.apache.commons.lang3;
+  requires org.hibernate.orm.envers;
   requires spring.beans;
   requires spring.context;
   requires spring.tx;

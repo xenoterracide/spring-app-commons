@@ -19,6 +19,7 @@ errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
 google-java-format = "com.google.googlejavaformat:google-java-format:+"
 guava = "com.google.guava:guava:+"
 h2 = { module = "com.h2database:h2" }
+hibernate-envers = { module = "org.hibernate.orm:hibernate-envers" }
 hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
 immutables-bom = "org.immutables:bom:2+"
 immutables-annotations = { module = "org.immutables:value-annotations" }
@@ -61,6 +62,7 @@ spring-beans = { module = "org.springframework:spring-beans" }
 spring-context = { module = "org.springframework:spring-context" }
 spring-core = { module = "org.springframework:spring-core" }
 spring-data-jpa = { module = "org.springframework.data:spring-data-jpa" }
+spring-data-envers = { module = "org.springframework.data:spring-data-envers" }
 spring-test = { module = "org.springframework:spring-test" }
 spring-transaction = { module = "org.springframework:spring-tx" }
 spring-security-core = { module = "org.springframework.security:spring-security-core" }

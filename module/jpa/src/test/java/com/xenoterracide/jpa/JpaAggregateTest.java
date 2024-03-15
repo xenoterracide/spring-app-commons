@@ -15,7 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 public class JpaAggregateTest {
 
   @Autowired
-  TestRepository repository;
+  TestAggregateRepository repository;
 
   @Autowired
   EntityManager entityManager;
@@ -45,9 +45,9 @@ public class JpaAggregateTest {
     assertThat(updated)
       .isNotNull()
       .isNotSameAs(newAgg)
-      .isEqualTo(newAgg)
-      .extracting(Identifiable::getId, TestAggregate::getName)
-      .containsExactly(persisted.getId(), "updating");
+      .isNotEqualTo(newAgg)
+      .extracting(Identifiable::getId, TestAggregate::getVersion, TestAggregate::getName)
+      .containsExactly(persisted.getId(), 1, "updating");
   }
 
   @Test

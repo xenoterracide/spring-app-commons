@@ -7,9 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -28,6 +31,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
    * Surrogate Identifier.
    */
   private ID id;
+  private int version;
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -41,6 +45,15 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
    */
   protected AbstractEntity(@NonNull ID id) {
     this.id = id;
+  }
+
+  @Version
+  int getVersion() {
+    return version;
+  }
+
+  void setVersion(int version) {
+    this.version = version;
   }
 
   @Id
@@ -92,8 +105,13 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   @Override
   public final boolean equals(@Nullable Object other) {
     if (other instanceof AbstractEntity<?> that) {
-      return that.canEqual(this) && Objects.equals(this.id, that.id);
+      return that.canEqual(this) && Objects.equals(this.id, that.id) && this.version == that.version;
     }
     return false;
+  }
+
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 }

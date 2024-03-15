@@ -5,4 +5,4 @@ package com.xenoterracide.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TestRepository extends JpaRepository<TestAggregate, TestAggregate.Id> {}
+public interface TestAggregateRepository extends JpaRepository<TestAggregate, TestAggregate.Id> {}
