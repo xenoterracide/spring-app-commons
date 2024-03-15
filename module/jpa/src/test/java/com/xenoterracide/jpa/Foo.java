@@ -6,39 +6,55 @@ package com.xenoterracide.jpa;
 import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 
 @Entity
-public class TestEntity extends AbstractEntity<TestEntity.@NonNull Id> {
+@Audited
+public class Foo extends AbstractEntity<Foo.@NonNull Id> {
 
-  private @NonNull String name;
+  @Column(nullable = false)
+  private String name;
 
-  public TestEntity(@NonNull String name) {
-    super(new Id());
+  private Set<@NonNull Bar> bars = new HashSet<>();
+
+  protected Foo() {}
+
+  public Foo(@NonNull Id id, @NonNull String name) {
+    super(id);
     this.name = name;
   }
 
-  public TestEntity() {}
-
-  @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
-    return that instanceof TestEntity;
+  @OneToMany(orphanRemoval = true)
+  public @NonNull Set<@NonNull Bar> getBars() {
+    return bars;
   }
 
-  @NonNull
+  @Initializer
+  void setBars(@NonNull Set<@NonNull Bar> tags) {
+    this.bars = tags;
+  }
+
   @NotNull
-  @Column(nullable = false)
-  public String getName() {
+  public @NonNull String getName() {
     return name;
   }
 
   @Initializer
   void setName(@NonNull String name) {
     this.name = name;
+  }
+
+  @Override
+  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+    return that instanceof Foo;
   }
 
   public static class Id extends AbstractIdentity<@NonNull UUID> {

@@ -16,9 +16,9 @@ class AbstractUuidEntityBaseTest {
 
   @Test
   void abstractUuidEntityEquality() {
-    EqualsVerifier.forClass(TestEntity.class)
+    EqualsVerifier.forClass(Bar.class)
       .withRedefinedSuperclass()
-      .withPrefabValues(AbstractIdentity.class, TestEntity.Id.create(), TestEntity.Id.create())
+      .withPrefabValues(AbstractIdentity.class, Bar.Id.create(), Bar.Id.create())
       .suppress(Warning.SURROGATE_KEY)
       .verify();
   }
@@ -27,7 +27,7 @@ class AbstractUuidEntityBaseTest {
   void validation() {
     try (var factory = Validation.buildDefaultValidatorFactory()) {
       var validator = factory.getValidator();
-      var agg = new TestAggregate();
+      var agg = new Foo();
       var res = validator.validate(agg);
       assertThat(res)
         .hasSize(2)
@@ -38,6 +38,6 @@ class AbstractUuidEntityBaseTest {
 
   @Test
   void abstractIdentitityEquality() {
-    EqualsVerifier.forClass(TestEntity.Id.class).withRedefinedSuperclass().verify();
+    EqualsVerifier.forClass(Bar.Id.class).withRedefinedSuperclass().verify();
   }
 }

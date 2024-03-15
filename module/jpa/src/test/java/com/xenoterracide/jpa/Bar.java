@@ -13,33 +13,34 @@ import java.util.UUID;
 import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 
-@Entity
 @Audited
-public class TestAggregate extends AbstractEntity<TestAggregate.@NonNull Id> {
+@Entity
+public class Bar extends AbstractEntity<Bar.@NonNull Id> {
 
-  @Column(nullable = false)
-  private String name;
+  private @NonNull String name;
 
-  protected TestAggregate() {}
-
-  public TestAggregate(@NonNull Id id, @NonNull String name) {
-    super(id);
+  public Bar(@NonNull String name) {
+    super(new Id());
     this.name = name;
   }
 
+  public Bar() {}
+
+  @Override
+  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+    return that instanceof Bar;
+  }
+
+  @NonNull
   @NotNull
-  public @NonNull String getName() {
+  @Column(nullable = false)
+  public String getName() {
     return name;
   }
 
   @Initializer
   void setName(@NonNull String name) {
     this.name = name;
-  }
-
-  @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
-    return that instanceof TestAggregate;
   }
 
   public static class Id extends AbstractIdentity<@NonNull UUID> {

@@ -22,7 +22,7 @@ public class JpaAggregateTest {
 
   @Test
   void withId() {
-    var newAgg = new TestAggregate(TestAggregate.Id.create(), "new");
+    var newAgg = new Foo(Foo.Id.create(), "new");
 
     repository.save(newAgg);
     entityManager.flush();
@@ -33,8 +33,8 @@ public class JpaAggregateTest {
       .isNotNull()
       .isNotSameAs(newAgg)
       .isEqualTo(newAgg)
-      .extracting(Identifiable::getId, TestAggregate::getVersion, TestAggregate::getName)
-      .containsExactly(newAgg.getId(), 0, "new");
+      .extracting(Identifiable::getId, Foo::getName)
+      .containsExactly(newAgg.getId(), "new");
 
     persisted.setName("updating");
     repository.save(persisted);
@@ -46,19 +46,19 @@ public class JpaAggregateTest {
       .isNotNull()
       .isNotSameAs(newAgg)
       .isNotEqualTo(newAgg)
-      .extracting(Identifiable::getId, TestAggregate::getVersion, TestAggregate::getName)
-      .containsExactly(persisted.getId(), 1, "updating");
+      .extracting(Identifiable::getId, Foo::getName)
+      .containsExactly(persisted.getId(), "updating");
   }
 
   @Test
   void noId() {
-    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> repository.save(new TestAggregate()));
+    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> repository.save(new Foo()));
   }
 
   @Test
   void identityMustHaveUuid() {
     assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> {
-      var agg = new TestAggregate(new TestAggregate.Id(), "new");
+      var agg = new Foo(new Foo.Id(), "new");
       repository.save(agg);
     });
   }
