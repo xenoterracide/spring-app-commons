@@ -8,7 +8,7 @@ import java.io.Serializable;
 import org.jspecify.annotations.NonNull;
 
 /**
- * The Abstract for Aggregates
+ * An abstract class for Domain Aggregates.
  *
  * @param <ID> the type parameter
  */
@@ -17,5 +17,8 @@ public abstract class AbstractAggregate<ID extends AbstractIdentity<? extends Se
   extends AbstractEntity<ID>
   implements Identifiable<@NonNull ID> {
 
+  /**
+   * NO-OP parent constuctor for JPA only.
+   */
   protected AbstractAggregate() {}
 }

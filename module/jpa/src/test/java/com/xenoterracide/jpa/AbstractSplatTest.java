@@ -12,7 +12,7 @@ import nl.jqno.equalsverifier.Warning;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 
-class AbstractUuidEntityBaseTest {
+class AbstractSplatTest {
 
   @Test
   void abstractUuidEntityEquality() {

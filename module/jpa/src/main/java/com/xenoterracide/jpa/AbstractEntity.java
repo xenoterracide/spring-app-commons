@@ -91,7 +91,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
 
   @Override
   public final int hashCode() {
-    return Objects.hash(this.id, this.version);
+    return Objects.hashCode(this.id);
   }
 
   /**
@@ -108,7 +108,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   @Override
   public final boolean equals(@Nullable Object other) {
     if (other instanceof AbstractEntity<?> that) {
-      return that.canEqual(this) && Objects.equals(this.id, that.id) && Objects.equals(this.version, that.version);
+      return that.canEqual(this) && Objects.equals(this.id, that.id);
     }
     return false;
   }

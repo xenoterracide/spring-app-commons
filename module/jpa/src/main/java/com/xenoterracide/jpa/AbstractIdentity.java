@@ -14,7 +14,9 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Abstract domain identifier.
+ * An abstract class for Domain Entities with a database identifier.
+ *
+ * @param <ID> the concrete database identifier type
  */
 @MappedSuperclass
 public abstract class AbstractIdentity<ID extends Serializable> implements Serializable {
@@ -99,7 +101,7 @@ public abstract class AbstractIdentity<ID extends Serializable> implements Seria
   }
 
   @Override
-  public final String toString() {
+  public String toString() {
     return String.valueOf(this.id);
   }
 }
