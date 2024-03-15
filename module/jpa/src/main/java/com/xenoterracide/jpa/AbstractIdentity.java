@@ -3,10 +3,7 @@
 
 package com.xenoterracide.jpa;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
-import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,13 +21,12 @@ public abstract class AbstractIdentity<ID extends Serializable> implements Seria
   private static final String NPE_MESSAGE = "use static factory method to create";
 
   @Serial
-  @Transient
   private static final long serialVersionUID = 1L;
 
   /**
    * The actual database UUID for id.
    */
-  private ID id;
+  private @Nullable ID id;
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -51,29 +47,6 @@ public abstract class AbstractIdentity<ID extends Serializable> implements Seria
    */
   final void ensureId() {
     Objects.requireNonNull(this.id, AbstractIdentity.NPE_MESSAGE);
-  }
-
-  /**
-   * Gets id.
-   *
-   * @return the id
-   * @apiNote for JPA use only
-   */
-  @NotNull
-  @Column(name = "id", updatable = false, nullable = false, unique = true, columnDefinition = "uuid")
-  public @NonNull ID getId() {
-    return this.id;
-  }
-
-  /**
-   * Sets id.
-   *
-   * @param id the id
-   * @apiNote for JPA use only
-   */
-  @Initializer
-  void setId(@NonNull ID id) {
-    this.id = id;
   }
 
   @Override
