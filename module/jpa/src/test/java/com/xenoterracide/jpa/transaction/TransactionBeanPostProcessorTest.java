@@ -45,7 +45,6 @@ class TransactionBeanPostProcessorTest {
     var now = context.getBean(timeClass);
     assertThat(now).isExactlyInstanceOf(timeClass);
 
-    // spotless:off
     switch (now) {
       case Instant instant -> {
         assertThat(instant).isCloseTo(Instant.now(), within(1, ChronoUnit.SECONDS));
