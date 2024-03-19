@@ -29,7 +29,12 @@ java {
 
 tasks.withType<Javadoc>().configureEach {
   (options as StandardJavadocDocletOptions).apply {
-    addMultilineStringsOption("tag").value = listOf("apiNote:a:API Note:", "implNote:a:Implementation Note:")
+    addMultilineStringsOption("tag").value = listOf(
+      "apiSpec:a:API Spec:",
+      "apiNote:a:API Note:",
+      "implSpec:a:Implementation Spec:",
+      "implNote:a:Implementation Note:",
+    )
   }
 }
 

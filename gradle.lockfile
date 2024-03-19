@@ -79,4 +79,4 @@ org.springframework:spring-core:5.3.27=spotless1659553931
 org.springframework:spring-expression:5.3.27=spotless1659553931
 org.springframework:spring-jcl:5.3.27=spotless1659553931
 org.yaml:snakeyaml:1.31=spotless1659553931
-empty=projectHealthClasspath
+empty=projectHealthClasspath,resolvedDepsClasspath

@@ -178,7 +178,12 @@
       <property name="option" value="eol" />
     </module>
     <module name="EmptyForIteratorPad" />
-    <module name="NoWhitespaceAfter" />
+    <module name="NoWhitespaceAfter">
+      <property
+        name="tokens"
+        value="AT, INC, DEC, UNARY_MINUS, UNARY_PLUS, BNOT, LNOT, DOT, ARRAY_DECLARATOR, INDEX_OP"
+      />
+    </module>
     <module name="CommentsIndentation" />
     <module name="AvoidEscapedUnicodeCharacters">
       <property name="allowNonPrintableEscapes" value="true" />
@@ -221,10 +226,7 @@
     <module name="FallThrough" />
     <module name="EmptyStatement" />
     <module name="EqualsHashCode" />
-    <module name="HiddenField">
-      <property name="ignoreConstructorParameter" value="true" />
-      <property name="ignoreSetter" value="true" />
-    </module>
+    <module name="RequireThis" />
     <module name="ExplicitInitialization" />
     <module name="IllegalInstantiation" />
     <module name="IllegalCatch" />
