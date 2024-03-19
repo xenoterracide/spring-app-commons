@@ -27,10 +27,10 @@ dependencies {
   testRuntimeOnly(libs.starter.data.jpa)
   testRuntimeOnly(libs.starter.aop)
   testRuntimeOnly(projects.testApp)
+  testRuntimeOnly(libs.spring.data.envers)
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.hibernate.envers)
-  testImplementation(libs.spring.data.envers)
   testImplementation(libs.spring.data.jpa)
   testImplementation(libs.spring.test)
   testImplementation(libs.junit.api)
