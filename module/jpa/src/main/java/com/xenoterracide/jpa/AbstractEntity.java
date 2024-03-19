@@ -118,12 +118,14 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   @Override
   public final boolean equals(@Nullable Object other) {
     if (other instanceof AbstractEntity<?> that) {
+      // CHECKSTYLE.OFF: UnnecessaryParentheses
       return (
         that.canEqual(this) &&
         Objects.equals(this.id, that.id) &&
         this.version == that.version &&
         this.dirty == that.dirty
       );
+      // CHECKSTYLE.ON: UnnecessaryParentheses
     }
     return false;
   }
