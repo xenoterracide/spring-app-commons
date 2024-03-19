@@ -4,49 +4,41 @@
 package com.xenoterracide.jpa;
 
 import com.github.f4b6a3.uuid.UuidCreator;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 
-@Entity
 @Audited
-public class Foo extends AbstractAggregate<Foo.@NonNull Id> {
+@Entity
+public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
 
-  @Column(nullable = false)
-  private String name;
+  private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id", "name" };
 
-  private Set<@NonNull Bar> bars = new HashSet<>();
+  private @NonNull String name;
 
-  protected Foo() {}
-
-  public Foo(@NonNull Id id, @NonNull String name) {
+  BarEntity(@NonNull Id id, @NonNull String name) {
     super(id);
     this.name = name;
   }
 
-  @JoinColumn(nullable = false, name = "foo_id")
-  @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  public @NonNull Set<@NonNull Bar> getBars() {
-    return bars;
+  public BarEntity() {}
+
+  static @NonNull BarEntity create(@NonNull String name) {
+    return new BarEntity(Id.create(), name);
   }
 
-  @Initializer
-  void setBars(@NonNull Set<@NonNull Bar> tags) {
-    this.bars = tags;
+  @Override
+  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+    return that instanceof BarEntity;
   }
 
   @NotNull
+  @Column(nullable = false)
   public @NonNull String getName() {
     return name;
   }
@@ -57,8 +49,8 @@ public class Foo extends AbstractAggregate<Foo.@NonNull Id> {
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
-    return that instanceof Foo;
+  protected @NonNull String[] includedFieldsInToString() {
+    return INCLUDED_FIELDS_IN_TO_STRING;
   }
 
   public static class Id extends AbstractIdentity<@NonNull UUID> {

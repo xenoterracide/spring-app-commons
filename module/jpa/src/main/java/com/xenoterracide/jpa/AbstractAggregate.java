@@ -67,6 +67,6 @@ public abstract class AbstractAggregate<ID extends AbstractIdentity<? extends Se
    */
   @DomainEvents
   protected Collection<Object> domainEvents() {
-    return Collections.unmodifiableList(domainEvents);
+    return Collections.unmodifiableList(this.domainEvents);
   }
 }

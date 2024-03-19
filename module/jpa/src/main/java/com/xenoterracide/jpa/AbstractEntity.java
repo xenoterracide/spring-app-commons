@@ -7,11 +7,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
-import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -25,13 +27,16 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   implements Identifiable<@NonNull ID> {
 
   private static final String NPE_MESSAGE = "use static factory method to create";
+  private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
+
+  @Transient
+  private boolean dirty;
 
   /**
    * Surrogate Identifier.
    */
-  private ID id;
-
-  private @Nullable Integer version;
+  private @NonNull ID id;
+  private int version;
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -48,14 +53,20 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   }
 
   @Version
-  @Nullable
-  Integer getVersion() {
-    return version;
+  int getVersion() {
+    return this.version;
   }
 
   @Initializer
-  void setVersion(@NonNull Integer version) {
+  void setVersion(int version) {
     this.version = version;
+  }
+
+  /**
+   * Mark this entity as having changed in memory from persistence.
+   */
+  protected void markDirty() {
+    this.dirty = true;
   }
 
   @Id
@@ -107,13 +118,31 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   @Override
   public final boolean equals(@Nullable Object other) {
     if (other instanceof AbstractEntity<?> that) {
-      return that.canEqual(this) && Objects.equals(this.id, that.id);
+      return (
+        that.canEqual(this) &&
+        Objects.equals(this.id, that.id) &&
+        this.version == that.version &&
+        this.dirty == that.dirty
+      );
     }
     return false;
   }
 
+  /**
+   * Override to change the fields included in {@link #toString()}.
+   *
+   * @implSpec the fields should be a static final array of strings
+   *
+   * @return the fields included in {@link #toString()}
+   */
+  protected String[] includedFieldsInToString() {
+    return INCLUDED_FIELDS_IN_TO_STRING;
+  }
+
   @Override
-  public String toString() {
-    return String.format("%s@%s[%s]", this.getClass().getSimpleName(), ObjectUtils.identityHashCodeHex(this), this.id);
+  public final @NonNull String toString() {
+    return new ReflectionToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
+      .setIncludeFieldNames(this.includedFieldsInToString())
+      .toString();
   }
 }

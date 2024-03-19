@@ -25,8 +25,8 @@ public class JpaAggregateTest {
 
   @Test
   void overallTest() {
-    var newAgg = new Foo(Foo.Id.create(), "new");
-    newAgg.getBars().add(Bar.create("new"));
+    var newAgg = new FooAggregate(FooAggregate.Id.create(), "new");
+    newAgg.getBars().add(BarEntity.create("new"));
 
     repository.save(newAgg);
     entityManager.flush();
@@ -36,10 +36,10 @@ public class JpaAggregateTest {
     assertThat(f0)
       .isNotNull()
       .isNotSameAs(newAgg)
-      .isEqualTo(newAgg)
+      .isNotEqualTo(newAgg)
       .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, Foo::getName)
-      .containsExactly(newAgg.getId(), 0, "new");
+      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .containsExactly(newAgg.getId(), 1, "new");
 
     f0.setName("updating");
 
@@ -51,16 +51,23 @@ public class JpaAggregateTest {
     assertThat(f1)
       .isNotNull()
       .isNotSameAs(newAgg)
-      .isEqualTo(newAgg)
-      .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, Foo::getName)
-      .containsExactly(f0.getId(), 1, "updating");
+      .isNotEqualTo(newAgg)
+      .satisfies(agg -> {
+        assertThat(agg.getBars())
+          .hasSize(1)
+          .extracting(Identifiable::getId)
+          .containsExactly(f0.getBars().stream().findFirst().get().getId());
+      })
+      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .containsExactly(f0.getId(), 2, "updating");
 
-    f0.getBars().add(Bar.create("new1"));
-    f0.getBars().add(Bar.create("new2"));
-    f0.getBars().add(Bar.create("new3"));
+    var bar = f0.getBars().stream().findFirst().get();
+    f1.changeBarName(bar.getId(), "new0");
+    f1.getBars().add(BarEntity.create("new1"));
+    f1.getBars().add(BarEntity.create("new2"));
+    f1.getBars().add(BarEntity.create("new3"));
 
-    repository.save(f0);
+    repository.save(f1);
     entityManager.flush();
     entityManager.clear();
 
@@ -69,28 +76,29 @@ public class JpaAggregateTest {
     assertThat(f2)
       .isNotNull()
       .isNotSameAs(newAgg)
-      .isEqualTo(newAgg)
+      .isNotEqualTo(newAgg)
       .satisfies(agg -> {
+        // fails if debugging because toString is called
         assertThat(Hibernate.isInitialized(agg.getBars())).isFalse().describedAs("initialized");
         assertThat(agg.getBars())
           .hasSize(4)
-          .extracting(Bar::getName)
-          .containsExactlyInAnyOrder("new", "new1", "new2", "new3");
+          .extracting(BarEntity::getName)
+          .containsExactlyInAnyOrder("new0", "new1", "new2", "new3");
         assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
       })
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, Foo::getName)
-      .containsExactly(f0.getId(), 2, "updating");
+      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .containsExactly(f0.getId(), 3, "updating");
   }
 
   @Test
   void noId() {
-    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> repository.save(new Foo()));
+    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> repository.save(new FooAggregate()));
   }
 
   @Test
   void identityMustHaveUuid() {
     assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> {
-      var agg = new Foo(new Foo.Id(), "new");
+      var agg = new FooAggregate(new FooAggregate.Id(), "new");
       repository.save(agg);
     });
   }
