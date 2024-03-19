@@ -4,6 +4,7 @@
 package com.xenoterracide.jpa;
 
 import com.xenoterracide.jpa.annotation.Initializer;
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PostLoad;
@@ -56,6 +57,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   }
 
   @Version
+  @Column(nullable = false)
   int getVersion() {
     return this.version;
   }
@@ -74,6 +76,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
 
   @Id
   @NotNull
+  @Column(nullable = false, updatable = false, unique = true)
   @Override
   public @NonNull ID getId() {
     return this.id;

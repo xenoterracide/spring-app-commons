@@ -8,7 +8,6 @@ import com.xenoterracide.jpa.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
@@ -42,7 +41,6 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
 
   @ManyToOne(
     optional = false,
-    fetch = FetchType.EAGER,
     cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }
   )
   @JoinColumn(nullable = false, updatable = false, name = "foo_id")
@@ -72,7 +70,7 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
   }
 
   @Override
-  protected @NonNull String[] includedFieldsInToString() {
+  protected String@NonNull[] includedFieldsInToString() {
     return INCLUDED_FIELDS_IN_TO_STRING;
   }
 

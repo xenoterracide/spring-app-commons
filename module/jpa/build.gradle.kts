@@ -6,6 +6,9 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 plugins { our.javalibrary }
 
 dependencies {
+  annotationProcessor(platform(libs.spring.bom))
+  annotationProcessor(libs.hibernate.jpa.modelgen)
+
   compileOnlyApi(libs.jspecify)
 
   api(platform(libs.spring.bom))
@@ -22,6 +25,7 @@ dependencies {
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.starter.validation)
   testRuntimeOnly(libs.starter.data.jpa)
+  testRuntimeOnly(libs.starter.aop)
   testRuntimeOnly(projects.testApp)
 
   testImplementation(platform(libs.spring.bom))
@@ -40,4 +44,5 @@ dependencies {
 
 tasks.compileJava {
   options.release = 17
+  options.compilerArgs.removeIf { it == "-Werror" } // either that or remove specific jpa modelgen warnings
 }

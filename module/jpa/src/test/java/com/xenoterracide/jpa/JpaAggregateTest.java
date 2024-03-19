@@ -9,14 +9,22 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import jakarta.persistence.EntityManager;
 import java.util.stream.Collectors;
 import org.hibernate.Hibernate;
-import org.hibernate.envers.AuditReaderFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
 // @TestPropertySource(properties = "logging.level.org.hibernate.orm.jdbc.bind = trace")
+@TestPropertySource(
+  properties = {
+    "debug = true",
+    "logging.level.root=info",
+    "logging.level.org.hibernate=trace",
+    "logging.level.org.hibernate.orm.results.graph.AST=debug",
+  }
+)
 public class JpaAggregateTest {
 
   @Autowired
@@ -92,9 +100,6 @@ public class JpaAggregateTest {
       .containsExactly(f0.getId(), 1, "updating");
 
     var rev1 = repository.findRevisions(f2.getId()).stream().collect(Collectors.toList());
-
-    var auditReader = AuditReaderFactory.get(entityManager);
-    var n = auditReader.getRevisions(FooAggregate.class, f2.getId());
 
     assertThat(rev1).isNotEmpty();
   }
