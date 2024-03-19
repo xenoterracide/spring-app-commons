@@ -3,6 +3,9 @@
 
 package com.xenoterracide.jpa.transaction;
 
+import com.xenoterracide.jpa.annotation.TransactionScope;
+import com.xenoterracide.jpa.util.Constants;
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -12,7 +15,6 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.support.SimpleTransactionScope;
 
 /**
@@ -21,18 +23,18 @@ import org.springframework.transaction.support.SimpleTransactionScope;
 @Configuration
 class TransactionBeanPostProcessor implements BeanFactoryPostProcessor {
 
-  private static final String TX_SCOPE = "transaction";
   private static final ZoneId UTC = ZoneId.of("UTC");
 
-  /**
-   * Zoned date time now zoned date time.
-   *
-   * @return the zoned date time
-   */
   @Bean
-  @Scope(TX_SCOPE)
-  ZonedDateTime zonedDateTimeNow() {
-    return ZonedDateTime.now(UTC);
+  @TransactionScope
+  Instant instantNow() {
+    return Instant.now();
+  }
+
+  @Bean
+  @TransactionScope
+  ZonedDateTime zonedDateTimeNow(@NonNull Instant instantNow) {
+    return instantNow.atZone(UTC);
   }
 
   /**
@@ -42,13 +44,13 @@ class TransactionBeanPostProcessor implements BeanFactoryPostProcessor {
    * @return the offset date time
    */
   @Bean
-  @Scope(TX_SCOPE)
+  @TransactionScope
   OffsetDateTime offsetDateTimeNow(@NonNull ZonedDateTime zonedDateTimeNow) {
     return zonedDateTimeNow.toOffsetDateTime();
   }
 
   @Override
   public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
-    beanFactory.registerScope(TX_SCOPE, new SimpleTransactionScope());
+    beanFactory.registerScope(Constants.TRANSACTION_SCOPE, new SimpleTransactionScope());
   }
 }

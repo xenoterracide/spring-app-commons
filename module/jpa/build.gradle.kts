@@ -12,12 +12,11 @@ dependencies {
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.spring.data.commons)
+  api(libs.spring.context)
 
   implementation(platform(libs.spring.bom))
   implementation(libs.commons.lang)
-  implementation(libs.hibernate.envers)
   implementation(libs.spring.beans)
-  implementation(libs.spring.context)
   implementation(libs.spring.transaction)
 
   testRuntimeOnly(platform(libs.spring.bom))
@@ -27,14 +26,15 @@ dependencies {
   testRuntimeOnly(projects.testApp)
 
   testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.spring.beans)
+  testImplementation(libs.hibernate.envers)
   testImplementation(libs.spring.data.jpa)
-  testImplementation(libs.spring.data.envers)
   testImplementation(libs.spring.test)
   testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.uuid.creator)
+  testImplementation(libs.hibernate.orm.core)
+  testImplementation(libs.spring.boot.test.core)
 }
 
 tasks.compileJava {

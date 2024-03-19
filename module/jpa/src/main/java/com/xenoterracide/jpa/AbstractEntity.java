@@ -3,6 +3,7 @@
 
 package com.xenoterracide.jpa;
 
+import com.xenoterracide.jpa.annotation.Initializer;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PostLoad;

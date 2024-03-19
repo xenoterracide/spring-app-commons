@@ -9,11 +9,12 @@ import org.jspecify.annotations.NullMarked;
   requires transitive jakarta.validation;
   requires java.base;
   requires org.apache.commons.lang3;
-  requires org.hibernate.orm.envers;
   requires spring.beans;
   requires spring.context;
   requires spring.data.commons;
   requires spring.tx;
   exports com.xenoterracide.jpa;
-  opens com.xenoterracide.jpa; // TODO: figure out how to do only for jpa vendors
+  opens com.xenoterracide.jpa;
+  exports com.xenoterracide.jpa.annotation;
+  opens com.xenoterracide.jpa.annotation; // TODO: figure out how to do only for jpa vendors
 }

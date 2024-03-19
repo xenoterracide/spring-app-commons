@@ -18,7 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 public class JpaAggregateTest {
 
   @Autowired
-  TestAggregateRepository repository;
+  FooAggregateRepository repository;
 
   @Autowired
   EntityManager entityManager;
