@@ -7,22 +7,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import jakarta.persistence.EntityManager;
-import java.util.stream.Collectors;
 import org.hibernate.Hibernate;
+import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.history.Revision;
+import org.springframework.data.history.RevisionMetadata;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.support.TransactionTemplate;
 
-@DataJpaTest
+@SpringBootTest
+@AutoConfigureDataJpa
+@AutoConfigureTestDatabase
 // @TestPropertySource(properties = "logging.level.org.hibernate.orm.jdbc.bind = trace")
 @TestPropertySource(
   properties = {
-    "debug = true",
+    //    "debug = true",
     "logging.level.root=info",
-    "logging.level.org.hibernate=trace",
-    "logging.level.org.hibernate.orm.results.graph.AST=debug",
+    //    "logging.level.org.hibernate=debug",
+    //    "logging.level.org.hibernate.orm.results.graph.AST=debug",
   }
 )
 public class JpaAggregateTest {
@@ -33,15 +39,16 @@ public class JpaAggregateTest {
   @Autowired
   EntityManager entityManager;
 
+  @Autowired
+  TransactionTemplate tx;
+
   @Test
   void overallTest() {
     var newAgg = FooAggregate.create("new");
     newAgg.addBar("new");
+    tx.execute(cb -> repository.save(newAgg));
 
-    repository.save(newAgg);
-    entityManager.flush();
-    entityManager.clear();
-    var f0 = repository.findById(newAgg.getId()).orElse(null);
+    var f0 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
     assertThat(f0)
       .isNotNull()
@@ -53,10 +60,9 @@ public class JpaAggregateTest {
 
     f0.setName("updating");
 
-    repository.save(f0);
-    entityManager.flush();
-    entityManager.clear();
-    var f1 = repository.findById(newAgg.getId()).orElse(null);
+    tx.execute(cb -> repository.save(f0));
+
+    var f1 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
     assertThat(f1)
       .isNotNull()
@@ -77,19 +83,15 @@ public class JpaAggregateTest {
     f1.addBar("new2");
     f1.addBar("new3");
 
-    repository.save(f1);
-    entityManager.flush();
-    entityManager.clear();
+    tx.execute(cb -> repository.save(f1));
 
-    var f2 = repository.findById(newAgg.getId()).orElse(null);
+    var f2 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
     assertThat(f2)
       .isNotNull()
       .isNotSameAs(newAgg)
       .isNotEqualTo(newAgg)
       .satisfies(agg -> {
-        // fails if debugging because toString is called
-        assertThat(Hibernate.isInitialized(agg.getBars())).isFalse().describedAs("initialized");
         assertThat(agg.getBars())
           .hasSize(4)
           .extracting(BarEntity::getName)
@@ -99,9 +101,59 @@ public class JpaAggregateTest {
       .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
       .containsExactly(f0.getId(), 1, "updating");
 
-    var rev1 = repository.findRevisions(f2.getId()).stream().collect(Collectors.toList());
+    var rev3 = repository.findRevisions(newAgg.getId()).getContent();
 
-    assertThat(rev1).isNotEmpty();
+    assertThat(rev3).hasSize(3);
+
+    f2.setName("3");
+    tx.execute(cb -> repository.save(f2));
+
+    var f3 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
+
+    assertThat(f3).isNotNull().satisfies(f -> assertThat(f.getVersion()).isEqualTo(2));
+
+    var rev4 = repository.findRevisions(newAgg.getId()).getContent();
+
+    assertThat(rev4).hasSize(4);
+
+    tx.execute(cb -> {
+      repository.delete(f3);
+      return null;
+    });
+
+    var rev5 = repository.findRevisions(newAgg.getId()).getContent();
+
+    assertThat(rev5)
+      .hasSize(5)
+      .extracting(Revision::getMetadata)
+      .extracting(RevisionMetadata::getRevisionType)
+      .containsExactly(
+        RevisionMetadata.RevisionType.INSERT,
+        RevisionMetadata.RevisionType.UPDATE,
+        RevisionMetadata.RevisionType.UPDATE,
+        RevisionMetadata.RevisionType.UPDATE,
+        RevisionMetadata.RevisionType.DELETE
+      );
+  }
+
+  @Test
+  void lazyInit() {
+    var saved = tx.execute(cb -> {
+      var newAgg = FooAggregate.create("new");
+      newAgg.addBar("new");
+      return repository.save(newAgg);
+    });
+
+    assertThat(saved).isNotNull();
+
+    var f0 = tx.execute(cb -> repository.findById(saved.getId()).orElseThrow());
+
+    assertThat(f0).isNotNull();
+    assertThat(Hibernate.isInitialized(f0.getBars())).isFalse().describedAs("initialized");
+    assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(() -> {
+      // attempt to initialize proxy outside of transaction
+      assertThat(f0.getBars()).isNotEmpty();
+    });
   }
 
   @Test
@@ -116,7 +168,4 @@ public class JpaAggregateTest {
       repository.save(agg);
     });
   }
-
-  @TestConfiguration
-  static class TC {}
 }
