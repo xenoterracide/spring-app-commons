@@ -11,7 +11,6 @@ import org.jspecify.annotations.NullMarked;
   requires org.apache.commons.lang3;
   requires spring.beans;
   requires spring.context;
-  requires spring.data.commons;
   requires spring.tx;
   exports com.xenoterracide.jpa;
   opens com.xenoterracide.jpa;

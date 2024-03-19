@@ -42,7 +42,9 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   /**
    * NO-OP parent constuctor for JPA only.
    */
-  protected AbstractEntity() {}
+  protected AbstractEntity() {
+    this.dirty = false;
+  }
 
   /**
    * Instantiates a new Abstract uuid entity base.
@@ -138,7 +140,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
    *
    * @return the fields included in {@link #toString()}
    */
-  protected String[] includedFieldsInToString() {
+  protected @NonNull String[] includedFieldsInToString() {
     return INCLUDED_FIELDS_IN_TO_STRING;
   }
 

@@ -9,7 +9,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +16,7 @@ import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import org.hibernate.envers.AuditMappedBy;
 import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 
@@ -24,7 +24,6 @@ import org.jspecify.annotations.NonNull;
 @Audited
 public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
 
-  @Column(nullable = false)
   private String name;
 
   private Set<@NonNull BarEntity> bars = new HashSet<>();
@@ -40,13 +39,17 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
     return new FooAggregate(Id.create(), name);
   }
 
+  public void addBar(@NonNull String name) {
+    this.bars.add(BarEntity.create(this, name));
+  }
+
   public void changeBarName(BarEntity.@NonNull Id id, @NonNull String name) {
     var bar =
       this.bars.stream()
         .filter(e -> e.getId().equals(id))
         .findFirst()
         .map(e -> {
-          var b = new BarEntity(e.getId(), name);
+          var b = new BarEntity(e.getId(), this, name);
           b.setVersion(e.getVersion());
           b.markDirty();
           return b;
@@ -56,18 +59,20 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
     bar.ifPresent(this.bars::add);
   }
 
-  @JoinColumn(nullable = false, name = "foo_id")
-  @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  public @NonNull Set<@NonNull BarEntity> getBars() {
-    return bars;
+  @AuditMappedBy(mappedBy = "foo")
+  @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "foo")
+  @NonNull
+  Set<@NonNull BarEntity> getBars() {
+    return this.bars;
   }
 
   @Initializer
-  void setBars(@NonNull Set<@NonNull BarEntity> tags) {
-    this.bars = tags;
+  void setBars(@NonNull Set<@NonNull BarEntity> bars) {
+    this.bars = bars;
   }
 
   @NotNull
+  @Column(nullable = false)
   public @NonNull String getName() {
     return name;
   }

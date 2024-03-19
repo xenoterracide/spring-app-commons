@@ -7,14 +7,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import jakarta.persistence.EntityManager;
+import java.util.stream.Collectors;
 import org.hibernate.Hibernate;
+import org.hibernate.envers.AuditReaderFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.boot.test.context.TestConfiguration;
 
 @DataJpaTest
-@TestPropertySource(properties = "logging.level.org.hibernate.orm.jdbc.bind = trace")
+// @TestPropertySource(properties = "logging.level.org.hibernate.orm.jdbc.bind = trace")
 public class JpaAggregateTest {
 
   @Autowired
@@ -25,8 +27,8 @@ public class JpaAggregateTest {
 
   @Test
   void overallTest() {
-    var newAgg = new FooAggregate(FooAggregate.Id.create(), "new");
-    newAgg.getBars().add(BarEntity.create("new"));
+    var newAgg = FooAggregate.create("new");
+    newAgg.addBar("new");
 
     repository.save(newAgg);
     entityManager.flush();
@@ -36,10 +38,10 @@ public class JpaAggregateTest {
     assertThat(f0)
       .isNotNull()
       .isNotSameAs(newAgg)
-      .isNotEqualTo(newAgg)
+      .isEqualTo(newAgg)
       .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
       .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
-      .containsExactly(newAgg.getId(), 1, "new");
+      .containsExactly(newAgg.getId(), 0, "new");
 
     f0.setName("updating");
 
@@ -59,13 +61,13 @@ public class JpaAggregateTest {
           .containsExactly(f0.getBars().stream().findFirst().get().getId());
       })
       .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
-      .containsExactly(f0.getId(), 2, "updating");
+      .containsExactly(f0.getId(), 1, "updating");
 
     var bar = f0.getBars().stream().findFirst().get();
     f1.changeBarName(bar.getId(), "new0");
-    f1.getBars().add(BarEntity.create("new1"));
-    f1.getBars().add(BarEntity.create("new2"));
-    f1.getBars().add(BarEntity.create("new3"));
+    f1.addBar("new1");
+    f1.addBar("new2");
+    f1.addBar("new3");
 
     repository.save(f1);
     entityManager.flush();
@@ -87,7 +89,14 @@ public class JpaAggregateTest {
         assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
       })
       .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
-      .containsExactly(f0.getId(), 3, "updating");
+      .containsExactly(f0.getId(), 1, "updating");
+
+    var rev1 = repository.findRevisions(f2.getId()).stream().collect(Collectors.toList());
+
+    var auditReader = AuditReaderFactory.get(entityManager);
+    var n = auditReader.getRevisions(FooAggregate.class, f2.getId());
+
+    assertThat(rev1).isNotEmpty();
   }
 
   @Test
@@ -102,4 +111,7 @@ public class JpaAggregateTest {
       repository.save(agg);
     });
   }
+
+  @TestConfiguration
+  static class TC {}
 }

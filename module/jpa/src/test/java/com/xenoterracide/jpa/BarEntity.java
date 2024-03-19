@@ -5,8 +5,12 @@ package com.xenoterracide.jpa;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 import com.xenoterracide.jpa.annotation.Initializer;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
@@ -22,15 +26,33 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
 
   private @NonNull String name;
 
-  BarEntity(@NonNull Id id, @NonNull String name) {
+  private @NonNull FooAggregate foo;
+
+  BarEntity(@NonNull Id id, @NonNull FooAggregate foo, @NonNull String name) {
     super(id);
+    this.foo = foo;
     this.name = name;
   }
 
   public BarEntity() {}
 
-  static @NonNull BarEntity create(@NonNull String name) {
-    return new BarEntity(Id.create(), name);
+  static @NonNull BarEntity create(@NonNull FooAggregate foo, @NonNull String name) {
+    return new BarEntity(Id.create(), foo, name);
+  }
+
+  @ManyToOne(
+    optional = false,
+    fetch = FetchType.EAGER,
+    cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }
+  )
+  @JoinColumn(nullable = false, updatable = false, name = "foo_id")
+  public @NonNull FooAggregate getFoo() {
+    return foo;
+  }
+
+  @Initializer
+  void setFoo(@NonNull FooAggregate foo) {
+    this.foo = foo;
   }
 
   @Override
