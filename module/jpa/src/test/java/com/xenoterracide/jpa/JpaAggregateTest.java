@@ -16,12 +16,18 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.history.Revision;
 import org.springframework.data.history.RevisionMetadata;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.support.TransactionTemplate;
 
 @SpringBootTest
 @AutoConfigureDataJpa
 @AutoConfigureTestDatabase
-// @TestPropertySource(properties = "logging.level.org.hibernate.orm.jdbc.bind = trace")
+@TestPropertySource(
+  properties = {
+    // set to trace for parameter logging
+    "logging.level.org.hibernate.orm.jdbc.bind = warn",
+  }
+)
 public class JpaAggregateTest {
 
   @Autowired
