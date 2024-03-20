@@ -71,6 +71,12 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     this.name = name;
   }
 
+  void changeName(@NonNull String name) {
+    this.setName(name);
+    this.markDirty();
+    this.foo.registerEvent(new NameChanged(this.getId(), name));
+  }
+
   @Override
   protected String@NonNull[] includedFieldsInToString() {
     return INCLUDED_FIELDS_IN_TO_STRING;
@@ -95,6 +101,14 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     @Override
     protected boolean canEqual(@NonNull AbstractIdentity<?> that) {
       return that instanceof Id;
+    }
+  }
+
+  record NameChanged(BarEntity.Id entityId, String name)
+    implements EntityIdentifiable<BarEntity.@NonNull Id, @NonNull BarEntity> {
+    @Override
+    public @NonNull Class<BarEntity> type() {
+      return BarEntity.class;
     }
   }
 }

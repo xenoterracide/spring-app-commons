@@ -14,7 +14,6 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.AuditMappedBy;
@@ -40,6 +39,10 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     return new FooAggregate(Id.create(), name);
   }
 
+  protected void registerEvent(@NonNull EntityIdentifiable<BarEntity.@NonNull Id, @NonNull BarEntity> event) {
+    super.registerEvent(FooEvent.create(this.getId(), event));
+  }
+
   public @NonNull BarEntity addBar(@NonNull String name) {
     var bar = BarEntity.create(this, name);
     this.bars.add(bar);
@@ -47,19 +50,8 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
   }
 
   public void changeBarName(BarEntity.@NonNull Id id, @NonNull String name) {
-    var bar =
-      this.bars.stream()
-        .filter(e -> e.getId().equals(id))
-        .findAny()
-        .map(e -> {
-          var b = new BarEntity(e.getId(), this, name);
-          b.setVersion(Objects.requireNonNull(e.getVersion()));
-          b.markDirty();
-          return b;
-        });
-
-    this.bars.removeIf(e -> e.getId().equals(id));
-    bar.ifPresent(this.bars::add);
+    // since there should only be one, find any will terminate faster
+    this.bars.stream().filter(e -> e.getId().equals(id)).findAny().ifPresent(e -> e.changeName(name));
   }
 
   @AuditMappedBy(mappedBy = "foo")

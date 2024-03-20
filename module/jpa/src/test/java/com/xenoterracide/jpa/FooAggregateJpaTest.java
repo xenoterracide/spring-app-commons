@@ -3,6 +3,7 @@
 
 package com.xenoterracide.jpa;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import org.junit.jupiter.api.Test;
@@ -26,5 +27,14 @@ class FooAggregateJpaTest {
       var agg = new FooAggregate(new FooAggregate.Id(), "new");
       repository.save(agg);
     });
+  }
+
+  @Test
+  void eventsPropagated() {
+    var agg = FooAggregate.create("new");
+    agg.addBar("bar").changeName("baz");
+    assertThat(agg.domainEvents()).isNotEmpty();
+    repository.save(agg);
+    assertThat(agg.domainEvents()).isEmpty();
   }
 }
