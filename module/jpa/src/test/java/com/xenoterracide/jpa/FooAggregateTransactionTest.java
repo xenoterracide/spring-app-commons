@@ -6,7 +6,6 @@ package com.xenoterracide.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import jakarta.persistence.EntityManager;
 import java.util.Objects;
 import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
@@ -36,9 +35,6 @@ class FooAggregateTransactionTest {
 
   @Autowired
   TransactionTemplate tx;
-
-  @Autowired
-  EntityManager em;
 
   @Test
   void overallTest() {
