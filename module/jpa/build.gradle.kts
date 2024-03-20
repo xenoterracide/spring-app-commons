@@ -40,7 +40,6 @@ dependencies {
   testImplementation(libs.uuid.creator)
   testImplementation(libs.hibernate.orm.core)
   testImplementation(libs.spring.boot.test.core)
-  testImplementation(libs.spring.data.commons)
 }
 
 tasks.compileJava {
