@@ -15,6 +15,7 @@ dependencies {
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.spring.context)
+  api(libs.spring.data.commons)
 
   implementation(platform(libs.spring.bom))
   implementation(libs.commons.lang)

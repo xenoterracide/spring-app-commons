@@ -39,8 +39,10 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
     return new FooAggregate(Id.create(), name);
   }
 
-  public void addBar(@NonNull String name) {
-    this.bars.add(BarEntity.create(this, name));
+  public BarEntity addBar(@NonNull String name) {
+    var bar = BarEntity.create(this, name);
+    this.bars.add(bar);
+    return bar;
   }
 
   public void changeBarName(BarEntity.@NonNull Id id, @NonNull String name) {

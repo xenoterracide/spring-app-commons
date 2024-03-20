@@ -13,4 +13,7 @@ public interface FooAggregateRepository
   @Query("from FooAggregate f inner join fetch f.bars where f.id = :id")
   @NonNull
   FooAggregate findOneById(FooAggregate.Id id);
+
+  @Query("from BarEntity b where b.id = :id")
+  BarEntity findOneBarEntityById(BarEntity.Id id);
 }

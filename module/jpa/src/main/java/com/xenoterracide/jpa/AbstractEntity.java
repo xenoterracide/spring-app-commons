@@ -56,6 +56,19 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
     this.id = id;
   }
 
+  /**
+   * Returns whether this entity is unpersisted.
+   *
+   * @implNote Since the id is never null then we check to see if the version has been incremeted
+   *
+   * @return true if this entity has not been persisted to disk before.
+   */
+  @Transient
+  @Override
+  public boolean isNew() {
+    return this.version == 0;
+  }
+
   @Version
   @Column(nullable = false)
   int getVersion() {

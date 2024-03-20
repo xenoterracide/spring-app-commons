@@ -9,6 +9,7 @@ import org.jspecify.annotations.NullMarked;
   requires transitive jakarta.validation;
   requires java.base;
   requires org.apache.commons.lang3;
+  requires spring.data.commons;
   requires spring.beans;
   requires spring.context;
   requires spring.tx;
