@@ -4,20 +4,18 @@
 package com.xenoterracide.jpa;
 
 import org.jspecify.annotations.Nullable;
-import org.springframework.data.domain.Persistable;
 
 /**
  * An entity that has an identifier.
  *
  * @param <ID> the type of the identifier.
  */
-public interface Identifiable<ID> extends Persistable<ID> {
-  @Override
+public interface Identifiable<ID> {
+  /**
+   * Gets the identifier of this entity.
+   *
+   * @return the identifier of this entity
+   */
   @Nullable
   ID getId();
-
-  @Override
-  default boolean isNew() {
-    return this.getId() == null;
-  }
 }
