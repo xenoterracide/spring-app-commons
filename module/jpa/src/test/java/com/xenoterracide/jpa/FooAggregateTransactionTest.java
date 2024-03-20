@@ -6,7 +6,7 @@ package com.xenoterracide.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import jakarta.persistence.EntityManager;
+import java.util.Objects;
 import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Test;
@@ -28,13 +28,10 @@ import org.springframework.transaction.support.TransactionTemplate;
     "logging.level.org.hibernate.orm.jdbc.bind = warn",
   }
 )
-public class JpaAggregateTest {
+class FooAggregateTransactionTest {
 
   @Autowired
   FooAggregateRepository repository;
-
-  @Autowired
-  EntityManager entityManager;
 
   @Autowired
   TransactionTemplate tx;
@@ -154,15 +151,34 @@ public class JpaAggregateTest {
   }
 
   @Test
-  void noId() {
-    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> repository.save(new FooAggregate()));
-  }
+  void lazyInitFromInverse() {
+    var foo = tx.execute(cb -> {
+      var newAgg = FooAggregate.create("new");
+      newAgg.addBar("new");
+      return repository.save(newAgg);
+    });
 
-  @Test
-  void identityMustHaveUuid() {
-    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> {
-      var agg = new FooAggregate(new FooAggregate.Id(), "new");
-      repository.save(agg);
+    assertThat(foo).isNotNull();
+
+    var saved = foo.getBars().stream().findAny().get();
+
+    var bar = tx.execute(cb -> repository.findOneBarEntityById(saved.getId()));
+
+    assertThat(bar).isNotNull();
+    assertThat(Hibernate.isInitialized(bar.getFoo())).isFalse().describedAs("initialized");
+
+    // if designed right asking for an id we already have shouldn't trigger a load
+    assertThat(bar.getFoo().getId()).isNotNull();
+    assertThat(Hibernate.isInitialized(bar.getFoo())).isFalse().describedAs("still not lazy loaded");
+
+    assertThat(bar).isNotSameAs(saved).isEqualTo(saved);
+
+    // checking this way as assertThat calls toString which trigers proxy load, proxy can't be equal to non-proxy
+    assertThat(Objects.equals(bar.getFoo(), foo)).isFalse().describedAs("foo equality");
+
+    assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(() -> {
+      // attempt to initialize proxy outside of transaction
+      assertThat(bar.getFoo().getName()).isNotEmpty();
     });
   }
 }

@@ -12,9 +12,9 @@ import org.jspecify.annotations.Nullable;
  */
 public interface Identifiable<ID> {
   /**
-   * Returns the identifier of this entity.
+   * Gets the identifier of this entity.
    *
-   * @return the identifier of this entity. Nullable, but not blank.
+   * @return the identifier of this entity
    */
   @Nullable
   ID getId();

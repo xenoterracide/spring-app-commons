@@ -22,7 +22,7 @@ import org.jspecify.annotations.NonNull;
 
 @Entity
 @Audited
-public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
+public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @NonNull FooEvent<?>> {
 
   private String name;
 
@@ -35,28 +35,23 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
     this.name = name;
   }
 
-  static FooAggregate create(@NonNull String name) {
+  static @NonNull FooAggregate create(@NonNull String name) {
     return new FooAggregate(Id.create(), name);
   }
 
-  public void addBar(@NonNull String name) {
-    this.bars.add(BarEntity.create(this, name));
+  protected void registerEvent(@NonNull EntityIdentifiable<BarEntity.@NonNull Id, @NonNull BarEntity> event) {
+    super.registerEvent(FooEvent.create(this.getId(), event));
+  }
+
+  public @NonNull BarEntity addBar(@NonNull String name) {
+    var bar = BarEntity.create(this, name);
+    this.bars.add(bar);
+    return bar;
   }
 
   public void changeBarName(BarEntity.@NonNull Id id, @NonNull String name) {
-    var bar =
-      this.bars.stream()
-        .filter(e -> e.getId().equals(id))
-        .findFirst()
-        .map(e -> {
-          var b = new BarEntity(e.getId(), this, name);
-          b.setVersion(e.getVersion());
-          b.markDirty();
-          return b;
-        });
-
-    this.bars.removeIf(e -> e.getId().equals(id));
-    bar.ifPresent(this.bars::add);
+    // since there should only be one, find any will terminate faster
+    this.bars.stream().filter(e -> e.getId().equals(id)).findAny().ifPresent(e -> e.changeName(name));
   }
 
   @AuditMappedBy(mappedBy = "foo")

@@ -101,14 +101,19 @@
   <!--- PRETTIER END -->
 
   <module name="TreeWalker">
-    <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
+    <!-- https://checkstyle.sourceforge.io/filters/ -->
+    <!-- in case you're dumb again it's CHECKSTYLE.OFF: checkname|checkname -->
     <module name="SuppressionCommentFilter">
-      <property name="offCommentFormat" value="CHECKSTYLE.OFF\: (\w+)" />
-      <property name="onCommentFormat" value="CHECKSTYLE.ON\: (\w+)" />
+      <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)" />
+      <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)" />
       <property name="checkFormat" value="$1" />
     </module>
 
-    <!-- https://checkstyle.sourceforge.io/checks/javadoc/ -->
+    <!-- https://checkstyle.org/checks/annotation/ checked all 2024 -->
+    <module name="MissingDeprecated" />
+    <module name="MissingOverride" />
+
+    <!-- https://checkstyle.sourceforge.io/checks/javadoc/ checked all 2024 -->
     <module name="AtclauseOrder" />
     <module name="InvalidJavadocPosition" />
     <module name="JavadocBlockTagLocation" />
@@ -162,7 +167,8 @@
 
     <!-- imports https://checkstyle.org/checks/imports -->
     <module name="AvoidStarImport" />
-    <module name="IllegalImport" /> <!-- defaults to sun.* packages -->
+    <module name="IllegalImport" />
+    <!-- defaults to sun.* packages -->
     <module name="RedundantImport" />
     <module name="UnusedImports">
       <property name="processJavadoc" value="false" />
@@ -177,8 +183,20 @@
     <module name="NPathComplexity" />
 
     <!-- Checks for Size Violations https://checkstyle.org/checks/sizes/ -->
-    <module name="MethodLength" />
+    <module name="AnonInnerLength" />
+    <module name="ExecutableStatementCount">
+      <property name="max" value="20" />
+    </module>
+    <module name="LambdaBodyLength" />
+    <module name="MethodCount">
+      <property name="maxTotal" value="20" />
+    </module>
+    <module name="MethodLength">
+      <property name="max" value="25" />
+    </module>
+    <module name="OuterTypeNumber" />
     <module name="ParameterNumber" />
+    <module name="RecordComponentNumber" />
 
     <!-- whitespace https://checkstyle.org/checks/whitespace/ -->
     <module name="OperatorWrap">
@@ -222,7 +240,6 @@
     <module name="UnnecessarySemicolonInTryWithResources" />
     <module name="VariableDeclarationUsageDistance" />
 
-
     <!-- Modifier Checks                                    -->
     <!-- See https://checkstyle.org/config_modifiers.html -->
     <module name="RedundantModifier" />
@@ -251,9 +268,7 @@
     <module name="IllegalToken" />
     <module name="IllegalType" />
     <module name="InnerAssignment" />
-    <!-- error prone has got this
-    <module name="MissingSwitchDefault"/>
-    -->
+    <module name="MissingSwitchDefault" />
     <module name="MultipleVariableDeclarations" />
     <module name="SimplifyBooleanExpression" />
     <module name="SimplifyBooleanReturn" />
@@ -280,11 +295,13 @@
     </module>
     <module name="VisibilityModifier" />
 
-
     <!-- Miscellaneous https://checkstyle.org/checks/misc/ -->
     <module name="ArrayTypeStyle" />
     <module name="TodoComment" />
     <module name="UpperEll" />
+    <module name="UncommentedMain">
+      <property name="excludedClasses" value="^Application$" />
+    </module>
 
     <module name="SuppressWarningsHolder" />
   </module>
@@ -292,7 +309,8 @@
 
   <module name="Translation" />
 
-  <module name="RegexpSingleline"><!-- trailing whitespace -->
+  <module name="RegexpSingleline">
+    <!-- trailing whitespace -->
     <property name="format" value="\s+$" />
     <property name="minimum" value="0" />
     <property name="maximum" value="0" />
@@ -303,10 +321,8 @@
   <module name="JavadocPackage" />
 
   <!-- Miscellaneous https://checkstyle.org/checks/misc/ -->
-  <module name="FileLength">
-    <property name="max" value="500" />
-    <property name="fileExtensions" value="java" />
-  </module>
+  <module name="FileLength" />
+  <!-- use method count for SRP instead -->
   <module name="LineLength">
     <property name="max" value="120" />
     <property name="fileExtensions" value="java" />

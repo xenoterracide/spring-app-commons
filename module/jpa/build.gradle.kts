@@ -15,6 +15,7 @@ dependencies {
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.spring.context)
+  api(libs.spring.data.commons)
 
   implementation(platform(libs.spring.bom))
   implementation(libs.commons.lang)
@@ -39,7 +40,6 @@ dependencies {
   testImplementation(libs.uuid.creator)
   testImplementation(libs.hibernate.orm.core)
   testImplementation(libs.spring.boot.test.core)
-  testImplementation(libs.spring.data.commons)
 }
 
 tasks.compileJava {

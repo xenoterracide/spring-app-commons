@@ -38,7 +38,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
    * Surrogate Identifier.
    */
   private @NonNull ID id;
-  private int version;
+  private @Nullable Integer version;
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -57,13 +57,14 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   }
 
   @Version
+  @Nullable
   @Column(nullable = false)
-  int getVersion() {
+  Integer getVersion() {
     return this.version;
   }
 
   @Initializer
-  void setVersion(int version) {
+  void setVersion(Integer version) {
     this.version = version;
   }
 
@@ -128,7 +129,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
       return (
         that.canEqual(this) &&
         Objects.equals(this.id, that.id) &&
-        this.version == that.version &&
+        Objects.equals(this.version, that.version) &&
         this.dirty == that.dirty
       );
       // CHECKSTYLE.ON: UnnecessaryParentheses
