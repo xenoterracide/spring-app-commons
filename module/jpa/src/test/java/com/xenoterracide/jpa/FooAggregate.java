@@ -14,6 +14,7 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.AuditMappedBy;
@@ -22,7 +23,7 @@ import org.jspecify.annotations.NonNull;
 
 @Entity
 @Audited
-public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
+public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @NonNull FooEvent<?>> {
 
   private String name;
 
@@ -49,10 +50,10 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
     var bar =
       this.bars.stream()
         .filter(e -> e.getId().equals(id))
-        .findFirst()
+        .findAny()
         .map(e -> {
           var b = new BarEntity(e.getId(), this, name);
-          b.setVersion(e.getVersion());
+          b.setVersion(Objects.requireNonNull(e.getVersion()));
           b.markDirty();
           return b;
         });
