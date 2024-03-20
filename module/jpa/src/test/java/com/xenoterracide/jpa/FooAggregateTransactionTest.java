@@ -158,7 +158,7 @@ class FooAggregateTransactionTest {
   void lazyInitFromInverse() {
     var foo = tx.execute(cb -> {
       var newAgg = FooAggregate.create("new");
-      var bar = newAgg.addBar("new");
+      newAgg.addBar("new");
       return repository.save(newAgg);
     });
 

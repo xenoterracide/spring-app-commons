@@ -35,11 +35,11 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id> {
     this.name = name;
   }
 
-  static FooAggregate create(@NonNull String name) {
+  static @NonNull FooAggregate create(@NonNull String name) {
     return new FooAggregate(Id.create(), name);
   }
 
-  public BarEntity addBar(@NonNull String name) {
+  public @NonNull BarEntity addBar(@NonNull String name) {
     var bar = BarEntity.create(this, name);
     this.bars.add(bar);
     return bar;
