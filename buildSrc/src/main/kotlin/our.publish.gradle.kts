@@ -75,7 +75,7 @@ publishing {
 
   repositories {
     maven {
-      name = "GH"
+      name = "gh"
       url = uri("https://maven.pkg.github.com/$repoShort")
       credentials(PasswordCredentials::class)
     }
