@@ -38,15 +38,12 @@ dependencyResolutionManagement {
 
   repositories {
     maven("https://maven.pkg.github.com/xenoterracide/java-commons") {
+      name = "gh"
       mavenContent {
         includeModule("com.xenoterracide", "tools")
         snapshotsOnly()
       }
-      credentials {
-        val creds = providers.credentials(PasswordCredentials::class, "gh")
-        username = providers.environmentVariable("GITHUB_ACTOR").orElse(creds.map { it.username!! }).get()
-        password = providers.environmentVariable("GITHUB_TOKEN").orElse(creds.map { it.password!! }).get()
-      }
+      credentials(PasswordCredentials::class)
     }
     mavenCentral()
   }
