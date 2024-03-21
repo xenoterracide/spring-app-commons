@@ -21,7 +21,4 @@ jobs:
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - run: ./gradlew build buildHealth --scan
-      - run: ./gradlew publish --no-configuration-cache --scan
-        env:
-          ORG_GRADLE_PROJECT_GHUsername: ${{ secrets.GITHUB_ACTOR }}
-          ORG_GRADLE_PROJECT_GHPassword: ${{ secrets.GITHUB_TOKEN }}
+      - run: ./gradlew publish --scan
