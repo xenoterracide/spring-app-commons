@@ -3,7 +3,7 @@
 
 package com.xenoterracide.jpa;
 
-import com.xenoterracide.jpa.annotation.Initializer;
+import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
@@ -63,7 +63,6 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
     return this.version;
   }
 
-  @Initializer
   void setVersion(Integer version) {
     this.version = version;
   }

@@ -4,7 +4,6 @@
 package com.xenoterracide.jpa;
 
 import com.github.f4b6a3.uuid.UuidCreator;
-import com.xenoterracide.jpa.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,7 +49,6 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     return foo;
   }
 
-  @Initializer
   void setFoo(@NonNull FooAggregate foo) {
     this.foo = foo;
   }
@@ -66,7 +64,6 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     return name;
   }
 
-  @Initializer
   void setName(@NonNull String name) {
     this.name = name;
   }

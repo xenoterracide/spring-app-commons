@@ -5,6 +5,7 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked module com.xenoterracide.jpa {
   requires static org.jspecify;
+  requires static com.xenoterracide.tools.java;
   requires transitive jakarta.persistence;
   requires transitive jakarta.validation;
   requires java.base;
@@ -15,6 +16,4 @@ import org.jspecify.annotations.NullMarked;
   requires spring.tx;
   exports com.xenoterracide.jpa;
   opens com.xenoterracide.jpa;
-  exports com.xenoterracide.jpa.annotation;
-  opens com.xenoterracide.jpa.annotation; // TODO: figure out how to do only for jpa vendors
 }

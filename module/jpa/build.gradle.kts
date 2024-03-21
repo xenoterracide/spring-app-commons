@@ -9,7 +9,8 @@ dependencies {
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(libs.hibernate.jpa.modelgen)
 
-  compileOnlyApi(libs.jspecify)
+  compileOnly(libs.jspecify)
+  compileOnly(libs.java.tools)
 
   api(platform(libs.spring.bom))
   api(libs.jakarta.persistence)
