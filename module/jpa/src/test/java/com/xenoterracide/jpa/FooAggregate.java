@@ -3,8 +3,10 @@
 
 package com.xenoterracide.jpa;
 
+import static com.xenoterracide.tools.java.function.PredicateTools.prop;
+import static java.util.function.Predicate.isEqual;
+
 import com.github.f4b6a3.uuid.UuidCreator;
-import com.xenoterracide.jpa.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,8 +52,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
   }
 
   public void changeBarName(BarEntity.@NonNull Id id, @NonNull String name) {
-    // since there should only be one, find any will terminate faster
-    this.bars.stream().filter(e -> e.getId().equals(id)).findAny().ifPresent(e -> e.changeName(name));
+    this.bars.stream().filter(prop(b -> b.getId(), isEqual(id))).findAny().ifPresent(e -> e.changeName(name));
   }
 
   @AuditMappedBy(mappedBy = "foo")
@@ -61,7 +62,6 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     return this.bars;
   }
 
-  @Initializer
   void setBars(@NonNull Set<@NonNull BarEntity> bars) {
     this.bars = bars;
   }
@@ -72,7 +72,6 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     return name;
   }
 
-  @Initializer
   void setName(@NonNull String name) {
     this.name = name;
   }

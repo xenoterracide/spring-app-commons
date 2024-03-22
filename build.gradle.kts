@@ -24,6 +24,7 @@ dependencyAnalysis {
         severity("fail")
       }
       onUnusedDependencies {
+        exclude(libs.java.tools)
         exclude(libs.junit.parameters)
       }
     }

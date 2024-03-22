@@ -37,6 +37,14 @@ dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
 
   repositories {
+    maven("https://maven.pkg.github.com/xenoterracide/java-commons") {
+      name = "gh"
+      mavenContent {
+        includeModule("com.xenoterracide", "tools")
+        snapshotsOnly()
+      }
+      credentials(PasswordCredentials::class)
+    }
     mavenCentral()
   }
 }
