@@ -16,10 +16,11 @@ import org.junit.jupiter.api.Test;
 
 class AbstractSplatTest {
 
-  @Disabled
+  @Test
   void abstractAggregateEquality() {
     EqualsVerifier.forClass(FooAggregate.class)
       .withRedefinedSuperclass()
+      .withPrefabValues(AbstractIdentity.class, FooAggregate.Id.create(), BarEntity.Id.create())
       .withPrefabValues(BarEntity.Id.class, BarEntity.Id.create(), BarEntity.Id.create())
       .withPrefabValues(FooAggregate.Id.class, FooAggregate.Id.create(), FooAggregate.Id.create())
       .withPrefabValues(BarEntity.class, BarEntity.create(null, "bar"), BarEntity.create(null, "baz"))
