@@ -11,28 +11,34 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.apache.commons.lang3.ObjectUtils;
 import org.assertj.core.groups.Tuple;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class AbstractSplatTest {
 
-  @Disabled
+  @Test
   void abstractAggregateEquality() {
     EqualsVerifier.forClass(FooAggregate.class)
       .withRedefinedSuperclass()
+      .withPrefabValues(AbstractIdentity.class, FooAggregate.Id.create(), BarEntity.Id.create())
       .withPrefabValues(BarEntity.Id.class, BarEntity.Id.create(), BarEntity.Id.create())
       .withPrefabValues(FooAggregate.Id.class, FooAggregate.Id.create(), FooAggregate.Id.create())
+      .withPrefabValues(BarEntity.class, BarEntity.create(null, "bar"), BarEntity.create(null, "baz"))
       .suppress(Warning.SURROGATE_OR_BUSINESS_KEY)
+      .suppress(Warning.TRANSIENT_FIELDS)
       .withOnlyTheseFields("id", "version", "dirty")
       .verify();
   }
 
-  @Disabled
+  @Test
   void abstractEntityEquality() {
     EqualsVerifier.forClass(BarEntity.class)
       .withRedefinedSuperclass()
-      .withPrefabValues(AbstractIdentity.class, BarEntity.Id.create(), BarEntity.Id.create())
+      .withPrefabValues(AbstractIdentity.class, FooAggregate.Id.create(), BarEntity.Id.create())
+      .withPrefabValues(BarEntity.Id.class, BarEntity.Id.create(), BarEntity.Id.create())
+      .withPrefabValues(FooAggregate.Id.class, FooAggregate.Id.create(), FooAggregate.Id.create())
+      .withPrefabValues(FooAggregate.class, FooAggregate.create("foo"), FooAggregate.create("baz"))
       .suppress(Warning.SURROGATE_OR_BUSINESS_KEY)
+      .suppress(Warning.TRANSIENT_FIELDS)
       .withOnlyTheseFields("id", "version", "dirty")
       .verify();
   }
@@ -53,6 +59,8 @@ class AbstractSplatTest {
   @Test
   void abstractIdentitityEquality() {
     EqualsVerifier.forClass(BarEntity.Id.class).withRedefinedSuperclass().verify();
+    EqualsVerifier.forClass(FooAggregate.Id.class).withRedefinedSuperclass().verify();
+    EqualsVerifier.forClasses(BarEntity.Id.class, FooAggregate.Id.class).verify();
   }
 
   @Test

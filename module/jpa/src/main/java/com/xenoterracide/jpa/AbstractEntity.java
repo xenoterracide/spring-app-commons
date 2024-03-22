@@ -107,7 +107,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
 
   @Override
   public final int hashCode() {
-    return Objects.hashCode(this.id);
+    return Objects.hash(this.id, this.version, this.dirty);
   }
 
   /**

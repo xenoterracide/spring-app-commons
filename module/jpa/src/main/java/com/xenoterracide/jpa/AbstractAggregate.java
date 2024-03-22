@@ -50,6 +50,7 @@ public abstract class AbstractAggregate<
    */
   protected <E extends EVENT> void registerEvent(@NonNull E event) {
     this.domainEvents.add(event);
+    this.markDirty();
   }
 
   /**
