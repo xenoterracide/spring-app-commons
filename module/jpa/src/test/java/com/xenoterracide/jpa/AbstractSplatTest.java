@@ -22,6 +22,7 @@ class AbstractSplatTest {
       .withRedefinedSuperclass()
       .withPrefabValues(BarEntity.Id.class, BarEntity.Id.create(), BarEntity.Id.create())
       .withPrefabValues(FooAggregate.Id.class, FooAggregate.Id.create(), FooAggregate.Id.create())
+      .withPrefabValues(BarEntity.class, BarEntity.create(null, "bar"), BarEntity.create(null, "baz"))
       .suppress(Warning.SURROGATE_OR_BUSINESS_KEY)
       .withOnlyTheseFields("id", "version", "dirty")
       .verify();
@@ -53,6 +54,8 @@ class AbstractSplatTest {
   @Test
   void abstractIdentitityEquality() {
     EqualsVerifier.forClass(BarEntity.Id.class).withRedefinedSuperclass().verify();
+    EqualsVerifier.forClass(FooAggregate.Id.class).withRedefinedSuperclass().verify();
+    EqualsVerifier.forClasses(BarEntity.Id.class, FooAggregate.Id.class).verify();
   }
 
   @Test
