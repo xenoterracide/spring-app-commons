@@ -15,6 +15,7 @@ import org.jspecify.annotations.NullMarked;
   requires spring.beans;
   requires spring.context;
   requires spring.tx;
+  requires org.hibernate.orm.envers;
   exports com.xenoterracide.jpa;
   opens com.xenoterracide.jpa;
 }

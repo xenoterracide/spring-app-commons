@@ -10,9 +10,11 @@ dependencies {
 
   compileOnly(libs.jspecify)
 
+  api(platform(libs.spring.bom))
+  api(libs.spring.data.commons)
+
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.junit.api)
-  testImplementation(libs.equalsverifier)
 }
 
 tasks.compileJava {

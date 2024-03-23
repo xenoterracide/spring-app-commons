@@ -16,6 +16,7 @@ dependencies {
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.hibernate.envers)
+  api(libs.spring.data.commons)
   api(projects.jpa)
 
   implementation(platform(libs.spring.bom))
@@ -31,6 +32,7 @@ dependencies {
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)
+  testImplementation(libs.spring.boot.test.autoconfigure)
 }
 
 tasks.compileJava {

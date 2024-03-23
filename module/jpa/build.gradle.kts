@@ -23,6 +23,11 @@ dependencies {
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
+  implementation(libs.hibernate.envers)
+
+  runtimeOnly(platform(libs.spring.bom))
+  runtimeOnly(libs.starter.data.jpa)
+  runtimeOnly(libs.starter.validation)
 
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.h2)

@@ -14,6 +14,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -22,6 +23,7 @@ import org.jspecify.annotations.Nullable;
  *
  * @param <ID> the type parameter
  */
+@Audited
 @MappedSuperclass
 public abstract class AbstractEntity<ID extends AbstractIdentity> implements Identifiable<@NonNull ID> {
 

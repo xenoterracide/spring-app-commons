@@ -16,17 +16,34 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.UUID;
+import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 
+@Audited
 @Entity
+@Table(
+  name = "foreign_idp_user_identities",
+  uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "idp", "idp_user_id" })
+)
 public class ForeignIdPUserIdentity extends AbstractEntity<ForeignIdPUserIdentity.@NonNull Id> {
 
   private @NonNull User user;
   private @NonNull IdP idP;
   private @NonNull String idPUserId;
+
+  protected ForeignIdPUserIdentity() {}
+
+  protected ForeignIdPUserIdentity(@NonNull Id id, @NonNull User user, @NonNull IdP idP, @NonNull String idPUserId) {
+    super(id);
+    this.user = user;
+    this.idP = idP;
+    this.idPUserId = idPUserId;
+  }
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
@@ -40,7 +57,7 @@ public class ForeignIdPUserIdentity extends AbstractEntity<ForeignIdPUserIdentit
   }
 
   @NotNull
-  @Column(nullable = false, unique = true)
+  @Column(nullable = false, name = "idp_user_id")
   public @NonNull String getIdPUserId() {
     return this.idPUserId;
   }

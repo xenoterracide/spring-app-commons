@@ -7,22 +7,49 @@ import com.xenoterracide.jpa.AbstractAggregate;
 import com.xenoterracide.jpa.AbstractEntity;
 import com.xenoterracide.jpa.AbstractIdentity;
 import com.xenoterracide.tools.java.annotation.Initializer;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import org.hibernate.envers.AuditMappedBy;
+import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 
+@Audited
 @Entity
+@Table(name = "users")
 public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> {
 
   private String name;
+  private @NonNull Set<@NonNull ForeignIdPUserIdentity> foreignIdPUserIdentities = new HashSet<>();
 
   protected User() {}
 
   User(@NonNull Id id) {
     super(id);
+  }
+
+  @AuditMappedBy(mappedBy = ForeignIdPUserIdentity_.USER)
+  @OneToMany(
+    orphanRemoval = true,
+    cascade = CascadeType.ALL,
+    fetch = FetchType.LAZY,
+    mappedBy = ForeignIdPUserIdentity_.USER
+  )
+  Set<ForeignIdPUserIdentity> getForeignIdPUserIdentities() {
+    return this.foreignIdPUserIdentities;
+  }
+
+  @Initializer
+  void setForeignIdPUserIdentities(@NonNull Set<@NonNull ForeignIdPUserIdentity> foreignIdPUserIdentities) {
+    this.foreignIdPUserIdentities = foreignIdPUserIdentities;
   }
 
   @NotNull
@@ -32,7 +59,7 @@ public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> {
   }
 
   @Initializer
-  void setName(String name) {
+  void setName(@NonNull String name) {
     this.name = name;
   }
 
