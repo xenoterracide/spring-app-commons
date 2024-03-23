@@ -3,16 +3,14 @@
 
 package com.xenoterracide.jpa;
 
+import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PostLoad;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -25,10 +23,8 @@ import org.jspecify.annotations.Nullable;
  * @param <ID> the type parameter
  */
 @MappedSuperclass
-public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Serializable>>
-  implements Identifiable<@NonNull ID> {
+public abstract class AbstractEntity<ID extends AbstractIdentity> implements Identifiable<@NonNull ID> {
 
-  private static final String NPE_MESSAGE = "use static factory method to create";
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
 
   @Transient
@@ -93,16 +89,9 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
     this.id = id;
   }
 
-  @PrePersist
-  void prePersist() {
-    Objects.requireNonNull(this.id, NPE_MESSAGE);
-    this.id.ensureId();
-  }
-
-  @PostLoad
-  void postLoad() {
-    Objects.requireNonNull(this.id, NPE_MESSAGE);
-    this.id.ensureId();
+  @Override
+  public @NonNull ID id() {
+    return this.getId();
   }
 
   @Override

@@ -47,6 +47,7 @@ tasks.withType<JavaCompile>().configureEach {
   options.compilerArgs.addAll(
     listOf(
       "-parameters",
+      "-implicit:class",
       "-g",
       "-Xdiags:verbose",
       "-Xlint:all",

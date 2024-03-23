@@ -6,6 +6,7 @@ package com.xenoterracide.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import com.xenoterracide.model.Identifiable;
 import java.util.Objects;
 import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;

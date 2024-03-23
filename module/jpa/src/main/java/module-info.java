@@ -8,6 +8,7 @@ import org.jspecify.annotations.NullMarked;
   requires static com.xenoterracide.tools.java;
   requires transitive jakarta.persistence;
   requires transitive jakarta.validation;
+  requires transitive com.xenoterracide.model;
   requires java.base;
   requires org.apache.commons.lang3;
   requires spring.data.commons;
