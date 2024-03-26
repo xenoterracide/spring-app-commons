@@ -34,7 +34,6 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
     super(id);
   }
 
-  // @AuditMappedBy(mappedBy = IdPUser_.USER)
   @OneToMany(
     orphanRemoval = true,
     cascade = CascadeType.ALL,

@@ -25,7 +25,6 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
-import org.hibernate.envers.NotAudited;
 import org.jspecify.annotations.NonNull;
 
 @Entity
@@ -45,13 +44,13 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
   @EmbeddedId
   @NotNull
   @Override
-  public @NonNull Identifier getId() {
+  public IdentityProviderUser.@NonNull Identifier getId() {
     return this.id;
   }
 
   @VisibleForJPA
   @Initializer
-  void setId(@NonNull Identifier id) {
+  void setId(IdentityProviderUser.@NonNull Identifier id) {
     this.id = id;
   }
 
@@ -171,8 +170,6 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
       this.idPUserId = idPUserId;
     }
 
-    @MapsId("user")
-    @NotAudited
     @VisibleForJPA
     User.Identifier getUserId() {
       return this.userId;
