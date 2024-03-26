@@ -32,5 +32,10 @@ class UserTest {
 
     var u1 = userRepository.findById(u0.getId());
     assertThat(u1).isPresent();
+
+    var u2 = userRepository.findByIdentityProviderUser(u0.getIdentityProviderUsers().iterator().next().getId());
+    assertThat(u2).isPresent();
+
+    assertThat(u2.get()).isEqualTo(u1.get());
   }
 }

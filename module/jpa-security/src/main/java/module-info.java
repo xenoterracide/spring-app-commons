@@ -5,6 +5,7 @@ module com.xenoterracide.model.security {
   requires transitive jakarta.validation;
   requires com.xenoterracide.jpa;
   requires spring.data.commons;
+  requires spring.data.jpa;
   requires org.hibernate.orm.envers;
   exports com.xenoterracide.model.security;
   opens com.xenoterracide.model.security to spring.core;

@@ -7,9 +7,13 @@ import com.xenoterracide.model.WritableRepository;
 import java.util.Optional;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends WritableRepository<User, User.Identifier> {
   Optional<@Nullable User> findById(User.@NonNull Identifier id);
 
   Optional<@Nullable User> findByName(@NonNull String name);
+
+  @Query("select u from User u join u.identityProviderUsers i where i.id = ?1")
+  Optional<@Nullable User> findByIdentityProviderUser(IdentityProviderUser.@NonNull Identifier id);
 }

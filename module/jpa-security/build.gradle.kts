@@ -13,11 +13,12 @@ dependencies {
   compileOnly(libs.java.tools)
 
   api(platform(libs.spring.bom))
+  api(projects.jpa)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.hibernate.envers)
   api(libs.spring.data.commons)
-  api(projects.jpa)
+  api(libs.spring.data.jpa)
 
   implementation(platform(libs.spring.bom))
   implementation(libs.uuid.creator)
