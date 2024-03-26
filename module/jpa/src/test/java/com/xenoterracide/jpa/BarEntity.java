@@ -21,7 +21,7 @@ import org.jspecify.annotations.NonNull;
 
 @Audited
 @Entity
-public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
+public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id", "name" };
 
@@ -62,7 +62,7 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
     return that instanceof BarEntity;
   }
 
@@ -87,7 +87,7 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     return INCLUDED_FIELDS_IN_TO_STRING;
   }
 
-  public static class Id extends AbstractIdentity {
+  public static class Id extends AbstractIdentitifier {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -103,7 +103,7 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentity that) {
+    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }

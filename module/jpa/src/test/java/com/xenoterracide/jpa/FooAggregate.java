@@ -77,11 +77,11 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
     return that instanceof FooAggregate;
   }
 
-  public static class Id extends AbstractIdentity {
+  public static class Id extends AbstractIdentitifier {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -97,7 +97,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentity that) {
+    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }

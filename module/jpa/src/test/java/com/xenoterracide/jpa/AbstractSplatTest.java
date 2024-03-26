@@ -24,7 +24,7 @@ class AbstractSplatTest {
 
     EqualsVerifier.forClass(FooAggregate.class)
       .withRedefinedSuperclass()
-      .withPrefabValues(AbstractIdentity.class, barId1, fooId1)
+      .withPrefabValues(AbstractIdentitifier.class, barId1, fooId1)
       .withPrefabValues(BarEntity.Id.class, barId1, barId2)
       .withPrefabValues(FooAggregate.Id.class, fooId1, fooId2)
       .withPrefabValues(BarEntity.class, BarEntity.create(null, "bar"), BarEntity.create(null, "baz"))
@@ -43,7 +43,7 @@ class AbstractSplatTest {
   void abstractEntityEquality() {
     EqualsVerifier.forClass(BarEntity.class)
       .withRedefinedSuperclass()
-      .withPrefabValues(AbstractIdentity.class, FooAggregate.Id.create(), BarEntity.Id.create())
+      .withPrefabValues(AbstractIdentitifier.class, FooAggregate.Id.create(), BarEntity.Id.create())
       .withPrefabValues(BarEntity.Id.class, BarEntity.Id.create(), BarEntity.Id.create())
       .withPrefabValues(FooAggregate.Id.class, FooAggregate.Id.create(), FooAggregate.Id.create())
       .withPrefabValues(FooAggregate.class, FooAggregate.create("foo"), FooAggregate.create("baz"))

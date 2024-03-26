@@ -50,7 +50,7 @@ class FooAggregateTransactionTest {
       .isNotSameAs(newAgg)
       .isEqualTo(newAgg)
       .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
       .containsExactly(newAgg.getId(), 0, "new");
 
     f0.setName("updating");
@@ -69,7 +69,7 @@ class FooAggregateTransactionTest {
           .extracting(Identifiable::getId)
           .containsExactly(f0.getBars().stream().findFirst().get().getId());
       })
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
       .containsExactly(f0.getId(), 1, "updating");
 
     var bar = f0.getBars().stream().findFirst().get();
@@ -93,7 +93,7 @@ class FooAggregateTransactionTest {
           .containsExactlyInAnyOrder("new0", "new1", "new2", "new3");
         assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
       })
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
       .containsExactly(f0.getId(), 1, "updating");
 
     var rev3 = repository.findRevisions(newAgg.getId()).getContent();

@@ -3,6 +3,7 @@
 
 package com.xenoterracide.jpa;
 
+import com.xenoterracide.jpa.annotation.VisibleForJPA;
 import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Column;
@@ -25,7 +26,7 @@ import org.jspecify.annotations.Nullable;
  */
 @Audited
 @MappedSuperclass
-public abstract class AbstractEntity<ID extends AbstractIdentity> implements Identifiable<@NonNull ID> {
+public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> implements Identifiable<@NonNull ID> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
 
@@ -41,7 +42,8 @@ public abstract class AbstractEntity<ID extends AbstractIdentity> implements Ide
   /**
    * NO-OP parent constuctor for JPA only.
    */
-  protected AbstractEntity() {
+  @VisibleForJPA
+  protected AbstractSurrogateEntity() {
     this.dirty = false;
   }
 
@@ -50,17 +52,19 @@ public abstract class AbstractEntity<ID extends AbstractIdentity> implements Ide
    *
    * @param id the id
    */
-  protected AbstractEntity(@NonNull ID id) {
+  protected AbstractSurrogateEntity(@NonNull ID id) {
     this.id = id;
   }
 
   @Version
   @Nullable
   @Column(nullable = false)
+  @VisibleForJPA
   Integer getVersion() {
     return this.version;
   }
 
+  @VisibleForJPA
   void setVersion(Integer version) {
     this.version = version;
   }
@@ -86,6 +90,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity> implements Ide
    * @param id the id
    * @apiNote for JPA use only
    */
+  @VisibleForJPA
   @Initializer
   void setId(@NonNull ID id) {
     this.id = id;
@@ -110,11 +115,11 @@ public abstract class AbstractEntity<ID extends AbstractIdentity> implements Ide
    *   How to Write an Equality Method in Java
    *   </a>
    */
-  protected abstract boolean canEqual(@NonNull AbstractEntity<?> that);
+  protected abstract boolean canEqual(@NonNull AbstractSurrogateEntity<?> that);
 
   @Override
   public final boolean equals(@Nullable Object other) {
-    if (other instanceof AbstractEntity<?> that) {
+    if (other instanceof AbstractSurrogateEntity<?> that) {
       // CHECKSTYLE.OFF: UnnecessaryParentheses
       return (
         that.canEqual(this) &&

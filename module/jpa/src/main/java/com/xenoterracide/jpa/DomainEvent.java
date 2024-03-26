@@ -22,7 +22,7 @@ import org.jspecify.annotations.NonNull;
  */
 public record DomainEvent<
   EVENTID extends Serializable,
-  AID extends AbstractIdentity,
+  AID extends AbstractIdentitifier,
   AGG extends AbstractAggregate<AID, ?>,
   PAYLOAD extends EntityIdentifier<?, ?>
 >(

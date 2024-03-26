@@ -3,12 +3,13 @@
 
 package com.xenoterracide.model.security;
 
-import com.xenoterracide.jpa.AbstractEntity;
-import com.xenoterracide.jpa.AbstractIdentity;
+import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -20,6 +21,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
+import java.io.Serializable;
 import java.util.UUID;
 import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
@@ -30,7 +32,10 @@ import org.jspecify.annotations.NonNull;
   name = "foreign_idp_user_identities",
   uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "idp", "idp_user_id" })
 )
-public class ForeignIdPUserIdentity extends AbstractEntity<ForeignIdPUserIdentity.@NonNull Id> {
+public class ForeignIdPUserIdentity implements Identifiable<ForeignIdPUserIdentity.Id> {
+
+  @EmbeddedId
+  private @NonNull Id id;
 
   private @NonNull User user;
   private @NonNull IdP idP;
@@ -43,6 +48,11 @@ public class ForeignIdPUserIdentity extends AbstractEntity<ForeignIdPUserIdentit
     this.user = user;
     this.idP = idP;
     this.idPUserId = idPUserId;
+  }
+
+  @Override
+  public Id getId() {
+    return this.id;
   }
 
   @Enumerated(EnumType.STRING)
@@ -88,33 +98,51 @@ public class ForeignIdPUserIdentity extends AbstractEntity<ForeignIdPUserIdentit
     this.user = user;
   }
 
-  @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+  protected boolean canEqual(@NonNull Identifiable<?> that) {
     return that instanceof ForeignIdPUserIdentity;
   }
 
-  public static enum IdP {
+  public enum IdP {
     AUTH0,
   }
 
-  public static class Id extends AbstractIdentity {
+  /**
+   * The primary key for {@link ForeignIdPUserIdentity}.
+   */
+  @Embeddable
+  public static class Id implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private IdP idP;
+    private String idPUserId;
+    private UUID userId;
+
     /**
-     * NO-OP parent constuctor for JPA only.
+     * For JPA.
      */
-    @SuppressWarnings("unused")
     protected Id() {}
 
-    protected Id(@NonNull UUID id) {
-      super(id);
+    Id(@NonNull IdP idP, @NonNull String idPUserId, @NonNull UUID userId) {
+      this.idP = idP;
+      this.idPUserId = idPUserId;
+      this.userId = userId;
     }
 
-    @Override
-    protected boolean canEqual(@NonNull AbstractIdentity that) {
-      return that instanceof Id;
+    @Initializer
+    void setIdP(@NonNull IdP idP) {
+      this.idP = idP;
+    }
+
+    @Initializer
+    public void setIdPUserId(@NonNull String idPUserId) {
+      this.idPUserId = idPUserId;
+    }
+
+    @Initializer
+    public void setUserId(@NonNull UUID userId) {
+      this.userId = userId;
     }
   }
 }

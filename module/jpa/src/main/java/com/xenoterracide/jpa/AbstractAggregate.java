@@ -17,11 +17,10 @@ import org.springframework.data.domain.DomainEvents;
  * An abstract class for Domain Aggregates.
  *
  * @param <ID> type parameter
- * @param <EVENT> type parameter
  */
 @MappedSuperclass
-public abstract class AbstractAggregate<ID extends AbstractIdentity, SELF extends AbstractAggregate<ID, ?>>
-  extends AbstractEntity<ID> {
+public abstract class AbstractAggregate<ID extends AbstractIdentitifier, SELF extends AbstractAggregate<ID, ?>>
+  extends AbstractSurrogateEntity<ID> {
 
   private final @Transient List<DomainEvent<?, ID, SELF, ?>> domainEvents = new ArrayList<>();
 
@@ -42,7 +41,6 @@ public abstract class AbstractAggregate<ID extends AbstractIdentity, SELF extend
   /**
    * Registers domain events.
    *
-   * @param <E> the event type
    * @param event the event
    */
   protected void registerEvent(@NonNull DomainEvent<?, ID, SELF, ?> event) {
