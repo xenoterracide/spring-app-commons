@@ -3,18 +3,21 @@
 
 package com.xenoterracide.model;
 
+import java.io.Serializable;
+import org.jspecify.annotations.Nullable;
+
 /**
  * An entity that has an identifier.
  *
  * @param <ID> the type of the identifier.
  */
-public interface Identifiable<ID> {
+public interface Identifiable<ID extends Serializable> {
   /**
    * Gets the identifier of this entity.
    *
    * @return the identifier of this entity
    */
-  default ID getId() {
+  default @Nullable ID getId() {
     return this.id();
   }
 
@@ -25,7 +28,7 @@ public interface Identifiable<ID> {
    *
    * @see #getId()
    */
-  default ID id() {
+  default @Nullable ID id() {
     return this.getId();
   }
 }

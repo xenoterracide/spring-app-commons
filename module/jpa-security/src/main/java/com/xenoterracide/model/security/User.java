@@ -4,8 +4,9 @@
 package com.xenoterracide.model.security;
 
 import com.xenoterracide.jpa.AbstractAggregate;
-import com.xenoterracide.jpa.AbstractEntity;
-import com.xenoterracide.jpa.AbstractIdentity;
+import com.xenoterracide.jpa.AbstractIdentitifier;
+import com.xenoterracide.jpa.AbstractSurrogateEntity;
+import com.xenoterracide.jpa.annotation.VisibleForJPA;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,38 +19,37 @@ import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import org.hibernate.envers.AuditMappedBy;
-import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 
-@Audited
 @Entity
 @Table(name = "users")
-public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> {
+public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull User> {
 
   private String name;
-  private @NonNull Set<@NonNull ForeignIdPUserIdentity> foreignIdPUserIdentities = new HashSet<>();
+  private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers = new HashSet<>();
 
   protected User() {}
 
-  User(@NonNull Id id) {
+  User(@NonNull Identifier id) {
     super(id);
   }
 
-  @AuditMappedBy(mappedBy = ForeignIdPUserIdentity_.USER)
+  // @AuditMappedBy(mappedBy = IdPUser_.USER)
   @OneToMany(
     orphanRemoval = true,
     cascade = CascadeType.ALL,
     fetch = FetchType.LAZY,
-    mappedBy = ForeignIdPUserIdentity_.USER
+    mappedBy = IdentityProviderUser_.USER
   )
-  Set<ForeignIdPUserIdentity> getForeignIdPUserIdentities() {
-    return this.foreignIdPUserIdentities;
+  @VisibleForJPA
+  @NonNull
+  Set<@NonNull IdentityProviderUser> getIdentityProviderUsers() {
+    return this.identityProviderUsers;
   }
 
   @Initializer
-  void setForeignIdPUserIdentities(@NonNull Set<@NonNull ForeignIdPUserIdentity> foreignIdPUserIdentities) {
-    this.foreignIdPUserIdentities = foreignIdPUserIdentities;
+  void setIdentityProviderUsers(@NonNull Set<@NonNull IdentityProviderUser> idpUsers) {
+    this.identityProviderUsers = idpUsers;
   }
 
   @NotNull
@@ -64,24 +64,24 @@ public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> {
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
     return that instanceof User;
   }
 
-  public static class Id extends AbstractIdentity {
+  public static class Identifier extends AbstractIdentitifier {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    protected Id() {}
+    protected Identifier() {}
 
-    protected Id(@NonNull UUID id) {
+    protected Identifier(@NonNull UUID id) {
       super(id);
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentity that) {
-      return that instanceof Id;
+    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
+      return that instanceof Identifier;
     }
   }
 }

@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-public interface UserRepository extends WritableRepository<User, User.Id> {
-  Optional<@Nullable User> findById(User.@NonNull Id id);
+public interface UserRepository extends WritableRepository<User, User.Identifier> {
+  Optional<@Nullable User> findById(User.@NonNull Identifier id);
+
+  Optional<@Nullable User> findByName(@NonNull String name);
 }

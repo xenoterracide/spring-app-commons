@@ -23,18 +23,9 @@ class UserTest {
 
   @Test
   void save() {
-    var u0 = new User(new User.Id(UuidCreator.getTimeOrderedEpoch()));
+    var u0 = new User(new User.Identifier(UuidCreator.getTimeOrderedEpoch()));
     u0.setName("xeno");
-    u0.setForeignIdPUserIdentities(
-      Set.of(
-        new ForeignIdPUserIdentity(
-          new ForeignIdPUserIdentity.Id(UuidCreator.getTimeOrderedEpoch()),
-          u0,
-          ForeignIdPUserIdentity.IdP.AUTH0,
-          "1234"
-        )
-      )
-    );
+    u0.setIdentityProviderUsers(Set.of(new IdentityProviderUser(u0, IdentityProviderUser.IdP.AUTH0, "1234")));
     userRepository.save(u0);
     em.flush();
     em.clear();
