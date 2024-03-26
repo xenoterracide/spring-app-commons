@@ -3,7 +3,6 @@
 
 package com.xenoterracide.model.security;
 
-import com.xenoterracide.jpa.annotation.VisibleForJPA;
 import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
@@ -48,12 +47,12 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
     return this.id;
   }
 
-  @VisibleForJPA
   @Initializer
   void setId(IdentityProviderUser.@NonNull Identifier id) {
     this.id = id;
   }
 
+  @NotNull
   @Transient
   public @NonNull IdP getIdP() {
     return this.id.getIdP();
@@ -82,7 +81,6 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
     return this.user;
   }
 
-  @VisibleForJPA
   @Initializer
   void setUser(@NonNull User user) {
     this.user = user;
@@ -107,12 +105,12 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
 
     private IdP idP;
     private String idPUserId;
+
     private User.Identifier userId;
 
     /**
      * For JPA.
      */
-    @VisibleForJPA
     protected Identifier() {}
 
     Identifier(@NonNull IdP idP, @NonNull String idPUserId, User.@NonNull Identifier userId) {
@@ -123,12 +121,10 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
 
     @Column(nullable = false, insertable = false, updatable = false)
     @Enumerated(EnumType.STRING)
-    @VisibleForJPA
     IdP getIdP() {
       return this.idP;
     }
 
-    @VisibleForJPA
     @Initializer
     void setIdP(@NonNull IdP idP) {
       this.idP = idP;
@@ -159,23 +155,19 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
     }
 
     @Column(nullable = false, updatable = false, name = "idp_user_id")
-    @VisibleForJPA
     String getIdPUserId() {
       return this.idPUserId;
     }
 
-    @VisibleForJPA
     @Initializer
     void setIdPUserId(@NonNull String idPUserId) {
       this.idPUserId = idPUserId;
     }
 
-    @VisibleForJPA
     User.Identifier getUserId() {
       return this.userId;
     }
 
-    @VisibleForJPA
     @Initializer
     void setUserId(User.@NonNull Identifier userId) {
       this.userId = userId;

@@ -6,7 +6,6 @@ package com.xenoterracide.model.security;
 import com.xenoterracide.jpa.AbstractAggregate;
 import com.xenoterracide.jpa.AbstractIdentitifier;
 import com.xenoterracide.jpa.AbstractSurrogateEntity;
-import com.xenoterracide.jpa.annotation.VisibleForJPA;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -19,8 +18,11 @@ import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.jspecify.annotations.NonNull;
 
+@Audited
 @Entity
 @Table(name = "users")
 public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull User> {
@@ -34,13 +36,13 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
     super(id);
   }
 
+  @NotAudited
   @OneToMany(
     orphanRemoval = true,
     cascade = CascadeType.ALL,
     fetch = FetchType.LAZY,
     mappedBy = IdentityProviderUser_.USER
   )
-  @VisibleForJPA
   @NonNull
   Set<@NonNull IdentityProviderUser> getIdentityProviderUsers() {
     return this.identityProviderUsers;

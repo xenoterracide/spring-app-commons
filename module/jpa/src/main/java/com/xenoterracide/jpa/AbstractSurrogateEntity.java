@@ -3,7 +3,6 @@
 
 package com.xenoterracide.jpa;
 
-import com.xenoterracide.jpa.annotation.VisibleForJPA;
 import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Column;
@@ -42,7 +41,6 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
   /**
    * NO-OP parent constuctor for JPA only.
    */
-  @VisibleForJPA
   protected AbstractSurrogateEntity() {
     this.dirty = false;
   }
@@ -59,12 +57,10 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
   @Version
   @Nullable
   @Column(nullable = false)
-  @VisibleForJPA
   Integer getVersion() {
     return this.version;
   }
 
-  @VisibleForJPA
   void setVersion(Integer version) {
     this.version = version;
   }
@@ -90,7 +86,6 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
    * @param id the id
    * @apiNote for JPA use only
    */
-  @VisibleForJPA
   @Initializer
   void setId(@NonNull ID id) {
     this.id = id;
