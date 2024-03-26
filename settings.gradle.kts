@@ -50,6 +50,7 @@ dependencyResolutionManagement {
             password = it.password
           }
         }
+        // avoid congiguration cache missing on credentials
         if (username == null || password == null) {
           username = System.getenv("GITHUB_ACTOR")
           password = System.getenv("GITHUB_TOKEN")
