@@ -29,7 +29,7 @@ import org.hibernate.envers.NotAudited;
 import org.jspecify.annotations.NonNull;
 
 @Entity
-@Table(name = "idp_users")
+@Table(name = "identity_provider_users")
 public class IdentityProviderUser implements Identifiable<IdentityProviderUser.Identifier> {
 
   private IdentityProviderUser.@NonNull Identifier id;
@@ -76,7 +76,6 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
   @JoinColumn(
     nullable = false,
     updatable = false,
-    unique = true,
     name = "user_id",
     foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
   )
