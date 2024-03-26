@@ -44,12 +44,9 @@ dependencyResolutionManagement {
         snapshotsOnly()
       }
       credentials {
-        providers.credentials(PasswordCredentials::class, "gh").let { credentials ->
-          credentials.orNull?.let {
-            username = it.username
-            password = it.password
-          }
-        }
+        // use properties because gradles credentials errors if missing
+        providers.gradleProperty("ghUsername").let { username = it.orNull }
+        providers.gradleProperty("ghPassword").let { password = it.orNull }
         // avoid congiguration cache missing on credentials
         if (username == null || password == null) {
           username = System.getenv("GITHUB_ACTOR")
