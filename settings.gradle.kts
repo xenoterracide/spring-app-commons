@@ -10,7 +10,7 @@ rootDir.resolve("module").listFiles()?.forEach { file ->
     include(":$name")
     project(":$name").projectDir = file("module/$name")
   } else {
-    throw Exception("Invalid module directory: $file")
+    logger.error("Invalid module directory: {}", file)
   }
 }
 
@@ -43,7 +43,18 @@ dependencyResolutionManagement {
         includeModule("com.xenoterracide", "tools")
         snapshotsOnly()
       }
-      credentials(PasswordCredentials::class)
+      credentials {
+        providers.credentials(PasswordCredentials::class, "gh").let { credentials ->
+          credentials.orNull?.let {
+            username = it.username
+            password = it.password
+          }
+        }
+        if (username == null || password == null) {
+          username = System.getenv("GITHUB_ACTOR")
+          password = System.getenv("GITHUB_TOKEN")
+        }
+      }
     }
     mavenCentral()
   }
