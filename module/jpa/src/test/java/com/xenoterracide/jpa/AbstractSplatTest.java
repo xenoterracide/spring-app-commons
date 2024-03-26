@@ -13,6 +13,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("NullAway")
 class AbstractSplatTest {
 
   @Test

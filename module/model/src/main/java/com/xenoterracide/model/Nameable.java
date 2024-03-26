@@ -5,11 +5,26 @@ package com.xenoterracide.model;
 
 import org.jspecify.annotations.Nullable;
 
+/**
+ * Interface for objects that have a name.
+ *
+ * @apiNote you must implement one of {@link #getName()} or {@link #name()}.
+ */
 public interface Nameable {
+  /**
+   * Gets the name of the object.
+   *
+   * @return the name of the object.
+   */
   default @Nullable String getName() {
     return this.name();
   }
 
+  /**
+   * Gets the name of the object.
+   *
+   * @return the name of the object.
+   */
   default @Nullable String name() {
     return this.getName();
   }
