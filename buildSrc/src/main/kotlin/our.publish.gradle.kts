@@ -11,6 +11,8 @@ val username = "xenoterracide"
 val githubUrl = "https://github.com"
 val repoShort = "$username/$repo"
 
+version = semver.maven
+
 publishing {
   publications {
     create<MavenPublication>("maven") {
@@ -23,9 +25,9 @@ publishing {
         }
       }
       pom {
-        version = semver.maven.version
         artifactId = project.name
         groupId = rootProject.group.toString()
+        version = project.version.toString()
         description = project.description
         inceptionYear = "2024"
         url = "$githubUrl/$repoShort"

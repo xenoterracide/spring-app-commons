@@ -16,7 +16,7 @@ import org.springframework.data.repository.Repository;
  * @param <ID> the type of the identifier
  */
 @NoRepositoryBean
-public interface WritableRepository<AGG, ID extends Serializable> extends Repository<AGG, ID> {
+public interface WritableRepository<AGG, ID extends Serializable> extends Repository<@NonNull AGG, @NonNull ID> {
   /**
    * Saves an aggregate.
    *

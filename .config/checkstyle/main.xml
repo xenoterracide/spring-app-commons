@@ -139,7 +139,6 @@
     <module name="RequireEmptyLineBeforeBlockTagGroup" />
     <module name="SingleLineJavadoc" />
     <module name="SummaryJavadoc" />
-    <module name="WriteTag" />
 
     <!-- Checks for Naming Conventions https://checkstyle.org/checks/naming/ -->
     <module name="AbbreviationAsWordInName" />

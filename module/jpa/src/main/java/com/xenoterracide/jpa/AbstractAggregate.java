@@ -21,7 +21,7 @@ import org.springframework.data.domain.DomainEvents;
  */
 @MappedSuperclass
 public abstract class AbstractAggregate<ID extends AbstractIdentitifier, THIS extends AbstractAggregate<ID, ?>>
-  extends AbstractSurrogateEntity<ID> {
+  extends AbstractSurrogateEntity<@NonNull ID> {
 
   private final @Transient List<DomainEvent<?, ID, THIS, ?>> domainEvents = new ArrayList<>();
 

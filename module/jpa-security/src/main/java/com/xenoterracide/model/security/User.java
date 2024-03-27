@@ -22,6 +22,9 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.jspecify.annotations.NonNull;
 
+/**
+ * A user.
+ */
 @Audited
 @Entity
 @Table(name = "users")
@@ -37,12 +40,7 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   }
 
   @NotAudited
-  @OneToMany(
-    orphanRemoval = true,
-    cascade = CascadeType.ALL,
-    fetch = FetchType.LAZY,
-    mappedBy = IdentityProviderUser_.USER
-  )
+  @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
   @NonNull
   Set<@NonNull IdentityProviderUser> getIdentityProviderUsers() {
     return this.identityProviderUsers;
