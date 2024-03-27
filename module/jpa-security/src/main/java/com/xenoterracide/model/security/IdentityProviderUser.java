@@ -156,8 +156,19 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The identity provider.
+     */
     private IdP idP;
+
+    /**
+     * The identity provider user id.
+     */
     private String idPUserId;
+
+    /**
+     * The user.
+     */
 
     private User.Identifier userId;
 
