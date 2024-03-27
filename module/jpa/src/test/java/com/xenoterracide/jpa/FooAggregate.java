@@ -8,6 +8,7 @@ import static java.util.function.Predicate.isEqual;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 import com.xenoterracide.model.EntityIdentifier;
+import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -72,6 +73,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     return name;
   }
 
+  @Initializer
   void setName(@NonNull String name) {
     this.name = name;
   }

@@ -9,7 +9,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
 /**
- * Interface for repositories that can write to a data store. For use instead of {@link org.springframework.data.repository.CrudRepository}.
+ * Interface for repositories that can write to a data store. For use instead of
+ * {@link org.springframework.data.repository.CrudRepository}.
  *
  * @param <AGG> the type of the aggregate
  * @param <ID> the type of the identifier

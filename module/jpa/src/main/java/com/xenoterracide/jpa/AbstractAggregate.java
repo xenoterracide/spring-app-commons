@@ -17,12 +17,13 @@ import org.springframework.data.domain.DomainEvents;
  * An abstract class for Domain Aggregates.
  *
  * @param <ID> type parameter
+ * @param <THIS> type parameter
  */
 @MappedSuperclass
-public abstract class AbstractAggregate<ID extends AbstractIdentitifier, SELF extends AbstractAggregate<ID, ?>>
+public abstract class AbstractAggregate<ID extends AbstractIdentitifier, THIS extends AbstractAggregate<ID, ?>>
   extends AbstractSurrogateEntity<ID> {
 
-  private final @Transient List<DomainEvent<?, ID, SELF, ?>> domainEvents = new ArrayList<>();
+  private final @Transient List<DomainEvent<?, ID, THIS, ?>> domainEvents = new ArrayList<>();
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -43,7 +44,7 @@ public abstract class AbstractAggregate<ID extends AbstractIdentitifier, SELF ex
    *
    * @param event the event
    */
-  protected void registerEvent(@NonNull DomainEvent<?, ID, SELF, ?> event) {
+  protected void registerEvent(@NonNull DomainEvent<?, ID, THIS, ?> event) {
     this.domainEvents.add(event);
     this.markDirty();
   }
@@ -62,7 +63,7 @@ public abstract class AbstractAggregate<ID extends AbstractIdentitifier, SELF ex
    * @return the collection
    */
   @DomainEvents
-  protected @NonNull Collection<DomainEvent<?, ID, SELF, ?>> domainEvents() {
+  protected @NonNull Collection<DomainEvent<?, ID, THIS, ?>> domainEvents() {
     return Collections.unmodifiableList(this.domainEvents);
   }
 }
