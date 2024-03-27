@@ -141,6 +141,9 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    * The identity provider.
    */
   public enum IdP {
+    /**
+     * Auth0.
+     */
     AUTH0,
   }
 

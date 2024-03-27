@@ -17,4 +17,9 @@ public class RevEntity extends DefaultRevisionEntity {
 
   @Serial
   private static final long serialVersionUID = 1L;
+
+  /**
+   * For JPA.
+   */
+  protected RevEntity() {}
 }
