@@ -23,7 +23,7 @@ publishing {
         }
       }
       pom {
-        project.provider { semver.maven.version }.let { version = it.get() }
+        version = semver.maven.version
         artifactId = project.name
         groupId = rootProject.group.toString()
         description = project.description
