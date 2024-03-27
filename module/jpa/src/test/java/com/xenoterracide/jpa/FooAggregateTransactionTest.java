@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import com.xenoterracide.model.Identifiable;
+import jakarta.validation.ConstraintViolationException;
 import java.util.Objects;
 import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
@@ -181,5 +182,17 @@ class FooAggregateTransactionTest {
       // attempt to initialize proxy outside of transaction
       assertThat(bar.getFoo().getName()).isNotEmpty();
     });
+  }
+
+  @Test
+  void identityMustHaveUuid() {
+    assertThatExceptionOfType(ConstraintViolationException.class)
+      .isThrownBy(() -> {
+        tx.execute(cb -> {
+          var agg = new FooAggregate(new FooAggregate.Id(), "new");
+          return repository.saveAndFlush(agg);
+        });
+      })
+      .withMessageContaining("propertyPath=id.id");
   }
 }

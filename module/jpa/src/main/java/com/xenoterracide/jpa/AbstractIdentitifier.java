@@ -4,6 +4,7 @@
 package com.xenoterracide.jpa;
 
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,6 +25,7 @@ public abstract class AbstractIdentitifier implements Serializable {
    * The actual database UUID for id.
    */
 
+  @NotNull
   private @Nullable UUID id;
 
   /**

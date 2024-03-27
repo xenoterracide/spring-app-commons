@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -73,6 +74,7 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
   }
 
   @Id
+  @Valid
   @NotNull
   @Column(nullable = false, updatable = false, unique = true)
   @Override
