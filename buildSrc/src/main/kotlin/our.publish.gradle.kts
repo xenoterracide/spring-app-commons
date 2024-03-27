@@ -6,12 +6,6 @@ plugins {
   id("com.xenoterracide.gradle.semver")
 }
 
-version = object {
-  override fun toString(): String {
-    return semver.maven.version
-  }
-}
-
 val repo = "spring-app-commons"
 val username = "xenoterracide"
 val githubUrl = "https://github.com"
@@ -29,9 +23,9 @@ publishing {
         }
       }
       pom {
+        project.provider { semver.maven.version }.let { version = it.get() }
         artifactId = project.name
         groupId = rootProject.group.toString()
-        version = project.version.toString()
         description = project.description
         inceptionYear = "2024"
         url = "$githubUrl/$repoShort"
