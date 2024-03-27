@@ -11,6 +11,8 @@ import org.jspecify.annotations.NonNull;
  *
  * @param <ID> the type of the identifier
  * @param <AGG> the type of the aggregate
+ * @param id the identifier
+ * @param type the type of the aggregate
  */
 public record AggregateIdentifier<ID extends AbstractIdentitifier, AGG extends AbstractAggregate<@NonNull ID, ?>>(
   Class<AGG> type,
