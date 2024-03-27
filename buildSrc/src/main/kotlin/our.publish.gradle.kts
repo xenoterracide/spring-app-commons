@@ -6,7 +6,11 @@ plugins {
   id("com.xenoterracide.gradle.semver")
 }
 
-version = semver.maven
+version = object {
+  override fun toString(): String {
+    return semver.maven.version
+  }
+}
 
 val repo = "spring-app-commons"
 val username = "xenoterracide"
