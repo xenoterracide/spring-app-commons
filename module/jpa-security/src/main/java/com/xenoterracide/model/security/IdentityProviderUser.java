@@ -26,15 +26,28 @@ import java.io.Serializable;
 import java.util.Objects;
 import org.jspecify.annotations.NonNull;
 
+/**
+ * Represents a user from an identity provider.
+ */
 @Entity
 @Table(name = "identity_provider_users")
-public class IdentityProviderUser implements Identifiable<IdentityProviderUser.Identifier> {
+public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@NonNull Identifier> {
 
   private IdentityProviderUser.@NonNull Identifier id;
   private @NonNull User user;
 
+  /**
+   * For JPA.
+   */
   protected IdentityProviderUser() {}
 
+  /**
+   * Create a new instance.
+   *
+   * @param user the user
+   * @param idP the identity provider
+   * @param idPUserId the identity provider user id
+   */
   protected IdentityProviderUser(@NonNull User user, @NonNull IdP idP, @NonNull String idPUserId) {
     this.id = new Identifier(idP, idPUserId, user.getId());
     this.user = user;
@@ -52,18 +65,33 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
     this.id = id;
   }
 
+  /**
+   * Get the identity provider.
+   *
+   * @return the identity provider
+   */
   @NotNull
   @Transient
   public @NonNull IdP getIdP() {
     return this.id.getIdP();
   }
 
+  /**
+   * Get the identity provider user id.
+   *
+   * @return the identity provider user id
+   */
   @NotNull
   @Transient
   public @NonNull String getIdPUserId() {
     return this.id.getIdPUserId();
   }
 
+  /**
+   * Get the user.
+   *
+   * @return the user
+   */
   @MapsId("userId")
   @NotNull
   @ManyToOne(
@@ -90,6 +118,9 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.I
     return that instanceof IdentityProviderUser;
   }
 
+  /**
+   * The identity provider.
+   */
   public enum IdP {
     AUTH0,
   }
