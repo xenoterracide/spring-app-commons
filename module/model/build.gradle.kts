@@ -13,7 +13,16 @@ dependencies {
   api(platform(libs.spring.bom))
   api(libs.spring.data.commons)
 
+  testCompileOnly(libs.java.tools)
+
+  testRuntimeOnly(platform(libs.spring.bom))
+  testRuntimeOnly(libs.starter.data.jpa)
+  testRuntimeOnly(libs.h2)
+
   testImplementation(platform(libs.spring.bom))
+  testImplementation(projects.testApp)
+  testImplementation(libs.jakarta.persistence)
+  testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.junit.api)
 }
 

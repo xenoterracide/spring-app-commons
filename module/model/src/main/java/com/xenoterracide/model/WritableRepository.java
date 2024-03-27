@@ -16,7 +16,7 @@ import org.springframework.data.repository.Repository;
  * @param <ID> the type of the identifier
  */
 @NoRepositoryBean
-public interface WritableRepository<AGG, ID extends Serializable> extends Repository<@NonNull AGG, @NonNull ID> {
+public interface WritableRepository<AGG, ID extends Serializable> extends Repository<AGG, ID> {
   /**
    * Saves an aggregate.
    *
@@ -24,7 +24,7 @@ public interface WritableRepository<AGG, ID extends Serializable> extends Reposi
    * @return the saved aggregate.
    * @param <S> potentially a subtype of the aggregate.
    */
-  <S extends @NonNull AGG> S save(@NonNull S aggregate);
+  <S extends @NonNull AGG> @NonNull S save(@NonNull S aggregate);
 
   /**
    * Saves all aggregates.
@@ -33,5 +33,5 @@ public interface WritableRepository<AGG, ID extends Serializable> extends Reposi
    * @return the saved aggregates.
    * @param <S> potentially a subtype of the aggregate.
    */
-  <S extends @NonNull AGG> Iterable<S> saveAll(@NonNull Iterable<S> aggregates);
+  <S extends @NonNull AGG> Iterable<@NonNull S> saveAll(@NonNull Iterable<@NonNull S> aggregates);
 }
