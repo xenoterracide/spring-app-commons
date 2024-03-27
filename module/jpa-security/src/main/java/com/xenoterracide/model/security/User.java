@@ -34,6 +34,9 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   private String name;
   private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers = new HashSet<>();
 
+  /**
+   * For JPA.
+   */
   protected User() {}
 
   User(@NonNull Identifier id) {
