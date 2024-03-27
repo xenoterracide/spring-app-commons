@@ -114,8 +114,27 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
     this.user = user;
   }
 
+  /**
+   * Check if this instance could be equal to another object.
+   *
+   * @param that the object to compare
+   * @return {@code true} if this instance could be equal to the other object
+   */
   protected boolean canEqual(@NonNull Identifiable<?> that) {
     return that instanceof IdentityProviderUser;
+  }
+
+  @Override
+  public final boolean equals(Object o) {
+    if (o instanceof IdentityProviderUser that) {
+      return that.canEqual(this) && Objects.equals(this.id, that.id);
+    }
+    return false;
+  }
+
+  @Override
+  public final int hashCode() {
+    return Objects.hashCode(this.id);
   }
 
   /**
@@ -161,6 +180,12 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
       this.idP = idP;
     }
 
+    /**
+     * Check if this instance could be equal to another object.
+     *
+     * @param that the object to compare
+     * @return {@code true} if this instance could be equal to the other object.
+     */
     protected boolean canEqual(@NonNull Serializable that) {
       return that instanceof Identifier;
     }

@@ -280,7 +280,6 @@
     <module name="NestedTryDepth" />
     <module name="NoArrayTrailingComma" />
     <module name="NoClone" />
-    <module name="NoEnumTrailingComma" />
     <module name="NoFinalizer" />
     <module name="PackageDeclaration" />
 

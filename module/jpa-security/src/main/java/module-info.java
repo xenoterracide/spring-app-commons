@@ -1,4 +1,9 @@
-module com.xenoterracide.model.security {
+import org.jspecify.annotations.NullMarked;
+
+/**
+ * Security model.
+ */
+@NullMarked module com.xenoterracide.model.security {
   requires static org.jspecify;
   requires static com.xenoterracide.tools.java;
   requires transitive jakarta.persistence;

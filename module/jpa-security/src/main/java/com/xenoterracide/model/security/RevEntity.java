@@ -8,6 +8,9 @@ import java.io.Serial;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
 
+/**
+ * Represents a revision entity.
+ */
 @Entity
 @RevisionEntity
 public class RevEntity extends DefaultRevisionEntity {

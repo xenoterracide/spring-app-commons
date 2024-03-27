@@ -6,6 +6,7 @@ package com.xenoterracide.model.security;
 import com.xenoterracide.jpa.AbstractAggregate;
 import com.xenoterracide.jpa.AbstractIdentitifier;
 import com.xenoterracide.jpa.AbstractSurrogateEntity;
+import com.xenoterracide.model.Nameable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,7 +29,7 @@ import org.jspecify.annotations.NonNull;
 @Audited
 @Entity
 @Table(name = "users")
-public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull User> {
+public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull User> implements Nameable {
 
   private String name;
   private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers = new HashSet<>();
@@ -53,6 +54,7 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
 
   @NotNull
   @Column(nullable = false, unique = true)
+  @Override
   public String getName() {
     return this.name;
   }
@@ -67,14 +69,20 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
     return that instanceof User;
   }
 
+  /**
+   * A user identifier.
+   */
   public static class Identifier extends AbstractIdentitifier {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * For JPA.
+     */
     protected Identifier() {}
 
-    protected Identifier(@NonNull UUID id) {
+    Identifier(@NonNull UUID id) {
       super(id);
     }
 
