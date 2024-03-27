@@ -42,7 +42,7 @@ class FooAggregateTransactionTest {
   void overallTest() {
     var newAgg = FooAggregate.create("new");
     newAgg.addBar("new");
-    tx.execute(cb -> repository.save(newAgg));
+    tx.execute(cb -> repository.saveAndFlush(newAgg));
 
     var f0 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
@@ -56,7 +56,7 @@ class FooAggregateTransactionTest {
 
     f0.setName("updating");
 
-    tx.execute(cb -> repository.save(f0));
+    tx.execute(cb -> repository.saveAndFlush(f0));
 
     var f1 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
@@ -79,7 +79,7 @@ class FooAggregateTransactionTest {
     f1.addBar("new2");
     f1.addBar("new3");
 
-    tx.execute(cb -> repository.save(f1));
+    tx.execute(cb -> repository.saveAndFlush(f1));
 
     var f2 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
@@ -102,7 +102,7 @@ class FooAggregateTransactionTest {
     assertThat(rev3).hasSize(3);
 
     f2.setName("3");
-    tx.execute(cb -> repository.save(f2));
+    tx.execute(cb -> repository.saveAndFlush(f2));
 
     var f3 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 

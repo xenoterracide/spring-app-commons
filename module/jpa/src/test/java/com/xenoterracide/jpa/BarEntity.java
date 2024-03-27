@@ -39,7 +39,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
   public BarEntity() {}
 
   static @NonNull BarEntity create(@NonNull FooAggregate foo, @NonNull String name) {
-    return new BarEntity(Id.create(), foo, name);
+    return new BarEntity(BarEntity.Id.create(), foo, name);
   }
 
   @ManyToOne(
@@ -47,13 +47,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
     fetch = FetchType.LAZY,
     cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }
   )
-  @JoinColumn(
-    nullable = false,
-    updatable = false,
-    unique = true,
-    name = "foo_id",
-    foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
-  )
+  @JoinColumn(nullable = false, updatable = false, name = "foo_id", foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
   public @NonNull FooAggregate getFoo() {
     return foo;
   }
