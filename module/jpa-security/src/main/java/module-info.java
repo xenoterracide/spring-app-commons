@@ -6,6 +6,8 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked module com.xenoterracide.model.security {
   requires static org.jspecify;
   requires static com.xenoterracide.tools.java;
+  requires static org.immutables.value.annotations;
+  requires static org.immutables.builder;
   requires transitive jakarta.persistence;
   requires transitive jakarta.validation;
   requires com.xenoterracide.jpa;

@@ -234,8 +234,11 @@ tasks.withType<JavaCompile>().configureEach {
       )
     }
 
-    if (name != "compileTestJava") {
+    if (name == "compileJava") {
       options.compilerArgs.add("-Werror")
+    }
+
+    if (name != "compileTestJava") {
       option("NullAway:CheckOptionalEmptiness", true)
       errors.add("NullAway")
     }

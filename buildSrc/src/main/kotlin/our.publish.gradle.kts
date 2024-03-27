@@ -15,7 +15,7 @@ version = semver.maven
 
 publishing {
   publications {
-    create<MavenPublication>("maven") {
+    register<MavenPublication>("maven") {
       from(components["java"])
     }
     withType<MavenPublication>().configureEach {

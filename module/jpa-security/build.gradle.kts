@@ -7,8 +7,12 @@ plugins { our.javalibrary }
 
 dependencies {
   annotationProcessor(platform(libs.spring.bom))
+  annotationProcessor(platform(libs.immutables.bom))
+  annotationProcessor(libs.immutables.core)
   annotationProcessor(libs.hibernate.jpa.modelgen)
 
+  compileOnly(platform(libs.immutables.bom))
+  compileOnly(libs.bundles.immutables)
   compileOnly(libs.jspecify)
   compileOnly(libs.java.tools)
 
@@ -20,8 +24,14 @@ dependencies {
   api(libs.spring.data.commons)
   api(libs.spring.data.jpa)
 
-  implementation(platform(libs.spring.bom))
   implementation(libs.uuid.creator)
+
+  testFixturesAnnotationProcessor(platform(libs.immutables.bom))
+  testFixturesAnnotationProcessor(libs.immutables.core)
+  testFixturesCompileOnly(platform(libs.immutables.bom))
+  testFixturesCompileOnly(libs.bundles.immutables)
+  testFixturesCompileOnly(libs.jspecify)
+  testFixturesImplementation(libs.uuid.creator)
 
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(projects.testApp)
