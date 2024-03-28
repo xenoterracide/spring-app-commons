@@ -24,7 +24,7 @@ final class UserTestDataBuilders {
     u.setName(name.orElse("xeno"));
     CollectionTools.addIf(
       u.getIdentityProviderUsers(),
-      IdentityProviderUserTestDataBuilder.create().build(),
+      IdentityProviderUserTestDataBuilder.create().user(u).build(),
       Collection::isEmpty
     );
     u.getIdentityProviderUsers().forEach(ipu -> ipu.setUser(u));
@@ -32,10 +32,14 @@ final class UserTestDataBuilders {
   }
 
   @Builder.Factory
-  static IdentityProviderUser identityProviderUser(IdentityProviderUser.IdP idP, String idPUserId, User user) {
-    var optIdP = Optional.ofNullable(idP).orElse(IdentityProviderUser.IdP.AUTH0);
-    var optIdPUserId = Optional.ofNullable(idPUserId).orElse("1234");
-    var optUser = Optional.ofNullable(user).orElseGet(() -> UserTestDataBuilder.create().build());
+  static IdentityProviderUser identityProviderUser(
+    @Nonnull Optional<IdentityProviderUser.IdP> idP,
+    @Nonnull Optional<String> idPUserId,
+    @Nonnull Optional<User> user
+  ) {
+    var optIdP = idP.orElse(IdentityProviderUser.IdP.AUTH0);
+    var optIdPUserId = idPUserId.orElse("1234");
+    var optUser = user.orElseGet(() -> UserTestDataBuilder.create().build());
     return new IdentityProviderUser(
       new IdentityProviderUser.Identifier(optIdP, optIdPUserId, optUser.getId()),
       optUser

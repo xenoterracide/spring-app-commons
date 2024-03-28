@@ -28,6 +28,8 @@ java {
 }
 
 tasks.withType<Javadoc>().configureEach {
+  dependsOn(*arrayOf(tasks.withType<JavaCompile>().names))
+  logger.warn("java: {}", tasks.withType<JavaCompile>().names)
   (options as StandardJavadocDocletOptions).apply {
     addMultilineStringsOption("tag").value = listOf(
       "apiSpec:a:API Spec:",
