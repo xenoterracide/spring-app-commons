@@ -27,6 +27,9 @@ import java.util.Objects;
 import org.immutables.builder.Builder;
 import org.jspecify.annotations.NonNull;
 
+/**
+ * Identify the user when they log in using a 3rd party authentication provider.
+ */
 @Entity
 @Table(name = "identity_provider_users")
 public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@NonNull Identifier> {

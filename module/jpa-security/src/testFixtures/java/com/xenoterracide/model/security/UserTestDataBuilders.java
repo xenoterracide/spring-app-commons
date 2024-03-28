@@ -4,23 +4,28 @@
 package com.xenoterracide.model.security;
 
 import com.github.f4b6a3.uuid.UuidCreator;
+import com.xenoterracide.tools.java.collection.CollectionTools;
+import jakarta.annotation.Nonnull;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import org.immutables.builder.Builder;
 import org.immutables.value.Value;
 
-@Value.Style(typeBuilder = "*TestDataBuilder", newBuilder = "create")
-class UserTestDataBuilders {
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+@Value.Style(typeBuilder = "*TestDataBuilder", newBuilder = "create", jakarta = true)
+final class UserTestDataBuilders {
+
+  private UserTestDataBuilders() {}
 
   @Builder.Factory
-  static User user(UUID id, String name, Set<IdentityProviderUser> identityProviderUsers) {
-    var u = new User(new User.Identifier(Optional.ofNullable(id).orElseGet(UuidCreator::getTimeOrderedEpoch)));
-    u.setName(Optional.ofNullable(name).orElse("xeno"));
-    u.setIdentityProviderUsers(
-      Optional.ofNullable(identityProviderUsers).orElseGet(
-        () -> Set.of(IdentityProviderUserTestDataBuilder.create().user(u).build())
-      )
+  static User user(@Nonnull Optional<String> name, @Nonnull Set<IdentityProviderUser> identityProviderUsers) {
+    var u = new User(new User.Identifier(UuidCreator.getTimeOrderedEpoch()));
+    u.setName(name.orElse("xeno"));
+    CollectionTools.addIf(
+      u.getIdentityProviderUsers(),
+      IdentityProviderUserTestDataBuilder.create().build(),
+      Collection::isEmpty
     );
     u.getIdentityProviderUsers().forEach(ipu -> ipu.setUser(u));
     return u;

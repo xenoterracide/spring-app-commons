@@ -7,6 +7,7 @@ import org.jspecify.annotations.NullMarked;
   requires static org.jspecify;
   requires static com.xenoterracide.tools.java;
   requires static org.immutables.value.annotations;
+  requires static jakarta.annotation;
   requires static org.immutables.builder;
   requires transitive jakarta.persistence;
   requires transitive jakarta.validation;

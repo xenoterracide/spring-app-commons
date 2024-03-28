@@ -60,7 +60,10 @@ tasks.withType<JavaCompile>().configureEach {
   )
 
   options.errorprone {
-    disable("InvalidInlineTag") // false? positive on @snippet
+    disable(
+      "InvalidInlineTag", // https://github.com/google/error-prone/issues/4308
+      "MultipleNullnessAnnotations", // https://github.com/google/error-prone/issues/4334
+    )
     disableWarningsInGeneratedCode.set(true)
     excludedPaths.set(".*/build/generated/sources/annotationProcessor/.*")
     option("NullAway:AnnotatedPackages", "com.xenoterracide")
