@@ -16,7 +16,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.Audited;
@@ -32,15 +31,30 @@ import org.jspecify.annotations.NonNull;
 public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull User> implements Nameable {
 
   private String name;
-  private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers = new HashSet<>();
+  private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers;
 
   /**
    * For JPA.
    */
   protected User() {}
 
-  User(@NonNull Identifier id) {
+  User(
+    @NonNull Identifier id,
+    @NonNull String name,
+    @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers
+  ) {
     super(id);
+    this.name = name;
+    this.identityProviderUsers = identityProviderUsers;
+  }
+
+  /**
+   * Creates a new builder.
+   *
+   * @return A new builder.
+   */
+  public static UserBuilder builder() {
+    return UserBuilder.create();
   }
 
   @NotAudited

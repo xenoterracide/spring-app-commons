@@ -13,15 +13,24 @@ import org.immutables.builder.Builder;
 import org.immutables.value.Value;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-@Value.Style(typeBuilder = "*TestDataBuilder", newBuilder = "create", jakarta = true)
+@Value.Style(
+  typeBuilder = "*TestDataBuilder",
+  newBuilder = "create",
+  jakarta = true,
+  jdkOnly = true,
+  jdk9Collections = true
+)
 final class UserTestDataBuilders {
 
   private UserTestDataBuilders() {}
 
   @Builder.Factory
   static User user(@Nonnull Optional<String> name, @Nonnull Set<IdentityProviderUser> identityProviderUsers) {
-    var u = new User(new User.Identifier(UuidCreator.getTimeOrderedEpoch()));
-    u.setName(name.orElse("xeno"));
+    var u = new User(
+      new User.Identifier(UuidCreator.getTimeOrderedEpoch()),
+      name.orElse("xeno"),
+      identityProviderUsers
+    );
     CollectionTools.addIf(
       u.getIdentityProviderUsers(),
       IdentityProviderUserTestDataBuilder.create().user(u).build(),
