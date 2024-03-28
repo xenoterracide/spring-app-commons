@@ -28,6 +28,7 @@ java {
 }
 
 tasks.withType<Javadoc>().configureEach {
+  source(sourceSets.main.map { it.output.generatedSourcesDirs })
   (options as StandardJavadocDocletOptions).apply {
     addMultilineStringsOption("tag").value = listOf(
       "apiSpec:a:API Spec:",
