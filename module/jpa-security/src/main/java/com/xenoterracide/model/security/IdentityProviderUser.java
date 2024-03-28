@@ -24,7 +24,6 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
-import org.immutables.builder.Builder;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -46,12 +45,9 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    * Create a new instance.
    *
    * @param id the primary key
-   * @param user the user
    */
-  @Builder.Constructor
-  IdentityProviderUser(IdentityProviderUser.@NonNull Identifier id, @NonNull User user) {
+  IdentityProviderUser(IdentityProviderUser.@NonNull Identifier id) {
     this.id = id;
-    this.user = user;
   }
 
   /**
@@ -60,7 +56,7 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    * @return the builder
    */
   public static IdentityProviderUserBuilder builder() {
-    return new IdentityProviderUserBuilder();
+    return IdentityProviderUserBuilder.create();
   }
 
   @EmbeddedId

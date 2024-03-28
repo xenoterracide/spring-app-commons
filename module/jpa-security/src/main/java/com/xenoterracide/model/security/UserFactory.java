@@ -18,4 +18,15 @@ final class UserFactory {
   static User user(@Nonnull String name, @Nonnull Set<IdentityProviderUser> identityProviderUsers) {
     return new User(new User.Identifier(UuidCreator.getTimeOrderedEpoch()), name, identityProviderUsers);
   }
+
+  @Builder.Factory
+  static IdentityProviderUser identityProviderUser(
+    @Nonnull IdentityProviderUser.IdP idP,
+    @Nonnull String idPUserId,
+    @Nonnull User user
+  ) {
+    var idpUser = new IdentityProviderUser(new IdentityProviderUser.Identifier(idP, idPUserId, user.getId()));
+    idpUser.setUser(user);
+    return idpUser;
+  }
 }

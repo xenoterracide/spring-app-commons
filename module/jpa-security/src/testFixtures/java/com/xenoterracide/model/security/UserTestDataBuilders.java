@@ -4,9 +4,8 @@
 package com.xenoterracide.model.security;
 
 import com.github.f4b6a3.uuid.UuidCreator;
-import com.xenoterracide.tools.java.collection.CollectionTools;
+import com.xenoterracide.model.Identifiable;
 import jakarta.annotation.Nonnull;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 import org.immutables.builder.Builder;
@@ -25,16 +24,14 @@ final class UserTestDataBuilders {
   private UserTestDataBuilders() {}
 
   @Builder.Factory
-  static User user(@Nonnull Optional<String> name, @Nonnull Set<IdentityProviderUser> identityProviderUsers) {
+  static User user(@Nonnull Optional<String> name, @Nonnull Optional<Set<IdentityProviderUser>> identityProviderUsers) {
+    var uid = new User.Identifier(UuidCreator.getTimeOrderedEpoch());
     var u = new User(
-      new User.Identifier(UuidCreator.getTimeOrderedEpoch()),
+      uid,
       name.orElse("xeno"),
-      identityProviderUsers
-    );
-    CollectionTools.addIf(
-      u.getIdentityProviderUsers(),
-      IdentityProviderUserTestDataBuilder.create().user(u).build(),
-      Collection::isEmpty
+      identityProviderUsers.orElseGet(() -> {
+        return Set.of(IdentityProviderUserTestDataBuilder.create().userId(uid).build());
+      })
     );
     u.getIdentityProviderUsers().forEach(ipu -> ipu.setUser(u));
     return u;
@@ -44,14 +41,16 @@ final class UserTestDataBuilders {
   static IdentityProviderUser identityProviderUser(
     @Nonnull Optional<IdentityProviderUser.IdP> idP,
     @Nonnull Optional<String> idPUserId,
+    @Nonnull Optional<User.Identifier> userId,
     @Nonnull Optional<User> user
   ) {
     var optIdP = idP.orElse(IdentityProviderUser.IdP.AUTH0);
     var optIdPUserId = idPUserId.orElse("1234");
-    var optUser = user.orElseGet(() -> UserTestDataBuilder.create().build());
-    return new IdentityProviderUser(
-      new IdentityProviderUser.Identifier(optIdP, optIdPUserId, optUser.getId()),
-      optUser
-    );
+
+    var optUserId = user
+      .map(Identifiable::getId)
+      .orElseGet(() -> userId.orElseGet(() -> new User.Identifier(UuidCreator.getTimeOrderedEpoch())));
+
+    return new IdentityProviderUser(new IdentityProviderUser.Identifier(optIdP, optIdPUserId, optUserId));
   }
 }
