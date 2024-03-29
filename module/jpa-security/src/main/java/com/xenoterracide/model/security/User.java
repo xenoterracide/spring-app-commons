@@ -3,48 +3,27 @@
 
 package com.xenoterracide.model.security;
 
-import com.xenoterracide.jpa.AbstractAggregate;
 import com.xenoterracide.jpa.AbstractIdentitifier;
-import com.xenoterracide.jpa.AbstractSurrogateEntity;
-import com.xenoterracide.model.Nameable;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
-import java.util.Set;
 import java.util.UUID;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
 import org.jspecify.annotations.NonNull;
 
 /**
  * A user.
  */
-@Audited
-@Entity
-@Table(name = "users")
-public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull User> implements Nameable {
+public class User {
 
   private String name;
-  private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers;
 
   /**
    * For JPA.
    */
   protected User() {}
 
-  User(
-    @NonNull Identifier id,
-    @NonNull String name,
-    @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers
-  ) {
-    super(id);
+  User(@NonNull Identifier id, @NonNull String name) {
     this.name = name;
-    this.identityProviderUsers = identityProviderUsers;
   }
 
   /**
@@ -56,31 +35,14 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
     return UserBuilder.create();
   }
 
-  @NotAudited
-  @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-  @NonNull
-  Set<@NonNull IdentityProviderUser> getIdentityProviderUsers() {
-    return this.identityProviderUsers;
-  }
-
-  void setIdentityProviderUsers(@NonNull Set<@NonNull IdentityProviderUser> idpUsers) {
-    this.identityProviderUsers = idpUsers;
-  }
-
   @NotNull
   @Column(nullable = false, unique = true)
-  @Override
   public String getName() {
     return this.name;
   }
 
   void setName(@NonNull String name) {
     this.name = name;
-  }
-
-  @Override
-  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
-    return that instanceof User;
   }
 
   /**
