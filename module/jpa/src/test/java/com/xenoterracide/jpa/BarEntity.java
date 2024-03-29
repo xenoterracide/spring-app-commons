@@ -4,13 +4,16 @@
 package com.xenoterracide.jpa;
 
 import com.github.f4b6a3.uuid.UuidCreator;
+import com.xenoterracide.model.EntityIdentifier;
+import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.UUID;
@@ -19,7 +22,7 @@ import org.jspecify.annotations.NonNull;
 
 @Audited
 @Entity
-public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
+public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id", "name" };
 
@@ -36,7 +39,7 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
   public BarEntity() {}
 
   static @NonNull BarEntity create(@NonNull FooAggregate foo, @NonNull String name) {
-    return new BarEntity(Id.create(), foo, name);
+    return new BarEntity(BarEntity.Id.create(), foo, name);
   }
 
   @ManyToOne(
@@ -44,17 +47,18 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     fetch = FetchType.LAZY,
     cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }
   )
-  @JoinColumn(nullable = false, updatable = false, name = "foo_id")
+  @JoinColumn(nullable = false, updatable = false, name = "foo_id", foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
   public @NonNull FooAggregate getFoo() {
     return foo;
   }
 
+  @Initializer
   void setFoo(@NonNull FooAggregate foo) {
     this.foo = foo;
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
     return that instanceof BarEntity;
   }
 
@@ -79,10 +83,9 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     return INCLUDED_FIELDS_IN_TO_STRING;
   }
 
-  public static class Id extends AbstractIdentity<@NonNull UUID> {
+  public static class Id extends AbstractIdentitifier {
 
     @Serial
-    @Transient
     private static final long serialVersionUID = 1L;
 
     protected Id() {}
@@ -96,16 +99,15 @@ public class BarEntity extends AbstractEntity<BarEntity.@NonNull Id> {
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentity<?> that) {
+    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }
 
-  record NameChanged(BarEntity.Id entityId, String name)
-    implements EntityIdentifiable<BarEntity.@NonNull Id, @NonNull BarEntity> {
-    @Override
-    public @NonNull Class<BarEntity> type() {
-      return BarEntity.class;
+  record NameChanged(BarEntity.@NonNull Id id, @NonNull String name, @NonNull Class<BarEntity> type)
+    implements EntityIdentifier<@NonNull Id, @NonNull BarEntity> {
+    NameChanged(BarEntity.@NonNull Id id, @NonNull String name) {
+      this(id, name, BarEntity.class);
     }
   }
 }

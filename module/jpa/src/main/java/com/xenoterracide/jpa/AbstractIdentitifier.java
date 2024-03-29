@@ -4,21 +4,19 @@
 package com.xenoterracide.jpa;
 
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
  * An abstract class for Domain Entities with a database identifier.
- *
- * @param <ID> the concrete database identifier type
  */
 @MappedSuperclass
-public abstract class AbstractIdentity<ID extends Serializable> implements Serializable {
-
-  private static final String NPE_MESSAGE = "use static factory method to create";
+public abstract class AbstractIdentitifier implements Serializable {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -26,27 +24,22 @@ public abstract class AbstractIdentity<ID extends Serializable> implements Seria
   /**
    * The actual database UUID for id.
    */
-  private @Nullable ID id;
+
+  @NotNull
+  private @Nullable UUID id;
 
   /**
    * NO-OP parent constuctor for JPA only.
    */
-  protected AbstractIdentity() {}
+  protected AbstractIdentitifier() {}
 
   /**
    * Instantiates a new Abstract identity.
    *
    * @param id the id
    */
-  protected AbstractIdentity(@NonNull ID id) {
-    this.id = Objects.requireNonNull(id);
-  }
-
-  /**
-   * Ensure id.
-   */
-  final void ensureId() {
-    Objects.requireNonNull(this.id, AbstractIdentity.NPE_MESSAGE);
+  protected AbstractIdentitifier(@NonNull UUID id) {
+    this.id = id;
   }
 
   @Override
@@ -63,11 +56,11 @@ public abstract class AbstractIdentity<ID extends Serializable> implements Seria
    * How to Write an Equality Method in Java
    * </a>
    */
-  protected abstract boolean canEqual(@NonNull AbstractIdentity<?> that);
+  protected abstract boolean canEqual(@NonNull AbstractIdentitifier that);
 
   @Override
   public final boolean equals(@Nullable Object other) {
-    if (other instanceof AbstractIdentity<?> that) {
+    if (other instanceof AbstractIdentitifier that) {
       return that.canEqual(this) && Objects.equals(this.id, that.id);
     }
     return false;

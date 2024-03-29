@@ -140,7 +140,8 @@
 
     <!-- imports https://checkstyle.org/checks/imports -->
     <module name="AvoidStarImport" />
-    <module name="IllegalImport" /> <!-- defaults to sun.* packages -->
+    <module name="IllegalImport" />
+    <!-- defaults to sun.* packages -->
     <module name="RedundantImport" />
     <module name="UnusedImports">
       <property name="processJavadoc" value="false" />
@@ -206,7 +207,6 @@
     <module name="UnnecessarySemicolonInTryWithResources" />
     <module name="VariableDeclarationUsageDistance" />
 
-
     <!-- Modifier Checks                                    -->
     <!-- See https://checkstyle.org/config_modifiers.html -->
     <module name="RedundantModifier" />
@@ -244,7 +244,6 @@
     <module name="NestedTryDepth" />
     <module name="NoArrayTrailingComma" />
     <module name="NoClone" />
-    <module name="NoEnumTrailingComma" />
     <module name="NoFinalizer" />
     <module name="PackageDeclaration" />
 
@@ -271,7 +270,8 @@
 
   <module name="Translation" />
 
-  <module name="RegexpSingleline"><!-- trailing whitespace -->
+  <module name="RegexpSingleline">
+    <!-- trailing whitespace -->
     <property name="format" value="\s+$" />
     <property name="minimum" value="0" />
     <property name="maximum" value="0" />
@@ -283,7 +283,8 @@
   <!-- <module name="JavadocPackage"/> -->
 
   <!-- Miscellaneous https://checkstyle.org/checks/misc/ -->
-  <module name="FileLength" /><!-- use method count for SRP instead -->
+  <module name="FileLength" />
+  <!-- use method count for SRP instead -->
   <module name="LineLength">
     <property name="max" value="120" />
     <property name="fileExtensions" value="java" />

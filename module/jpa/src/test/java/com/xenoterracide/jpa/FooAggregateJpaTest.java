@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.orm.jpa.JpaSystemException;
 
 @DataJpaTest
 class FooAggregateJpaTest {
@@ -18,15 +19,7 @@ class FooAggregateJpaTest {
 
   @Test
   void noId() {
-    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> repository.save(new FooAggregate()));
-  }
-
-  @Test
-  void identityMustHaveUuid() {
-    assertThatExceptionOfType(NullPointerException.class).isThrownBy(() -> {
-      var agg = new FooAggregate(new FooAggregate.Id(), "new");
-      repository.save(agg);
-    });
+    assertThatExceptionOfType(JpaSystemException.class).isThrownBy(() -> repository.save(new FooAggregate()));
   }
 
   @Test

@@ -7,12 +7,14 @@ import static com.xenoterracide.tools.java.function.PredicateTools.prop;
 import static java.util.function.Predicate.isEqual;
 
 import com.github.f4b6a3.uuid.UuidCreator;
+import com.xenoterracide.model.EntityIdentifier;
+import com.xenoterracide.model.Identifiable;
+import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.HashSet;
@@ -24,7 +26,7 @@ import org.jspecify.annotations.NonNull;
 
 @Entity
 @Audited
-public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @NonNull FooEvent<?>> {
+public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @NonNull FooAggregate> {
 
   private String name;
 
@@ -41,7 +43,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     return new FooAggregate(Id.create(), name);
   }
 
-  protected void registerEvent(@NonNull EntityIdentifiable<BarEntity.@NonNull Id, @NonNull BarEntity> event) {
+  protected void registerEvent(@NonNull EntityIdentifier<BarEntity.@NonNull Id, @NonNull BarEntity> event) {
     super.registerEvent(FooEvent.create(this.getId(), event));
   }
 
@@ -52,7 +54,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
   }
 
   public void changeBarName(BarEntity.@NonNull Id id, @NonNull String name) {
-    this.bars.stream().filter(prop(b -> b.getId(), isEqual(id))).findAny().ifPresent(e -> e.changeName(name));
+    this.bars.stream().filter(prop(Identifiable::getId, isEqual(id))).findAny().ifPresent(e -> e.changeName(name));
   }
 
   @AuditMappedBy(mappedBy = "foo")
@@ -72,19 +74,19 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     return name;
   }
 
+  @Initializer
   void setName(@NonNull String name) {
     this.name = name;
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractEntity<?> that) {
+  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
     return that instanceof FooAggregate;
   }
 
-  public static class Id extends AbstractIdentity<@NonNull UUID> {
+  public static class Id extends AbstractIdentitifier {
 
     @Serial
-    @Transient
     private static final long serialVersionUID = 1L;
 
     protected Id() {}
@@ -98,7 +100,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentity<?> that) {
+    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }

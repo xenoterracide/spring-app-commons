@@ -25,7 +25,7 @@ tasks.named<Checkstyle>("checkstyleMain") {
 }
 
 tasks.named<Checkstyle>("checkstyleTestFixtures") {
-  configFile = checkstyleConfig("main.xml")
+  configFile = checkstyleConfig("testFixtures.xml")
 }
 
 tasks.named<Checkstyle>("checkstyleTest") {

@@ -4,7 +4,6 @@
 package com.xenoterracide.jpa;
 
 import jakarta.persistence.MappedSuperclass;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,15 +17,13 @@ import org.springframework.data.domain.DomainEvents;
  * An abstract class for Domain Aggregates.
  *
  * @param <ID> type parameter
- * @param <EVENT> type parameter
+ * @param <THIS> type parameter
  */
 @MappedSuperclass
-public abstract class AbstractAggregate<
-  ID extends AbstractIdentity<? extends Serializable>, EVENT extends DomainEvent<?, ID, ?, ?>
->
-  extends AbstractEntity<ID> {
+public abstract class AbstractAggregate<ID extends AbstractIdentitifier, THIS extends AbstractAggregate<ID, ?>>
+  extends AbstractSurrogateEntity<@NonNull ID> {
 
-  private final @Transient List<? super EVENT> domainEvents = new ArrayList<>();
+  private final @Transient List<DomainEvent<?, ID, THIS, ?>> domainEvents = new ArrayList<>();
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -45,10 +42,9 @@ public abstract class AbstractAggregate<
   /**
    * Registers domain events.
    *
-   * @param <E> the event type
    * @param event the event
    */
-  protected <E extends EVENT> void registerEvent(@NonNull E event) {
+  protected void registerEvent(@NonNull DomainEvent<?, ID, THIS, ?> event) {
     this.domainEvents.add(event);
     this.markDirty();
   }
@@ -67,7 +63,7 @@ public abstract class AbstractAggregate<
    * @return the collection
    */
   @DomainEvents
-  protected @NonNull Collection<? super EVENT> domainEvents() {
+  protected @NonNull Collection<DomainEvent<?, ID, THIS, ?>> domainEvents() {
     return Collections.unmodifiableList(this.domainEvents);
   }
 }

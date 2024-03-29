@@ -126,7 +126,9 @@
     <module name="JavadocTagContinuationIndentation">
       <property name="violateExecutionOnNonTightHtml" value="true" />
     </module>
-    <module name="JavadocType" />
+    <module name="JavadocType">
+      <property name="allowUnknownTags" value="true" />
+    </module>
     <module name="JavadocVariable">
       <property name="scope" value="protected" />
     </module>
@@ -137,7 +139,6 @@
     <module name="RequireEmptyLineBeforeBlockTagGroup" />
     <module name="SingleLineJavadoc" />
     <module name="SummaryJavadoc" />
-    <module name="WriteTag" />
 
     <!-- Checks for Naming Conventions https://checkstyle.org/checks/naming/ -->
     <module name="AbbreviationAsWordInName" />
@@ -279,7 +280,6 @@
     <module name="NestedTryDepth" />
     <module name="NoArrayTrailingComma" />
     <module name="NoClone" />
-    <module name="NoEnumTrailingComma" />
     <module name="NoFinalizer" />
     <module name="PackageDeclaration" />
 

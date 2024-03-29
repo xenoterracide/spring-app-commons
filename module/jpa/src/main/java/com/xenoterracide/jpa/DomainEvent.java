@@ -3,42 +3,31 @@
 
 package com.xenoterracide.jpa;
 
+import com.xenoterracide.model.EntityIdentifier;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import org.jspecify.annotations.NonNull;
 
 /**
- * The type Abstract domain event.
+ * A domain event.
  *
- * @param <ID> identifier type
- * @param <PAYLOAD> payload type
- * @param <AID> Aggregate Identifier type
- * @param <AGG> Aggregate type
+ * @param <EVENTID> the type parameter
+ * @param <AID> the type parameter
+ * @param <AGG> the type parameter
+ * @param <PAYLOAD> the type parameter
+ * @param id  the id
+ * @param occurredOn the time the event occurred
+ * @param payload the event payload
+ * @param aggregate the aggregate the event is associated with
  */
-public interface DomainEvent<
-  ID, AID extends AbstractIdentity<?>, AGG extends AbstractAggregate<AID, ?>, PAYLOAD extends EntityIdentifiable<?, ?>
->
-  extends EntityIdentifiable<AID, AGG> {
-  /**
-   * The unique identifier of the event.
-   *
-   * @return the id
-   */
-  @NonNull
-  ID id();
-
-  /**
-   * Gets occurred on.
-   *
-   * @return the time the event occurred
-   */
-  @NonNull
-  ZonedDateTime occurredOn();
-
-  /**
-   * Gets payload.
-   *
-   * @return the payload
-   */
-  @NonNull
-  PAYLOAD payload();
-}
+public record DomainEvent<
+  EVENTID extends Serializable,
+  AID extends AbstractIdentitifier,
+  AGG extends AbstractAggregate<AID, ?>,
+  PAYLOAD extends EntityIdentifier<?, ?>
+>(
+  @NonNull EVENTID id,
+  @NonNull ZonedDateTime occurredOn,
+  @NonNull EntityIdentifier<AID, AGG> aggregate,
+  @NonNull PAYLOAD payload
+) {}

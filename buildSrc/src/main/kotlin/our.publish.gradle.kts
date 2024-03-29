@@ -6,16 +6,16 @@ plugins {
   id("com.xenoterracide.gradle.semver")
 }
 
-version = semver.maven
-
 val repo = "spring-app-commons"
 val username = "xenoterracide"
 val githubUrl = "https://github.com"
 val repoShort = "$username/$repo"
 
+version = semver.maven
+
 publishing {
   publications {
-    create<MavenPublication>("maven") {
+    register<MavenPublication>("maven") {
       from(components["java"])
     }
     withType<MavenPublication>().configureEach {

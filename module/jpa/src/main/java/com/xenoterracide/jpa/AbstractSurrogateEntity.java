@@ -3,19 +3,19 @@
 
 package com.xenoterracide.jpa;
 
+import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PostLoad;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.envers.Audited;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -24,11 +24,10 @@ import org.jspecify.annotations.Nullable;
  *
  * @param <ID> the type parameter
  */
+@Audited
 @MappedSuperclass
-public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Serializable>>
-  implements Identifiable<@NonNull ID> {
+public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> implements Identifiable<@NonNull ID> {
 
-  private static final String NPE_MESSAGE = "use static factory method to create";
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
 
   @Transient
@@ -43,7 +42,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   /**
    * NO-OP parent constuctor for JPA only.
    */
-  protected AbstractEntity() {
+  protected AbstractSurrogateEntity() {
     this.dirty = false;
   }
 
@@ -52,7 +51,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
    *
    * @param id the id
    */
-  protected AbstractEntity(@NonNull ID id) {
+  protected AbstractSurrogateEntity(@NonNull ID id) {
     this.id = id;
   }
 
@@ -75,6 +74,7 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
   }
 
   @Id
+  @Valid
   @NotNull
   @Column(nullable = false, updatable = false, unique = true)
   @Override
@@ -93,16 +93,9 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
     this.id = id;
   }
 
-  @PrePersist
-  void prePersist() {
-    Objects.requireNonNull(this.id, NPE_MESSAGE);
-    this.id.ensureId();
-  }
-
-  @PostLoad
-  void postLoad() {
-    Objects.requireNonNull(this.id, NPE_MESSAGE);
-    this.id.ensureId();
+  @Override
+  public @NonNull ID id() {
+    return this.getId();
   }
 
   @Override
@@ -119,11 +112,11 @@ public abstract class AbstractEntity<ID extends AbstractIdentity<? extends Seria
    *   How to Write an Equality Method in Java
    *   </a>
    */
-  protected abstract boolean canEqual(@NonNull AbstractEntity<?> that);
+  protected abstract boolean canEqual(@NonNull AbstractSurrogateEntity<?> that);
 
   @Override
   public final boolean equals(@Nullable Object other) {
-    if (other instanceof AbstractEntity<?> that) {
+    if (other instanceof AbstractSurrogateEntity<?> that) {
       // CHECKSTYLE.OFF: UnnecessaryParentheses
       return (
         that.canEqual(this) &&

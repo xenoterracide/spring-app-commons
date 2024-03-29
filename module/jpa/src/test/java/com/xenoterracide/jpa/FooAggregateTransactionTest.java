@@ -6,6 +6,8 @@ package com.xenoterracide.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import com.xenoterracide.model.Identifiable;
+import jakarta.validation.ConstraintViolationException;
 import java.util.Objects;
 import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
@@ -40,7 +42,7 @@ class FooAggregateTransactionTest {
   void overallTest() {
     var newAgg = FooAggregate.create("new");
     newAgg.addBar("new");
-    tx.execute(cb -> repository.save(newAgg));
+    tx.execute(cb -> repository.saveAndFlush(newAgg));
 
     var f0 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
@@ -49,12 +51,12 @@ class FooAggregateTransactionTest {
       .isNotSameAs(newAgg)
       .isEqualTo(newAgg)
       .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
       .containsExactly(newAgg.getId(), 0, "new");
 
     f0.setName("updating");
 
-    tx.execute(cb -> repository.save(f0));
+    tx.execute(cb -> repository.saveAndFlush(f0));
 
     var f1 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
@@ -68,7 +70,7 @@ class FooAggregateTransactionTest {
           .extracting(Identifiable::getId)
           .containsExactly(f0.getBars().stream().findFirst().get().getId());
       })
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
       .containsExactly(f0.getId(), 1, "updating");
 
     var bar = f0.getBars().stream().findFirst().get();
@@ -77,7 +79,7 @@ class FooAggregateTransactionTest {
     f1.addBar("new2");
     f1.addBar("new3");
 
-    tx.execute(cb -> repository.save(f1));
+    tx.execute(cb -> repository.saveAndFlush(f1));
 
     var f2 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
@@ -92,7 +94,7 @@ class FooAggregateTransactionTest {
           .containsExactlyInAnyOrder("new0", "new1", "new2", "new3");
         assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
       })
-      .extracting(Identifiable::getId, AbstractEntity::getVersion, FooAggregate::getName)
+      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
       .containsExactly(f0.getId(), 1, "updating");
 
     var rev3 = repository.findRevisions(newAgg.getId()).getContent();
@@ -100,7 +102,7 @@ class FooAggregateTransactionTest {
     assertThat(rev3).hasSize(3);
 
     f2.setName("3");
-    tx.execute(cb -> repository.save(f2));
+    tx.execute(cb -> repository.saveAndFlush(f2));
 
     var f3 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
@@ -180,5 +182,17 @@ class FooAggregateTransactionTest {
       // attempt to initialize proxy outside of transaction
       assertThat(bar.getFoo().getName()).isNotEmpty();
     });
+  }
+
+  @Test
+  void identityMustHaveUuid() {
+    assertThatExceptionOfType(ConstraintViolationException.class)
+      .isThrownBy(() -> {
+        tx.execute(cb -> {
+          var agg = new FooAggregate(new FooAggregate.Id(), "new");
+          return repository.saveAndFlush(agg);
+        });
+      })
+      .withMessageContaining("propertyPath=id.id");
   }
 }

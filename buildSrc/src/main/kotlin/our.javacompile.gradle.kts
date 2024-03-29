@@ -28,6 +28,7 @@ java {
 }
 
 tasks.withType<Javadoc>().configureEach {
+  source(sourceSets.main.map { it.output.generatedSourcesDirs })
   (options as StandardJavadocDocletOptions).apply {
     addMultilineStringsOption("tag").value = listOf(
       "apiSpec:a:API Spec:",
@@ -47,6 +48,7 @@ tasks.withType<JavaCompile>().configureEach {
   options.compilerArgs.addAll(
     listOf(
       "-parameters",
+      "-implicit:class",
       "-g",
       "-Xdiags:verbose",
       "-Xlint:all",
@@ -59,7 +61,10 @@ tasks.withType<JavaCompile>().configureEach {
   )
 
   options.errorprone {
-    disable("InvalidInlineTag") // false? positive on @snippet
+    disable(
+      "InvalidInlineTag", // https://github.com/google/error-prone/issues/4308
+      "MultipleNullnessAnnotations", // https://github.com/google/error-prone/issues/4334
+    )
     disableWarningsInGeneratedCode.set(true)
     excludedPaths.set(".*/build/generated/sources/annotationProcessor/.*")
     option("NullAway:AnnotatedPackages", "com.xenoterracide")
@@ -126,7 +131,6 @@ tasks.withType<JavaCompile>().configureEach {
       "JavaLangClash",
       "JavaLocalDateTimeGetNano",
       "JavaLocalTimeGetNano",
-      "JavaTimeDefaultTimeZone",
       "LockNotBeforeTry",
       "LockOnBoxedPrimitive",
       "LogicalAssignment",
@@ -233,10 +237,13 @@ tasks.withType<JavaCompile>().configureEach {
       )
     }
 
-    if (name != "compileTestJava") {
+    if (name == "compileJava") {
       options.compilerArgs.add("-Werror")
+    }
+
+    if (name != "compileTestJava") {
       option("NullAway:CheckOptionalEmptiness", true)
-      errors.add("NullAway")
+      errors.addAll(listOf("NullAway", "JavaTimeDefaultTimeZone"))
     }
 
     if (name == "compileTestJava") {
@@ -246,6 +253,7 @@ tasks.withType<JavaCompile>().configureEach {
           "-Xlint:-varargs",
         ),
       )
+      disable("JavaTimeDefaultTimeZone")
       option("NullAway:HandleTestAssertionLibraries", true)
       option("NullAway:ExcludedFieldAnnotations", "org.junit.jupiter.api.io.TempDir")
     }

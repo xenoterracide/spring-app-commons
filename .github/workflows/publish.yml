@@ -23,5 +23,5 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: ./gradlew build buildHealth --scan
+      - run: ./gradlew build buildHealth --build-cache --scan
       - run: ./gradlew publish --no-configuration-cache --scan
