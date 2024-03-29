@@ -18,12 +18,12 @@ dependencies {
   api(libs.jakarta.validation)
   api(libs.spring.context)
   api(libs.spring.data.commons)
+  api(libs.hibernate.envers)
 
   implementation(platform(libs.spring.bom))
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
-  implementation(libs.hibernate.envers)
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.data.jpa)
@@ -38,8 +38,8 @@ dependencies {
   testRuntimeOnly(libs.spring.data.envers)
 
   testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.hibernate.envers)
   testImplementation(libs.spring.data.jpa)
+  testImplementation(libs.spring.orm)
   testImplementation(libs.spring.test)
   testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)

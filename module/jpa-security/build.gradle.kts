@@ -19,10 +19,10 @@ dependencies {
 
   api(platform(libs.spring.bom))
   api(projects.jpa)
+  api(projects.model)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.hibernate.envers)
-  api(libs.spring.data.commons)
   api(libs.spring.data.jpa)
 
   implementation(libs.uuid.creator)
@@ -36,6 +36,15 @@ dependencies {
 
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.java.tools)
+  testFixturesImplementation(libs.jakarta.annotation)
+  testFixturesImplementation(projects.model)
+
+  testImplementation(platform(libs.spring.bom))
+  testImplementation(libs.junit.api)
+  testImplementation(libs.equalsverifier)
+  testImplementation(libs.spring.boot.test.autoconfigure)
+  testImplementation(libs.spring.beans)
+  testImplementation(projects.jpaSecurity)
 
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(projects.testApp)
@@ -43,11 +52,6 @@ dependencies {
   testRuntimeOnly(libs.starter.aop)
   testRuntimeOnly(libs.starter.data.jpa)
   testRuntimeOnly(libs.starter.validation)
-
-  testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.junit.api)
-  testImplementation(libs.equalsverifier)
-  testImplementation(libs.spring.boot.test.autoconfigure)
 }
 
 tasks.compileJava {
