@@ -28,6 +28,7 @@ java {
 }
 
 tasks.withType<Javadoc>().configureEach {
+  dependsOn(tasks.classes)
   source(sourceSets.main.map { it.output.generatedSourcesDirs })
   (options as StandardJavadocDocletOptions).apply {
     addMultilineStringsOption("tag").value = listOf(
