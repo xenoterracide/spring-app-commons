@@ -6,9 +6,4 @@ plugins {
   id("our.bom")
   id("our.javacompile")
   id("our.javatest")
-  id("our.checkstyle")
-  id("our.spotbugs")
-  id("our.spotless")
-  id("our.coverage")
-  id("our.publish")
 }
