@@ -24,6 +24,7 @@ hibernate-envers = { module = "org.hibernate.orm:hibernate-envers" }
 hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
 hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen" }
 immutables-bom = "org.immutables:bom:2+"
+immutables-annotate = { module = "org.immutables:annotate" }
 immutables-annotations = { module = "org.immutables:value-annotations" }
 immutables-builder = { module = "org.immutables:builder" }
 immutables-core = { module = "org.immutables:value" }
@@ -92,7 +93,7 @@ vavr = "io.vavr:vavr:0.+"
 
 [bundles]
 compile-annotations = ["errorprone-annotations", "jakarta-annotation", "jspecify"]
-immutables = ["immutables-annotations", "immutables-builder"]
+immutables = ["immutables-annotations", "immutables-builder", "immutables-annotate"]
 ep = ["errorprone-core", "errorprone-nullaway"]
 jackson-config = ["jackson-core", "jackson-module-parameter-names"]
 test = ["assertj", "junit-parameters"]
