@@ -3,28 +3,15 @@
 
 package com.xenoterracide.model.security;
 
-import com.xenoterracide.jpa.AbstractIdentitifier;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotNull;
-import java.io.Serial;
-import java.util.UUID;
-import org.jspecify.annotations.NonNull;
-
 /**
  * A user.
  */
 public class User {
 
-  private String name;
-
   /**
-   * For JPA.
+   * for JPA
    */
   protected User() {}
-
-  User(@NonNull Identifier id, @NonNull String name) {
-    this.name = name;
-  }
 
   /**
    * Creates a new builder.
@@ -33,38 +20,5 @@ public class User {
    */
   public static UserBuilder builder() {
     return UserBuilder.create();
-  }
-
-  @NotNull
-  @Column(nullable = false, unique = true)
-  public String getName() {
-    return this.name;
-  }
-
-  void setName(@NonNull String name) {
-    this.name = name;
-  }
-
-  /**
-   * A user identifier.
-   */
-  public static class Identifier extends AbstractIdentitifier {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * For JPA.
-     */
-    protected Identifier() {}
-
-    Identifier(@NonNull UUID id) {
-      super(id);
-    }
-
-    @Override
-    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
-      return that instanceof Identifier;
-    }
   }
 }
