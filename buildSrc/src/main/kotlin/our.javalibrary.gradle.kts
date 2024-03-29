@@ -3,7 +3,6 @@
 
 plugins {
   `java-library`
-  id("our.bom")
   id("our.javacompile")
   id("our.javatest")
 }

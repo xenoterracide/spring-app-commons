@@ -6,7 +6,6 @@ import org.gradle.accessors.dm.LibrariesForLibs
 plugins {
   `java-library`
   `java-test-fixtures`
-  id("our.bom")
 }
 
 val libs = the<LibrariesForLibs>()
@@ -25,6 +24,7 @@ java {
   }
 }
 
+/*
 tasks.withType<Javadoc>().configureEach {
 //  source(sourceSets.main.map { it.output.generatedSourcesDirs })
   (options as StandardJavadocDocletOptions).apply {
@@ -36,6 +36,8 @@ tasks.withType<Javadoc>().configureEach {
     )
   }
 }
+
+ */
 
 tasks.withType<Jar> {
   archiveBaseName.set(project.path.substring(1).replace(":", "-"))
