@@ -58,6 +58,8 @@ tasks.withType<JavaCompile>().configureEach {
       "-Xlint:-requires-transitive-automatic",
       "-Xlint:-requires-automatic",
       "-Xlint:-fallthrough", // handled by error-prone in a smarter way
+      "-AaddSuppressWarningsAnnotation=true",
+      "-AaddGeneratedAnnotation=true",
     ),
   )
 
