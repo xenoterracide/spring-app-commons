@@ -77,14 +77,14 @@ publishing {
     maven {
       name = "gh"
       url = uri("https://maven.pkg.github.com/$repoShort")
-      providers.environmentVariable("CI").map { it.toBoolean() }.let {
-        if (it.getOrElse(false)) {
-          credentials {
-            username = System.getenv("GITHUB_ACTOR")
-            password = System.getenv("GITHUB_TOKEN")
-          }
-        } else {
-          credentials(PasswordCredentials::class)
+      credentials {
+        // use properties because gradles credentials errors if missing
+        providers.gradleProperty("ghUsername").let { username = it.orNull }
+        providers.gradleProperty("ghPassword").let { password = it.orNull }
+        // avoid congiguration cache missing on credentials
+        if (username == null || password == null) {
+          username = System.getenv("GITHUB_ACTOR")
+          password = System.getenv("GITHUB_TOKEN")
         }
       }
     }
