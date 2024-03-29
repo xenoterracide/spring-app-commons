@@ -91,7 +91,7 @@ uuid-creator = "com.github.f4b6a3:uuid-creator:5.+"
 vavr = "io.vavr:vavr:0.+"
 
 [bundles]
-compile-annotations = ["errorprone-annotations", "jspecify"]
+compile-annotations = ["errorprone-annotations", "jakarta-annotation", "jspecify"]
 immutables = ["immutables-annotations", "immutables-builder"]
 ep = ["errorprone-core", "errorprone-nullaway"]
 jackson-config = ["jackson-core", "jackson-module-parameter-names"]
