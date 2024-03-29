@@ -9,7 +9,6 @@ dependencies {
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(platform(libs.immutables.bom))
   annotationProcessor(libs.immutables.core)
-  annotationProcessor(libs.hibernate.jpa.modelgen)
 
   compileOnly(platform(libs.immutables.bom))
   compileOnly(libs.bundles.immutables)

@@ -7,7 +7,6 @@ plugins { our.javalibrary }
 
 dependencies {
   annotationProcessor(platform(libs.spring.bom))
-  annotationProcessor(libs.hibernate.jpa.modelgen)
 
   compileOnly(libs.jspecify)
   compileOnly(libs.java.tools)

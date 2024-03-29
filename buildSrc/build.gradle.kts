@@ -11,8 +11,4 @@ dependencyLocking { lockAllConfigurations() }
 
 dependencies {
   implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
-  implementation(libs.plugin.spotless)
-  implementation(libs.plugin.spotbugs)
-  implementation(libs.plugin.errorprone)
-  implementation(libs.plugin.semver)
 }
