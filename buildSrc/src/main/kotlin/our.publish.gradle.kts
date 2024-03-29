@@ -77,7 +77,16 @@ publishing {
     maven {
       name = "gh"
       url = uri("https://maven.pkg.github.com/$repoShort")
-      credentials(PasswordCredentials::class)
+      providers.environmentVariable("CI").map { it.toBoolean() }.let {
+        if (it.getOrElse(false)) {
+          credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+          }
+        } else {
+          credentials(PasswordCredentials::class)
+        }
+      }
     }
   }
 }
