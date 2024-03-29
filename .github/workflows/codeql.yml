@@ -1,12 +1,12 @@
 name: "CodeQL"
 on:
   push:
-    branches: [main]
+    branches: [main, ci/codeql]
   workflow_call:
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     permissions:
       actions: read
       contents: read
@@ -28,7 +28,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: ./gradlew classes --build-cache
+      - run: ./gradlew classes --build-cache --scan
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
