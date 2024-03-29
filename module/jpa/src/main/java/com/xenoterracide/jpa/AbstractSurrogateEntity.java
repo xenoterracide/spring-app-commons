@@ -4,7 +4,6 @@
 package com.xenoterracide.jpa;
 
 import com.xenoterracide.model.Identifiable;
-import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
@@ -88,7 +87,7 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
    * @param id the id
    * @apiNote for JPA use only
    */
-  @Initializer
+
   void setId(@NonNull ID id) {
     this.id = id;
   }

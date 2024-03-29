@@ -3,7 +3,6 @@
 
 package com.xenoterracide.model;
 
-import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,7 +21,6 @@ class Foo implements Identifiable<@NonNull Long> {
     return id;
   }
 
-  @Initializer
   void setId(@NonNull Long id) {
     this.id = id;
   }

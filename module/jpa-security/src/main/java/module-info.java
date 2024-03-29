@@ -5,7 +5,6 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked module com.xenoterracide.model.security {
   requires static org.jspecify;
-  requires static com.xenoterracide.tools.java;
   requires static org.immutables.value.annotations;
   requires static jakarta.annotation;
   requires static org.immutables.builder;

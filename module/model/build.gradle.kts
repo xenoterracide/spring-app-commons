@@ -13,8 +13,6 @@ dependencies {
   api(platform(libs.spring.bom))
   api(libs.spring.data.commons)
 
-  testCompileOnly(libs.java.tools)
-
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.starter.data.jpa)
   testRuntimeOnly(libs.h2)

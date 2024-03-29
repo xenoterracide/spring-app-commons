@@ -7,7 +7,6 @@ import com.xenoterracide.jpa.AbstractAggregate;
 import com.xenoterracide.jpa.AbstractIdentitifier;
 import com.xenoterracide.jpa.AbstractSurrogateEntity;
 import com.xenoterracide.model.Nameable;
-import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -64,7 +63,6 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
     return this.identityProviderUsers;
   }
 
-  @Initializer
   void setIdentityProviderUsers(@NonNull Set<@NonNull IdentityProviderUser> idpUsers) {
     this.identityProviderUsers = idpUsers;
   }
@@ -76,7 +74,6 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
     return this.name;
   }
 
-  @Initializer
   void setName(@NonNull String name) {
     this.name = name;
   }

@@ -4,7 +4,6 @@
 package com.xenoterracide.model.security;
 
 import com.xenoterracide.model.Identifiable;
-import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
@@ -66,7 +65,6 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
     return this.id;
   }
 
-  @Initializer
   void setId(IdentityProviderUser.@NonNull Identifier id) {
     this.id = id;
   }
@@ -115,7 +113,6 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
     return this.user;
   }
 
-  @Initializer
   void setUser(@NonNull User user) {
     this.user = user;
   }
@@ -195,7 +192,6 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
       return this.idP;
     }
 
-    @Initializer
     void setIdP(@NonNull IdP idP) {
       this.idP = idP;
     }
@@ -235,7 +231,6 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
       return this.idPUserId;
     }
 
-    @Initializer
     void setIdPUserId(@NonNull String idPUserId) {
       this.idPUserId = idPUserId;
     }
@@ -244,7 +239,6 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
       return this.userId;
     }
 
-    @Initializer
     void setUserId(User.@NonNull Identifier userId) {
       this.userId = userId;
     }

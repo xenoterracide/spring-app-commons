@@ -13,7 +13,6 @@ dependencies {
   compileOnly(platform(libs.immutables.bom))
   compileOnly(libs.bundles.immutables)
   compileOnly(libs.jspecify)
-  compileOnly(libs.java.tools)
   compileOnly(libs.jakarta.annotation)
 
   api(platform(libs.spring.bom))
@@ -34,7 +33,6 @@ dependencies {
   testFixturesCompileOnly(libs.jspecify)
 
   testFixturesImplementation(libs.uuid.creator)
-  testFixturesImplementation(libs.java.tools)
 
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(projects.testApp)
@@ -47,9 +45,4 @@ dependencies {
   testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)
   testImplementation(libs.spring.boot.test.autoconfigure)
-}
-
-tasks.compileJava {
-  options.release = 17
-  options.compilerArgs.removeIf { it == "-Werror" } // either that or remove specific jpa modelgen warnings
 }
