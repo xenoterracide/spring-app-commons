@@ -57,4 +57,10 @@ dependencies {
 tasks.compileJava {
   options.release = 17
   options.compilerArgs.removeIf { it == "-Werror" } // either that or remove specific jpa modelgen warnings
+  options.compilerArgs.addAll(
+    listOf(
+      "-AaddSuppressWarningsAnnotation=true",
+      "-AaddGeneratedAnnotation=true",
+    ),
+  )
 }
