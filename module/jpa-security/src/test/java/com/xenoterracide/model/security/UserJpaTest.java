@@ -26,12 +26,12 @@ class UserJpaTest {
     em.flush();
     em.clear();
 
-    var u1 = userRepository.findById(u0.getId());
-    assertThat(u1).isPresent();
+    var u1 = userRepository.findById(u0.getId()).orElseThrow();
 
-    var u2 = userRepository.findByIdentityProviderUser(u0.getIdentityProviderUsers().iterator().next().getId());
-    assertThat(u2).isPresent();
+    var u2 = userRepository
+      .findByIdentityProviderUser(u1.getIdentityProviderUsers().iterator().next().getId())
+      .orElseThrow();
 
-    assertThat(u2.get()).isEqualTo(u1.get());
+    assertThat(u2).isEqualTo(u1);
   }
 }

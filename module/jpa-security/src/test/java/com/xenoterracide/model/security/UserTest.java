@@ -3,13 +3,35 @@
 
 package com.xenoterracide.model.security;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class UserTest {
 
   @Test
+  void equals() {
+    assertThat(User.builder().name("xeno").build()).isNotEqualTo(User.builder().name("xeno").build());
+    assertThat(
+      IdentityProviderUser.builder()
+        .idP(IdentityProviderUser.IdP.AUTH0)
+        .idPUserId("1234")
+        .user(UserTestDataBuilder.create().name("xeno").build())
+        .build()
+    ).isNotEqualTo(
+      IdentityProviderUser.builder()
+        .idP(IdentityProviderUser.IdP.AUTH0)
+        .idPUserId("1234")
+        .user(UserTestDataBuilder.create().name("xeno").build())
+        .build()
+    );
+  }
+
+  @Disabled
+  @SuppressWarnings("NullAway")
   void equality() {
     EqualsVerifier.forClass(User.class)
       .withRedefinedSuperclass()

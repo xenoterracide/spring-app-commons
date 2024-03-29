@@ -131,7 +131,6 @@ tasks.withType<JavaCompile>().configureEach {
       "JavaLangClash",
       "JavaLocalDateTimeGetNano",
       "JavaLocalTimeGetNano",
-      "JavaTimeDefaultTimeZone",
       "LockNotBeforeTry",
       "LockOnBoxedPrimitive",
       "LogicalAssignment",
@@ -244,7 +243,7 @@ tasks.withType<JavaCompile>().configureEach {
 
     if (name != "compileTestJava") {
       option("NullAway:CheckOptionalEmptiness", true)
-      errors.add("NullAway")
+      errors.addAll(listOf("NullAway", "JavaTimeDefaultTimeZone"))
     }
 
     if (name == "compileTestJava") {
@@ -254,6 +253,7 @@ tasks.withType<JavaCompile>().configureEach {
           "-Xlint:-varargs",
         ),
       )
+      disable("JavaTimeDefaultTimeZone")
       option("NullAway:HandleTestAssertionLibraries", true)
       option("NullAway:ExcludedFieldAnnotations", "org.junit.jupiter.api.io.TempDir")
     }
