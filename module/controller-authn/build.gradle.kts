@@ -16,17 +16,10 @@ tasks.javadoc {
 dependencies {
   implementation(platform(libs.spring.bom))
   implementation(libs.spring.boot.autoconfigure)
-  implementation(libs.spring.test)
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.log4j2)
-  runtimeOnly(libs.spring.test)
-
-  testCompileOnly(platform(libs.spring.bom))
-  testCompileOnly(libs.spring.test)
-
-  testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.spring.beans)
-  testImplementation(libs.spring.context)
-  testImplementation(libs.spring.boot.test.core)
+  runtimeOnly(libs.starter.security)
+  runtimeOnly(libs.starter.web)
+  runtimeOnly(libs.starter.oauth2.client)
 }
