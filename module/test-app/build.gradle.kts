@@ -20,7 +20,6 @@ dependencies {
   implementation(platform(libs.spring.bom))
   implementation(libs.spring.boot.autoconfigure)
   implementation(libs.spring.test)
-  implementation(libs.spring.boot.test.autoconfigure)
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.log4j2)
