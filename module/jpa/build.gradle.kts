@@ -9,7 +9,6 @@ dependencies {
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(libs.hibernate.jpa.modelgen)
 
-  compileOnly(libs.jspecify)
   compileOnly(libs.java.tools)
 
   api(platform(libs.spring.bom))
@@ -29,6 +28,17 @@ dependencies {
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)
 
+  testImplementation(platform(libs.spring.bom))
+  testImplementation(libs.spring.data.jpa)
+  testImplementation(libs.spring.orm)
+  testImplementation(libs.spring.test)
+  testImplementation(libs.equalsverifier)
+  testImplementation(libs.spring.boot.test.autoconfigure)
+  testImplementation(libs.uuid.creator)
+  testImplementation(libs.hibernate.orm.core)
+  testImplementation(libs.spring.boot.test.core)
+  testImplementation(libs.java.tools)
+
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.starter.validation)
@@ -36,18 +46,6 @@ dependencies {
   testRuntimeOnly(libs.starter.aop)
   testRuntimeOnly(projects.testApp)
   testRuntimeOnly(libs.spring.data.envers)
-
-  testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.spring.data.jpa)
-  testImplementation(libs.spring.orm)
-  testImplementation(libs.spring.test)
-  testImplementation(libs.junit.api)
-  testImplementation(libs.equalsverifier)
-  testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.uuid.creator)
-  testImplementation(libs.hibernate.orm.core)
-  testImplementation(libs.spring.boot.test.core)
-  testImplementation(libs.java.tools)
 }
 
 tasks.compileJava {

@@ -22,65 +22,63 @@ import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.AuditMappedBy;
 import org.hibernate.envers.Audited;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Audited
-public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @NonNull FooAggregate> {
+public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregate> {
 
   private String name;
 
-  private Set<@NonNull BarEntity> bars = new HashSet<>();
+  private Set<BarEntity> bars = new HashSet<>();
 
   protected FooAggregate() {}
 
-  public FooAggregate(@NonNull Id id, @NonNull String name) {
+  public FooAggregate(Id id, String name) {
     super(id);
     this.name = name;
   }
 
-  static @NonNull FooAggregate create(@NonNull String name) {
+  static FooAggregate create(String name) {
     return new FooAggregate(Id.create(), name);
   }
 
-  protected void registerEvent(@NonNull EntityIdentifier<BarEntity.@NonNull Id, @NonNull BarEntity> event) {
+  protected void registerEvent(EntityIdentifier<BarEntity.Id, BarEntity> event) {
     super.registerEvent(FooEvent.create(this.getId(), event));
   }
 
-  public @NonNull BarEntity addBar(@NonNull String name) {
+  public BarEntity addBar(String name) {
     var bar = BarEntity.create(this, name);
     this.bars.add(bar);
     return bar;
   }
 
-  public void changeBarName(BarEntity.@NonNull Id id, @NonNull String name) {
+  public void changeBarName(BarEntity.Id id, String name) {
     this.bars.stream().filter(prop(Identifiable::getId, isEqual(id))).findAny().ifPresent(e -> e.changeName(name));
   }
 
   @AuditMappedBy(mappedBy = "foo")
   @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "foo")
-  @NonNull
-  Set<@NonNull BarEntity> getBars() {
+  Set<BarEntity> getBars() {
     return this.bars;
   }
 
-  void setBars(@NonNull Set<@NonNull BarEntity> bars) {
+  void setBars(Set<BarEntity> bars) {
     this.bars = bars;
   }
 
   @NotNull
   @Column(nullable = false)
-  public @NonNull String getName() {
+  public String getName() {
     return name;
   }
 
   @Initializer
-  void setName(@NonNull String name) {
+  void setName(String name) {
     this.name = name;
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
+  protected boolean canEqual(AbstractSurrogateEntity<?> that) {
     return that instanceof FooAggregate;
   }
 
@@ -91,7 +89,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
 
     protected Id() {}
 
-    private Id(@NonNull UUID id) {
+    private Id(UUID id) {
       super(id);
     }
 
@@ -100,7 +98,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
+    protected boolean canEqual(AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }

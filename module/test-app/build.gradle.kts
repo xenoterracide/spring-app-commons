@@ -14,9 +14,6 @@ tasks.javadoc {
 }
 
 dependencies {
-  compileOnly(platform(libs.spring.bom))
-  compileOnly(libs.bundles.compile.annotations)
-
   implementation(platform(libs.spring.bom))
   implementation(libs.spring.boot.autoconfigure)
   implementation(libs.spring.test)
@@ -29,11 +26,7 @@ dependencies {
   testCompileOnly(libs.spring.test)
 
   testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.junit.api)
   testImplementation(libs.spring.beans)
   testImplementation(libs.spring.context)
   testImplementation(libs.spring.boot.test.core)
-
-  testRuntimeOnly(platform(libs.spring.bom))
-  testRuntimeOnly(libs.bundles.junit.platform)
 }

@@ -6,10 +6,6 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 plugins { our.javalibrary }
 
 dependencies {
-  annotationProcessor(platform(libs.spring.bom))
-
-  compileOnly(libs.jspecify)
-
   api(platform(libs.spring.bom))
   api(libs.spring.data.commons)
 
@@ -17,7 +13,6 @@ dependencies {
   testImplementation(libs.java.tools)
   testImplementation(libs.jakarta.persistence)
   testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.junit.api)
   testImplementation(libs.spring.beans)
 
   testRuntimeOnly(platform(libs.spring.bom))

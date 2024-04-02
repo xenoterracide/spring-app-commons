@@ -14,8 +14,10 @@ val libs = the<LibrariesForLibs>()
 
 dependencies {
   testImplementation(platform(libs.junit.bom))
-  testImplementation(libs.bundles.test)
-  testRuntimeOnly(libs.bundles.junit.platform)
+  testImplementation(libs.bundles.test.impl)
+
+  testRuntimeOnly(platform(libs.junit.bom))
+  testRuntimeOnly(libs.bundles.test.runtime)
 }
 
 val available = tasks.register("tests available") {

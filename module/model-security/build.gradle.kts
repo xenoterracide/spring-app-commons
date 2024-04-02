@@ -13,9 +13,7 @@ dependencies {
 
   compileOnly(platform(libs.immutables.bom))
   compileOnly(libs.bundles.immutables)
-  compileOnly(libs.jspecify)
   compileOnly(libs.java.tools)
-  compileOnly(libs.jakarta.annotation)
 
   api(platform(libs.spring.bom))
   api(projects.jpa)
@@ -41,7 +39,6 @@ dependencies {
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.equalsverifier)
-  testImplementation(libs.junit.api)
   testImplementation(libs.spring.beans)
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.spring.test)

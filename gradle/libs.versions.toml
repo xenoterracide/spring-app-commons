@@ -92,12 +92,12 @@ uuid-creator = "com.github.f4b6a3:uuid-creator:5.+"
 vavr = "io.vavr:vavr:0.+"
 
 [bundles]
-compile-annotations = ["jakarta-annotation", "jspecify"]
+compile = ["jakarta-annotation", "jspecify"]
 immutables = ["immutables-annotations", "immutables-builder", "immutables-annotate"]
 ep = ["errorprone-core", "errorprone-nullaway"]
 jackson-config = ["jackson-core", "jackson-module-parameter-names"]
-test = ["assertj", "junit-parameters"]
-junit-platform = ["junit-engine", "junit-launcher"]
+test-impl = ["junit-api", "assertj", "junit-parameters"]
+test-runtime = ["junit-engine", "junit-launcher"]
 spring-test = ["spring-test", "spring-boot-test-core", "spring-boot-autoconfigure", "spring-boot-test-autoconfigure"]
 
 [plugins]
