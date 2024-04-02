@@ -4,9 +4,11 @@
 package com.xenoterracide;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.test.context.ActiveProfiles;
 
 /**
  * Test application.
  */
+@ActiveProfiles("test")
 @SpringBootApplication
 class TestApplication {}
