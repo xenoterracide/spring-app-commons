@@ -18,9 +18,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.history.Revision;
 import org.springframework.data.history.RevisionMetadata;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.support.TransactionTemplate;
 
+@ActiveProfiles("test-jpa")
 @SpringBootTest
 @AutoConfigureDataJpa
 @AutoConfigureTestDatabase

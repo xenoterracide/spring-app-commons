@@ -14,16 +14,16 @@ tasks.javadoc {
 }
 
 dependencies {
-  compileOnlyApi(libs.jspecify)
-  runtimeOnly(platform(libs.spring.bom))
-  runtimeOnly(libs.starter.log4j2)
-  runtimeOnly(libs.spring.test)
+  compileOnly(platform(libs.spring.bom))
+  compileOnly(libs.bundles.compile.annotations)
 
   implementation(platform(libs.spring.bom))
   implementation(libs.spring.boot.autoconfigure)
+  implementation(libs.spring.test)
 
-  testRuntimeOnly(platform(libs.spring.bom))
-  testRuntimeOnly(libs.bundles.junit.platform)
+  runtimeOnly(platform(libs.spring.bom))
+  runtimeOnly(libs.starter.log4j2)
+  runtimeOnly(libs.spring.test)
 
   testCompileOnly(platform(libs.spring.bom))
   testCompileOnly(libs.spring.test)
@@ -33,4 +33,7 @@ dependencies {
   testImplementation(libs.spring.beans)
   testImplementation(libs.spring.context)
   testImplementation(libs.spring.boot.test.core)
+
+  testRuntimeOnly(platform(libs.spring.bom))
+  testRuntimeOnly(libs.bundles.junit.platform)
 }

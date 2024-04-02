@@ -40,10 +40,11 @@ dependencies {
   testFixturesImplementation(projects.model)
 
   testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.junit.api)
   testImplementation(libs.equalsverifier)
-  testImplementation(libs.spring.boot.test.autoconfigure)
+  testImplementation(libs.junit.api)
   testImplementation(libs.spring.beans)
+  testImplementation(libs.spring.boot.test.autoconfigure)
+  testImplementation(libs.spring.test)
   testImplementation(projects.modelSecurity)
 
   testRuntimeOnly(platform(libs.spring.bom))
