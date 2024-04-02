@@ -1,15 +1,28 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: MIT
 
+import com.github.spotbugs.snom.SpotBugsTask
+
+// © Copyright 2024 Caleb Cushing
+// SPDX-License-Identifier: MIT
+
 plugins {
   our.javalibrary
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>().configureEach {
   enabled = false
 }
 
-tasks.withType<JacocoCoverageVerification> {
+tasks.withType<JacocoCoverageVerification>().configureEach {
+  enabled = false
+}
+
+tasks.withType<SpotBugsTask>().configureEach {
+  enabled = false
+}
+
+tasks.withType<Javadoc>().configureEach {
   enabled = false
 }
 
