@@ -44,7 +44,7 @@ dependencies {
   testImplementation(libs.equalsverifier)
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.spring.beans)
-  testImplementation(projects.jpaSecurity)
+  testImplementation(projects.modelSecurity)
 
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(projects.testApp)
