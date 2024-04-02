@@ -18,19 +18,18 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.UUID;
 import org.hibernate.envers.Audited;
-import org.jspecify.annotations.NonNull;
 
 @Audited
 @Entity
-public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
+public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id", "name" };
 
-  private @NonNull String name;
+  private String name;
 
-  private @NonNull FooAggregate foo;
+  private FooAggregate foo;
 
-  BarEntity(@NonNull Id id, @NonNull FooAggregate foo, @NonNull String name) {
+  BarEntity(Id id, FooAggregate foo, String name) {
     super(id);
     this.foo = foo;
     this.name = name;
@@ -38,7 +37,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
 
   public BarEntity() {}
 
-  static @NonNull BarEntity create(@NonNull FooAggregate foo, @NonNull String name) {
+  static BarEntity create(FooAggregate foo, String name) {
     return new BarEntity(BarEntity.Id.create(), foo, name);
   }
 
@@ -48,38 +47,38 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
     cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }
   )
   @JoinColumn(nullable = false, updatable = false, name = "foo_id", foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
-  public @NonNull FooAggregate getFoo() {
+  public FooAggregate getFoo() {
     return foo;
   }
 
   @Initializer
-  void setFoo(@NonNull FooAggregate foo) {
+  void setFoo(FooAggregate foo) {
     this.foo = foo;
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
+  protected boolean canEqual(AbstractSurrogateEntity<?> that) {
     return that instanceof BarEntity;
   }
 
   @NotNull
   @Column(nullable = false)
-  public @NonNull String getName() {
+  public String getName() {
     return name;
   }
 
-  void setName(@NonNull String name) {
+  void setName(String name) {
     this.name = name;
   }
 
-  void changeName(@NonNull String name) {
+  void changeName(String name) {
     this.setName(name);
     this.markDirty();
     this.foo.registerEvent(new NameChanged(this.getId(), name));
   }
 
   @Override
-  protected String@NonNull[] includedFieldsInToString() {
+  protected String[] includedFieldsInToString() {
     return INCLUDED_FIELDS_IN_TO_STRING;
   }
 
@@ -90,7 +89,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
 
     protected Id() {}
 
-    private Id(@NonNull UUID id) {
+    private Id(UUID id) {
       super(id);
     }
 
@@ -99,14 +98,13 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id> {
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
+    protected boolean canEqual(AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }
 
-  record NameChanged(BarEntity.@NonNull Id id, @NonNull String name, @NonNull Class<BarEntity> type)
-    implements EntityIdentifier<@NonNull Id, @NonNull BarEntity> {
-    NameChanged(BarEntity.@NonNull Id id, @NonNull String name) {
+  record NameChanged(BarEntity.Id id, String name, Class<BarEntity> type) implements EntityIdentifier<Id, BarEntity> {
+    NameChanged(BarEntity.Id id, String name) {
       this(id, name, BarEntity.class);
     }
   }

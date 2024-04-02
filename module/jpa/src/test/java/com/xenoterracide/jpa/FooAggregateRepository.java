@@ -3,7 +3,6 @@
 
 package com.xenoterracide.jpa;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.history.RevisionRepository;
@@ -11,7 +10,6 @@ import org.springframework.data.repository.history.RevisionRepository;
 public interface FooAggregateRepository
   extends JpaRepository<FooAggregate, FooAggregate.Id>, RevisionRepository<FooAggregate, FooAggregate.Id, Integer> {
   @Query("from FooAggregate f inner join fetch f.bars where f.id = :id")
-  @NonNull
   FooAggregate findOneById(FooAggregate.Id id);
 
   @Query("from BarEntity b where b.id = :id")

@@ -4,8 +4,7 @@
 package com.xenoterracide.model;
 
 import java.util.Optional;
-import org.jspecify.annotations.NonNull;
 
-interface FooRepository extends WritableRepository<Foo, @NonNull Long> {
-  Optional<Foo> findById(@NonNull Long id);
+interface FooRepository extends WritableRepository<Foo, Long> {
+  Optional<Foo> findById(Long id);
 }
