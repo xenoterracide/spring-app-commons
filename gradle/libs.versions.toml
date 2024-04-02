@@ -76,6 +76,7 @@ spring-security-oauth2-authorization-server = { module = "org.springframework.se
 spring-security-oauth2-core = { module = "org.springframework.security:spring-security-oauth2" }
 spring-data-commons = { module = "org.springframework.data:spring-data-commons" }
 spring-data-neo4j = { module = "org.springframework.data:spring-data-neo4j" }
+spring-web = { module = "org.springframework:spring-web" }
 starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
 starter-core = { module = "org.springframework.boot:spring-boot-starter" }
