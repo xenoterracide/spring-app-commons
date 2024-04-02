@@ -4,7 +4,7 @@ on:
     branches: [main, ci/codeql]
   workflow_call:
 jobs:
-  analyze:
+  codeql:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
