@@ -46,12 +46,6 @@ dependencies {
   demoServerImplementation(libs.spring.security.core)
   demoServerImplementation(libs.spring.security.web)
 }
-/*
-tasks.withType<Application>().configureEach {
-  sourceResources(demoServer)
-  mainClass.set("com.xenoterracide.controller.authn.ResourceServer")
-}
- */
 
 tasks.withType<Test>().configureEach {
   enabled = false

@@ -13,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @SpringBootApplication
 public class ResourceServer {
 
+  ResourceServer() {}
+
   public static void main(String[] args) {
     SpringApplication.run(ResourceServer.class, args);
   }
@@ -20,7 +22,7 @@ public class ResourceServer {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
-      .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+      .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
       .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
       .httpBasic(c -> c.disable())
       .formLogin(f -> f.disable());
