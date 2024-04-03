@@ -110,3 +110,4 @@ dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version =
 gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "1.+" }
 shadow = { id = "com.github.johnrengelman.shadow", version = "8.+" }
 semver = { id = "com.xenoterracide.gradle.semver", version = "0.9.+" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring" }

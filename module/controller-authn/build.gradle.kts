@@ -39,7 +39,6 @@ dependencies {
   demoServerRuntimeOnly(platform(libs.spring.bom))
   demoServerRuntimeOnly(testFixtures(project))
   demoServerRuntimeOnly(libs.spring.boot.devtools)
-  demoServerRuntimeOnly(libs.starter.oauth2.resource.server)
 
   demoServerImplementation(platform(libs.spring.bom))
   demoServerImplementation(libs.spring.boot.autoconfigure)
@@ -47,6 +46,12 @@ dependencies {
   demoServerImplementation(libs.spring.security.core)
   demoServerImplementation(libs.spring.security.web)
 }
+/*
+tasks.withType<Application>().configureEach {
+  sourceResources(demoServer)
+  mainClass.set("com.xenoterracide.controller.authn.ResourceServer")
+}
+ */
 
 tasks.withType<Test>().configureEach {
   enabled = false
