@@ -19,7 +19,6 @@ dependencies {
   implementation(libs.spring.test)
 
   runtimeOnly(platform(libs.spring.bom))
-  runtimeOnly(libs.starter.log4j2)
   runtimeOnly(libs.spring.test)
 
   testCompileOnly(platform(libs.spring.bom))
