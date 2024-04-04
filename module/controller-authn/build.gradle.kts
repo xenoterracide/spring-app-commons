@@ -26,6 +26,7 @@ dependencies {
 
   testFixturesImplementation(platform(libs.spring.bom))
   testFixturesImplementation(libs.log4j.api)
+  testFixturesImplementation(libs.spring.security.core)
   testFixturesImplementation(libs.spring.web)
 
   testImplementation(platform(libs.spring.bom))
