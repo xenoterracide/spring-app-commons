@@ -19,7 +19,7 @@ configurations.configureEach {
 
   resolutionStrategy {
     // we really want to do a full timestamp based lock, but this'll have to do for now
-    cacheChangingModulesFor(5, TimeUnit.MINUTES)
+    // cacheChangingModulesFor(5, TimeUnit.MINUTES)
     componentSelection {
       all {
         val spotbugs = Regex("^spotbugs.*")

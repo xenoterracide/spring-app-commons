@@ -8,18 +8,20 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class OidcTestController {
+public class OidcTestController {
 
   private final Logger log = LogManager.getLogger(this.getClass());
 
-  @GetMapping
+  @CrossOrigin(originPatterns = "*")
+  @GetMapping("/api/external")
   @NonNull
-  String index(@Nullable Authentication details) {
-    log.info("{}", details);
+  public String index(@Nullable Authentication details) {
+    this.log.info("{}", details);
     var name = details != null ? details.getName() : "world";
     return "Hello, " + name;
   }

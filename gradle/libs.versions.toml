@@ -36,6 +36,7 @@ jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackso
 java-parser = "com.github.javaparser:javaparser-core:3.+"
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
 jakarta-persistence = { module = "jakarta.persistence:jakarta.persistence-api" }
+jakarta-servlet = { module = "jakarta.servlet:jakarta.servlet-api" }
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
 jetbrains-annotations = "org.jetbrains:annotations:+"
 jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
@@ -57,8 +58,9 @@ slf4j-nop = { module = "org.slf4j:slf4j-nop" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple" }
 spotbugs = "com.github.spotbugs:spotbugs:4.+"
 spring-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring" }
-spring-boot-core = { module = "org.springframework.boot:spring-boot" }
 spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
+spring-boot-actuator = { module = "org.springframework.boot:spring-boot-actuator" }
+spring-boot-core = { module = "org.springframework.boot:spring-boot" }
 spring-boot-test-core = { module = "org.springframework.boot:spring-boot-test" }
 spring-boot-test-autoconfigure = { module = "org.springframework.boot:spring-boot-test-autoconfigure" }
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
@@ -79,6 +81,7 @@ spring-security-web = { module = "org.springframework.security:spring-security-w
 spring-data-commons = { module = "org.springframework.data:spring-data-commons" }
 spring-data-neo4j = { module = "org.springframework.data:spring-data-neo4j" }
 spring-web = { module = "org.springframework:spring-web" }
+spring-webmvc = { module = "org.springframework:spring-webmvc" }
 starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
 starter-core = { module = "org.springframework.boot:spring-boot-starter" }

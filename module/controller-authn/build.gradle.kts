@@ -38,14 +38,30 @@ dependencies {
   // testRuntimeOnly(projects.testApp)
 
   demoServerRuntimeOnly(platform(libs.spring.bom))
-  demoServerRuntimeOnly(testFixtures(project))
   demoServerRuntimeOnly(libs.spring.boot.devtools)
+  demoServerRuntimeOnly(libs.starter.actuator)
+  demoServerRuntimeOnly(libs.starter.log4j2)
+  demoServerRuntimeOnly(libs.starter.web)
+  demoServerRuntimeOnly(libs.starter.security)
+  demoServerRuntimeOnly(libs.starter.oauth2.resource.server)
 
   demoServerImplementation(platform(libs.spring.bom))
+  demoServerImplementation(libs.jakarta.servlet)
   demoServerImplementation(libs.spring.boot.autoconfigure)
   demoServerImplementation(libs.spring.security.config)
   demoServerImplementation(libs.spring.security.core)
   demoServerImplementation(libs.spring.security.web)
+  demoServerImplementation(libs.spring.webmvc)
+  demoServerImplementation(libs.spring.boot.actuator)
+  demoServerImplementation(libs.log4j.api)
+  modules {
+    module("org.springframework.boot:spring-boot-starter-logging") {
+      replacedBy(
+        "org.springframework.boot:spring-boot-starter-log4j2",
+        "Use Log4j2 instead of Logback",
+      )
+    }
+  }
 }
 
 tasks.withType<Test>().configureEach {
