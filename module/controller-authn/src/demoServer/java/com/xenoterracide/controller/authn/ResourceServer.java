@@ -10,6 +10,7 @@ import org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository;
 import org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.security.config.Customizer;
@@ -24,6 +25,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
+@PropertySource(
+  value = "file:///${user.home}/.config/spring-boot/application-${spring.application.name}.properties",
+  ignoreResourceNotFound = true
+)
 @SpringBootApplication
 public class ResourceServer {
 
