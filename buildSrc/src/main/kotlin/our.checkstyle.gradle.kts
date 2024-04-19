@@ -16,18 +16,12 @@ tasks.withType<Checkstyle>().configureEach {
 
 fun checkstyleConfig(filename: String): File {
   val path = ".config/checkstyle/$filename"
-  val f = file(path)
+  val f = layout.projectDirectory.file(path).asFile
   return if (f.exists()) f else rootProject.file(path)
 }
 
-tasks.named<Checkstyle>("checkstyleMain") {
-  configFile = checkstyleConfig("main.xml")
-}
-
-tasks.named<Checkstyle>("checkstyleTestFixtures") {
-  configFile = checkstyleConfig("testFixtures.xml")
-}
-
-tasks.named<Checkstyle>("checkstyleTest") {
-  configFile = checkstyleConfig("test.xml")
+tasks.withType<Checkstyle>().configureEach {
+  this.name.substringAfter("checkstyle").replaceFirstChar { it.lowercase() }.let { filename ->
+    configFile = checkstyleConfig("$filename.xml")
+  }
 }

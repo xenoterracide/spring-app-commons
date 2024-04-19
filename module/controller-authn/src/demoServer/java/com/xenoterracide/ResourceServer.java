@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * The main class for the demo resource server.
+ */
 @PropertySource(
   value = "file:///${user.home}/.config/spring-boot/application-${spring.application.name}.properties",
   ignoreResourceNotFound = true
@@ -22,6 +25,11 @@ public class ResourceServer {
 
   ResourceServer() {}
 
+  /**
+   * The main method for the resource server.
+   *
+   * @param args the command-line arguments
+   */
   public static void main(String[] args) {
     SpringApplication.run(ResourceServer.class, args);
   }
