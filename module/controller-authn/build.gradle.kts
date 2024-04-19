@@ -19,6 +19,11 @@ val demoServerImplementation by configurations.existing
 val demoServerRuntimeOnly by configurations.existing
 
 dependencies {
+  implementation(platform(libs.spring.bom))
+  implementation(libs.spring.security.config)
+  implementation(libs.spring.security.core)
+  implementation(libs.spring.security.web)
+
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.security)
   runtimeOnly(libs.starter.web)
@@ -38,6 +43,7 @@ dependencies {
   // testRuntimeOnly(projects.testApp)
 
   demoServerRuntimeOnly(platform(libs.spring.bom))
+  demoServerRuntimeOnly(testFixtures(project))
   demoServerRuntimeOnly(libs.spring.boot.devtools)
   demoServerRuntimeOnly(libs.starter.actuator)
   demoServerRuntimeOnly(libs.starter.log4j2)
