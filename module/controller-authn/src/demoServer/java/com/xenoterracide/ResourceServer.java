@@ -1,7 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.controller.authn;
+package com.xenoterracide;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository;
@@ -9,9 +9,7 @@ import org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeReposi
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,18 +17,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
   value = "file:///${user.home}/.config/spring-boot/application-${spring.application.name}.properties",
   ignoreResourceNotFound = true
 )
-@SpringBootApplication
+@SpringBootApplication(proxyBeanMethods = false)
 public class ResourceServer {
 
   ResourceServer() {}
 
   public static void main(String[] args) {
     SpringApplication.run(ResourceServer.class, args);
-  }
-
-  @Bean
-  SecurityFilterChain demoFilterChain(HttpSecurity http) throws Exception {
-    return http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).build();
   }
 
   @Bean
