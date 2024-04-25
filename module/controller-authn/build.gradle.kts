@@ -17,12 +17,13 @@ java {
 
 val demoServerImplementation by configurations.existing
 val demoServerRuntimeOnly by configurations.existing
+val demoServerApi by configurations.existing
 
 dependencies {
   implementation(platform(libs.spring.bom))
   implementation(libs.spring.security.config)
-  implementation(libs.spring.security.core)
   implementation(libs.spring.security.web)
+  implementation(libs.spring.context)
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.security)
@@ -42,6 +43,17 @@ dependencies {
   testRuntimeOnly(libs.starter.webflux)
   testRuntimeOnly(projects.testApp)
 
+  demoServerApi(platform(libs.spring.bom))
+  demoServerApi(libs.spring.context)
+
+  demoServerImplementation(platform(libs.spring.bom))
+  demoServerImplementation(libs.spring.boot.autoconfigure)
+  demoServerImplementation(libs.spring.security.config)
+  demoServerImplementation(libs.spring.webmvc)
+  demoServerImplementation(libs.spring.boot.actuator)
+  demoServerImplementation(libs.log4j.api)
+  demoServerImplementation(libs.spring.boot.core)
+
   demoServerRuntimeOnly(platform(libs.spring.bom))
   demoServerRuntimeOnly(testFixtures(project))
   demoServerRuntimeOnly(libs.spring.boot.devtools)
@@ -51,15 +63,6 @@ dependencies {
   demoServerRuntimeOnly(libs.starter.security)
   demoServerRuntimeOnly(libs.starter.oauth2.resource.server)
 
-  demoServerImplementation(platform(libs.spring.bom))
-  demoServerImplementation(libs.jakarta.servlet)
-  demoServerImplementation(libs.spring.boot.autoconfigure)
-  demoServerImplementation(libs.spring.security.config)
-  demoServerImplementation(libs.spring.security.core)
-  demoServerImplementation(libs.spring.security.web)
-  demoServerImplementation(libs.spring.webmvc)
-  demoServerImplementation(libs.spring.boot.actuator)
-  demoServerImplementation(libs.log4j.api)
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
       replacedBy(
