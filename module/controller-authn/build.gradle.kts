@@ -40,7 +40,7 @@ dependencies {
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.starter.web)
   testRuntimeOnly(libs.starter.webflux)
-  // testRuntimeOnly(projects.testApp)
+  testRuntimeOnly(projects.testApp)
 
   demoServerRuntimeOnly(platform(libs.spring.bom))
   demoServerRuntimeOnly(testFixtures(project))
