@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class OidcTestController {
+class OidcFakeController {
 
   private final Logger log = LogManager.getLogger(this.getClass());
 
