@@ -25,8 +25,9 @@ configurations.configureEach {
         val group = Regex("^com.xenoterracide$")
         if (!candidate.group.matches(group) && !name.matches(module) && !candidate.module.matches(module)) {
           if (candidate.version.matches(nonRelease)) reject("no pre-release")
+          if (candidate.version.endsWith("-SNAPSHOT")) reject("no snapshots")
         } else if (candidate.version.matches(nonRelease)) {
-          logger.quiet("allowing: {}:{}:{}", candidate.group, candidate.module, candidate.version)
+          logger.info("allowing: {}:{}:{}", candidate.group, candidate.module, candidate.version)
         }
 
         if (candidate.module == "nullaway") {
