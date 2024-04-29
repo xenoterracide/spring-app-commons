@@ -106,7 +106,7 @@ ep = ["errorprone-core", "errorprone-nullaway"]
 jackson-config = ["jackson-core", "jackson-module-parameter-names"]
 test-impl = ["junit-api", "assertj", "junit-parameters"]
 test-runtime = ["junit-engine", "junit-launcher"]
-spring-test = ["spring-test", "spring-boot-test-core", "spring-boot-autoconfigure", "spring-boot-test-autoconfigure"]
+spring-test = ["spring-test", "spring-boot-test-core", "spring-boot-test-autoconfigure"]
 
 [plugins]
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version = "1.+" }

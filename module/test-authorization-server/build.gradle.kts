@@ -8,9 +8,12 @@ plugins {
 }
 
 dependencies {
+  api(platform(libs.spring.bom))
+  api(libs.spring.boot.autoconfigure)
+
   implementation(platform(libs.spring.bom))
-  implementation(libs.spring.boot.autoconfigure)
   implementation(libs.spring.boot.core)
+  implementation(libs.spring.context)
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.security)
@@ -21,5 +24,4 @@ dependencies {
   testImplementation(libs.bundles.spring.test)
   testImplementation(libs.starter.web)
   testImplementation(libs.starter.webflux)
-  testImplementation(libs.spring.security.core)
 }

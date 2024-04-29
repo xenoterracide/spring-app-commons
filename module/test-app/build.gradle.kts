@@ -17,6 +17,7 @@ dependencies {
   implementation(platform(libs.spring.bom))
   implementation(libs.spring.boot.autoconfigure)
   implementation(libs.spring.test)
+  implementation(libs.spring.context)
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.spring.test)
@@ -26,6 +27,5 @@ dependencies {
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.spring.beans)
-  testImplementation(libs.spring.context)
   testImplementation(libs.spring.boot.test.core)
 }

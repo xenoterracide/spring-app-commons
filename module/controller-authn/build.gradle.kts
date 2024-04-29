@@ -45,13 +45,12 @@ dependencies {
 
   demoServerApi(platform(libs.spring.bom))
   demoServerApi(libs.spring.context)
+  demoServerApi(libs.spring.boot.autoconfigure)
 
   demoServerImplementation(platform(libs.spring.bom))
-  demoServerImplementation(libs.spring.boot.autoconfigure)
   demoServerImplementation(libs.spring.security.config)
   demoServerImplementation(libs.spring.webmvc)
   demoServerImplementation(libs.spring.boot.actuator)
-  demoServerImplementation(libs.log4j.api)
   demoServerImplementation(libs.spring.boot.core)
 
   demoServerRuntimeOnly(platform(libs.spring.bom))

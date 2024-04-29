@@ -33,7 +33,6 @@ dependencies {
   testFixturesCompileOnly(libs.jspecify)
 
   testFixturesImplementation(libs.uuid.creator)
-  testFixturesImplementation(libs.java.tools)
   testFixturesImplementation(libs.jakarta.annotation)
   testFixturesImplementation(projects.model)
 
