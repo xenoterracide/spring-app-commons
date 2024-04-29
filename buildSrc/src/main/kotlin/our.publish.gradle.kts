@@ -11,7 +11,7 @@ val username = "xenoterracide"
 val githubUrl = "https://github.com"
 val repoShort = "$username/$repo"
 
-version = semver.maven
+version = semver.gitDescribed
 
 publishing {
   publications {
