@@ -27,7 +27,7 @@ configurations.configureEach {
           if (candidate.version.matches(nonRelease)) reject("no pre-release")
           if (candidate.version.endsWith("-SNAPSHOT")) reject("no snapshots")
         } else if (candidate.version.matches(nonRelease)) {
-          logger.info("allowing: {}:{}:{}", candidate.group, candidate.module, candidate.version)
+          logger.info("allowing: {}", candidate)
         }
 
         if (candidate.module == "nullaway") {
