@@ -33,7 +33,6 @@ dependencies {
   testFixturesCompileOnly(libs.jspecify)
 
   testFixturesImplementation(libs.uuid.creator)
-  testFixturesImplementation(libs.java.tools)
   testFixturesImplementation(libs.jakarta.annotation)
   testFixturesImplementation(projects.model)
 
@@ -54,7 +53,6 @@ dependencies {
 
 tasks.compileJava {
   options.release = 17
-  options.compilerArgs.removeIf { it == "-Werror" } // either that or remove specific jpa modelgen warnings
   options.compilerArgs.addAll(
     listOf(
       "-AaddSuppressWarningsAnnotation=true",

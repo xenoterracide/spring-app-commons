@@ -39,6 +39,8 @@ dependencies {
   testImplementation(libs.spring.boot.test.core)
   testImplementation(libs.java.tools)
 
+  testCompileOnly(libs.jspecify)
+
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.starter.validation)
@@ -50,7 +52,6 @@ dependencies {
 
 tasks.compileJava {
   options.release = 17
-  options.compilerArgs.removeIf { it == "-Werror" } // either that or remove specific jpa modelgen warnings
   options.compilerArgs.addAll(
     listOf(
       "-AaddSuppressWarningsAnnotation=true",

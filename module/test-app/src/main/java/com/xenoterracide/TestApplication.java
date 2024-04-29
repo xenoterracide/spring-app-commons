@@ -4,6 +4,7 @@
 package com.xenoterracide;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 
 /**
@@ -11,4 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
  */
 @ActiveProfiles("test")
 @SpringBootApplication
+@PropertySource(
+  value = "file:///${user.home}/.config/spring-boot/application-${spring.application.name}.properties",
+  ignoreResourceNotFound = true
+)
 class TestApplication {}

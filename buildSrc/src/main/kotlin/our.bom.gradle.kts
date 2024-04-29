@@ -19,7 +19,7 @@ configurations.configureEach {
 
   resolutionStrategy {
     // we really want to do a full timestamp based lock, but this'll have to do for now
-    cacheChangingModulesFor(5, TimeUnit.MINUTES)
+    // cacheChangingModulesFor(5, TimeUnit.MINUTES)
     componentSelection {
       all {
         val spotbugs = Regex("^spotbugs.*")
@@ -41,9 +41,12 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
   exclude(group = "com.google.code.findbugs", module = "jsr305")
   exclude(group = "com.google.errorprone", module = "error_prone_annotations")
   exclude(group = "org.checkerframework", module = "checker-qual")
+  exclude(group = "ch.qos.logback", module = "logback-classic")
 }
 
 dependencies {
+  runtimeOnly(platform(libs.spring.bom))
+  runtimeOnly(libs.starter.log4j2)
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
       replacedBy(

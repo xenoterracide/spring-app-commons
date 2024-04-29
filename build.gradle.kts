@@ -24,8 +24,19 @@ dependencyAnalysis {
         severity("fail")
       }
       onUnusedDependencies {
-        exclude(libs.java.tools)
         exclude(libs.junit.parameters)
+        exclude(libs.assertj)
+        exclude(libs.spring.test)
+        exclude(libs.spring.boot.test.autoconfigure)
+        exclude(libs.spring.boot.test.core)
+      }
+    }
+    // false positive
+    project(":jpa") {
+      sourceSet("test") {
+        onUnusedDependencies {
+          exclude(libs.java.tools)
+        }
       }
     }
   }
