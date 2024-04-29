@@ -18,14 +18,16 @@ configurations.configureEach {
   exclude(group = "junit", module = "junit")
 
   resolutionStrategy {
-    // we really want to do a full timestamp based lock, but this'll have to do for now
-    // cacheChangingModulesFor(5, TimeUnit.MINUTES)
     componentSelection {
       all {
-        val spotbugs = Regex("^spotbugs.*")
-        if (!name.matches(spotbugs) && !candidate.module.matches(spotbugs)) {
-          val nonRelease = Regex("^[\\d.]+-(M|ea|beta|alpha).*$")
+        val nonRelease = Regex("^[\\d.]+-(M|ea|beta|alpha).*$")
+        val module = Regex("^spotbugs.*")
+        val group = Regex("^com.xenoterracide$")
+        if (!candidate.group.matches(group) && !name.matches(module) && !candidate.module.matches(module)) {
           if (candidate.version.matches(nonRelease)) reject("no pre-release")
+          if (candidate.version.endsWith("-SNAPSHOT")) reject("no snapshots")
+        } else if (candidate.version.matches(nonRelease)) {
+          logger.info("allowing: {}:{}:{}", candidate.group, candidate.module, candidate.version)
         }
 
         if (candidate.module == "nullaway") {

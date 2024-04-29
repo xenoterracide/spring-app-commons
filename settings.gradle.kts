@@ -41,7 +41,6 @@ dependencyResolutionManagement {
       name = "gh"
       mavenContent {
         includeModule("com.xenoterracide", "tools")
-        snapshotsOnly()
       }
       credentials {
         // use properties because gradles credentials errors if missing
