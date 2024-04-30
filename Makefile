@@ -18,7 +18,7 @@ build:
 up:
 	./gradlew dependencies --write-locks --quiet 2>&1 | cat > /dev/null
 
-merge: create-pr build watch-full
+merge: create-pr build watch-full merge-squash
 
 ci-build:
 	./gradlew build buildHealth --build-cache
