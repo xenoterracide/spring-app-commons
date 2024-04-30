@@ -27,7 +27,7 @@ ci-full:
 	./gradlew buildHealth build --no-build-cache --no-configuration-cache
 
 create-pr:
-	gh pr create --fill
+	gh pr create || exit 0
 
 merge-squash:
 	gh pr merge --squash --delete-branch --auto
