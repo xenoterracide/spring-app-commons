@@ -18,8 +18,7 @@ build:
 up:
 	./gradlew dependencies --write-locks --quiet 2>&1 | cat > /dev/null
 
-merge :
-	create-pr build watch workflow=full && gh pr merge --squash --delete-branch --auto
+merge: create-pr build watch-full
 
 ci-build:
 	./gradlew build buildHealth --build-cache
@@ -30,10 +29,16 @@ ci-full:
 create-pr:
 	gh pr create --fill
 
-watch:
-	$(call check_defined, workflow)
-	@gh run watch $$($(call gh_head_run_id, $(workflow))) --exit-status
+merge-squash:
+	gh pr merge --squash --delete-branch --auto
 
 run-url:
 	$(call check_defined, workflow)
 	@$(call gh_head_run_url, $(workflow))
+
+watch:
+	$(call check_defined, workflow)
+	@gh run watch $$($(call gh_head_run_id, $(workflow))) --exit-status
+
+watch-full:
+	@gh run watch $$($(call gh_head_run_id, "Full")) --exit-status
