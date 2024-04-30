@@ -1,4 +1,4 @@
-name: Full Unoptimized Build
+name: Full
 on:
   push:
     branches: [main]
