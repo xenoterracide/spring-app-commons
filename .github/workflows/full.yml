@@ -23,7 +23,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         with:
           cache-read-only: true
-      - run: ./gradlew build buildHealth --no-build-cache --no-configuration-cache
+      - run: make ci-full
         env:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
