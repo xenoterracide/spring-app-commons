@@ -16,3 +16,9 @@ up:
 
 merge :
 	$(createPr) && $(gradleFullBuild) && gh run watch --exit-status && gh pr merge --squash --delete-branch --auto
+
+ci-build:
+	./gradlew build buildHealth --build-cache
+
+ci-full:
+	$(gradleFullBuild)
