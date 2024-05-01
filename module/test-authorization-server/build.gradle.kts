@@ -14,8 +14,10 @@ dependencies {
   implementation(platform(libs.spring.bom))
   implementation(libs.spring.boot.core)
   implementation(libs.spring.context)
+  implementation(libs.spring.security.oauth2.authorization.server)
 
   runtimeOnly(platform(libs.spring.bom))
+  runtimeOnly(libs.starter.oauth2.authorization.server)
   runtimeOnly(libs.starter.security)
   runtimeOnly(libs.starter.web)
   runtimeOnly(libs.spring.boot.devtools)
