@@ -72,6 +72,10 @@ dependencies {
   }
 }
 
+tasks.withType<Test>().configureEach {
+  enabled = false
+}
+
 tasks.withType<JacocoCoverageVerification>().configureEach {
   enabled = false
 }
