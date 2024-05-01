@@ -22,7 +22,11 @@ dependencies {
   runtimeOnly(libs.starter.web)
   runtimeOnly(libs.spring.boot.devtools)
 
+  testRuntimeOnly(platform(libs.spring.bom))
+  testRuntimeOnly(libs.bundles.test.runtime)
+
   testImplementation(platform(libs.spring.bom))
+  testImplementation(libs.bundles.test.impl)
   testImplementation(libs.bundles.spring.test)
   testImplementation(libs.starter.web)
   testImplementation(libs.starter.webflux)
