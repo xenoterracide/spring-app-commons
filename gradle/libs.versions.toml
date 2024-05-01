@@ -76,7 +76,7 @@ spring-transaction = { module = "org.springframework:spring-tx" }
 spring-security-config = { module = "org.springframework.security:spring-security-config" }
 spring-security-core = { module = "org.springframework.security:spring-security-core" }
 spring-security-oauth2-authorization-server = { module = "org.springframework.security:spring-security-oauth2-authorization-server" }
-spring-security-oauth2-core = { module = "org.springframework.security:spring-security-oauth2" }
+spring-security-oauth2-core = { module = "org.springframework.security:spring-security-oauth2-core" }
 spring-security-web = { module = "org.springframework.security:spring-security-web" }
 spring-data-commons = { module = "org.springframework.data:spring-data-commons" }
 spring-data-neo4j = { module = "org.springframework.data:spring-data-neo4j" }
