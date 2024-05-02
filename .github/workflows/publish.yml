@@ -25,8 +25,7 @@ jobs:
           java-version: 21
       - uses: gradle/actions/setup-gradle@v3
         with:
-          cache-read-only: true
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - run: ./gradlew build buildHealth --build-cache --scan
-      - run: ./gradlew publish --no-configuration-cache --scan
+      - run: ./gradlew publish --build-cache --scan
       - uses: gradle/actions/dependency-submission@v3
