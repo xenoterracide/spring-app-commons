@@ -10,7 +10,7 @@ on:
     - cron: "0 3 * * 3" # 3am every Wednesday
   push:
     branches:
-      - fix/auto-update
+      - build/auto-update
 jobs:
   update-java:
     runs-on: ubuntu-latest
@@ -47,3 +47,5 @@ jobs:
         if: ${{ env.PULL_REQUEST_NUMBER != '' }}
         env:
           GH_TOKEN: ${{ secrets.GH_MERGE_PAT }}
+      - uses: gradle/actions/dependency-submission@v3
+        if: ${{ env.PULL_REQUEST_NUMBER != '' }}
