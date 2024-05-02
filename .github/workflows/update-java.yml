@@ -48,4 +48,3 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_MERGE_PAT }}
       - uses: gradle/actions/dependency-submission@v3
-        if: ${{ env.PULL_REQUEST_NUMBER != '' }}
