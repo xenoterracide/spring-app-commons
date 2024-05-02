@@ -76,7 +76,7 @@ spring-transaction = { module = "org.springframework:spring-tx" }
 spring-security-config = { module = "org.springframework.security:spring-security-config" }
 spring-security-core = { module = "org.springframework.security:spring-security-core" }
 spring-security-oauth2-authorization-server = { module = "org.springframework.security:spring-security-oauth2-authorization-server" }
-spring-security-oauth2-core = { module = "org.springframework.security:spring-security-oauth2" }
+spring-security-oauth2-core = { module = "org.springframework.security:spring-security-oauth2-core" }
 spring-security-web = { module = "org.springframework.security:spring-security-web" }
 spring-data-commons = { module = "org.springframework.data:spring-data-commons" }
 spring-data-neo4j = { module = "org.springframework.data:spring-data-neo4j" }
@@ -89,6 +89,7 @@ starter-jackson = { module = "org.springframework.boot:spring-boot-starter-jacks
 starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
 starter-log4j2 = { module = "org.springframework.boot:spring-boot-starter-log4j2" }
 starter-neo4j = { module = "org.springframework.boot:spring-boot-starter-data-neo4j" }
+starter-oauth2-authorization-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-authorization-server" }
 starter-oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client" }
 starter-oauth2-resource-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
 starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }

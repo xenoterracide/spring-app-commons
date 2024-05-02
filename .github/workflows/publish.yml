@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
-      contents: read
+      contents: write
       packages: write
     env:
       ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
@@ -29,3 +29,4 @@ jobs:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - run: ./gradlew build buildHealth --build-cache --scan
       - run: ./gradlew publish --no-configuration-cache --scan
+      - uses: gradle/actions/dependency-submission@v3
