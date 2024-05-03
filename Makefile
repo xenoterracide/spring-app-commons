@@ -11,6 +11,20 @@ define gh_head_run_id
 	gh run list --workflow $(1) --commit $(HEAD) --json databaseId --jq '.[0].["databaseId"]'
 endef
 
+define update_extended_dependencies
+	./gradlew dependencies build buildHealth --write-locks --scan
+endef
+
+define delete_lockfiles
+	find . -name '*gradle.lockfile' -delete
+endef
+
+define update_wrapper
+	./gradlew wrapper --write-locks
+	./gradlew wrapper # ensure the wrapper is up-to-date
+endef
+
+
 .PHONY: build
 build:
 	./gradlew build
@@ -20,11 +34,19 @@ up:
 
 merge: create-pr build watch-full merge-squash
 
+clean:
+	./gradlew clean
+
 ci-build:
 	./gradlew build buildHealth --build-cache
 
 ci-full:
 	./gradlew buildHealth build --no-build-cache --no-configuration-cache
+
+ci-update-java:
+	$(call delete_lockfiles) && \
+	$(call update_wrapper) && \
+	$(call update_extended_dependencies)
 
 create-pr:
 	gh pr create || exit 0
