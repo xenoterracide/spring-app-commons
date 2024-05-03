@@ -20,7 +20,7 @@ define delete_lockfiles
 endef
 
 define update_wrapper
-	./gradlew wrapper --write-locks
+	./gradlew wrapper --write-locks && \
 	./gradlew wrapper # ensure the wrapper is up-to-date
 endef
 
