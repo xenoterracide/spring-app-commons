@@ -1,4 +1,7 @@
 HEAD := $(shell git rev-parse --verify HEAD)
+GRADLE_DIR := $(wildcard ./.gradle/)
+BUILD_DIRS := $(wildcard ./build/ */build/ ./module/*/build/)
+CONFIGURATION_CACHE := $(wildcard $(GRADLE_DIR)configuration-cache/)
 
 check_defined = $(strip $(foreach 1, $1,$(call __check_defined,$1,$(strip $(value 2)))))
 __check_defined = $(if $(value $1),, $(error Undefined $1$(if $2, ($2))))
@@ -11,31 +14,26 @@ define gh_head_run_id
 	gh run list --workflow $(1) --commit $(HEAD) --json databaseId --jq '.[0].["databaseId"]'
 endef
 
-define update_extended_dependencies
-	./gradlew dependencies build buildHealth --write-locks --scan
-endef
-
-define delete_lockfiles
-	find . -name '*gradle.lockfile' -delete
-endef
-
-define update_wrapper
-	./gradlew wrapper --write-locks && \
-	./gradlew wrapper # ensure the wrapper is up-to-date
-endef
-
-
 .PHONY: build
 build:
 	./gradlew build
 
+.PHONY: up
 up:
 	./gradlew dependencies --write-locks --quiet 2>&1 > /dev/null
 
+.PHONY: merge
 merge: create-pr build watch-full merge-squash
 
+.PHONY: clean
 clean:
 	./gradlew clean
+
+.PHONY: cleaner
+cleaner: clean-build clean-gradle
+
+clean-cc: $(CONFIGURATION_CACHE)
+	- rm -rf $(CONFIGURATION_CACHE)
 
 ci-build:
 	./gradlew build buildHealth --build-cache
@@ -43,10 +41,22 @@ ci-build:
 ci-full:
 	./gradlew buildHealth build --no-build-cache --no-configuration-cache
 
-ci-update-java:
-	$(call delete_lockfiles) && \
-	$(call update_wrapper) && \
-	$(call update_extended_dependencies)
+ci-update-java: clean-lockfiles up-wrapper up-all-deps
+
+clean-build:
+	- rm -rf $(BUILD_DIRS)
+
+clean-gradle:
+	- rm -rf $(GRADLE_DIR)
+
+clean-lockfiles:
+	find . -name '*gradle.lockfile' -delete
+
+up-wrapper:
+	./gradlew wrapper --write-locks && ./gradlew wrapper
+
+up-all-deps:
+	./gradlew dependencies build buildHealth --write-locks --scan
 
 create-pr:
 	gh pr create || exit 0
