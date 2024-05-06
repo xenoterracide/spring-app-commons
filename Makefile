@@ -41,7 +41,7 @@ ci-build:
 ci-full:
 	./gradlew buildHealth build --no-build-cache --no-configuration-cache
 
-ci-update-java: clean-lockfiles up-wrapper up-all-deps
+ci-update-java: clean-lockfiles up-wrapper up up-all-deps
 
 clean-build:
 	- rm -rf $(BUILD_DIRS)
@@ -56,7 +56,7 @@ up-wrapper:
 	./gradlew wrapper --write-locks && ./gradlew wrapper
 
 up-all-deps:
-	./gradlew dependencies build buildHealth --write-locks --scan
+	./gradlew build buildHealth --write-locks --scan
 
 create-pr:
 	gh pr create || exit 0
