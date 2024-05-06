@@ -13,7 +13,7 @@ import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
-@ActiveProfiles("test-jpa")
+@ActiveProfiles({ "test", "test-jpa" })
 class FooAggregateJpaTest {
 
   @Autowired

@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.support.TransactionTemplate;
 
-@ActiveProfiles("test-jpa")
+@ActiveProfiles({ "test", "test-jpa" })
 @SpringBootTest
 @AutoConfigureDataJpa
 @AutoConfigureTestDatabase
