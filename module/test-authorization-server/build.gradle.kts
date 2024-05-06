@@ -17,6 +17,8 @@ dependencies {
   implementation(libs.spring.security.oauth2.authorization.server)
   implementation(libs.spring.security.oauth2.core)
 
+  compileOnly(libs.java.tools)
+
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.oauth2.authorization.server)
   runtimeOnly(libs.starter.security)

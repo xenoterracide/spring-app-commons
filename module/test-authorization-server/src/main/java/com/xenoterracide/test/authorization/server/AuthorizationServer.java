@@ -3,6 +3,7 @@
 
 package com.xenoterracide.test.authorization.server;
 
+import com.xenoterracide.tools.java.annotation.ExcludeFromGeneratedCoverageReport;
 import java.util.UUID;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,6 +29,7 @@ public class AuthorizationServer {
    *
    * @param args arguments to the program
    */
+  @ExcludeFromGeneratedCoverageReport
   public static void main(String[] args) {
     SpringApplication.run(AuthorizationServer.class, args);
   }
