@@ -300,7 +300,7 @@
     <module name="TodoComment" />
     <module name="UpperEll" />
     <module name="UncommentedMain">
-      <property name="excludedClasses" value="^Application$" />
+      <property name="excludedClasses" value="^Application|.*Server$" />
     </module>
 
     <module name="SuppressWarningsHolder" />

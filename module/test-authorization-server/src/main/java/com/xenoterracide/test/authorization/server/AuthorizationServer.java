@@ -1,3 +1,6 @@
+// © Copyright 2024 Caleb Cushing
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 package com.xenoterracide.test.authorization.server;
 
 import java.util.UUID;
@@ -12,11 +15,19 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 
+/**
+ * Test Authorization Server to mimick Auth0.
+ */
 @SpringBootApplication(proxyBeanMethods = false)
 public class AuthorizationServer {
 
   AuthorizationServer() {}
 
+  /**
+   * Main.
+   *
+   * @param args arguments to the program
+   */
   public static void main(String[] args) {
     SpringApplication.run(AuthorizationServer.class, args);
   }
