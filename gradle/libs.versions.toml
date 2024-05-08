@@ -23,6 +23,7 @@ h2 = { module = "com.h2database:h2" }
 hibernate-envers = { module = "org.hibernate.orm:hibernate-envers" }
 hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
 hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen" }
+httpcomponents-client5 = { module = "org.apache.httpcomponents.client5:httpclient5" }
 immutables-bom = "org.immutables:bom:2+"
 immutables-annotate = { module = "org.immutables:annotate" }
 immutables-annotations = { module = "org.immutables:value-annotations" }

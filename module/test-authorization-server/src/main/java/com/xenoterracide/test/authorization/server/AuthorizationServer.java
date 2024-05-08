@@ -5,6 +5,7 @@ package com.xenoterracide.test.authorization.server;
 
 import com.xenoterracide.tools.java.annotation.ExcludeFromGeneratedCoverageReport;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -35,9 +36,12 @@ public class AuthorizationServer {
   }
 
   @Bean
-  RegisteredClientRepository registeredClientRepository() {
+  RegisteredClientRepository registeredClientRepository(
+    @Value("${spring.security.user.name}") String user,
+    @Value("${spring.security.user.password}") String pass
+  ) {
     var publicClient = RegisteredClient.withId(UUID.randomUUID().toString())
-      .clientId("public-client")
+      .clientId(user)
       .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
       .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
       .redirectUri("http://127.0.0.1:4200")
