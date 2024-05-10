@@ -26,11 +26,15 @@ class AuthorizationServerTest {
   @LocalServerPort
   int port;
 
+  @SuppressWarnings("NullAway")
   @Value("${spring.security.user.name}")
   String user;
 
+  @SuppressWarnings("NullAway")
   @Value("${spring.security.user.password}")
   String pass;
+
+  String client = "client";
 
   @Test
   void noAuth() {
@@ -40,16 +44,48 @@ class AuthorizationServerTest {
       .messageConverters(converters -> converters.addFirst(new OAuth2AccessTokenResponseHttpMessageConverter()))
       .build();
 
+    var authorize = restClient
+      .get()
+      .uri(uriBuilder -> {
+        return uriBuilder
+          .path("/authorize")
+          .queryParam("client_id", this.client)
+          .queryParam("scope", "openid", "profile", "email")
+          .queryParam("redirect_uri", "http://localhost:3000")
+          .queryParam("audience", "http://localhost")
+          .queryParam("response_type", "code")
+          .queryParam("response_mode", "query")
+          .queryParam("state", "sUmww5GH")
+          .queryParam("nonce", "FVO5cA3")
+          .queryParam("code_challenge", "g0bA5")
+          .queryParam("code_challenge_method", "S256")
+          .queryParam("auth0Client", "eyJuY")
+          .build();
+      })
+      .retrieve()
+      .toEntity(String.class);
+
+    assertThat(authorize.getStatusCode()).describedAs("authorize").isEqualTo(HttpStatus.OK);
+
+    var authn = new LinkedMultiValueMap<String, String>();
+    authn.add("username", this.user);
+    authn.add("password", this.pass);
+
+    var login = restClient.post().uri("/login").body(authn).retrieve().toEntity(String.class);
+
+    assertThat(login.getStatusCode()).describedAs("login").isEqualTo(HttpStatus.OK);
+
     var params = new LinkedMultiValueMap<String, String>();
-    // assume AUTHORIZATION_CODE is right for PKCE...
     params.add(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
     params.add(OAuth2ParameterNames.SCOPE, "openid");
     params.add(OAuth2ParameterNames.SCOPE, "profile");
-    params.add(OAuth2ParameterNames.CLIENT_ID, this.user);
+    params.add(OAuth2ParameterNames.SCOPE, "email");
+    params.add(OAuth2ParameterNames.CLIENT_ID, this.client);
 
     var tokenResponse = restClient
       .post()
       .uri("/oauth2/token")
+      .headers(headers -> headers.setBasicAuth(this.user, this.pass)) // switching to basic auth
       .body(params)
       .retrieve()
       .toEntity(OAuth2AccessTokenResponse.class);
