@@ -36,6 +36,7 @@ public class AuthorizationServer {
 
   public static final String CLIENT_ID = "client";
   public static final String REDIRECT_URI = "http://localhost:3000";
+  private static final String ALL = "*";
 
   AuthorizationServer() {}
 
@@ -85,10 +86,10 @@ public class AuthorizationServer {
 
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    CorsConfiguration config = new CorsConfiguration();
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
+    var source = new UrlBasedCorsConfigurationSource();
+    var config = new CorsConfiguration();
+    config.addAllowedHeader(ALL);
+    config.addAllowedMethod(ALL);
     config.addAllowedOrigin(REDIRECT_URI);
     config.setAllowCredentials(true);
     source.registerCorsConfiguration("/**", config);

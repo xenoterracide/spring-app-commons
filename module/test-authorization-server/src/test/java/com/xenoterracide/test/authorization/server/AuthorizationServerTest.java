@@ -123,13 +123,6 @@ class AuthorizationServerTest {
 
     assertThat(qp).describedAs("code").containsKey("code");
 
-    // token
-    // client_id: sOBUXAlH5Lb2mIRE02r4uRgkPMXcJK3Z
-    //code_verifier: fhXx_RrpXnth36LK6DbfE4WQFrX2AW21.k9NWgnRD16
-    //grant_type: authorization_code
-    //code: NqiG26McQMoLlVAj5_4iKE2KaTsgzGU9r9W3_LQ29UMao
-    //redirect_uri: http://localhost:3000
-
     var params = new LinkedMultiValueMap<String, String>();
     params.add(OAuth2ParameterNames.CLIENT_ID, this.client);
     params.add(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
