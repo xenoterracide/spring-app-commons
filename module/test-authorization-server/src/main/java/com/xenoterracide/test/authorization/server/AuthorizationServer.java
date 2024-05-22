@@ -34,6 +34,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @SpringBootApplication(proxyBeanMethods = false)
 public class AuthorizationServer {
 
+  public static final String CLIENT_ID = "client";
+  public static final String REDIRECT_URI = "http://localhost:3000";
+
   AuthorizationServer() {}
 
   /**
@@ -71,13 +74,13 @@ public class AuthorizationServer {
   @Order(2)
   public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
     http
-      .authorizeHttpRequests(authorize -> authorize.requestMatchers("/authorize").permitAll())
+      .authorizeHttpRequests(authorize -> authorize.requestMatchers("/oauth/authorize").permitAll())
       .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
       // Form login handles the redirect to the login page from the
       // authorization server filter chain
       .formLogin(Customizer.withDefaults());
 
-    return http.cors(Customizer.withDefaults()).build();
+    return http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable()).build();
   }
 
   @Bean
@@ -86,7 +89,7 @@ public class AuthorizationServer {
     CorsConfiguration config = new CorsConfiguration();
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
-    config.addAllowedOrigin("http://localhost:3000");
+    config.addAllowedOrigin(REDIRECT_URI);
     config.setAllowCredentials(true);
     source.registerCorsConfiguration("/**", config);
     return source;
@@ -95,14 +98,14 @@ public class AuthorizationServer {
   @Bean
   RegisteredClientRepository registeredClientRepository() {
     var publicClient = RegisteredClient.withId(UUID.randomUUID().toString())
-      .clientId("client")
+      .clientId(CLIENT_ID)
       .clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
       .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-      .redirectUri("http://localhost:3000")
+      .redirectUri(REDIRECT_URI)
       .scope(OidcScopes.OPENID)
       .scope(OidcScopes.PROFILE)
       .scope(OidcScopes.EMAIL)
-      .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).requireProofKey(true).build())
+      .clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).requireProofKey(true).build())
       .build();
 
     return new InMemoryRegisteredClientRepository(publicClient);
