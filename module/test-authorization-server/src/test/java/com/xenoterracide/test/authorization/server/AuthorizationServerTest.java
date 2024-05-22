@@ -12,9 +12,14 @@ import java.util.Base64;
 import java.util.function.Consumer;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -33,9 +38,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthorizationServerTest {
 
-  @LocalServerPort
-  int port;
-
   @SuppressWarnings("NullAway")
   @Value("${spring.security.user.name}")
   String user;
@@ -52,6 +54,9 @@ class AuthorizationServerTest {
   @Value("${spring.security.oauth2.authorizationserver.endpoint.token-uri}")
   String tokenUriPath;
 
+  @Autowired
+  ObjectFactory<RestClient> oauthTestClient;
+
   SecureRandom random = new SecureRandom();
   Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
 
@@ -63,21 +68,12 @@ class AuthorizationServerTest {
 
   @Test
   void authn() throws Exception {
-    var restClient = RestClient.builder()
-      .requestFactory(
-        new HttpComponentsClientHttpRequestFactory(HttpClients.custom().disableRedirectHandling().build())
-      )
-      .baseUrl("http://localhost:" + this.port)
-      .messageConverters(converters -> {
-        converters.addFirst(new OAuth2AccessTokenResponseHttpMessageConverter());
-      })
-      .build();
-
+    var rc = this.oauthTestClient.getObject();
     var credentials = new LinkedMultiValueMap<String, String>();
     credentials.add("username", this.user);
     credentials.add("password", this.pass);
 
-    var login = restClient
+    var login = rc
       .post()
       .uri("/login")
       .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -94,24 +90,22 @@ class AuthorizationServerTest {
       MessageDigest.getInstance("SHA-256").digest(verifier.getBytes(StandardCharsets.US_ASCII))
     );
 
-    var authorize = restClient
+    var authParams = new LinkedMultiValueMap<String, String>();
+    authParams.add(PkceParameterNames.CODE_CHALLENGE, challenge);
+    authParams.add(PkceParameterNames.CODE_CHALLENGE_METHOD, "S256");
+    authParams.add(OAuth2ParameterNames.CLIENT_ID, AuthorizationServer.CLIENT_ID);
+    authParams.add(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI);
+    authParams.add(OAuth2ParameterNames.RESPONSE_TYPE, "code");
+    authParams.add(OAuth2ParameterNames.SCOPE, "openid+profile+email");
+    authParams.add(OAuth2ParameterNames.STATE, "sUmww5GH");
+    authParams.add("nonce", "FVO5cA3");
+    authParams.add("audience", "http://localhost");
+    authParams.add("response_mode", "query");
+    authParams.add("auth0Client", "eyJuY");
+
+    var authorize = rc
       .get()
-      .uri(uriBuilder -> {
-        return uriBuilder
-          .path(this.authorizationUriPath)
-          .queryParam(OAuth2ParameterNames.CLIENT_ID, AuthorizationServer.CLIENT_ID)
-          .queryParam(OAuth2ParameterNames.SCOPE, "openid+profile+email")
-          .queryParam(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI)
-          .queryParam(OAuth2ParameterNames.RESPONSE_TYPE, "code")
-          .queryParam(OAuth2ParameterNames.STATE, "sUmww5GH")
-          .queryParam(PkceParameterNames.CODE_CHALLENGE, challenge)
-          .queryParam(PkceParameterNames.CODE_CHALLENGE_METHOD, "S256")
-          .queryParam("auth0Client", "eyJuY")
-          .queryParam("audience", "http://localhost")
-          .queryParam("response_mode", "query")
-          .queryParam("nonce", "FVO5cA3")
-          .build();
-      })
+      .uri(uriBuilder -> uriBuilder.path(this.authorizationUriPath).queryParams(authParams).build())
       .retrieve()
       .toEntity(String.class);
 
@@ -128,7 +122,7 @@ class AuthorizationServerTest {
     params.add(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI);
     params.add(PkceParameterNames.CODE_VERIFIER, verifier);
 
-    var tokenResponse = restClient
+    var tokenResponse = rc
       .post()
       .uri(this.tokenUriPath)
       .body(params)
@@ -137,5 +131,23 @@ class AuthorizationServerTest {
 
     assertThat(tokenResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(tokenResponse.getBody().getAccessToken()).isNotNull();
+  }
+
+  @TestConfiguration
+  static class TestConfig {
+
+    @Bean
+    @Lazy
+    RestClient oauthTestClient(@LocalServerPort int port) {
+      return RestClient.builder()
+        .requestFactory(
+          new HttpComponentsClientHttpRequestFactory(HttpClients.custom().disableRedirectHandling().build())
+        )
+        .baseUrl("http://localhost:" + port)
+        .messageConverters(converters -> {
+          converters.addFirst(new OAuth2AccessTokenResponseHttpMessageConverter());
+        })
+        .build();
+    }
   }
 }
