@@ -86,12 +86,13 @@ public class AuthorizationServer {
 
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
-    var source = new UrlBasedCorsConfigurationSource();
     var config = new CorsConfiguration();
     config.addAllowedHeader(ALL);
     config.addAllowedMethod(ALL);
     config.addAllowedOrigin(REDIRECT_URI);
     config.setAllowCredentials(true);
+
+    var source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);
     return source;
   }
