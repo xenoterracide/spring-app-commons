@@ -5,29 +5,29 @@ package com.xenoterracide.test.authorization.server;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.function.Consumer;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.client.reactive.ClientHttpConnector;
-import org.springframework.http.client.reactive.HttpComponentsClientHttpConnector;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
+import org.springframework.security.oauth2.core.endpoint.PkceParameterNames;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.reactive.server.WebTestClientConfigurer;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.server.adapter.WebHttpHandlerBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @ActiveProfiles({ "test", "test-http" })
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -52,18 +52,23 @@ class AuthorizationServerTest {
   @Value("${spring.security.oauth2.authorizationserver.endpoint.token-uri}")
   String tokenUriPath;
 
+  SecureRandom random = new SecureRandom();
+  Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
+
   String client = "client";
 
+  static byte[] bytesFrom(int size, Consumer<byte[]> setter) {
+    var bytes = new byte[size];
+    setter.accept(bytes);
+    return bytes;
+  }
+
   @Test
-  void authn() throws IOException, InterruptedException {
-    var props = System.getProperties();
-    assertThat(props).describedAs("props").isNotNull();
-
-    var rf = new HttpComponentsClientHttpRequestFactory();
-    rf.setHttpClient(HttpClients.custom().disableRedirectHandling().build());
-
+  void authn() throws Exception {
     var restClient = RestClient.builder()
-      .requestFactory(rf)
+      .requestFactory(
+        new HttpComponentsClientHttpRequestFactory(HttpClients.custom().disableRedirectHandling().build())
+      )
       .baseUrl("http://localhost:" + this.port)
       .messageConverters(converters -> {
         converters.addFirst(new OAuth2AccessTokenResponseHttpMessageConverter());
@@ -85,6 +90,12 @@ class AuthorizationServerTest {
 
     assertThat(login).describedAs("login").extracting(res -> res.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 
+    var code = bytesFrom(32, random::nextBytes);
+    var verifier = encoder.encodeToString(code);
+    var challenge = encoder.encodeToString(
+      MessageDigest.getInstance("SHA-256").digest(verifier.getBytes(StandardCharsets.US_ASCII))
+    );
+
     var authorize = restClient
       .get()
       .uri(uriBuilder -> {
@@ -95,18 +106,22 @@ class AuthorizationServerTest {
           .queryParam(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI)
           .queryParam(OAuth2ParameterNames.RESPONSE_TYPE, "code")
           .queryParam(OAuth2ParameterNames.STATE, "sUmww5GH")
+          .queryParam(PkceParameterNames.CODE_CHALLENGE, challenge)
+          .queryParam(PkceParameterNames.CODE_CHALLENGE_METHOD, "S256")
+          .queryParam("auth0Client", "eyJuY")
           .queryParam("audience", "http://localhost")
           .queryParam("response_mode", "query")
           .queryParam("nonce", "FVO5cA3")
-          .queryParam("code_challenge", "g0bA5")
-          .queryParam("code_challenge_method", "S256")
-          .queryParam("auth0Client", "eyJuY")
           .build();
       })
       .retrieve()
       .toEntity(String.class);
 
-    assertThat(authorize.getStatusCode()).describedAs("authorize").isEqualTo(HttpStatus.OK);
+    assertThat(authorize.getStatusCode()).describedAs("authorize").isEqualTo(HttpStatus.FOUND);
+
+    var qp = UriComponentsBuilder.fromUri(authorize.getHeaders().getLocation()).build().getQueryParams();
+
+    assertThat(qp).describedAs("code").containsKey("code");
 
     // token
     // client_id: sOBUXAlH5Lb2mIRE02r4uRgkPMXcJK3Z
@@ -118,9 +133,9 @@ class AuthorizationServerTest {
     var params = new LinkedMultiValueMap<String, String>();
     params.add(OAuth2ParameterNames.CLIENT_ID, this.client);
     params.add(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
-    params.add(OAuth2ParameterNames.CODE, "NqiG26McQMoLlVAj5_4iKE2KaTsgzGU9r9W3_LQ29UMao");
+    params.add(OAuth2ParameterNames.CODE, qp.getFirst(OAuth2ParameterNames.CODE));
     params.add(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI);
-    params.add("code_verifier", "fhXx_RrpXnth36LK6DbfE4WQFrX2AW21.k9NWgnRD16");
+    params.add(PkceParameterNames.CODE_VERIFIER, verifier);
 
     var tokenResponse = restClient
       .post()
@@ -131,18 +146,5 @@ class AuthorizationServerTest {
 
     assertThat(tokenResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(tokenResponse.getBody().getAccessToken()).isNotNull();
-  }
-
-  @TestConfiguration
-  public static class Config implements WebTestClientConfigurer {
-
-    @Override
-    public void afterConfigurerAdded(
-      WebTestClient.Builder builder,
-      WebHttpHandlerBuilder httpHandlerBuilder,
-      ClientHttpConnector connector
-    ) {
-      builder.clientConnector(new HttpComponentsClientHttpConnector());
-    }
   }
 }
