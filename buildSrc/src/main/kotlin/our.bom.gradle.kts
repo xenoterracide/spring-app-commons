@@ -49,6 +49,8 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
 dependencies {
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.log4j2)
+  runtimeOnly(libs.log4j.jpl)
+
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
       replacedBy(

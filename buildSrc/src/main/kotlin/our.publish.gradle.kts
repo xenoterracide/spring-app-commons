@@ -11,7 +11,21 @@ val username = "xenoterracide"
 val githubUrl = "https://github.com"
 val repoShort = "$username/$repo"
 
-version = semver.gitDescribed
+val setVersion by tasks.registering {
+  group = "versioning"
+  description = "sets the version to the git described version"
+  doLast {
+    project.version = semver.gitDescribed
+  }
+}
+
+tasks.withType<GenerateModuleMetadata>().configureEach {
+  dependsOn(setVersion)
+}
+
+tasks.withType<GenerateMavenPom>().configureEach {
+  dependsOn(setVersion)
+}
 
 publishing {
   publications {
@@ -42,7 +56,8 @@ publishing {
             name = "Apache-2.0"
             url = "https://choosealicense.com/licenses/apache-2.0/"
             distribution = "repo"
-            comments = "Java - for Individuals, Contributers, Sponsors, and Open Source projects. Contact for Sponsorship"
+            comments =
+              "Java - for Individuals, Contributers, Sponsors, and Open Source projects. Contact for Sponsorship"
           }
           license {
             name = "MIT"

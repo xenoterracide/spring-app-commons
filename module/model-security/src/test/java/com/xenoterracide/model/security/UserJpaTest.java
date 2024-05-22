@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
-@ActiveProfiles("test-jpa")
+@ActiveProfiles({ "test", "test-jpa" })
 class UserJpaTest {
 
   @Autowired
