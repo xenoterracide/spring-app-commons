@@ -66,6 +66,22 @@ class AuthorizationServerTest {
     return bytes;
   }
 
+  private static LinkedMultiValueMap<String, String> getAuthParams(String challenge) {
+    var authParams = new LinkedMultiValueMap<String, String>();
+    authParams.add(PkceParameterNames.CODE_CHALLENGE, challenge);
+    authParams.add(PkceParameterNames.CODE_CHALLENGE_METHOD, "S256");
+    authParams.add(OAuth2ParameterNames.CLIENT_ID, AuthorizationServer.CLIENT_ID);
+    authParams.add(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI);
+    authParams.add(OAuth2ParameterNames.RESPONSE_TYPE, "code");
+    authParams.add(OAuth2ParameterNames.SCOPE, "openid+profile+email");
+    authParams.add(OAuth2ParameterNames.STATE, "sUmww5GH");
+    authParams.add("nonce", "FVO5cA3");
+    authParams.add("audience", "http://localhost");
+    authParams.add("response_mode", "query");
+    authParams.add("auth0Client", "eyJuY");
+    return authParams;
+  }
+
   @Test
   void authn() throws Exception {
     var rc = this.oauthTestClient.getObject();
@@ -90,18 +106,7 @@ class AuthorizationServerTest {
       MessageDigest.getInstance("SHA-256").digest(verifier.getBytes(StandardCharsets.US_ASCII))
     );
 
-    var authParams = new LinkedMultiValueMap<String, String>();
-    authParams.add(PkceParameterNames.CODE_CHALLENGE, challenge);
-    authParams.add(PkceParameterNames.CODE_CHALLENGE_METHOD, "S256");
-    authParams.add(OAuth2ParameterNames.CLIENT_ID, AuthorizationServer.CLIENT_ID);
-    authParams.add(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI);
-    authParams.add(OAuth2ParameterNames.RESPONSE_TYPE, "code");
-    authParams.add(OAuth2ParameterNames.SCOPE, "openid+profile+email");
-    authParams.add(OAuth2ParameterNames.STATE, "sUmww5GH");
-    authParams.add("nonce", "FVO5cA3");
-    authParams.add("audience", "http://localhost");
-    authParams.add("response_mode", "query");
-    authParams.add("auth0Client", "eyJuY");
+    var authParams = getAuthParams(challenge);
 
     var authorize = rc
       .get()
