@@ -39,10 +39,3 @@ dependencies {
   testRuntimeOnly(libs.bundles.test.runtime)
   testRuntimeOnly(projects.config)
 }
-
-tasks.withType<Test>().configureEach {
-  systemProperty(
-    "jdk.httpclient.HttpClient.log",
-    "frames,all",
-  )
-}
