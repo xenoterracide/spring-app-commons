@@ -54,7 +54,6 @@ org.apache.logging.log4j:log4j-api:2.21.1=testFixturesRuntimeClasspath,testRunti
 org.apache.logging.log4j:log4j-api:2.23.1=spotbugs
 org.apache.logging.log4j:log4j-core:2.21.1=testFixturesRuntimeClasspath,testRuntimeClasspath
 org.apache.logging.log4j:log4j-core:2.23.1=spotbugs
-org.apache.logging.log4j:log4j-jpl:2.21.1=testFixturesRuntimeClasspath,testRuntimeClasspath
 org.apache.logging.log4j:log4j-jul:2.21.1=testFixturesRuntimeClasspath,testRuntimeClasspath
 org.apache.logging.log4j:log4j-slf4j2-impl:2.21.1=testFixturesRuntimeClasspath,testRuntimeClasspath
 org.apiguardian:apiguardian-api:1.1.2=testCompileClasspath
