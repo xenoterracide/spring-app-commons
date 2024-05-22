@@ -34,7 +34,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @SpringBootApplication(proxyBeanMethods = false)
 public class AuthorizationServer {
 
+  /**
+   * Client ID for the client.
+   */
   public static final String CLIENT_ID = "client";
+  /**
+   * Redirect URI for the client.
+   */
   public static final String REDIRECT_URI = "http://localhost:3000";
   private static final String ALL = "*";
 
@@ -52,9 +58,9 @@ public class AuthorizationServer {
 
   @Bean
   @Order(1)
-  public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+  SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults()); // Enable OpenID Connect 1.0
+    http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
     http
       // Redirect to the login page when not authenticated from the
       // authorization endpoint
@@ -73,7 +79,7 @@ public class AuthorizationServer {
 
   @Bean
   @Order(2)
-  public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+  SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
     http
       .authorizeHttpRequests(authorize -> authorize.requestMatchers("/oauth/authorize").permitAll())
       .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
@@ -85,7 +91,7 @@ public class AuthorizationServer {
   }
 
   @Bean
-  public CorsConfigurationSource corsConfigurationSource() {
+  CorsConfigurationSource corsConfigurationSource() {
     var config = new CorsConfiguration();
     config.addAllowedHeader(ALL);
     config.addAllowedMethod(ALL);

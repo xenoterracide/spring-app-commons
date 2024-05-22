@@ -55,8 +55,6 @@ class AuthorizationServerTest {
   SecureRandom random = new SecureRandom();
   Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
 
-  String client = "client";
-
   static byte[] bytesFrom(int size, Consumer<byte[]> setter) {
     var bytes = new byte[size];
     setter.accept(bytes);
@@ -101,7 +99,7 @@ class AuthorizationServerTest {
       .uri(uriBuilder -> {
         return uriBuilder
           .path(this.authorizationUriPath)
-          .queryParam(OAuth2ParameterNames.CLIENT_ID, this.client)
+          .queryParam(OAuth2ParameterNames.CLIENT_ID, AuthorizationServer.CLIENT_ID)
           .queryParam(OAuth2ParameterNames.SCOPE, "openid+profile+email")
           .queryParam(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI)
           .queryParam(OAuth2ParameterNames.RESPONSE_TYPE, "code")
@@ -124,7 +122,7 @@ class AuthorizationServerTest {
     assertThat(qp).describedAs("code").containsKey("code");
 
     var params = new LinkedMultiValueMap<String, String>();
-    params.add(OAuth2ParameterNames.CLIENT_ID, this.client);
+    params.add(OAuth2ParameterNames.CLIENT_ID, AuthorizationServer.CLIENT_ID);
     params.add(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
     params.add(OAuth2ParameterNames.CODE, qp.getFirst(OAuth2ParameterNames.CODE));
     params.add(OAuth2ParameterNames.REDIRECT_URI, AuthorizationServer.REDIRECT_URI);
