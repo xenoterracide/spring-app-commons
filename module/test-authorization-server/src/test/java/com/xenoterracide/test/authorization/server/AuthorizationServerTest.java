@@ -5,12 +5,12 @@ package com.xenoterracide.test.authorization.server;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.function.Consumer;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
@@ -146,7 +146,7 @@ class AuthorizationServerTest {
     RestClient oauthTestClient(@LocalServerPort int port) {
       return RestClient.builder()
         .requestFactory(
-          new HttpComponentsClientHttpRequestFactory(HttpClients.custom().disableRedirectHandling().build())
+          new JdkClientHttpRequestFactory(HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NEVER).build())
         )
         .baseUrl("http://localhost:" + port)
         .messageConverters(converters -> {
