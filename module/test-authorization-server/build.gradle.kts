@@ -41,8 +41,5 @@ dependencies {
 }
 
 tasks.withType<Test>().configureEach {
-  systemProperty(
-    "jdk.httpclient.HttpClient.log",
-    "frames,all",
-  )
+  systemProperty("jdk.httpclient.HttpClient.log", "headers")
 }
