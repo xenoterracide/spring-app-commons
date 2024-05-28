@@ -20,7 +20,6 @@ dependencies {
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.spring.test)
-  runtimeOnly(projects.config)
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.spring.beans)
