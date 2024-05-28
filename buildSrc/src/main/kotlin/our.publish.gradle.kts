@@ -11,22 +11,6 @@ val username = "xenoterracide"
 val githubUrl = "https://github.com"
 val repoShort = "$username/$repo"
 
-val setVersion by tasks.registering {
-  group = "versioning"
-  description = "sets the version to the git described version"
-  doLast {
-    project.version = semver.gitDescribed
-  }
-}
-
-tasks.withType<GenerateModuleMetadata>().configureEach {
-  dependsOn(setVersion)
-}
-
-tasks.withType<GenerateMavenPom>().configureEach {
-  dependsOn(setVersion)
-}
-
 publishing {
   publications {
     register<MavenPublication>("maven") {
@@ -41,7 +25,7 @@ publishing {
       pom {
         artifactId = project.name
         groupId = rootProject.group.toString()
-        version = project.version.toString()
+        version = semver.gitDescribed.version
         description = project.description
         inceptionYear = "2024"
         url = "$githubUrl/$repoShort"
