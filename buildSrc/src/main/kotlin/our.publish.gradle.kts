@@ -11,12 +11,9 @@ val username = "xenoterracide"
 val githubUrl = "https://github.com"
 val repoShort = "$username/$repo"
 
-val setVersion by tasks.registering {
+val setVersion by tasks.registering(SetVersion::class) {
   group = "versioning"
   description = "sets the version to the git described version"
-  doLast {
-    project.version = semver.gitDescribed
-  }
 }
 
 tasks.withType<GenerateModuleMetadata>().configureEach {
@@ -103,5 +100,12 @@ publishing {
         }
       }
     }
+  }
+}
+
+abstract class SetVersion : DefaultTask() {
+  @TaskAction
+  fun setVersion() {
+    this.project.version = semver.gitDescribed
   }
 }
