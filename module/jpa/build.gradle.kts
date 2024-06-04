@@ -7,12 +7,7 @@ plugins { our.javalibrary }
 
 dependencies {
   annotationProcessor(platform(libs.spring.bom))
-  annotationProcessor(libs.hibernate.jpa.modelgen) {
-    because("https://hibernate.atlassian.net/browse/HHH-18203")
-    version {
-      strictly("6.4.+")
-    }
-  }
+  annotationProcessor(libs.hibernate.jpa.modelgen)
 
   compileOnly(libs.java.tools)
 
