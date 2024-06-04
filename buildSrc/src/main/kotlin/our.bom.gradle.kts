@@ -30,8 +30,12 @@ configurations.configureEach {
           logger.info("allowing: {}", candidate)
         }
 
+        if (candidate.module == "hibernate-jpamodelgen" && candidate.version.startsWith("6.5")) {
+          reject("https://hibernate.atlassian.net/browse/HHH-18203")
+        }
+
         if (candidate.module == "nullaway") {
-          val reason = "crash https://github.com/uber/NullAway/issues/533"
+          val reason = "https://github.com/uber/NullAway/issues/533"
           if (candidate.version.matches(Regex("^0\\.9\\.[34]$"))) reject(reason)
         }
       }
