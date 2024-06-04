@@ -9,7 +9,12 @@ dependencies {
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(platform(libs.immutables.bom))
   annotationProcessor(libs.immutables.core)
-  annotationProcessor(libs.hibernate.jpa.modelgen)
+  annotationProcessor(libs.hibernate.jpa.modelgen) {
+    because("https://hibernate.atlassian.net/browse/HHH-18203")
+    version {
+      strictly("6.4.+")
+    }
+  }
 
   compileOnly(platform(libs.immutables.bom))
   compileOnly(libs.bundles.immutables)

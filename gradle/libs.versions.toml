@@ -22,7 +22,7 @@ guava = "com.google.guava:guava:+"
 h2 = { module = "com.h2database:h2" }
 hibernate-envers = { module = "org.hibernate.orm:hibernate-envers" }
 hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
-hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen" }
+hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version = "6.4.+" }
 httpcomponents-client5 = { module = "org.apache.httpcomponents.client5:httpclient5" }
 httpcomponents-core5-reactive = { module = "org.apache.httpcomponents.core5:httpcore5-reactive" }
 immutables-bom = "org.immutables:bom:2+"
