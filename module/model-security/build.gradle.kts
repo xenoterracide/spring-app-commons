@@ -39,7 +39,6 @@ dependencies {
 
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.jakarta.annotation)
-  testFixturesImplementation(projects.model)
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.equalsverifier)
