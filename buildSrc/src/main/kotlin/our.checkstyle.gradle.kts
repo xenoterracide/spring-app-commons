@@ -17,7 +17,9 @@ tasks.withType<Checkstyle>().configureEach {
 fun checkstyleConfig(filename: String): File {
   val path = ".config/checkstyle/$filename"
   val f = layout.projectDirectory.file(path).asFile
-  return if (f.exists()) f else rootProject.file(path)
+  if (f.exists()) return f
+  if (rootProject.file(path).exists()) return rootProject.file(path)
+  return rootProject.file(".config/checkstyle/main.xml")
 }
 
 tasks.withType<Checkstyle>().configureEach {
