@@ -18,6 +18,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.jspecify.annotations.NonNull;
@@ -41,11 +42,15 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   User(
     @NonNull Identifier id,
     @NonNull String name,
-    @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers
+    @NonNull Set<@NonNull IdentityProviderUserBuilder> identityProviderUsers
   ) {
     super(id);
     this.name = name;
-    this.identityProviderUsers = identityProviderUsers;
+    this.identityProviderUsers = identityProviderUsers
+      .stream()
+      .map(b -> b.user(this))
+      .map(b -> b.build())
+      .collect(Collectors.toSet());
   }
 
   /**

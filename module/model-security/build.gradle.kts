@@ -25,6 +25,11 @@ dependencies {
 
   implementation(libs.uuid.creator)
 
+  runtimeOnly(platform(libs.spring.bom))
+  runtimeOnly(libs.starter.data.jpa)
+  runtimeOnly(libs.starter.aop)
+  runtimeOnly(libs.starter.validation)
+
   testFixturesAnnotationProcessor(platform(libs.immutables.bom))
   testFixturesAnnotationProcessor(libs.immutables.core)
 
@@ -34,7 +39,6 @@ dependencies {
 
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.jakarta.annotation)
-  testFixturesImplementation(projects.model)
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.equalsverifier)
@@ -46,9 +50,6 @@ dependencies {
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(projects.testApp)
   testRuntimeOnly(libs.h2)
-  testRuntimeOnly(libs.starter.aop)
-  testRuntimeOnly(libs.starter.data.jpa)
-  testRuntimeOnly(libs.starter.validation)
 }
 
 tasks.compileJava {

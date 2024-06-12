@@ -15,7 +15,7 @@ final class UserFactory {
   private UserFactory() {}
 
   @Builder.Factory
-  static User user(@Nonnull String name, @Nonnull Set<IdentityProviderUser> identityProviderUsers) {
+  static User user(@Nonnull String name, @Nonnull Set<IdentityProviderUserBuilder> identityProviderUsers) {
     return new User(new User.Identifier(UuidCreator.getTimeOrderedEpoch()), name, identityProviderUsers);
   }
 
