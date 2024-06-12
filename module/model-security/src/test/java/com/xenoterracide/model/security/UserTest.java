@@ -7,7 +7,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class UserTest {
@@ -30,7 +29,6 @@ public class UserTest {
     );
   }
 
-  @Disabled
   @SuppressWarnings("NullAway")
   void equality() {
     EqualsVerifier.forClass(User.class)
@@ -38,8 +36,8 @@ public class UserTest {
       .suppress(Warning.SURROGATE_OR_BUSINESS_KEY)
       .withPrefabValues(
         IdentityProviderUser.class,
-        IdentityProviderUserTestDataBuilder.create().build(),
-        IdentityProviderUserTestDataBuilder.create().build()
+        IdentityProviderUserTestDataBuilder.create().build().build(),
+        IdentityProviderUserTestDataBuilder.create().build().build()
       )
       .verify();
   }

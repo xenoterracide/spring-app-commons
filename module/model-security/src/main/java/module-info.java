@@ -18,5 +18,5 @@ import org.jspecify.annotations.NullMarked;
   requires org.hibernate.orm.envers;
   requires com.github.f4b6a3.uuid;
   exports com.xenoterracide.model.security;
-  opens com.xenoterracide.model.security to spring.core;
+  opens com.xenoterracide.model.security;
 }
