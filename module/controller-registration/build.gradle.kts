@@ -32,6 +32,9 @@ dependencies {
   runtimeOnly(libs.starter.graphql)
   runtimeOnly(libs.starter.validation)
 
+  testImplementation(platform(libs.spring.bom))
+  testImplementation(libs.spring.boot.test.autoconfigure)
+
   demoServerApi(platform(libs.spring.bom))
   demoServerApi(libs.spring.context)
   demoServerApi(libs.spring.boot.autoconfigure)
