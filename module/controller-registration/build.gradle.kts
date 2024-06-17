@@ -25,15 +25,26 @@ dependencies {
   api(libs.jakarta.validation)
 
   implementation(platform(libs.spring.bom))
-  implementation(libs.spring.graphql)
+  implementation(libs.spring.graphql.core)
   implementation(projects.modelSecurity)
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.graphql)
   runtimeOnly(libs.starter.validation)
+  runtimeOnly(libs.starter.web)
+  runtimeOnly(libs.starter.log4j2)
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.spring.boot.test.autoconfigure)
+  testImplementation(libs.spring.boot.test.core)
+  testImplementation(libs.spring.graphql.test)
+
+  testRuntimeOnly(platform(libs.spring.bom))
+  testRuntimeOnly(projects.testApp)
+  testRuntimeOnly(libs.h2)
+  testRuntimeOnly(libs.mockito)
+  testRuntimeOnly(libs.starter.webflux)
+  testRuntimeOnly(libs.starter.test)
 
   demoServerApi(platform(libs.spring.bom))
   demoServerApi(libs.spring.context)
@@ -42,10 +53,7 @@ dependencies {
   demoServerRuntimeOnly(platform(libs.spring.bom))
   demoServerRuntimeOnly(libs.spring.boot.devtools)
   demoServerRuntimeOnly(libs.starter.actuator)
-  demoServerRuntimeOnly(libs.starter.log4j2)
-  demoServerRuntimeOnly(libs.starter.web)
   demoServerRuntimeOnly(libs.h2)
-  demoServerRuntimeOnly(libs.starter.graphql)
   demoServerRuntimeOnly(project)
 
   modules {

@@ -5,9 +5,21 @@ package com.xenoterracide.controller.registration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.xenoterracide.model.security.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.graphql.test.tester.GraphQlTester;
 
+@GraphQlTest(RegistrationCtrlr.class)
 class RegistrationCtrlrTest {
+
+  @MockBean
+  UserRepository userRepository;
+
+  @Autowired
+  GraphQlTester graphQlTester;
 
   @Test
   void register() {
