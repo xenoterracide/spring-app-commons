@@ -21,7 +21,7 @@ class RegistrationCtrlrTest {
 
   @Test
   void register() {
-    this.graphQlTester.document("RegisterUser")
+    this.graphQlTester.documentName("RegisterUser")
       .execute()
       .path("registerUser.id")
       .entity(String.class)
