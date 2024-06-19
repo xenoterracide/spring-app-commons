@@ -1,0 +1,11 @@
+interface Identifiable {
+  id: ID!
+}
+
+interface Nameable {
+  name: String
+}
+
+interface EntityIdentifier {
+  type: String!
+}

@@ -1,2 +1,5 @@
-schema: http://localhost:8080/graphql
-documents: "**/*.graphql"
+schema: "module/**/*.graphqls"
+documents: "module/**/*.graphql"
+extensions:
+  endpoints:
+    default: http://localhost:8080/graphql

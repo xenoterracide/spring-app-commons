@@ -16,6 +16,6 @@ input RegistrationInput {
   idp: IdP!
 }
 
-type User {
+type User implements Identifiable {
   id: ID!
 }
