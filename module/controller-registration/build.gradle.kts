@@ -22,9 +22,9 @@ val demoServerApi by configurations.existing
 dependencies {
   api(platform(libs.spring.bom))
   api(libs.spring.context)
-  api(libs.jakarta.validation)
 
   implementation(platform(libs.spring.bom))
+  implementation(libs.jakarta.validation)
   implementation(libs.spring.graphql.core)
   implementation(projects.modelSecurity)
 
@@ -35,6 +35,7 @@ dependencies {
   runtimeOnly(libs.starter.log4j2)
 
   testImplementation(platform(libs.spring.bom))
+  testImplementation(libs.spring.beans)
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.spring.boot.test.core)
   testImplementation(libs.spring.graphql.test)
@@ -47,8 +48,11 @@ dependencies {
   testRuntimeOnly(libs.starter.test)
 
   demoServerApi(platform(libs.spring.bom))
-  demoServerApi(libs.spring.context)
   demoServerApi(libs.spring.boot.autoconfigure)
+
+  demoServerImplementation(platform(libs.spring.bom))
+  demoServerImplementation(libs.spring.boot.core)
+  demoServerImplementation(libs.spring.context)
 
   demoServerRuntimeOnly(platform(libs.spring.bom))
   demoServerRuntimeOnly(libs.spring.boot.devtools)
