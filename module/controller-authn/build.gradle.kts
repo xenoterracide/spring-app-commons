@@ -3,6 +3,8 @@
 
 import com.github.spotbugs.snom.SpotBugsTask
 
+buildscript { dependencyLocking { lockAllConfigurations() } }
+
 plugins {
   our.javalibrary
 }

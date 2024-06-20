@@ -249,7 +249,6 @@
 
     <!-- design https://checkstyle.org/checks/design/ -->
     <module name="FinalClass" />
-    <module name="HideUtilityClassConstructor" />
     <module name="InnerTypeLast" />
     <module name="InterfaceIsType" />
     <module name="MutableException" />

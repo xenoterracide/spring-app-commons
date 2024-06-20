@@ -1,0 +1,5 @@
+mutation RegisterUser {
+  registerUser(input: { username: "test", idpUserId: "test", idp: AUTH0 }) {
+    id
+  }
+}

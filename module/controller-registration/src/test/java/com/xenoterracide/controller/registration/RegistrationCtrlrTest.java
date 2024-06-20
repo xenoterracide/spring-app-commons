@@ -6,11 +6,24 @@ package com.xenoterracide.controller.registration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureGraphQlTester;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.graphql.test.tester.GraphQlTester;
 
+@SpringBootTest
+@AutoConfigureGraphQlTester
 class RegistrationCtrlrTest {
+
+  @Autowired
+  GraphQlTester graphQlTester;
 
   @Test
   void register() {
-    assertThat(true).isTrue();
+    this.graphQlTester.documentName("RegisterUser")
+      .execute()
+      .path("registerUser.id")
+      .entity(String.class)
+      .satisfies(id -> assertThat(id).isNotBlank());
   }
 }

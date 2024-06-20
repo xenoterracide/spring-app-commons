@@ -1,0 +1,21 @@
+type Query {
+  _dummy: String
+}
+
+type Mutation {
+  registerUser(input: RegistrationInput!): User!
+}
+
+enum IdP {
+  AUTH0
+}
+
+input RegistrationInput {
+  username: String!
+  idpUserId: String!
+  idp: IdP!
+}
+
+type User implements Identifiable {
+  id: ID!
+}
