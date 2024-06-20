@@ -3,18 +3,17 @@
 
 package com.xenoterracide.controller.registration;
 
-import com.xenoterracide.model.security.UserRepository;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.graphql.tester.AutoConfigureGraphQlTester;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.graphql.test.tester.GraphQlTester;
 
-@GraphQlTest(RegistrationCtrlr.class)
+@SpringBootTest
+@AutoConfigureGraphQlTester
 class RegistrationCtrlrTest {
-
-  @MockBean
-  UserRepository userRepository;
 
   @Autowired
   GraphQlTester graphQlTester;
@@ -25,6 +24,6 @@ class RegistrationCtrlrTest {
       .execute()
       .path("registerUser.id")
       .entity(String.class)
-      .isEqualTo("Hello, Alice!");
+      .satisfies(id -> assertThat(id).isNotBlank());
   }
 }
