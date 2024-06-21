@@ -10,7 +10,7 @@ on:
     - cron: "0 3 * * 0" # 3am UTC every Sunday
   push:
     branches:
-      - build/auto-update
+      - build/auto-update-java
 jobs:
   update-java:
     runs-on: ubuntu-latest
@@ -31,8 +31,9 @@ jobs:
           java-version: 21
       - uses: gradle/actions/setup-gradle@v3
         with:
+          gradle-version: current
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: ./gradlew --version
+      - run: gradle wrapper --write-locks
       - run: make ci-update-java
       - uses: peter-evans/create-pull-request@v6
         with:
