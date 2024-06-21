@@ -8,16 +8,28 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
   `java-library`
   `java-test-fixtures`
+  id("org.gradlex.java-module-testing")
 }
 
 val libs = the<LibrariesForLibs>()
 
-dependencies {
-  testImplementation(platform(libs.junit.bom))
-  testImplementation(libs.bundles.test.impl)
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        compileOnly(libs.jspecify)
 
-  testRuntimeOnly(platform(libs.junit.bom))
-  testRuntimeOnly(libs.bundles.test.runtime)
+        implementation(platform(libs.junit.bom))
+        implementation(libs.junit.api)
+        implementation(libs.assertj)
+        implementation(project(path))
+
+        runtimeOnly(platform(libs.spring.bom))
+        runtimeOnly(libs.junit.engine)
+        runtimeOnly(libs.junit.launcher)
+      }
+    }
+  }
 }
 
 val available = tasks.register("tests available") {

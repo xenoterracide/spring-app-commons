@@ -1,10 +1,12 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.model;
+package test.xenoterracide.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.xenoterracide.model.Nameable;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class NameableTest {
@@ -13,10 +15,10 @@ class NameableTest {
   void namesAreEqual() {
     var t1 = new NameImpl("name");
     var t2 = new GetNameImpl("name");
-    assertThat(t1.getName()).isEqualTo(t2.getName());
+    Assertions.assertThat(t1.getName()).isEqualTo(t2.getName());
     assertThat(t1.name()).isEqualTo(t2.name());
-    assertThat(t1.getName()).isEqualTo(t1.name());
-    assertThat(t1.getName()).isEqualTo(t2.name());
+    Assertions.assertThat(t1.getName()).isEqualTo(t1.name());
+    Assertions.assertThat(t1.getName()).isEqualTo(t2.name());
   }
 
   record NameImpl(String name) implements Nameable {}

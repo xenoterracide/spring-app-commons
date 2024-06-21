@@ -1,8 +1,9 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.model;
+package test.xenoterracide.model;
 
+import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
