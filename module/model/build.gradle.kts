@@ -13,8 +13,8 @@ dependencies {
   api(libs.spring.data.commons)
 
   testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.java.tools)
   testImplementation(libs.jakarta.persistence)
+  testImplementation(libs.java.tools)
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.spring.beans)
 

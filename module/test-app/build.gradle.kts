@@ -25,7 +25,6 @@ dependencies {
   runtimeOnly(libs.spring.test)
 
   testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.spring.beans)
   testImplementation(libs.spring.boot.test.core)
 
   testCompileOnly(platform(libs.spring.bom))
