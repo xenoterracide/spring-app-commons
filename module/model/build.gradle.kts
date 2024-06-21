@@ -18,15 +18,15 @@ dependencies {
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.spring.beans)
 
-  // inexplicit transients
-  testImplementation(libs.jakarta.cdi)
-  testImplementation(libs.jakarta.interceptor)
-  testImplementation(libs.jakarta.transaction)
-
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.starter.data.jpa)
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(projects.testApp)
+
+  // inexplicit transients
+  testRuntimeOnly(libs.jakarta.cdi)
+  testRuntimeOnly(libs.jakarta.interceptor)
+  testRuntimeOnly(libs.jakarta.transaction)
 }
 
 tasks.compileJava {

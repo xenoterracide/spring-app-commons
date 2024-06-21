@@ -6,11 +6,6 @@ module spring.app.commons.model.test {
   requires spring.boot.test.autoconfigure;
   requires spring.beans;
   requires jakarta.persistence;
-  requires jakarta.inject;
   requires com.xenoterracide.tools.java;
   opens com.xenoterracide.tm.model to org.junit.platform.commons;
-
-  // indirect required by 3rd party automatic module
-  requires static jakarta.transaction;
-  requires static jakarta.interceptor;
 }
