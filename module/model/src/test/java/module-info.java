@@ -7,5 +7,5 @@ module spring.app.commons.model.test {
   requires spring.beans;
   requires jakarta.persistence;
   requires com.xenoterracide.tools.java;
-  opens com.xenoterracide.tm.model to org.junit.platform.commons;
+  opens com.xenoterracide.tm.model to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
 }
