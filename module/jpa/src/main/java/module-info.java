@@ -20,4 +20,5 @@ import org.jspecify.annotations.NullMarked;
   exports com.xenoterracide.jpa;
   opens com.xenoterracide.jpa to spring.core;
   exports com.xenoterracide.jpa.annotation;
+  exports com.xenoterracide.jpa.util;
 }

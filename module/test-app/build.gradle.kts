@@ -3,7 +3,10 @@
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
 
-plugins { our.javalibrary }
+plugins {
+  our.javalibrary
+  alias(libs.plugins.module.testing)
+}
 
 tasks.compileJava {
   options.release = 17

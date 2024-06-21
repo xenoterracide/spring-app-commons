@@ -22,7 +22,6 @@ io.vavr:vavr:0.10.4=buildScriptClasspath,compileClasspath,runtimeClasspath
 net.ltgt.gradle:gradle-errorprone-plugin:3.1.0=buildScriptClasspath,compileClasspath,runtimeClasspath
 org.eclipse.jgit:org.eclipse.jgit:6.7.0.202309050840-r=buildScriptClasspath,runtimeClasspath
 org.eclipse.platform:org.eclipse.osgi:3.18.300=buildScriptClasspath,runtimeClasspath
-org.gradlex:java-module-testing:1.4=buildScriptClasspath,compileClasspath,runtimeClasspath
 org.jetbrains.intellij.deps:trove4j:1.0.20200330=kotlinCompilerClasspath
 org.jetbrains.kotlin:kotlin-assignment-compiler-plugin-embeddable:1.9.22=kotlinCompilerPluginClasspathMain
 org.jetbrains.kotlin:kotlin-compiler-embeddable:1.9.22=kotlinCompilerClasspath
