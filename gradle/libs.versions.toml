@@ -61,7 +61,7 @@ plugin-errorprone = "net.ltgt.gradle:gradle-errorprone-plugin:3.+"
 plugin-semver = "com.xenoterracide:gradle-semver:0.+"
 plugin-spotbugs = "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.+"
 plugin-spotless = "com.diffplug.spotless:spotless-plugin-gradle:6.+"
-plugin-gradlex-module-testing = "org.gradlex:java-module-testing:1.+"
+plugin-java-module-testing = "org.gradlex:java-module-testing:1.+"
 semver = "org.semver4j:semver4j:5.+"
 slf4j-bom = "org.slf4j:slf4j-bom:2.+"
 slf4j-nop = { module = "org.slf4j:slf4j-nop" }
@@ -132,4 +132,4 @@ shadow = { id = "com.github.johnrengelman.shadow", version = "8.+" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
 semver = { id = "com.xenoterracide.gradle.semver", version = "0.+" }
 dgs-codegen = { id = "com.netflix.graphql.dgs.codegen", version = "6.+" }
-module-testing = { id = "org.gradlex.java-module-testing", version = "1.+" }
+java-module-testing = { id = "org.gradlex.java-module-testing", version = "1.+" }

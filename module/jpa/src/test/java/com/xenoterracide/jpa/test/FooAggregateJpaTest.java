@@ -1,10 +1,12 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.jpa.test;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import com.xenoterracide.jpa.fixtures.FooAggregate;
+import com.xenoterracide.jpa.fixtures.FooAggregateRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

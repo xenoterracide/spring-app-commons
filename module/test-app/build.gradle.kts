@@ -5,7 +5,7 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 
 plugins {
   our.javalibrary
-  alias(libs.plugins.module.testing)
+  alias(libs.plugins.java.module.testing)
 }
 
 tasks.compileJava {

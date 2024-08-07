@@ -1,15 +1,18 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.jpa.fixtures;
 
-import static com.xenoterracide.tools.java.function.PredicateTools.prop;
 import static java.util.function.Predicate.isEqual;
 
 import com.github.f4b6a3.uuid.UuidCreator;
+import com.xenoterracide.jpa.AbstractAggregate;
+import com.xenoterracide.jpa.AbstractIdentitifier;
+import com.xenoterracide.jpa.AbstractSurrogateEntity;
 import com.xenoterracide.model.EntityIdentifier;
 import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
+import com.xenoterracide.tools.java.function.PredicateTools;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,14 +34,14 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
 
   private Set<BarEntity> bars = new HashSet<>();
 
-  protected FooAggregate() {}
+  public FooAggregate() {}
 
   public FooAggregate(Id id, String name) {
     super(id);
     this.name = name;
   }
 
-  static FooAggregate create(String name) {
+  public static FooAggregate create(String name) {
     return new FooAggregate(Id.create(), name);
   }
 
@@ -53,12 +56,15 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
   }
 
   public void changeBarName(BarEntity.Id id, String name) {
-    this.bars.stream().filter(prop(Identifiable::getId, isEqual(id))).findAny().ifPresent(e -> e.changeName(name));
+    this.bars.stream()
+      .filter(PredicateTools.prop(Identifiable::getId, isEqual(id)))
+      .findAny()
+      .ifPresent(e -> e.changeName(name));
   }
 
   @AuditMappedBy(mappedBy = "foo")
   @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "foo")
-  Set<BarEntity> getBars() {
+  public Set<BarEntity> getBars() {
     return this.bars;
   }
 
@@ -73,7 +79,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
   }
 
   @Initializer
-  void setName(String name) {
+  public void setName(String name) {
     this.name = name;
   }
 
@@ -87,7 +93,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
     @Serial
     private static final long serialVersionUID = 1L;
 
-    protected Id() {}
+    public Id() {}
 
     private Id(UUID id) {
       super(id);

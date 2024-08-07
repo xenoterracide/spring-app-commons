@@ -58,7 +58,7 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
   @Version
   @Nullable
   @Column(nullable = false)
-  Integer getVersion() {
+  public Integer getVersion() {
     return this.version;
   }
 

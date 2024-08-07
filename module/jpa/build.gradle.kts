@@ -28,26 +28,49 @@ dependencies {
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)
 
-  testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.spring.data.jpa)
-  testImplementation(libs.spring.orm)
-  testImplementation(libs.spring.test)
-  testImplementation(libs.equalsverifier)
-  testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.uuid.creator)
-  testImplementation(libs.hibernate.orm.core)
-  testImplementation(libs.spring.boot.test.core)
-  testImplementation(libs.java.tools)
+  testFixturesImplementation(platform(libs.spring.bom))
+  testFixturesImplementation(libs.uuid.creator)
+  testFixturesImplementation(libs.java.tools)
+  testFixturesImplementation(libs.spring.data.jpa)
 
-  testCompileOnly(libs.jspecify)
+  testFixturesCompileOnlyApi(libs.jspecify)
+}
 
-  testRuntimeOnly(platform(libs.spring.bom))
-  testRuntimeOnly(libs.h2)
-  testRuntimeOnly(libs.starter.validation)
-  testRuntimeOnly(libs.starter.data.jpa)
-  testRuntimeOnly(libs.starter.aop)
-  testRuntimeOnly(projects.testApp)
-  testRuntimeOnly(libs.spring.data.envers)
+testing {
+  suites {
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation(testFixtures(project()))
+
+        implementation(platform(libs.spring.bom))
+        implementation(libs.spring.data.jpa)
+        implementation(libs.spring.orm)
+        implementation(libs.spring.test)
+        implementation(libs.spring.boot.test.autoconfigure)
+        implementation(libs.hibernate.orm.core)
+        implementation(libs.spring.boot.test.core)
+
+        runtimeOnly(platform(libs.spring.bom))
+        runtimeOnly(libs.h2)
+        runtimeOnly(libs.starter.validation)
+        runtimeOnly(libs.starter.data.jpa)
+        runtimeOnly(libs.starter.aop)
+        runtimeOnly(projects.testApp)
+        runtimeOnly(libs.spring.data.envers)
+      }
+    }
+
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        compileOnly(libs.jspecify)
+        implementation(libs.equalsverifier)
+      }
+    }
+    val whitebox by registering(JvmTestSuite::class) {
+      dependencies {
+      }
+    }
+  }
 }
 
 tasks.compileJava {
