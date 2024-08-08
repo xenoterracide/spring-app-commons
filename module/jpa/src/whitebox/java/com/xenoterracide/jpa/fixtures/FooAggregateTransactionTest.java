@@ -1,14 +1,12 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.jpa.fixtures;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import com.xenoterracide.jpa.fixtures.BarEntity;
-import com.xenoterracide.jpa.fixtures.FooAggregate;
-import com.xenoterracide.jpa.fixtures.FooAggregateRepository;
+import com.xenoterracide.jpa.AbstractSurrogateEntity;
 import com.xenoterracide.model.Identifiable;
 import jakarta.validation.ConstraintViolationException;
 import java.util.Objects;
