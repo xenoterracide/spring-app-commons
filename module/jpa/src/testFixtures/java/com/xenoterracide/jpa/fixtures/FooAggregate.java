@@ -9,6 +9,7 @@ import com.github.f4b6a3.uuid.UuidCreator;
 import com.xenoterracide.jpa.AbstractAggregate;
 import com.xenoterracide.jpa.AbstractIdentitifier;
 import com.xenoterracide.jpa.AbstractSurrogateEntity;
+import com.xenoterracide.jpa.DomainEvent;
 import com.xenoterracide.model.EntityIdentifier;
 import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
@@ -20,11 +21,13 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.AuditMappedBy;
 import org.hibernate.envers.Audited;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 @Audited
@@ -47,6 +50,16 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
 
   protected void registerEvent(EntityIdentifier<BarEntity.Id, BarEntity> event) {
     super.registerEvent(FooEvent.create(this.getId(), event));
+  }
+
+  /**
+   * override for testing
+   *
+   * @return
+   */
+  @Override
+  protected @NonNull Collection<DomainEvent<?, Id, FooAggregate, ?>> domainEvents() {
+    return super.domainEvents();
   }
 
   public BarEntity addBar(String name) {

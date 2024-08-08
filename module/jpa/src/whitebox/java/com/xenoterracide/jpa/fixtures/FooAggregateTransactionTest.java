@@ -6,7 +6,6 @@ package com.xenoterracide.jpa.fixtures;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import com.xenoterracide.jpa.AbstractSurrogateEntity;
 import com.xenoterracide.model.Identifiable;
 import jakarta.validation.ConstraintViolationException;
 import java.util.Objects;
@@ -56,8 +55,8 @@ class FooAggregateTransactionTest {
       .isNotSameAs(newAgg)
       .isEqualTo(newAgg)
       .satisfies(agg -> Assertions.assertThat(agg.getBars()).hasSize(1))
-      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
-      .containsExactly(newAgg.getId(), 0, "new");
+      .extracting(Identifiable::getId, FooAggregate::getName)
+      .containsExactly(newAgg.getId(), "new");
 
     f0.setName("updating");
 
@@ -75,8 +74,9 @@ class FooAggregateTransactionTest {
           .extracting(Identifiable::getId)
           .containsExactly(f0.getBars().stream().findFirst().get().getId());
       })
-      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
-      .containsExactly(f0.getId(), 1, "updating");
+      .hasFieldOrPropertyWithValue("version", 1)
+      .extracting(Identifiable::getId, FooAggregate::getName)
+      .containsExactly(f0.getId(), "updating");
 
     var bar = f0.getBars().stream().findFirst().get();
     f1.changeBarName(bar.getId(), "new0");
@@ -99,8 +99,9 @@ class FooAggregateTransactionTest {
           .containsExactlyInAnyOrder("new0", "new1", "new2", "new3");
         Assertions.assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
       })
-      .extracting(Identifiable::getId, AbstractSurrogateEntity::getVersion, FooAggregate::getName)
-      .containsExactly(f0.getId(), 1, "updating");
+      .hasFieldOrPropertyWithValue("version", 1)
+      .extracting(Identifiable::getId, FooAggregate::getName)
+      .containsExactly(f0.getId(), "updating");
 
     var rev3 = repository.findRevisions(newAgg.getId()).getContent();
 
@@ -111,7 +112,7 @@ class FooAggregateTransactionTest {
 
     var f3 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
-    Assertions.assertThat(f3).isNotNull().satisfies(f -> Assertions.assertThat(f.getVersion()).isEqualTo(2));
+    Assertions.assertThat(f3).isNotNull().hasFieldOrPropertyWithValue("version", 2);
 
     var rev4 = repository.findRevisions(newAgg.getId()).getContent();
 

@@ -10,4 +10,7 @@ module spring.app.commons.jpa.test {
   requires nl.jqno.equalsverifier;
   requires org.apache.commons.lang3;
   requires com.xenoterracide.jpa.fixtures;
+  requires spring.test;
+  requires spring.boot.test.autoconfigure;
+  requires spring.orm;
 }

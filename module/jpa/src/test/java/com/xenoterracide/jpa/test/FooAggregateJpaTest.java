@@ -24,14 +24,4 @@ class FooAggregateJpaTest {
   void noId() {
     assertThatExceptionOfType(JpaSystemException.class).isThrownBy(() -> repository.save(new FooAggregate()));
   }
-  /*
-  @Test
-  void eventsPropagated() {
-    var agg = FooAggregate.create("new");
-    agg.addBar("bar").changeName("baz");
-    assertThat(agg.domainEvents()).isNotEmpty();
-    repository.save(agg);
-    assertThat(agg.domainEvents()).isEmpty();
-  }
-   */
 }
