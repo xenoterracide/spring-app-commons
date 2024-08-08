@@ -50,7 +50,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
   )
   @JoinColumn(nullable = false, updatable = false, name = "foo_id", foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
   public FooAggregate getFoo() {
-    return foo;
+    return this.foo;
   }
 
   @Initializer
@@ -66,7 +66,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
   @NotNull
   @Column(nullable = false)
   public String getName() {
-    return name;
+    return this.name;
   }
 
   @Initializer

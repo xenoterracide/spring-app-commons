@@ -88,7 +88,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
   @NotNull
   @Column(nullable = false)
   public String getName() {
-    return name;
+    return this.name;
   }
 
   @Initializer

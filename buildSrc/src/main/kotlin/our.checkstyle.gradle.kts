@@ -19,7 +19,8 @@ fun checkstyleConfig(filename: String): File {
   val f = layout.projectDirectory.file(path).asFile
   if (f.exists()) return f
   if (rootProject.file(path).exists()) return rootProject.file(path)
-  return rootProject.file(".config/checkstyle/main.xml")
+  // test is weaker, and non main source sets are not production code
+  return rootProject.file(".config/checkstyle/test.xml")
 }
 
 tasks.withType<Checkstyle>().configureEach {
