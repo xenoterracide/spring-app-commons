@@ -20,7 +20,7 @@ configurations.configureEach {
   resolutionStrategy {
     componentSelection {
       all {
-        val nonRelease = Regex("^[\\d.]+-(M|ea|beta|alpha).*$")
+        val nonRelease = Regex("^[\\d.]+-(RC|M|ea|beta|alpha).*$")
         val module = Regex("^spotbugs.*")
         val group = Regex("^com.xenoterracide$")
         if (!candidate.group.matches(group) && !name.matches(module) && !candidate.module.matches(module)) {
