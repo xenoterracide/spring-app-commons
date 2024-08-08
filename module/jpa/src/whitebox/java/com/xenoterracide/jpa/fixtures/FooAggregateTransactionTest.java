@@ -6,6 +6,7 @@ package com.xenoterracide.jpa.fixtures;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+import com.xenoterracide.jpa.AbstractSurrogateEntity_;
 import com.xenoterracide.model.Identifiable;
 import jakarta.validation.ConstraintViolationException;
 import java.util.Objects;
@@ -74,7 +75,7 @@ class FooAggregateTransactionTest {
           .extracting(Identifiable::getId)
           .containsExactly(f0.getBars().stream().findFirst().get().getId());
       })
-      .hasFieldOrPropertyWithValue("version", 1)
+      .hasFieldOrPropertyWithValue(AbstractSurrogateEntity_.VERSION, 1)
       .extracting(Identifiable::getId, FooAggregate::getName)
       .containsExactly(f0.getId(), "updating");
 
@@ -99,7 +100,7 @@ class FooAggregateTransactionTest {
           .containsExactlyInAnyOrder("new0", "new1", "new2", "new3");
         Assertions.assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
       })
-      .hasFieldOrPropertyWithValue("version", 1)
+      .hasFieldOrPropertyWithValue(AbstractSurrogateEntity_.VERSION, 1)
       .extracting(Identifiable::getId, FooAggregate::getName)
       .containsExactly(f0.getId(), "updating");
 
@@ -112,7 +113,7 @@ class FooAggregateTransactionTest {
 
     var f3 = tx.execute(cb -> repository.findOneById(newAgg.getId()));
 
-    Assertions.assertThat(f3).isNotNull().hasFieldOrPropertyWithValue("version", 2);
+    Assertions.assertThat(f3).isNotNull().hasFieldOrPropertyWithValue(AbstractSurrogateEntity_.VERSION, 2);
 
     var rev4 = repository.findRevisions(newAgg.getId()).getContent();
 

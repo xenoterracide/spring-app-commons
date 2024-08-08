@@ -55,7 +55,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
   /**
    * override for testing
    *
-   * @return
+   * @return domain events
    */
   @Override
   protected @NonNull Collection<DomainEvent<?, Id, FooAggregate, ?>> domainEvents() {
