@@ -20,27 +20,22 @@ val demoServerRuntimeOnly by configurations.existing
 val demoServerApi by configurations.existing
 
 dependencies {
-  api(platform(libs.spring.bom))
   api(libs.spring.context)
 
-  implementation(platform(libs.spring.bom))
   implementation(libs.jakarta.validation)
   implementation(libs.spring.graphql.core)
   implementation(projects.modelSecurity)
 
-  runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.graphql)
   runtimeOnly(libs.starter.validation)
   runtimeOnly(libs.starter.web)
   runtimeOnly(libs.starter.log4j2)
 
-  testImplementation(platform(libs.spring.bom))
   testImplementation(libs.spring.beans)
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.spring.boot.test.core)
   testImplementation(libs.spring.graphql.test)
 
-  testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(projects.testApp)
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.mockito)

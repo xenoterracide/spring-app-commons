@@ -6,12 +6,12 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 plugins { our.javalibrary }
 
 dependencies {
+  annotationProcessor(platform(libs.jakarta.bom))
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(libs.hibernate.jpa.modelgen)
 
   compileOnly(libs.java.tools)
 
-  api(platform(libs.spring.bom))
   api(projects.model)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
@@ -19,16 +19,17 @@ dependencies {
   api(libs.spring.data.commons)
   api(libs.hibernate.envers)
 
-  implementation(platform(libs.spring.bom))
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
 
-  runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)
+  // transients required by jakarta transaction which is required by hibernate
+  runtimeOnly(libs.jakarta.cdi)
+  runtimeOnly(libs.jakarta.lang.model)
+  runtimeOnly(libs.jakarta.interceptor)
 
-  testFixturesImplementation(platform(libs.spring.bom))
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.java.tools)
   testFixturesImplementation(libs.spring.data.jpa)
@@ -42,6 +43,7 @@ testing {
       dependencies {
         implementation(testFixtures(project()))
 
+        implementation(platform(libs.jakarta.bom))
         implementation(platform(libs.spring.bom))
         implementation(libs.spring.data.jpa)
         implementation(libs.spring.orm)
@@ -50,7 +52,6 @@ testing {
         implementation(libs.hibernate.orm.core)
         implementation(libs.spring.boot.test.core)
 
-        runtimeOnly(platform(libs.spring.bom))
         runtimeOnly(libs.h2)
         runtimeOnly(libs.starter.validation)
         runtimeOnly(libs.starter.data.jpa)

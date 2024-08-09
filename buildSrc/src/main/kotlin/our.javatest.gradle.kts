@@ -12,6 +12,11 @@ plugins {
 
 val libs = the<LibrariesForLibs>()
 
+dependencies {
+  testFixturesImplementation(platform(libs.jakarta.bom))
+  testFixturesImplementation(platform(libs.spring.bom))
+}
+
 testing {
   suites {
     withType<JvmTestSuite>().configureEach {

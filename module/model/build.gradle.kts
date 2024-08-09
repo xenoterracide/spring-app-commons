@@ -23,9 +23,13 @@ dependencies {
   testRuntimeOnly(projects.testApp)
 
   // inexplicit transients
+  /*
   testRuntimeOnly(libs.jakarta.cdi)
+  testRuntimeOnly(libs.jakarta.lang.model)
   testRuntimeOnly(libs.jakarta.interceptor)
   testRuntimeOnly(libs.jakarta.transaction)
+
+   */
 }
 
 tasks.compileJava {

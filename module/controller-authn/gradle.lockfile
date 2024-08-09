@@ -69,6 +69,7 @@ io.projectreactor.netty:reactor-netty-core:1.1.21=testRuntimeClasspath
 io.projectreactor.netty:reactor-netty-http:1.1.21=testRuntimeClasspath
 io.projectreactor:reactor-core:3.6.8=testRuntimeClasspath
 jakarta.annotation:jakarta.annotation-api:2.1.1=compileClasspath,demoServerRuntimeClasspath,runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
+jakarta.platform:jakarta.jakartaee-bom:10.0.0=compileClasspath,demoServerRuntimeClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 javax.inject:javax.inject:1=annotationProcessor,demoServerAnnotationProcessor,errorprone,testAnnotationProcessor,testFixturesAnnotationProcessor
 jaxen:jaxen:2.0.0=spotbugs
 net.bytebuddy:byte-buddy:1.14.18=testCompileClasspath,testRuntimeClasspath
