@@ -1,7 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa.test.transaction;
+package com.xenoterracide.jpa.transaction;
 
 import com.xenoterracide.jpa.annotation.TransactionScope;
 import com.xenoterracide.jpa.util.Constants;
