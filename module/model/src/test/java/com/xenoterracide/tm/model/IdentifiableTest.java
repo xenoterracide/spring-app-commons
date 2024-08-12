@@ -6,7 +6,6 @@ package com.xenoterracide.tm.model;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.xenoterracide.model.Identifiable;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class IdentifiableTest {
@@ -15,10 +14,10 @@ class IdentifiableTest {
   void idsAreEqual() {
     var t1 = new IdImpl(1L);
     var t2 = new GetIdImpl(1L);
-    Assertions.assertThat(t1.getId()).isEqualTo(t2.getId());
+    assertThat(t1.getId()).isEqualTo(t2.getId());
     assertThat(t1.id()).isEqualTo(t2.id());
-    Assertions.assertThat(t1.getId()).isEqualTo(t1.id());
-    Assertions.assertThat(t1.getId()).isEqualTo(t2.id());
+    assertThat(t1.getId()).isEqualTo(t1.id());
+    assertThat(t1.getId()).isEqualTo(t2.id());
   }
 
   record IdImpl(Long id) implements Identifiable<Long> {}
