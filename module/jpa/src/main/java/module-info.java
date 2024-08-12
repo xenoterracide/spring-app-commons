@@ -7,8 +7,8 @@ import org.jspecify.annotations.NullMarked;
   exports com.xenoterracide.jpa;
   exports com.xenoterracide.jpa.annotation;
   exports com.xenoterracide.jpa.util;
-  exports com.xenoterracide.jpa.transaction;
   opens com.xenoterracide.jpa to org.hibernate.orm.core, spring.core;
+  exports com.xenoterracide.jpa.transaction to spring.beans, spring.context;
   opens com.xenoterracide.jpa.transaction to spring.core;
 
   requires java.base;
