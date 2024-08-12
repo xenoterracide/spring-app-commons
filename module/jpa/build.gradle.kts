@@ -64,11 +64,12 @@ testing {
     val test by getting(JvmTestSuite::class) {
       dependencies {
         compileOnly(libs.jspecify)
-        implementation(libs.equalsverifier)
       }
     }
     val whitebox by registering(JvmTestSuite::class) {
       dependencies {
+        implementation(libs.equalsverifier)
+        implementation(libs.commons.lang)
       }
     }
   }
