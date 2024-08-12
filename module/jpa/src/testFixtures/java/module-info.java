@@ -8,4 +8,5 @@ module com.xenoterracide.jpa.fixtures {
   requires com.github.f4b6a3.uuid;
   requires spring.data.jpa;
   requires spring.data.commons;
+  requires static jakarta.annotation;
 }

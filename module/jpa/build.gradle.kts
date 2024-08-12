@@ -35,9 +35,14 @@ dependencies {
   runtimeOnly(libs.jakarta.lang.model)
   runtimeOnly(libs.jakarta.interceptor)
 
+  testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
+  testFixturesAnnotationProcessor(platform(libs.spring.bom))
+  testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
+
+  testFixturesApi(projects.model)
+  testFixturesApi(libs.spring.data.jpa)
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.java.tools)
-  testFixturesImplementation(libs.spring.data.jpa)
 
   testFixturesCompileOnlyApi(libs.jspecify)
 }
@@ -50,11 +55,8 @@ testing {
 
         implementation(platform(libs.jakarta.bom))
         implementation(platform(libs.spring.bom))
-        implementation(libs.spring.data.jpa)
-        implementation(libs.spring.orm)
         implementation(libs.spring.test)
         implementation(libs.spring.boot.test.autoconfigure)
-        implementation(libs.hibernate.orm.core)
         implementation(libs.spring.boot.test.core)
 
         runtimeOnly(libs.h2)
@@ -68,13 +70,19 @@ testing {
 
     val test by getting(JvmTestSuite::class) {
       dependencies {
+        implementation(libs.spring.orm)
         compileOnly(libs.jspecify)
       }
     }
     val whitebox by registering(JvmTestSuite::class) {
       dependencies {
+        implementation(projects.jpa)
+        implementation(projects.model)
         implementation(libs.equalsverifier)
         implementation(libs.commons.lang)
+        implementation(libs.spring.beans)
+        implementation(libs.spring.transaction)
+        implementation(libs.hibernate.orm.core)
       }
     }
   }
