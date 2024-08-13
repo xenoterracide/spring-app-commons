@@ -2,14 +2,16 @@
 // SPDX-License-Identifier: MIT
 
 plugins {
-  jacoco
   `java-base`
+  jacoco
 }
 
 val coverage = project.extensions.create<CoveragePluginExtension>("coverage")
 
 tasks.withType<JacocoReport>().configureEach {
   dependsOn(project.tasks.withType<Test>())
+  // execution data needs to be aggregated from all exec files in the project for multi jvm test suite testing
+  executionData(project.layout.buildDirectory.dir("jacoco").map { it.asFileTree.toList() })
 }
 
 project.tasks.check.configure {
@@ -17,7 +19,8 @@ project.tasks.check.configure {
 }
 
 tasks.withType<JacocoCoverageVerification>().configureEach {
-  dependsOn(project.tasks.withType<JacocoReport>())
+  // execution data needs to be aggregated from all exec files in the project for multi jvm test suite testing
+  executionData(project.tasks.withType<JacocoReport>().map { it.executionData })
   violationRules {
     rule {
       limit {
