@@ -8,7 +8,7 @@ plugins {
 
 val coverage = project.extensions.create<CoveragePluginExtension>("coverage")
 
-tasks.withType<JacocoReport> {
+tasks.withType<JacocoReport>().configureEach {
   dependsOn(project.tasks.withType<Test>())
 }
 
