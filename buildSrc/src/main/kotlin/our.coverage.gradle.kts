@@ -6,9 +6,9 @@ plugins {
   `java-base`
 }
 
-val coverageMinimum: Property<Double> = project.objects.property<Double>()
+val coverage = project.extensions.create<CoveragePluginExtension>("coverage")
 
-tasks.withType<JacocoReport> {
+tasks.withType<JacocoReport>().configureEach {
   dependsOn(project.tasks.withType<Test>())
 }
 
@@ -21,8 +21,12 @@ tasks.withType<JacocoCoverageVerification>().configureEach {
   violationRules {
     rule {
       limit {
-        coverageMinimum.convention(0.9).let { minimum = it.get().toBigDecimal() }
+        coverage.minimum.convention(0.9).let { minimum = it.get().toBigDecimal() }
       }
     }
   }
+}
+
+interface CoveragePluginExtension {
+  val minimum: Property<Double>
 }
