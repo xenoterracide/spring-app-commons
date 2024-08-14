@@ -5,10 +5,9 @@ import org.jspecify.annotations.NullMarked;
  * Applications. Simply include the module on your classpath.
  */
 @NullMarked module com.xenoterracide {
-  exports com.xenoterracide to spring.context;
+  exports com.xenoterracide to spring.context, spring.beans;
   opens com.xenoterracide to spring.core;
   requires spring.context;
   requires spring.boot.autoconfigure;
   requires static org.jspecify;
-  requires static spring.core;
 }
