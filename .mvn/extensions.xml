@@ -2,7 +2,7 @@
 <extensions>
   <extension>
     <groupId>io.takari.polyglot</groupId>
-    <artifactId>polyglot-java</artifactId>
+    <artifactId>polyglot-yaml</artifactId>
     <version>0.7.1</version>
   </extension>
 </extensions>

@@ -1,0 +1,44 @@
+modelVersion: 4.0.0
+artifactId: test-app
+packaging: jar
+parent:
+  groupId: com.xenoterracide
+  artifactId: spring-app-commons
+  version: 1.0-SNAPSHOT
+  relativePath: ../pom.yml
+
+dependencies:
+  - groupId: org.jspecify
+    artifactId: jspecify
+  - groupId: org.springframework
+    artifactId: spring-core
+  - groupId: org.springframework.boot
+    artifactId: spring-boot-autoconfigure
+  - groupId: org.springframework
+    artifactId: spring-context
+  # runtime
+  - groupId: org.springframework
+    artifactId: spring-test
+    scope: runtime
+  # test
+  - groupId: org.springframework
+    artifactId: spring-beans
+    scope: test
+  - groupId: org.springframework.boot
+    artifactId: spring-boot-test
+    scope: test
+  - groupId: org.springframework.boot
+    artifactId: spring-boot-test-autoconfigure
+    scope: test
+  - groupId: org.springframework
+    artifactId: spring-test
+    scope: test
+  - groupId: org.junit.jupiter
+    artifactId: junit-jupiter-engine
+    scope: test
+  - groupId: org.junit.jupiter
+    artifactId: junit-jupiter-api
+    scope: test
+  - groupId: org.assertj
+    artifactId: assertj-core
+    scope: test

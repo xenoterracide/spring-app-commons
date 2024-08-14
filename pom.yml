@@ -1,11 +1,36 @@
 modelVersion: 4.0.0
-groupId: com.baeldung.maven.polyglot
-artifactId: maven-polyglot-yml-app
+groupId: com.xenoterracide
+artifactId: spring-app-commons
 version: 1.0-SNAPSHOT
-name: "YAML Demo"
+name: Common Modules for a Spring Boot Application
+packaging: pom
 
-parent:
-  groupId: "org.springframework.boot"
-  artifactId: "spring-boot-starter-parent"
-  version: "3.1.5.RELEASE"
-  relativePath": null
+modules:
+  - test-app
+
+build:
+  pluginManagement:
+    plugins:
+      - groupId: org.apache.maven.plugins
+        artifactId: maven-compiler-plugin
+        version: 3.13.0
+        configuration:
+          release: 17
+      - groupId: org.apache.maven.plugins
+        artifactId: maven-surefire-plugin
+        version: 3.3.1
+
+dependencyManagement:
+  dependencies:
+    - groupId: org.springframework.boot
+      artifactId: spring-boot-dependencies
+      version: 3.3.2
+      scope: import
+      type: pom
+    - groupId: org.jspecify
+      artifactId: jspecify
+      version: 1.0.0
+    - groupId: org.assertj
+      artifactId: assertj-core
+      version: 3.26.3
+      scope: test
