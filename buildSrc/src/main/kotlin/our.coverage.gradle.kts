@@ -19,6 +19,7 @@ project.tasks.check.configure {
 }
 
 tasks.withType<JacocoCoverageVerification>().configureEach {
+  dependsOn(project.tasks.withType<JacocoReport>())
   // execution data needs to be aggregated from all exec files in the project for multi jvm test suite testing
   executionData(project.tasks.withType<JacocoReport>().map { it.executionData })
   violationRules {
