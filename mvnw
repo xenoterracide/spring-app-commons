@@ -35,10 +35,10 @@ set -euf
 # OS specific support.
 native_path() { printf %s\\n "$1"; }
 case "$(uname)" in
-  CYGWIN* | MINGW*)
-    [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
-    native_path() { cygpath --path --windows "$1"; }
-    ;;
+CYGWIN* | MINGW*)
+  [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
+  native_path() { cygpath --path --windows "$1"; }
+  ;;
 esac
 
 # set JAVACMD and JAVACCMD
@@ -62,12 +62,12 @@ set_java_home() {
   else
     JAVACMD="$(
       'set' +e
-      'unset' -f command 2> /dev/null
+      'unset' -f command 2>/dev/null
       'command' -v java
     )" || :
     JAVACCMD="$(
       'set' +e
-      'unset' -f command 2> /dev/null
+      'unset' -f command 2>/dev/null
       'command' -v javac
     )" || :
 
@@ -108,29 +108,29 @@ trim() {
 # parse distributionUrl and optional distributionSha256Sum, requires .mvn/wrapper/maven-wrapper.properties
 while IFS="=" read -r key value; do
   case "${key-}" in
-    distributionUrl) distributionUrl=$(trim "${value-}") ;;
-    distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
+  distributionUrl) distributionUrl=$(trim "${value-}") ;;
+  distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
   esac
-done < "${0%/*}/.mvn/wrapper/maven-wrapper.properties"
+done <"${0%/*}/.mvn/wrapper/maven-wrapper.properties"
 [ -n "${distributionUrl-}" ] || die "cannot read distributionUrl property in ${0%/*}/.mvn/wrapper/maven-wrapper.properties"
 
 case "${distributionUrl##*/}" in
-  maven-mvnd-*bin.*)
-    MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/
-    case "${PROCESSOR_ARCHITECTURE-}${PROCESSOR_ARCHITEW6432-}:$(uname -a)" in
-      *AMD64:CYGWIN* | *AMD64:MINGW*) distributionPlatform=windows-amd64 ;;
-      :Darwin*x86_64) distributionPlatform=darwin-amd64 ;;
-      :Darwin*arm64) distributionPlatform=darwin-aarch64 ;;
-      :Linux*x86_64*) distributionPlatform=linux-amd64 ;;
-      *)
-        echo "Cannot detect native platform for mvnd on $(uname)-$(uname -m), use pure java version" >&2
-        distributionPlatform=linux-amd64
-        ;;
-    esac
-    distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"
+maven-mvnd-*bin.*)
+  MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/
+  case "${PROCESSOR_ARCHITECTURE-}${PROCESSOR_ARCHITEW6432-}:$(uname -a)" in
+  *AMD64:CYGWIN* | *AMD64:MINGW*) distributionPlatform=windows-amd64 ;;
+  :Darwin*x86_64) distributionPlatform=darwin-amd64 ;;
+  :Darwin*arm64) distributionPlatform=darwin-aarch64 ;;
+  :Linux*x86_64*) distributionPlatform=linux-amd64 ;;
+  *)
+    echo "Cannot detect native platform for mvnd on $(uname)-$(uname -m), use pure java version" >&2
+    distributionPlatform=linux-amd64
     ;;
-  maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
-  *) MVN_CMD="mvn${0##*/mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
+  esac
+  distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"
+  ;;
+maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
+*) MVN_CMD="mvn${0##*/mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
 esac
 
 # apply MVNW_REPOURL and calculate MAVEN_HOME
@@ -153,8 +153,8 @@ if [ -d "$MAVEN_HOME" ]; then
 fi
 
 case "${distributionUrl-}" in
-  *?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
-  *) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
+*?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
+*) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
 esac
 
 # prepare tmp dir
@@ -173,7 +173,7 @@ verbose "Downloading from: $distributionUrl"
 verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"
 
 # select .zip or .tar.gz
-if ! command -v unzip > /dev/null; then
+if ! command -v unzip >/dev/null; then
   distributionUrl="${distributionUrl%.zip}.tar.gz"
   distributionUrlName="${distributionUrl##*/}"
 fi
@@ -184,21 +184,21 @@ __MVNW_QUIET_WGET=--quiet __MVNW_QUIET_CURL=--silent __MVNW_QUIET_UNZIP=-q __MVN
 
 # normalize http auth
 case "${MVNW_PASSWORD:+has-password}" in
-  '') MVNW_USERNAME='' MVNW_PASSWORD='' ;;
-  has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+'') MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;
 esac
 
-if [ -z "${MVNW_USERNAME-}" ] && command -v wget > /dev/null; then
+if [ -z "${MVNW_USERNAME-}" ] && command -v wget >/dev/null; then
   verbose "Found wget ... using wget"
   wget ${__MVNW_QUIET_WGET:+"$__MVNW_QUIET_WGET"} "$distributionUrl" -O "$TMP_DOWNLOAD_DIR/$distributionUrlName" || die "wget: Failed to fetch $distributionUrl"
-elif [ -z "${MVNW_USERNAME-}" ] && command -v curl > /dev/null; then
+elif [ -z "${MVNW_USERNAME-}" ] && command -v curl >/dev/null; then
   verbose "Found curl ... using curl"
   curl ${__MVNW_QUIET_CURL:+"$__MVNW_QUIET_CURL"} -f -L -o "$TMP_DOWNLOAD_DIR/$distributionUrlName" "$distributionUrl" || die "curl: Failed to fetch $distributionUrl"
 elif set_java_home; then
   verbose "Falling back to use Java to download"
   javaSource="$TMP_DOWNLOAD_DIR/Downloader.java"
   targetZip="$TMP_DOWNLOAD_DIR/$distributionUrlName"
-  cat > "$javaSource" <<- END
+  cat >"$javaSource" <<-END
 	public class Downloader extends java.net.Authenticator
 	{
 	  protected java.net.PasswordAuthentication getPasswordAuthentication()
@@ -226,12 +226,12 @@ if [ -n "${distributionSha256Sum-}" ]; then
     echo "Checksum validation is not supported for maven-mvnd." >&2
     echo "Please disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2
     exit 1
-  elif command -v sha256sum > /dev/null; then
-    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | sha256sum -c > /dev/null 2>&1; then
+  elif command -v sha256sum >/dev/null; then
+    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | sha256sum -c >/dev/null 2>&1; then
       distributionSha256Result=true
     fi
-  elif command -v shasum > /dev/null; then
-    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | shasum -a 256 -c > /dev/null 2>&1; then
+  elif command -v shasum >/dev/null; then
+    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | shasum -a 256 -c >/dev/null 2>&1; then
       distributionSha256Result=true
     fi
   else
@@ -247,12 +247,12 @@ if [ -n "${distributionSha256Sum-}" ]; then
 fi
 
 # unzip and move
-if command -v unzip > /dev/null; then
+if command -v unzip >/dev/null; then
   unzip ${__MVNW_QUIET_UNZIP:+"$__MVNW_QUIET_UNZIP"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -d "$TMP_DOWNLOAD_DIR" || die "failed to unzip"
 else
   tar xzf${__MVNW_QUIET_TAR:+"$__MVNW_QUIET_TAR"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -C "$TMP_DOWNLOAD_DIR" || die "failed to untar"
 fi
-printf %s\\n "$distributionUrl" > "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain/mvnw.url"
+printf %s\\n "$distributionUrl" >"$TMP_DOWNLOAD_DIR/$distributionUrlNameMain/mvnw.url"
 mv -- "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain" "$MAVEN_HOME" || [ -d "$MAVEN_HOME" ] || die "fail to move MAVEN_HOME"
 
 clean || :
