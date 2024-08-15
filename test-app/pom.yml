@@ -8,30 +8,26 @@ parent:
   relativePath: ../pom.yml
 
 dependencies:
-  - groupId: org.jspecify
-    artifactId: jspecify
-  - groupId: org.springframework
-    artifactId: spring-core
-  - groupId: org.springframework.boot
-    artifactId: spring-boot-autoconfigure
-  - groupId: org.springframework
-    artifactId: spring-context
+  - artifactId: jspecify
+    groupId: org.jspecify
+  - artifactId: spring-core
+    groupId: org.springframework
+  - artifactId: spring-boot-autoconfigure
+    groupId: org.springframework.boot
+  - artifactId: spring-context
+    groupId: org.springframework
+  - artifactId: spring-beans
+    groupId: org.springframework
   # runtime
   - groupId: org.springframework
     artifactId: spring-test
     scope: runtime
   # test
-  - groupId: org.springframework
-    artifactId: spring-beans
-    scope: test
   - groupId: org.springframework.boot
     artifactId: spring-boot-test
     scope: test
   - groupId: org.springframework.boot
     artifactId: spring-boot-test-autoconfigure
-    scope: test
-  - groupId: org.springframework
-    artifactId: spring-test
     scope: test
   - groupId: org.junit.jupiter
     artifactId: junit-jupiter-engine
