@@ -12,12 +12,14 @@ dependencies:
     groupId: org.jspecify
   - artifactId: spring-core
     groupId: org.springframework
+    scope: runtime
   - artifactId: spring-boot-autoconfigure
     groupId: org.springframework.boot
   - artifactId: spring-context
     groupId: org.springframework
   - artifactId: spring-beans
     groupId: org.springframework
+    scope: runtime
   # runtime
   - groupId: org.springframework
     artifactId: spring-test
@@ -28,9 +30,6 @@ dependencies:
     scope: test
   - groupId: org.springframework.boot
     artifactId: spring-boot-test-autoconfigure
-    scope: test
-  - groupId: org.junit.jupiter
-    artifactId: junit-jupiter-engine
     scope: test
   - groupId: org.junit.jupiter
     artifactId: junit-jupiter-api
