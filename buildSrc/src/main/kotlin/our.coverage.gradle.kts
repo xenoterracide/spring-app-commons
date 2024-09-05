@@ -10,8 +10,7 @@ val coverage = project.extensions.create<CoveragePluginExtension>("coverage")
 
 tasks.withType<JacocoReport>().configureEach {
   dependsOn(project.tasks.withType<Test>())
-  // execution data needs to be aggregated from all exec files in the project for multi jvm test suite testing
-  executionData(project.layout.buildDirectory.dir("jacoco"))
+  tasks.withType<Test>().forEach(::executionData)
 }
 
 project.tasks.check.configure {
