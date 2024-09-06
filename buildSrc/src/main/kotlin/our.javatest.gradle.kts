@@ -13,11 +13,23 @@ plugins {
 val libs = the<LibrariesForLibs>()
 
 dependencies {
-  testImplementation(platform(libs.junit.bom))
-  testImplementation(libs.bundles.test.impl)
+  testFixturesImplementation(platform(libs.jakarta.bom))
+  testFixturesImplementation(platform(libs.spring.bom))
+}
 
-  testRuntimeOnly(platform(libs.junit.bom))
-  testRuntimeOnly(libs.bundles.test.runtime)
+testing {
+  suites {
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        compileOnly(libs.jspecify)
+        implementation(platform(libs.junit.bom))
+        implementation.bundle(libs.bundles.test.impl)
+
+        runtimeOnly(platform(libs.junit.bom))
+        runtimeOnly.bundle(libs.bundles.test.runtime)
+      }
+    }
+  }
 }
 
 val available = tasks.register("tests available") {

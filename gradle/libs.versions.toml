@@ -38,12 +38,18 @@ jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-d
 jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names" }
 java-parser = "com.github.javaparser:javaparser-core:3.+"
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
+jakarta-bom = "jakarta.platform:jakarta.jakartaee-bom:10.+"
+jakarta-cdi = { module = "jakarta.enterprise:jakarta.enterprise.cdi-api", version = "3.+" }
+jakarta-inject = { module = "jakarta.inject:jakarta.inject-api" }
+jakarta-interceptor = { module = "jakarta.interceptor:jakarta.interceptor-api" }
+jakarta-lang-model = { module = "jakarta.enterprise:jakarta.enterprise.lang-model" }
 jakarta-persistence = { module = "jakarta.persistence:jakarta.persistence-api" }
 jakarta-servlet = { module = "jakarta.servlet:jakarta.servlet-api" }
+jakarta-transaction = { module = "jakarta.transaction:jakarta.transaction-api" }
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
 jetbrains-annotations = "org.jetbrains:annotations:+"
 jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
-jspecify = "org.jspecify:jspecify:0.+"
+jspecify = "org.jspecify:jspecify:1.+"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-bom = "org.junit:junit-bom:5.+"
 junit-parameters = { module = "org.junit.jupiter:junit-jupiter-params" }
@@ -57,6 +63,7 @@ plugin-errorprone = "net.ltgt.gradle:gradle-errorprone-plugin:3.+"
 plugin-semver = "com.xenoterracide:gradle-semver:0.+"
 plugin-spotbugs = "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.+"
 plugin-spotless = "com.diffplug.spotless:spotless-plugin-gradle:6.+"
+plugin-java-module-testing = "org.gradlex:java-module-testing:1.+"
 semver = "org.semver4j:semver4j:5.+"
 slf4j-bom = "org.slf4j:slf4j-bom:2.+"
 slf4j-nop = { module = "org.slf4j:slf4j-nop" }
@@ -127,3 +134,4 @@ shadow = { id = "com.github.johnrengelman.shadow", version = "8.+" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
 semver = { id = "com.xenoterracide.gradle.semver", version = "0.+" }
 dgs-codegen = { id = "com.netflix.graphql.dgs.codegen", version = "6.+" }
+java-module-testing = { id = "org.gradlex.java-module-testing", version = "1.+" }

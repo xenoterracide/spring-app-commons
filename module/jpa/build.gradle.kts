@@ -6,12 +6,12 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 plugins { our.javalibrary }
 
 dependencies {
+  annotationProcessor(platform(libs.jakarta.bom))
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(libs.hibernate.jpa.modelgen)
 
   compileOnly(libs.java.tools)
 
-  api(platform(libs.spring.bom))
   api(projects.model)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
@@ -19,35 +19,68 @@ dependencies {
   api(libs.spring.data.commons)
   api(libs.hibernate.envers)
 
-  implementation(platform(libs.spring.bom))
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
 
-  runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)
+  // transients required by jakarta transaction which is required by hibernate
+  runtimeOnly(libs.jakarta.cdi)
+  runtimeOnly(libs.jakarta.lang.model)
+  runtimeOnly(libs.jakarta.interceptor)
 
-  testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.spring.data.jpa)
-  testImplementation(libs.spring.orm)
-  testImplementation(libs.spring.test)
-  testImplementation(libs.equalsverifier)
-  testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.uuid.creator)
-  testImplementation(libs.hibernate.orm.core)
-  testImplementation(libs.spring.boot.test.core)
-  testImplementation(libs.java.tools)
+  testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
+  testFixturesAnnotationProcessor(platform(libs.spring.bom))
+  testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
 
-  testCompileOnly(libs.jspecify)
+  testFixturesApi(projects.model)
+  testFixturesApi(libs.spring.data.jpa)
+  testFixturesImplementation(libs.uuid.creator)
+  testFixturesImplementation(libs.java.tools)
 
-  testRuntimeOnly(platform(libs.spring.bom))
-  testRuntimeOnly(libs.h2)
-  testRuntimeOnly(libs.starter.validation)
-  testRuntimeOnly(libs.starter.data.jpa)
-  testRuntimeOnly(libs.starter.aop)
-  testRuntimeOnly(projects.testApp)
-  testRuntimeOnly(libs.spring.data.envers)
+  testFixturesCompileOnlyApi(libs.jspecify)
+}
+
+testing {
+  suites {
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation(testFixtures(project()))
+
+        implementation(platform(libs.jakarta.bom))
+        implementation(platform(libs.spring.bom))
+        implementation(libs.spring.test)
+        implementation(libs.spring.boot.test.autoconfigure)
+        implementation(libs.spring.boot.test.core)
+
+        runtimeOnly(libs.h2)
+        runtimeOnly(libs.starter.validation)
+        runtimeOnly(libs.starter.data.jpa)
+        runtimeOnly(libs.starter.aop)
+        runtimeOnly(projects.testApp)
+        runtimeOnly(libs.spring.data.envers)
+      }
+    }
+
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        implementation(libs.spring.orm)
+        compileOnly(libs.jspecify)
+      }
+    }
+    val whitebox by registering(JvmTestSuite::class) {
+      dependencies {
+        implementation(projects.jpa)
+        implementation(projects.model)
+        implementation(libs.equalsverifier)
+        implementation(libs.commons.lang)
+        implementation(libs.spring.beans)
+        implementation(libs.spring.transaction)
+        implementation(libs.hibernate.orm.core)
+      }
+    }
+  }
 }
 
 tasks.compileJava {

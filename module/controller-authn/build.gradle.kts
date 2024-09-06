@@ -22,12 +22,10 @@ val demoServerRuntimeOnly by configurations.existing
 val demoServerApi by configurations.existing
 
 dependencies {
-  implementation(platform(libs.spring.bom))
   implementation(libs.spring.security.config)
   implementation(libs.spring.security.web)
   implementation(libs.spring.context)
 
-  runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.security)
   runtimeOnly(libs.starter.web)
   runtimeOnly(libs.starter.oauth2.resource.server)
@@ -37,10 +35,8 @@ dependencies {
   testFixturesImplementation(libs.spring.security.core)
   testFixturesImplementation(libs.spring.web)
 
-  testImplementation(platform(libs.spring.bom))
   testImplementation(libs.bundles.spring.test)
 
-  testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.starter.web)
   testRuntimeOnly(libs.starter.webflux)
   testRuntimeOnly(projects.testApp)

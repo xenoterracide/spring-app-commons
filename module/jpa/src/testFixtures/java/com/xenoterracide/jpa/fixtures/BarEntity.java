@@ -1,9 +1,11 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.jpa.fixtures;
 
 import com.github.f4b6a3.uuid.UuidCreator;
+import com.xenoterracide.jpa.AbstractIdentitifier;
+import com.xenoterracide.jpa.AbstractSurrogateEntity;
 import com.xenoterracide.model.EntityIdentifier;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
@@ -37,7 +39,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
 
   public BarEntity() {}
 
-  static BarEntity create(FooAggregate foo, String name) {
+  public static BarEntity create(FooAggregate foo, String name) {
     return new BarEntity(BarEntity.Id.create(), foo, name);
   }
 
@@ -48,7 +50,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
   )
   @JoinColumn(nullable = false, updatable = false, name = "foo_id", foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
   public FooAggregate getFoo() {
-    return foo;
+    return this.foo;
   }
 
   @Initializer
@@ -64,9 +66,10 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
   @NotNull
   @Column(nullable = false)
   public String getName() {
-    return name;
+    return this.name;
   }
 
+  @Initializer
   void setName(String name) {
     this.name = name;
   }
@@ -103,8 +106,9 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
     }
   }
 
-  record NameChanged(BarEntity.Id id, String name, Class<BarEntity> type) implements EntityIdentifier<Id, BarEntity> {
-    NameChanged(BarEntity.Id id, String name) {
+  public record NameChanged(BarEntity.Id id, String name, Class<BarEntity> type)
+    implements EntityIdentifier<Id, BarEntity> {
+    public NameChanged(BarEntity.Id id, String name) {
       this(id, name, BarEntity.class);
     }
   }

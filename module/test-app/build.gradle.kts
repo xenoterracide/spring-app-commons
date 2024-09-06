@@ -3,7 +3,10 @@
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
 
-plugins { our.javalibrary }
+plugins {
+  our.javalibrary
+  alias(libs.plugins.java.module.testing)
+}
 
 tasks.compileJava {
   options.release = 17
@@ -14,17 +17,12 @@ tasks.javadoc {
 }
 
 dependencies {
-  implementation(platform(libs.spring.bom))
   implementation(libs.spring.boot.autoconfigure)
   implementation(libs.spring.context)
 
-  runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.spring.test)
 
-  testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.spring.beans)
   testImplementation(libs.spring.boot.test.core)
 
-  testCompileOnly(platform(libs.spring.bom))
   testCompileOnly(libs.spring.test)
 }

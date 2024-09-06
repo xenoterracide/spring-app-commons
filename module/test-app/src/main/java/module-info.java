@@ -6,7 +6,6 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked module com.xenoterracide {
   requires static org.jspecify;
-  requires static spring.core;
   requires spring.boot.autoconfigure;
   requires spring.context;
   opens com.xenoterracide to spring.core;

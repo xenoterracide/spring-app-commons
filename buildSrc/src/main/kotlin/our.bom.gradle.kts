@@ -20,7 +20,7 @@ configurations.configureEach {
   resolutionStrategy {
     componentSelection {
       all {
-        val nonRelease = Regex("^[\\d.]+-(M|ea|beta|alpha).*$")
+        val nonRelease = Regex("^[\\d.]+-(RC|M|ea|beta|alpha).*$")
         val module = Regex("^spotbugs.*")
         val group = Regex("^com.xenoterracide$")
         if (!candidate.group.matches(group) && !name.matches(module) && !candidate.module.matches(module)) {
@@ -51,7 +51,9 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
 }
 
 dependencies {
-  runtimeOnly(platform(libs.spring.bom))
+  // spring should be using this, but it's not, and some jakarta versions are missing
+  implementation(platform(libs.jakarta.bom))
+  implementation(platform(libs.spring.bom))
   runtimeOnly(libs.starter.log4j2)
 
   modules {

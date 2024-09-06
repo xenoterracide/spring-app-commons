@@ -1,10 +1,12 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.jpa.fixtures;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.xenoterracide.jpa.AbstractIdentitifier;
+import com.xenoterracide.jpa.DomainEvent;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -78,7 +80,7 @@ class AbstractSplatTest {
   void abstractEntityToString() {
     var bar = new BarEntity();
     assertThat(bar).hasToString(
-      "com.xenoterracide.jpa.BarEntity@%s[name=<null>,id=<null>]",
+      "com.xenoterracide.jpa.fixtures.BarEntity@%s[name=<null>,id=<null>]",
       ObjectUtils.identityHashCodeHex(bar)
     );
   }

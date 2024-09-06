@@ -6,6 +6,7 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 plugins { our.javalibrary }
 
 dependencies {
+  annotationProcessor(platform(libs.jakarta.bom))
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(platform(libs.immutables.bom))
   annotationProcessor(libs.immutables.core)
@@ -15,7 +16,6 @@ dependencies {
   compileOnly(libs.bundles.immutables)
   compileOnly(libs.java.tools)
 
-  api(platform(libs.spring.bom))
   api(projects.jpa)
   api(projects.model)
   api(libs.jakarta.persistence)
@@ -25,7 +25,6 @@ dependencies {
 
   implementation(libs.uuid.creator)
 
-  runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.aop)
   runtimeOnly(libs.starter.validation)
@@ -40,14 +39,12 @@ dependencies {
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.jakarta.annotation)
 
-  testImplementation(platform(libs.spring.bom))
   testImplementation(libs.equalsverifier)
   testImplementation(libs.spring.beans)
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.spring.test)
   testImplementation(projects.modelSecurity)
 
-  testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(projects.testApp)
   testRuntimeOnly(libs.h2)
 }

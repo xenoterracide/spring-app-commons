@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * Test application.
  */
-@SpringBootApplication
+@SpringBootApplication(proxyBeanMethods = false)
 @PropertySource(
   value = "file:///${user.home}/.config/spring-boot/application.properties",
   ignoreResourceNotFound = true

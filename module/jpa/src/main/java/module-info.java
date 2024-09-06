@@ -4,12 +4,13 @@ import org.jspecify.annotations.NullMarked;
  * JPA utilities.
  */
 @NullMarked module com.xenoterracide.jpa {
-  requires static org.jspecify;
-  requires static com.xenoterracide.tools.java;
-  requires static jakarta.annotation;
-  requires transitive jakarta.persistence;
-  requires transitive jakarta.validation;
-  requires transitive com.xenoterracide.model;
+  exports com.xenoterracide.jpa;
+  exports com.xenoterracide.jpa.annotation;
+  exports com.xenoterracide.jpa.util;
+  opens com.xenoterracide.jpa to org.hibernate.orm.core, spring.core;
+  exports com.xenoterracide.jpa.transaction to spring.beans, spring.context;
+  opens com.xenoterracide.jpa.transaction to spring.core;
+
   requires java.base;
   requires org.apache.commons.lang3;
   requires spring.data.commons;
@@ -17,7 +18,11 @@ import org.jspecify.annotations.NullMarked;
   requires spring.context;
   requires spring.tx;
   requires org.hibernate.orm.envers;
-  exports com.xenoterracide.jpa;
-  opens com.xenoterracide.jpa to spring.core;
-  exports com.xenoterracide.jpa.annotation;
+
+  requires static transitive org.jspecify;
+  requires static com.xenoterracide.tools.java;
+  requires static jakarta.annotation;
+  requires transitive jakarta.persistence;
+  requires transitive jakarta.validation;
+  requires transitive com.xenoterracide.model;
 }

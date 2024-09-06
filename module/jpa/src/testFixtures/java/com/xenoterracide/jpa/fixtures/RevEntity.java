@@ -1,7 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.jpa.fixtures;
 
 import jakarta.persistence.Entity;
 import java.io.Serial;
@@ -15,4 +15,6 @@ public class RevEntity extends DefaultRevisionEntity {
 
   @Serial
   private static final long serialVersionUID = 1L;
+
+  public RevEntity() {}
 }
