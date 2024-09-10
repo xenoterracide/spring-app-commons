@@ -19,6 +19,7 @@ import org.springframework.transaction.support.SimpleTransactionScope;
  * The type Transaction bean post processor.
  */
 @Configuration
+@SuppressWarnings({ "HideUtilityClassConstructor", "FinalClass" })
 class TransactionScopeConfiguration {
 
   private static final ZoneId UTC = ZoneId.of("UTC");
