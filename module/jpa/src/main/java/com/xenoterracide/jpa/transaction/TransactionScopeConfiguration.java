@@ -10,9 +10,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import org.jspecify.annotations.NonNull;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.support.SimpleTransactionScope;
@@ -21,19 +19,25 @@ import org.springframework.transaction.support.SimpleTransactionScope;
  * The type Transaction bean post processor.
  */
 @Configuration
-class TransactionBeanPostProcessor implements BeanFactoryPostProcessor {
+@SuppressWarnings({ "HideUtilityClassConstructor", "FinalClass" })
+class TransactionScopeConfiguration {
 
   private static final ZoneId UTC = ZoneId.of("UTC");
 
   @Bean
+  static BeanFactoryPostProcessor transactionBeanPostProcessor() {
+    return beanFactory -> beanFactory.registerScope(Constants.TRANSACTION_SCOPE, new SimpleTransactionScope());
+  }
+
+  @Bean
   @TransactionScope
-  Instant instantNow() {
+  static Instant instantNow() {
     return Instant.now();
   }
 
   @Bean
   @TransactionScope
-  ZonedDateTime zonedDateTimeNow(@NonNull Instant instantNow) {
+  static ZonedDateTime zonedDateTimeNow(@NonNull Instant instantNow) {
     return instantNow.atZone(UTC);
   }
 
@@ -45,12 +49,7 @@ class TransactionBeanPostProcessor implements BeanFactoryPostProcessor {
    */
   @Bean
   @TransactionScope
-  OffsetDateTime offsetDateTimeNow(@NonNull ZonedDateTime zonedDateTimeNow) {
+  static OffsetDateTime offsetDateTimeNow(@NonNull ZonedDateTime zonedDateTimeNow) {
     return zonedDateTimeNow.toOffsetDateTime();
-  }
-
-  @Override
-  public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
-    beanFactory.registerScope(Constants.TRANSACTION_SCOPE, new SimpleTransactionScope());
   }
 }

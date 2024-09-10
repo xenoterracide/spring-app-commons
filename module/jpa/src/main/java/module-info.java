@@ -19,7 +19,7 @@ import org.jspecify.annotations.NullMarked;
   requires spring.tx;
   requires org.hibernate.orm.envers;
 
-  requires static transitive org.jspecify;
+  requires static org.jspecify;
   requires static com.xenoterracide.tools.java;
   requires static jakarta.annotation;
   requires transitive jakarta.persistence;
