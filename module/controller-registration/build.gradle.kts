@@ -64,6 +64,3 @@ dependencies {
     }
   }
 }
-tasks.jacocoTestCoverageVerification {
-  enabled = false
-}
