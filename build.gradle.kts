@@ -31,13 +31,5 @@ dependencyAnalysis {
         exclude(libs.spring.boot.test.core)
       }
     }
-    // false positive
-    project(":jpa") {
-      sourceSet("test") {
-        onUnusedDependencies {
-          exclude(libs.java.tools)
-        }
-      }
-    }
   }
 }
