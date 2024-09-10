@@ -9,4 +9,5 @@ module com.xenoterracide.jpa.fixtures {
   requires spring.data.jpa;
   requires spring.data.commons;
   requires static jakarta.annotation;
+  requires static org.jspecify;
 }
