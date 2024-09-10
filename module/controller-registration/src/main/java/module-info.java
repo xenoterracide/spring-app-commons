@@ -3,7 +3,7 @@
  */
 module com.xenoterracide.controller.registration {
   exports com.xenoterracide.controller.registration to spring.beans, spring.context; // maybe not needed
-  opens com.xenoterracide.controller.registration to spring.core;
+  opens com.xenoterracide.controller.registration to spring.core, com.graphqljava;
   requires spring.graphql;
   requires spring.context;
   requires com.xenoterracide.model.security;
