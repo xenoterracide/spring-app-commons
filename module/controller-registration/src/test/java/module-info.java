@@ -8,4 +8,5 @@ module com.xenoterracide.controller.registration.test {
   requires spring.boot.test;
   requires spring.test;
   requires spring.boot.test.autoconfigure;
+  requires spring.graphql.test;
 }
