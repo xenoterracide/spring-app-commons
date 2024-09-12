@@ -25,6 +25,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Identify the user when they log in using a 3rd party authentication provider.
@@ -34,7 +35,7 @@ import org.jspecify.annotations.NonNull;
 public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@NonNull Identifier> {
 
   private IdentityProviderUser.@NonNull Identifier id;
-  private @NonNull User user;
+  private @Nullable User user;
 
   /**
    * For JPA.
@@ -57,6 +58,10 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    */
   public static IdentityProviderUserBuilder builder() {
     return IdentityProviderUserBuilder.create();
+  }
+
+  boolean hasUser() {
+    return this.user != null;
   }
 
   @EmbeddedId
@@ -97,6 +102,8 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    * Get the user.
    *
    * @return the user
+   * @implNote this method can throw {@link NullPointerException} if this object is not properly initialized.
+   * Please look along initialization paths for the real issue.
    */
   @MapsId("userId")
   @NotNull
@@ -112,7 +119,7 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
     foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
   )
   public @NonNull User getUser() {
-    return this.user;
+    return Objects.requireNonNull(this.user);
   }
 
   @Initializer
