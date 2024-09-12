@@ -45,8 +45,10 @@ final class UserTestDataBuilders {
     var optIdP = idP.orElse(IdentityProviderUser.IdP.AUTH0);
     var optIdPUserId = idPUserId.orElse("1234");
 
-    var ub = IdentityProviderUserBuilder.create().idP(optIdP).idPUserId(optIdPUserId);
-    user.ifPresent(ub::user);
+    var ub = IdentityProviderUserBuilder.create()
+      .idP(optIdP)
+      .idPUserId(optIdPUserId)
+      .user(user.orElseGet(() -> UserBuilder.create().name("xeno").build()));
     return ub.build();
   }
 }

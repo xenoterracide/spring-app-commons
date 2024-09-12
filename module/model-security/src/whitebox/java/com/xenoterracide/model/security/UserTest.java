@@ -9,6 +9,7 @@ import com.xenoterracide.model.security.fixtures.IdentityProviderUserTestDataBui
 import com.xenoterracide.model.security.fixtures.UserTestDataBuilder;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class UserTest {
@@ -31,7 +32,8 @@ public class UserTest {
     );
   }
 
-  @SuppressWarnings("NullAway")
+  @Disabled
+  @Test
   void equality() {
     EqualsVerifier.forClass(User.class)
       .withRedefinedSuperclass()
@@ -41,6 +43,7 @@ public class UserTest {
         IdentityProviderUserTestDataBuilder.create().build(),
         IdentityProviderUserTestDataBuilder.create().build()
       )
+      //.withPrefabValues(User.class, UserTestDataBuilder.create().build(), UserTestDataBuilder.create().build())
       .verify();
   }
 }
