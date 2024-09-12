@@ -31,7 +31,7 @@ import org.jspecify.annotations.NonNull;
 
 @Entity
 @Audited
-public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregate> {
+public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @NonNull FooAggregate> {
 
   private String name;
 
@@ -48,7 +48,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
     return new FooAggregate(Id.create(), name);
   }
 
-  protected void registerEvent(EntityIdentifier<BarEntity.Id, BarEntity> event) {
+  protected void registerEvent(EntityIdentifier<BarEntity.@NonNull Id, @NonNull BarEntity> event) {
     super.registerEvent(FooEvent.create(this.getId(), event));
   }
 
@@ -58,7 +58,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
    * @return domain events
    */
   @Override
-  protected @NonNull Collection<DomainEvent<?, Id, FooAggregate, ?>> domainEvents() {
+  protected @NonNull Collection<DomainEvent<?, @NonNull Id, @NonNull FooAggregate, ?>> domainEvents() {
     return super.domainEvents();
   }
 
@@ -97,7 +97,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
   }
 
   @Override
-  protected boolean canEqual(AbstractSurrogateEntity<?> that) {
+  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
     return that instanceof FooAggregate;
   }
 
@@ -117,7 +117,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
     }
 
     @Override
-    protected boolean canEqual(AbstractIdentitifier that) {
+    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }

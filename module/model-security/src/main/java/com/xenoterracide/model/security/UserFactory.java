@@ -3,11 +3,12 @@
 
 package com.xenoterracide.model.security;
 
-import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.annotation.Nonnull;
+import java.util.HashSet;
 import java.util.Set;
 import org.immutables.builder.Builder;
 import org.immutables.value.Value;
+import org.jspecify.annotations.NonNull;
 
 @Value.Style(newBuilder = "create", jakarta = true, jdk9Collections = true, jdkOnly = true)
 final class UserFactory {
@@ -15,8 +16,8 @@ final class UserFactory {
   private UserFactory() {}
 
   @Builder.Factory
-  static User user(@Nonnull String name, @Nonnull Set<IdentityProviderUserBuilder> identityProviderUsers) {
-    return new User(new User.Identifier(UuidCreator.getTimeOrderedEpoch()), name, identityProviderUsers);
+  static User user(@NonNull String name, @NonNull Set<IdentityProviderUser> identityProviderUsers) {
+    return new User(User.Identifier.create(), name, new HashSet<>(identityProviderUsers));
   }
 
   @Builder.Factory

@@ -1,6 +1,7 @@
 // © Copyright 2023-2024 Caleb Cushing
 // SPDX-License-Identifier: MIT
 
+import gradle.kotlin.dsl.accessors._e054d9723d982fdb55b1e388b8ab0cbf.testing
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
@@ -22,6 +23,8 @@ testing {
     withType<JvmTestSuite>().configureEach {
       dependencies {
         compileOnly(libs.jspecify)
+        implementation(platform(libs.jakarta.bom))
+        implementation(platform(libs.spring.bom))
         implementation(platform(libs.junit.bom))
         implementation.bundle(libs.bundles.test.impl)
 

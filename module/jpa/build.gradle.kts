@@ -26,9 +26,7 @@ dependencies {
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)
   // transients required by jakarta transaction which is required by hibernate
-  runtimeOnly(libs.jakarta.cdi)
-  runtimeOnly(libs.jakarta.lang.model)
-  runtimeOnly(libs.jakarta.interceptor)
+  runtimeOnly(libs.bundles.jakarta.transaction)
 
   testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
   testFixturesAnnotationProcessor(platform(libs.spring.bom))

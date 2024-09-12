@@ -5,8 +5,11 @@ package com.xenoterracide.model.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.xenoterracide.model.security.fixtures.IdentityProviderUserTestDataBuilder;
+import com.xenoterracide.model.security.fixtures.UserTestDataBuilder;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class UserTest {
@@ -29,16 +32,18 @@ public class UserTest {
     );
   }
 
-  @SuppressWarnings("NullAway")
+  @Disabled
+  @Test
   void equality() {
     EqualsVerifier.forClass(User.class)
       .withRedefinedSuperclass()
       .suppress(Warning.SURROGATE_OR_BUSINESS_KEY)
       .withPrefabValues(
         IdentityProviderUser.class,
-        IdentityProviderUserTestDataBuilder.create().build().build(),
-        IdentityProviderUserTestDataBuilder.create().build().build()
+        IdentityProviderUserTestDataBuilder.create().build(),
+        IdentityProviderUserTestDataBuilder.create().build()
       )
+      //.withPrefabValues(User.class, UserTestDataBuilder.create().build(), UserTestDataBuilder.create().build())
       .verify();
   }
 }

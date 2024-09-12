@@ -275,7 +275,9 @@
     <module name="SimplifyBooleanExpression" />
     <module name="SimplifyBooleanReturn" />
     <module name="ModifiedControlVariable" />
-    <module name="MultipleStringLiterals" />
+    <module name="MultipleStringLiterals">
+      <property name="allowedDuplicates" value="2" />
+    </module>
     <module name="NestedForDepth" />
     <module name="NestedIfDepth" />
     <module name="NestedTryDepth" />

@@ -28,14 +28,10 @@ public class RegistrationCtrlr {
 
   @MutationMapping
   User registerUser(@Valid @Argument RegistrationInput input) {
-    var user = User.builder()
-      .name(input.username())
-      .addIdentityProviderUsers(
-        IdentityProviderUser.builder()
-          .idPUserId(input.idpUserId())
-          .idP(IdentityProviderUser.IdP.valueOf(input.idp.name()))
-      )
-      .build();
+    var user = User.builder().name(input.username()).build();
+
+    user.linkIdentityProvider(IdentityProviderUser.IdP.valueOf(input.idp.name()), input.idpUserId());
+
     return this.userRepository.save(user);
   }
 

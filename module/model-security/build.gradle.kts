@@ -36,17 +36,35 @@ dependencies {
   testFixturesCompileOnly(libs.bundles.immutables)
   testFixturesCompileOnly(libs.jspecify)
 
-  testFixturesImplementation(libs.uuid.creator)
-  testFixturesImplementation(libs.jakarta.annotation)
+  // testFixturesImplementation(libs.uuid.creator)
+  // testFixturesImplementation(libs.jakarta.annotation)
+}
 
-  testImplementation(libs.equalsverifier)
-  testImplementation(libs.spring.beans)
-  testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.spring.test)
-  testImplementation(projects.modelSecurity)
+testing {
+  suites {
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation(testFixtures(project()))
+      }
+    }
 
-  testRuntimeOnly(projects.testApp)
-  testRuntimeOnly(libs.h2)
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        implementation(libs.spring.beans)
+        implementation(libs.spring.boot.test.autoconfigure)
+        implementation(libs.spring.test)
+
+        runtimeOnly(projects.testApp)
+        runtimeOnly(libs.h2)
+      }
+    }
+    val whitebox by registering(JvmTestSuite::class) {
+      dependencies {
+        implementation(project())
+        implementation(libs.equalsverifier)
+      }
+    }
+  }
 }
 
 tasks.compileJava {
