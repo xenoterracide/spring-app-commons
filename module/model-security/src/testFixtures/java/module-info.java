@@ -1,4 +1,6 @@
-module com.xenoterracide.model.security.fixtures {
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked module com.xenoterracide.model.security.fixtures {
   exports com.xenoterracide.model.security.fixtures;
   opens com.xenoterracide.model.security.fixtures to org.hibernate.orm.core, spring.core;
   requires com.xenoterracide.model.security;
