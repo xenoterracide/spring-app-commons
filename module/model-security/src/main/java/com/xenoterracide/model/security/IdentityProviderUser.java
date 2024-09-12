@@ -45,7 +45,8 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
   /**
    * Create a new instance.
    *
-   * @param id the primary key
+   * @param id
+   *   the primary key
    */
   IdentityProviderUser(IdentityProviderUser.@NonNull Identifier id) {
     this.id = id;
@@ -102,8 +103,8 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    * Get the user.
    *
    * @return the user
-   * @implNote this method can throw {@link NullPointerException} if this object is not properly initialized.
-   * Please look along initialization paths for the real issue.
+   * @implNote this method can throw {@link NullPointerException} if this object is not properly initialized. Please
+   *   look along initialization paths for the real issue.
    */
   @MapsId("userId")
   @NotNull
@@ -130,7 +131,8 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
   /**
    * Check if this instance could be equal to another object.
    *
-   * @param that the object to compare
+   * @param that
+   *   the object to compare
    * @return {@code true} if this instance could be equal to the other object
    */
   protected boolean canEqual(@NonNull Identifiable<?> that) {
@@ -210,7 +212,8 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
     /**
      * Check if this instance could be equal to another object.
      *
-     * @param that the object to compare
+     * @param that
+     *   the object to compare
      * @return {@code true} if this instance could be equal to the other object.
      */
     protected boolean canEqual(@NonNull Serializable that) {

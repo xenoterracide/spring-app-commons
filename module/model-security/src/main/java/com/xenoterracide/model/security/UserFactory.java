@@ -4,6 +4,7 @@
 package com.xenoterracide.model.security;
 
 import jakarta.annotation.Nonnull;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 import org.immutables.builder.Builder;
@@ -17,7 +18,7 @@ final class UserFactory {
 
   @Builder.Factory
   static User user(@NonNull String name, @NonNull Set<IdentityProviderUser> identityProviderUsers) {
-    var u = new User(User.Identifier.create(), name, identityProviderUsers);
+    var u = new User(User.Identifier.create(), name, new HashSet<>(identityProviderUsers));
     identityProviderUsers.stream().filter(Predicate.not(ipu -> ipu.hasUser())).forEach(ipu -> ipu.setUser(u));
     return u;
   }

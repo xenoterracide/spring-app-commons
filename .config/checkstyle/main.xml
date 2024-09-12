@@ -125,6 +125,7 @@
     <module name="JavadocStyle" />
     <module name="JavadocTagContinuationIndentation">
       <property name="violateExecutionOnNonTightHtml" value="true" />
+      <property name="offset" value="2" />
     </module>
     <module name="JavadocType">
       <property name="allowUnknownTags" value="true" />

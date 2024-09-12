@@ -42,9 +42,9 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   /**
    * use {@link UserBuilder#create()} instead of this directly.
    *
-   * @param id
-   * @param name
-   * @param identityProviderUsers
+   * @param id                    identity
+   * @param name                  username
+   * @param identityProviderUsers the linked identity provider users
    */
   User(
     @NonNull Identifier id,
