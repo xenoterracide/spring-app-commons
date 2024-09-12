@@ -36,8 +36,8 @@ dependencies {
   testFixturesCompileOnly(libs.bundles.immutables)
   testFixturesCompileOnly(libs.jspecify)
 
-  testFixturesImplementation(libs.uuid.creator)
-  testFixturesImplementation(libs.jakarta.annotation)
+  // testFixturesImplementation(libs.uuid.creator)
+  // testFixturesImplementation(libs.jakarta.annotation)
 }
 
 testing {
@@ -60,6 +60,7 @@ testing {
     }
     val whitebox by registering(JvmTestSuite::class) {
       dependencies {
+        implementation(project())
         implementation(libs.equalsverifier)
       }
     }
