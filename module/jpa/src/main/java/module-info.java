@@ -9,7 +9,7 @@ import org.jspecify.annotations.NullMarked;
   exports com.xenoterracide.jpa.util;
   exports com.xenoterracide.jpa.transaction to spring.beans, spring.context;
 
-  opens com.xenoterracide.jpa to org.hibernate.orm.core, spring.core;
+  opens com.xenoterracide.jpa to org.hibernate.orm.core, spring.core, org.hibernate.validator;
   opens com.xenoterracide.jpa.transaction to spring.core;
 
   requires java.base;

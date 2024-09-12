@@ -126,6 +126,13 @@ jackson-config = ["jackson-core", "jackson-module-parameter-names"]
 test-impl = ["junit-api", "assertj", "junit-parameters"]
 test-runtime = ["junit-engine", "junit-launcher"]
 spring-test = ["spring-test", "spring-boot-test-core", "spring-boot-test-autoconfigure"]
+jakarta-transaction = [
+  "jakarta-transaction",
+  "jakarta-cdi",
+  "jakarta-lang-model",
+  "jakarta-interceptor",
+  "jakarta-inject",
+]
 
 [plugins]
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version = "1.+" }

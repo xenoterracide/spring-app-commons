@@ -3,6 +3,7 @@
 
 package com.xenoterracide.model.security;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import com.xenoterracide.jpa.AbstractAggregate;
 import com.xenoterracide.jpa.AbstractIdentitifier;
 import com.xenoterracide.jpa.AbstractSurrogateEntity;
@@ -42,14 +43,13 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   User(
     @NonNull Identifier id,
     @NonNull String name,
-    @NonNull Set<@NonNull IdentityProviderUserBuilder> identityProviderUsers
+    @NonNull Set<? extends @NonNull IdentityProviderUser> identityProviderUsers
   ) {
     super(id);
     this.name = name;
     this.identityProviderUsers = identityProviderUsers
       .stream()
-      .map(b -> b.user(this))
-      .map(b -> b.build())
+      .peek(ipu -> ipu.setUser(this))
       .collect(Collectors.toSet());
   }
 
@@ -72,6 +72,27 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   @Initializer
   void setIdentityProviderUsers(@NonNull Set<@NonNull IdentityProviderUser> idpUsers) {
     this.identityProviderUsers = idpUsers;
+  }
+
+  /**
+   * Gets an unmodifiable copy of the identity provider users.
+   *
+   * @return set of identity provider users
+   */
+  @NonNull
+  public Set<@NonNull IdentityProviderUser> linkedIdentityProviderUsers() {
+    return Set.copyOf(this.getIdentityProviderUsers());
+  }
+
+  /**
+   * Links an identity provider to this user.
+   *
+   * @param idp       identity provider
+   * @param idpUserId the user identifier we got for that identity provider
+   */
+  public void linkIdentityProvider(IdentityProviderUser.@NonNull IdP idp, @NonNull String idpUserId) {
+    var idpUser = IdentityProviderUser.builder().idP(idp).idPUserId(idpUserId).user(this).build();
+    this.getIdentityProviderUsers().add(idpUser);
   }
 
   @NotNull
@@ -106,6 +127,15 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
 
     Identifier(@NonNull UUID id) {
       super(id);
+    }
+
+    /**
+     * Creates a new identifier.
+     *
+     * @return A new identifier.
+     */
+    public static Identifier create() {
+      return new Identifier(UuidCreator.getTimeOrderedEpoch());
     }
 
     @Override
