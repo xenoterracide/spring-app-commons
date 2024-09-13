@@ -29,3 +29,4 @@ jobs:
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - run: ./gradlew publish --info --build-cache --scan
+      - uses: gradle/actions/dependency-submission@v3
