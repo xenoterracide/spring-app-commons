@@ -1,21 +1,19 @@
 name: Publish
 on:
-  push:
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
     branches:
       - main
-      - ci/publish
-    tags:
-      - "v*.*.*"
 jobs:
   publish:
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     permissions:
       contents: write
       packages: write
-    env:
-      ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
-      ORG_GRADLE_PROJECT_ghPassword: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,6 +25,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: ./gradlew build buildHealth --build-cache --scan
       - run: ./gradlew publish --info --build-cache --scan
+        env:
+          ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
+          ORG_GRADLE_PROJECT_ghPassword: ${{ secrets.GITHUB_TOKEN }}
       - uses: gradle/actions/dependency-submission@v3
