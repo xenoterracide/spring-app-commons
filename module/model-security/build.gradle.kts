@@ -35,9 +35,6 @@ dependencies {
   testFixturesCompileOnly(platform(libs.immutables.bom))
   testFixturesCompileOnly(libs.bundles.immutables)
   testFixturesCompileOnly(libs.jspecify)
-
-  // testFixturesImplementation(libs.uuid.creator)
-  // testFixturesImplementation(libs.jakarta.annotation)
 }
 
 testing {
