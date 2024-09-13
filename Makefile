@@ -36,10 +36,10 @@ clean-cc: $(CONFIGURATION_CACHE)
 	- rm -rf $(CONFIGURATION_CACHE)
 
 ci-build:
-	./gradlew build buildHealth --build-cache
+	./gradlew build buildHealth --build-cache --scan
 
 ci-full:
-	./gradlew buildHealth build --no-build-cache --no-configuration-cache
+	./gradlew buildHealth build --no-build-cache --no-configuration-cache --scan
 
 ci-update-java: clean-lockfiles up-wrapper up up-all-deps
 
