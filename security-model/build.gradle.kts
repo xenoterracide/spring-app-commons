@@ -54,7 +54,7 @@ testing {
         implementation(libs.spring.boot.test.autoconfigure)
         implementation(libs.spring.test)
 
-        runtimeOnly(projects.testApp)
+        runtimeOnly(projects.coreTestApp)
         runtimeOnly(libs.h2)
       }
     }

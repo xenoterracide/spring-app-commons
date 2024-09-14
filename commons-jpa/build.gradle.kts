@@ -56,7 +56,7 @@ testing {
         runtimeOnly(libs.starter.validation)
         runtimeOnly(libs.starter.data.jpa)
         runtimeOnly(libs.starter.aop)
-        runtimeOnly(projects.testApp)
+        runtimeOnly(projects.coreTestApp)
         runtimeOnly(libs.spring.data.envers)
       }
     }

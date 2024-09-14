@@ -20,7 +20,7 @@ dependencies {
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.starter.data.jpa)
   testRuntimeOnly(libs.h2)
-  testRuntimeOnly(projects.testApp)
+  testRuntimeOnly(projects.coreTestApp)
 
   // inexplicit transients
   testRuntimeOnly(libs.jakarta.cdi)

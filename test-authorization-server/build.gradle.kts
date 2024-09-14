@@ -37,5 +37,5 @@ dependencies {
 
   testRuntimeOnly(platform(libs.spring.bom))
   testRuntimeOnly(libs.bundles.test.runtime)
-  testRuntimeOnly(projects.testApp)
+  testRuntimeOnly(projects.coreTestApp)
 }

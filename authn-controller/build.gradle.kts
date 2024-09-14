@@ -39,7 +39,7 @@ dependencies {
 
   testRuntimeOnly(libs.starter.web)
   testRuntimeOnly(libs.starter.webflux)
-  testRuntimeOnly(projects.testApp)
+  testRuntimeOnly(projects.coreTestApp)
 
   demoServerApi(platform(libs.spring.bom))
   demoServerApi(libs.spring.context)
