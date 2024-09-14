@@ -6,10 +6,10 @@ package com.xenoterracide.jpa.fixtures;
 import static java.util.function.Predicate.isEqual;
 
 import com.github.f4b6a3.uuid.UuidCreator;
-import com.xenoterracide.jpa.AbstractAggregate;
-import com.xenoterracide.jpa.AbstractIdentitifier;
-import com.xenoterracide.jpa.AbstractSurrogateEntity;
-import com.xenoterracide.jpa.DomainEvent;
+import com.xenoterracide.commons.jpa.AbstractAggregate;
+import com.xenoterracide.commons.jpa.AbstractIdentitifier;
+import com.xenoterracide.commons.jpa.AbstractSurrogateEntity;
+import com.xenoterracide.commons.jpa.DomainEvent;
 import com.xenoterracide.model.EntityIdentifier;
 import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;

@@ -5,8 +5,8 @@ package com.xenoterracide.jpa.fixtures;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.xenoterracide.jpa.AbstractIdentitifier;
-import com.xenoterracide.jpa.DomainEvent;
+import com.xenoterracide.commons.jpa.AbstractIdentitifier;
+import com.xenoterracide.commons.jpa.DomainEvent;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import nl.jqno.equalsverifier.EqualsVerifier;

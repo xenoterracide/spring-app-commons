@@ -1,7 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.commons.jpa;
 
 import com.xenoterracide.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
@@ -22,7 +22,8 @@ import org.jspecify.annotations.Nullable;
 /**
  * The type Abstract uuid entity base.
  *
- * @param <ID> the type parameter
+ * @param <ID>
+ *   the type parameter
  */
 @Audited
 @MappedSuperclass
@@ -49,7 +50,8 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
   /**
    * Instantiates a new Abstract uuid entity base.
    *
-   * @param id the id
+   * @param id
+   *   the id
    */
   protected AbstractSurrogateEntity(@NonNull ID id) {
     this.id = id;
@@ -85,7 +87,8 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
   /**
    * Sets id.
    *
-   * @param id the id
+   * @param id
+   *   the id
    * @apiNote for JPA use only
    */
   @Initializer
@@ -106,7 +109,8 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
   /**
    * That is an {@code instanceof} this concrete class.
    *
-   * @param that the other object
+   * @param that
+   *   the other object
    * @return the boolean
    * @see <a href="https://www.artima.com/articles/how-to-write-an-equality-method-in-java">
    *   How to Write an Equality Method in Java
@@ -132,9 +136,8 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
   /**
    * Override to change the fields included in {@link #toString()}.
    *
-   * @implSpec the fields should be a static final array of strings
-   *
    * @return the fields included in {@link #toString()}
+   * @implSpec the fields should be a static final array of strings
    */
   protected @NonNull String[] includedFieldsInToString() {
     return INCLUDED_FIELDS_IN_TO_STRING;

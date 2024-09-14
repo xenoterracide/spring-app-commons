@@ -1,10 +1,10 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa.transaction;
+package com.xenoterracide.commons.jpa.transaction;
 
-import com.xenoterracide.jpa.annotation.TransactionScope;
-import com.xenoterracide.jpa.util.Constants;
+import com.xenoterracide.commons.jpa.annotation.TransactionScope;
+import com.xenoterracide.commons.jpa.util.Constants;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -44,7 +44,8 @@ class TransactionScopeConfiguration {
   /**
    * Offset date time now offset date time.
    *
-   * @param zonedDateTimeNow the zoned date time now
+   * @param zonedDateTimeNow
+   *   the zoned date time now
    * @return the offset date time
    */
   @Bean

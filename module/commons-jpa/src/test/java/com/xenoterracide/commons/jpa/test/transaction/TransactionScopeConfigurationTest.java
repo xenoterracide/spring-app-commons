@@ -1,13 +1,13 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa.test.transaction;
+package com.xenoterracide.commons.jpa.test.transaction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.within;
 
-import com.xenoterracide.jpa.util.Constants;
+import com.xenoterracide.commons.jpa.util.Constants;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;

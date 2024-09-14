@@ -6,7 +6,7 @@ package com.xenoterracide.jpa.fixtures;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-import com.xenoterracide.jpa.AbstractSurrogateEntity_;
+import com.xenoterracide.commons.jpa.AbstractSurrogateEntity_;
 import com.xenoterracide.model.Identifiable;
 import jakarta.validation.ConstraintViolationException;
 import java.util.Objects;

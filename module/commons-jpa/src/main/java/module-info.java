@@ -4,13 +4,13 @@ import org.jspecify.annotations.NullMarked;
  * JPA utilities.
  */
 @NullMarked module com.xenoterracide.jpa {
-  exports com.xenoterracide.jpa;
-  exports com.xenoterracide.jpa.annotation;
-  exports com.xenoterracide.jpa.util;
-  exports com.xenoterracide.jpa.transaction to spring.beans, spring.context;
+  exports com.xenoterracide.commons.jpa;
+  exports com.xenoterracide.commons.jpa.annotation;
+  exports com.xenoterracide.commons.jpa.util;
+  exports com.xenoterracide.commons.jpa.transaction to spring.beans, spring.context;
 
-  opens com.xenoterracide.jpa to org.hibernate.orm.core, spring.core, org.hibernate.validator;
-  opens com.xenoterracide.jpa.transaction to spring.core;
+  opens com.xenoterracide.commons.jpa to org.hibernate.orm.core, spring.core, org.hibernate.validator;
+  opens com.xenoterracide.commons.jpa.transaction to spring.core;
 
   requires java.base;
   requires org.apache.commons.lang3;

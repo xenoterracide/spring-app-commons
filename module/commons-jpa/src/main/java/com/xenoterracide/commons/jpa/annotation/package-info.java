@@ -1,4 +1,4 @@
 /**
  * Contains annotations for use with JPA.
  */
-package com.xenoterracide.jpa.annotation;
+package com.xenoterracide.commons.jpa.annotation;

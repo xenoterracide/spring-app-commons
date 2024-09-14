@@ -1,4 +1,4 @@
 /**
  * JPA base classes and utilities.
  */
-package com.xenoterracide.jpa;
+package com.xenoterracide.commons.jpa;

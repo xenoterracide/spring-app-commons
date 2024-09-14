@@ -1,7 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.commons.jpa;
 
 import jakarta.persistence.MappedSuperclass;
 import java.util.ArrayList;
@@ -16,8 +16,10 @@ import org.springframework.data.domain.DomainEvents;
 /**
  * An abstract class for Domain Aggregates.
  *
- * @param <ID> type parameter
- * @param <THIS> type parameter
+ * @param <ID>
+ *   type parameter
+ * @param <THIS>
+ *   type parameter
  */
 @MappedSuperclass
 public abstract class AbstractAggregate<ID extends AbstractIdentitifier, THIS extends AbstractAggregate<ID, ?>>
@@ -33,7 +35,8 @@ public abstract class AbstractAggregate<ID extends AbstractIdentitifier, THIS ex
   /**
    * Instantiates a new Abstract aggregate.
    *
-   * @param id the id
+   * @param id
+   *   the id
    */
   protected AbstractAggregate(@NonNull ID id) {
     super(id);
@@ -42,7 +45,8 @@ public abstract class AbstractAggregate<ID extends AbstractIdentitifier, THIS ex
   /**
    * Registers domain events.
    *
-   * @param event the event
+   * @param event
+   *   the event
    */
   protected void registerEvent(@NonNull DomainEvent<?, ID, THIS, ?> event) {
     this.domainEvents.add(event);

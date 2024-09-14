@@ -1,6 +1,7 @@
 module com.xenoterracide.jpa.test {
-  opens com.xenoterracide.jpa.test to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
-  opens com.xenoterracide.jpa.test.transaction
+  opens com.xenoterracide.commons.jpa.test
+    to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
+  opens com.xenoterracide.commons.jpa.test.transaction
     to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
   requires org.assertj.core;
   requires com.xenoterracide.jpa;

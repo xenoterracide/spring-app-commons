@@ -4,9 +4,9 @@
 package com.xenoterracide.model.security;
 
 import com.github.f4b6a3.uuid.UuidCreator;
-import com.xenoterracide.jpa.AbstractAggregate;
-import com.xenoterracide.jpa.AbstractIdentitifier;
-import com.xenoterracide.jpa.AbstractSurrogateEntity;
+import com.xenoterracide.commons.jpa.AbstractAggregate;
+import com.xenoterracide.commons.jpa.AbstractIdentitifier;
+import com.xenoterracide.commons.jpa.AbstractSurrogateEntity;
 import com.xenoterracide.model.Nameable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
@@ -42,9 +42,12 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   /**
    * use {@link UserBuilder#create()} instead of this directly.
    *
-   * @param id                    identity
-   * @param name                  username
-   * @param identityProviderUsers the linked identity provider users
+   * @param id
+   *   identity
+   * @param name
+   *   username
+   * @param identityProviderUsers
+   *   the linked identity provider users
    */
   User(
     @NonNull Identifier id,
@@ -90,8 +93,10 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   /**
    * Links an identity provider to this user.
    *
-   * @param idp       identity provider
-   * @param idpUserId the user identifier we got for that identity provider
+   * @param idp
+   *   identity provider
+   * @param idpUserId
+   *   the user identifier we got for that identity provider
    */
   public void linkIdentityProvider(IdentityProviderUser.@NonNull IdP idp, @NonNull String idpUserId) {
     var idpUser = IdentityProviderUser.builder().idP(idp).idPUserId(idpUserId).user(this).build();

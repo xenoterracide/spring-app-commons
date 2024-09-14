@@ -1,9 +1,9 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa.annotation;
+package com.xenoterracide.commons.jpa.annotation;
 
-import com.xenoterracide.jpa.util.Constants;
+import com.xenoterracide.commons.jpa.util.Constants;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

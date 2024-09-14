@@ -1,7 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.jpa;
+package com.xenoterracide.commons.jpa;
 
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
@@ -36,7 +36,8 @@ public abstract class AbstractIdentitifier implements Serializable {
   /**
    * Instantiates a new Abstract identity.
    *
-   * @param id the id
+   * @param id
+   *   the id
    */
   protected AbstractIdentitifier(@NonNull UUID id) {
     this.id = id;
@@ -50,11 +51,12 @@ public abstract class AbstractIdentitifier implements Serializable {
   /**
    * That is an {@code instanceof} this concrete class.
    *
-   * @param that the other object
+   * @param that
+   *   the other object
    * @return the boolean
    * @see <a href="https://www.artima.com/articles/how-to-write-an-equality-method-in-java">
-   * How to Write an Equality Method in Java
-   * </a>
+   *   How to Write an Equality Method in Java
+   *   </a>
    */
   protected abstract boolean canEqual(@NonNull AbstractIdentitifier that);
 
