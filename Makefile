@@ -20,7 +20,8 @@ build:
 
 .PHONY: up
 up:
-	./gradlew dependencies --write-locks --quiet 2>&1 > /dev/null
+# success if no output
+	./gradlew dependencies --write-locks --quiet | grep -e "FAILED" || exit 0
 
 .PHONY: merge
 merge: create-pr build watch-full merge-squash

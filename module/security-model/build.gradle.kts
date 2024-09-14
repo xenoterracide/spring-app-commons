@@ -16,14 +16,17 @@ dependencies {
   compileOnly(libs.bundles.immutables)
   compileOnly(libs.java.tools)
 
-  api(projects.jpa)
-  api(projects.model)
+  api(projects.commonsJpa)
+  api(projects.commonsModel)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.hibernate.envers)
   api(libs.spring.data.jpa)
 
+  implementation(platform(libs.jmolecules.bom))
   implementation(libs.uuid.creator)
+  implementation(libs.jmolecules.ddd)
+  implementation(libs.jmolecules.architecture.layered)
 
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.aop)

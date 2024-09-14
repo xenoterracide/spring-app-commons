@@ -6,4 +6,5 @@ module com.xenoterracide.controller.registration {
   requires spring.graphql;
   requires spring.context;
   requires com.xenoterracide.model.security;
+  requires jakarta.validation;
 }

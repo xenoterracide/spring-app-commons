@@ -12,7 +12,7 @@ dependencies {
 
   compileOnly(libs.java.tools)
 
-  api(projects.model)
+  api(projects.commonsModel)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.spring.context)
@@ -32,7 +32,7 @@ dependencies {
   testFixturesAnnotationProcessor(platform(libs.spring.bom))
   testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
 
-  testFixturesApi(projects.model)
+  testFixturesApi(projects.commonsModel)
   testFixturesApi(libs.spring.data.jpa)
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.java.tools)
@@ -69,8 +69,8 @@ testing {
     }
     val whitebox by registering(JvmTestSuite::class) {
       dependencies {
-        implementation(projects.jpa)
-        implementation(projects.model)
+        implementation(project())
+        implementation(projects.commonsModel)
         implementation(libs.equalsverifier)
         implementation(libs.commons.lang)
         implementation(libs.spring.beans)

@@ -12,4 +12,5 @@ module com.xenoterracide.model.security.test {
   requires spring.boot.test.autoconfigure;
   requires spring.orm;
   requires com.xenoterracide.model.security;
+  requires jakarta.persistence;
 }
