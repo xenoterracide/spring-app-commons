@@ -102,7 +102,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id, @N
     }
 
     @Override
-    protected boolean canEqual(AbstractIdentitifier that) {
+    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }

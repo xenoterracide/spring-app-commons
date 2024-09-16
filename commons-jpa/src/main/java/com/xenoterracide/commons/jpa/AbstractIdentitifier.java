@@ -9,6 +9,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
+import org.jmolecules.ddd.annotation.ValueObject;
 import org.jmolecules.ddd.types.Identifier;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -16,6 +17,7 @@ import org.jspecify.annotations.Nullable;
 /**
  * An abstract class for Domain Entities with a database identifier.
  */
+@ValueObject
 @MappedSuperclass
 public abstract class AbstractIdentitifier implements Serializable, Identifier {
 

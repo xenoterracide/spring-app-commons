@@ -17,7 +17,7 @@ final class UserFactory {
 
   @Builder.Factory
   static User user(@NonNull String name, @NonNull Set<IdentityProviderUser> identityProviderUsers) {
-    return new User(User.Identifier.create(), name, new HashSet<>(identityProviderUsers));
+    return new User(User.Id.create(), name, new HashSet<>(identityProviderUsers));
   }
 
   @Builder.Factory

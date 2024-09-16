@@ -3,14 +3,12 @@
 
 package com.xenoterracide.model.security;
 
-import com.xenoterracide.commons.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -24,6 +22,8 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+import org.jmolecules.ddd.annotation.ValueObject;
+import org.jmolecules.ddd.types.Entity;
 import org.jmolecules.ddd.types.Identifier;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -31,9 +31,10 @@ import org.jspecify.annotations.Nullable;
 /**
  * Identify the user when they log in using a 3rd party authentication provider.
  */
-@Entity
+@jakarta.persistence.Entity
+@org.jmolecules.ddd.annotation.Entity
 @Table(name = "identity_provider_users")
-public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@NonNull Id> {
+public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@NonNull Id> {
 
   private @NonNull Id id;
   private @Nullable User user;
@@ -136,7 +137,7 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    *   the object to compare
    * @return {@code true} if this instance could be equal to the other object
    */
-  protected boolean canEqual(@NonNull Identifiable<?> that) {
+  protected boolean canEqual(@NonNull Entity<?, ?> that) {
     return that instanceof IdentityProviderUser;
   }
 
@@ -166,6 +167,7 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
   /**
    * The primary key for {@link IdentityProviderUser}.
    */
+  @ValueObject
   @Embeddable
   public static class Id implements Serializable, Identifier {
 
@@ -186,14 +188,14 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
      * The user.
      */
 
-    private User.Identifier userId;
+    private User.Id userId;
 
     /**
      * For JPA.
      */
     protected Id() {}
 
-    Id(@NonNull IdP idP, @NonNull String idPUserId, User.@NonNull Identifier userId) {
+    Id(@NonNull IdP idP, @NonNull String idPUserId, User.@NonNull Id userId) {
       this.idP = idP;
       this.idPUserId = idPUserId;
       this.userId = userId;
@@ -251,12 +253,12 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
       this.idPUserId = idPUserId;
     }
 
-    User.Identifier getUserId() {
+    User.Id getUserId() {
       return this.userId;
     }
 
     @Initializer
-    void setUserId(User.@NonNull Identifier userId) {
+    void setUserId(User.@NonNull Id userId) {
       this.userId = userId;
     }
   }

@@ -201,6 +201,6 @@ class FooAggregateTransactionTest {
           return repository.saveAndFlush(agg);
         });
       })
-      .withMessageContaining("propertyPath=id.id");
+      .withMessageContaining("propertyPath=id.value");
   }
 }

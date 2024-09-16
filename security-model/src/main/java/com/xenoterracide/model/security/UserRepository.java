@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 /**
  * Repository for {@link User}.
  */
-public interface UserRepository extends WritableRepository<@NonNull User, User.@NonNull Identifier> {
+public interface UserRepository extends WritableRepository<@NonNull User, User.@NonNull Id> {
   /**
    * Finds a user by id.
    *
@@ -21,7 +21,7 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
    * @return the user
    */
   @NonNull
-  Optional<@Nullable User> findById(User.@NonNull Identifier id);
+  Optional<@Nullable User> findById(User.@NonNull Id id);
 
   /**
    * Finds a user by name.

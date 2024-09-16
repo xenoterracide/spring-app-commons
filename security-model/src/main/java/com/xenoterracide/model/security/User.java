@@ -21,6 +21,8 @@ import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.jmolecules.ddd.annotation.AggregateRoot;
+import org.jmolecules.ddd.annotation.ValueObject;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -28,8 +30,9 @@ import org.jspecify.annotations.NonNull;
  */
 @Audited
 @Entity
+@AggregateRoot
 @Table(name = "users")
-public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull User> implements Nameable {
+public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> implements Nameable {
 
   private String name;
   private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers;
@@ -49,11 +52,7 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
    * @param identityProviderUsers
    *   the linked identity provider users
    */
-  User(
-    @NonNull Identifier id,
-    @NonNull String name,
-    @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers
-  ) {
+  User(User.@NonNull Id id, @NonNull String name, @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers) {
     super(id);
     this.name = name;
     this.identityProviderUsers = identityProviderUsers;
@@ -116,14 +115,15 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
+  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?, ?> that) {
     return that instanceof User;
   }
 
   /**
    * A user identifier.
    */
-  public static class Identifier extends AbstractIdentitifier {
+  @ValueObject
+  public static class Id extends AbstractIdentitifier {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -131,9 +131,9 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
     /**
      * For JPA.
      */
-    protected Identifier() {}
+    protected Id() {}
 
-    Identifier(@NonNull UUID id) {
+    Id(@NonNull UUID id) {
       super(id);
     }
 
@@ -142,13 +142,13 @@ public class User extends AbstractAggregate<User.@NonNull Identifier, @NonNull U
      *
      * @return A new identifier.
      */
-    public static Identifier create() {
-      return new Identifier(UuidCreator.getTimeOrderedEpoch());
+    public static Id create() {
+      return new Id(UuidCreator.getTimeOrderedEpoch());
     }
 
     @Override
     protected boolean canEqual(@NonNull AbstractIdentitifier that) {
-      return that instanceof Identifier;
+      return that instanceof Id;
     }
   }
 }
