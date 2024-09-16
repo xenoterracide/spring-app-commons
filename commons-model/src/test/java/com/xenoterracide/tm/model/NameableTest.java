@@ -5,7 +5,7 @@ package com.xenoterracide.tm.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.xenoterracide.model.Nameable;
+import com.xenoterracide.commons.model.Nameable;
 import org.junit.jupiter.api.Test;
 
 class NameableTest {

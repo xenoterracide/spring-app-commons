@@ -5,14 +5,17 @@ package com.xenoterracide.tm.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.xenoterracide.model.Identifiable;
+import com.xenoterracide.commons.model.Identifiable;
+import java.io.Serializable;
+import org.jmolecules.ddd.types.Identifier;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 
 class IdentifiableTest {
 
   @Test
   void idsAreEqual() {
-    var t1 = new IdImpl(1L);
+    var t1 = new IdImpl(new IdentifierImpl(1L));
     var t2 = new GetIdImpl(1L);
     assertThat(t1.getId()).isEqualTo(t2.getId());
     assertThat(t1.id()).isEqualTo(t2.id());
@@ -20,19 +23,21 @@ class IdentifiableTest {
     assertThat(t1.getId()).isEqualTo(t2.id());
   }
 
-  record IdImpl(Long id) implements Identifiable<Long> {}
+  record IdImpl(IdentifierImpl id) implements Identifiable<@NonNull IdentifierImpl> {}
 
-  static class GetIdImpl implements Identifiable<Long> {
+  static class GetIdImpl implements Identifiable<@NonNull IdentifierImpl> {
 
-    private final Long id;
+    private final IdentifierImpl value;
 
-    GetIdImpl(Long id) {
-      this.id = id;
+    GetIdImpl(Long value) {
+      this.value = new IdentifierImpl(value);
     }
 
     @Override
-    public Long getId() {
-      return this.id;
+    public IdentifierImpl getId() {
+      return this.value;
     }
   }
+
+  record IdentifierImpl(Long value) implements Identifier, Serializable {}
 }

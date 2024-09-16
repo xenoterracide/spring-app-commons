@@ -3,7 +3,7 @@
 
 package com.xenoterracide.model.security;
 
-import com.xenoterracide.model.WritableRepository;
+import com.xenoterracide.commons.model.WritableRepository;
 import java.util.Optional;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -16,7 +16,8 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
   /**
    * Finds a user by id.
    *
-   * @param id the surrogate id
+   * @param id
+   *   the surrogate id
    * @return the user
    */
   @NonNull
@@ -25,7 +26,8 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
   /**
    * Finds a user by name.
    *
-   * @param name the username
+   * @param name
+   *   the username
    * @return the user
    */
   @NonNull
@@ -34,7 +36,8 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
   /**
    * Finds a user by identity provider user.
    *
-   * @param id the identity provider user id
+   * @param id
+   *   the identity provider user id
    * @return the user
    */
   @Query("select u from User u join u.identityProviderUsers i where i.id = ?1")

@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import com.xenoterracide.commons.jpa.AbstractSurrogateEntity_;
-import com.xenoterracide.model.Identifiable;
+import com.xenoterracide.commons.model.Identifiable;
 import jakarta.validation.ConstraintViolationException;
 import java.util.Objects;
 import org.assertj.core.api.Assertions;

@@ -3,7 +3,7 @@
 
 package com.xenoterracide.model.security;
 
-import com.xenoterracide.model.Identifiable;
+import com.xenoterracide.commons.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

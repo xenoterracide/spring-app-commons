@@ -6,7 +6,7 @@ package com.xenoterracide.jpa.fixtures;
 import com.github.f4b6a3.uuid.UuidCreator;
 import com.xenoterracide.commons.jpa.AbstractIdentitifier;
 import com.xenoterracide.commons.jpa.AbstractSurrogateEntity;
-import com.xenoterracide.model.EntityIdentifier;
+import com.xenoterracide.commons.model.EntityIdentifier;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

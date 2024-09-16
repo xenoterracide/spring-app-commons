@@ -3,7 +3,7 @@
 
 package com.xenoterracide.tm.model;
 
-import com.xenoterracide.model.WritableRepository;
+import com.xenoterracide.commons.model.WritableRepository;
 import java.util.Optional;
 
 interface FooRepository extends WritableRepository<Foo, Long> {

@@ -19,14 +19,14 @@ class WritableRepositoryTest {
   @Test
   void save() {
     var foo = new Foo();
-    foo.setId(1L);
+    foo.setId(new Foo.FooId(1L));
     assertThat(fooRepository.save(foo)).isNotNull();
   }
 
   @Test
   void saveAll() {
     var foo = new Foo();
-    foo.setId(1L);
+    foo.setId(new Foo.FooId(1L));
     assertThat(fooRepository.saveAll(List.of(foo))).isNotEmpty();
   }
 }

@@ -3,7 +3,7 @@
 
 package com.xenoterracide.commons.jpa;
 
-import com.xenoterracide.model.EntityIdentifier;
+import com.xenoterracide.commons.model.EntityIdentifier;
 import org.jspecify.annotations.NonNull;
 
 /**

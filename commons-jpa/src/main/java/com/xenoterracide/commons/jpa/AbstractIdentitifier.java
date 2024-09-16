@@ -9,6 +9,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
+import org.jmolecules.ddd.types.Identifier;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -16,7 +17,7 @@ import org.jspecify.annotations.Nullable;
  * An abstract class for Domain Entities with a database identifier.
  */
 @MappedSuperclass
-public abstract class AbstractIdentitifier implements Serializable {
+public abstract class AbstractIdentitifier implements Serializable, Identifier {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -26,7 +27,7 @@ public abstract class AbstractIdentitifier implements Serializable {
    */
 
   @NotNull
-  private @Nullable UUID id;
+  private @Nullable UUID value;
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -36,16 +37,16 @@ public abstract class AbstractIdentitifier implements Serializable {
   /**
    * Instantiates a new Abstract identity.
    *
-   * @param id
+   * @param value
    *   the id
    */
-  protected AbstractIdentitifier(@NonNull UUID id) {
-    this.id = id;
+  protected AbstractIdentitifier(@NonNull UUID value) {
+    this.value = value;
   }
 
   @Override
   public final int hashCode() {
-    return Objects.hashCode(this.id);
+    return Objects.hashCode(this.value);
   }
 
   /**
@@ -63,13 +64,13 @@ public abstract class AbstractIdentitifier implements Serializable {
   @Override
   public final boolean equals(@Nullable Object other) {
     if (other instanceof AbstractIdentitifier that) {
-      return that.canEqual(this) && Objects.equals(this.id, that.id);
+      return that.canEqual(this) && Objects.equals(this.value, that.value);
     }
     return false;
   }
 
   @Override
   public String toString() {
-    return String.valueOf(this.id);
+    return String.valueOf(this.value);
   }
 }

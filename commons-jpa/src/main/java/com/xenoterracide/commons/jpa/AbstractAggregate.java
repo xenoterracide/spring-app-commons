@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.jmolecules.ddd.types.AggregateRoot;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.AfterDomainEventPublication;
@@ -23,7 +24,8 @@ import org.springframework.data.domain.DomainEvents;
  */
 @MappedSuperclass
 public abstract class AbstractAggregate<ID extends AbstractIdentitifier, THIS extends AbstractAggregate<ID, ?>>
-  extends AbstractSurrogateEntity<@NonNull ID> {
+  extends AbstractSurrogateEntity<AbstractAggregate<?, ?>, @NonNull ID>
+  implements AggregateRoot<AbstractAggregate, ID> {
 
   private final @Transient List<DomainEvent<?, ID, THIS, ?>> domainEvents = new ArrayList<>();
 

@@ -1,10 +1,10 @@
-module com.xenoterracide.jpa.test {
+module com.xenoterracide.commons.jpa.test {
   opens com.xenoterracide.commons.jpa.test
     to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
   opens com.xenoterracide.commons.jpa.test.transaction
     to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
   requires org.assertj.core;
-  requires com.xenoterracide.jpa;
+  requires com.xenoterracide.commons.jpa;
   requires org.junit.jupiter.api;
   requires org.junit.jupiter.params;
   requires spring.beans;

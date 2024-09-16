@@ -5,7 +5,7 @@ package com.xenoterracide.jpa.fixtures;
 
 import com.xenoterracide.commons.jpa.AggregateIdentifier;
 import com.xenoterracide.commons.jpa.DomainEvent;
-import com.xenoterracide.model.EntityIdentifier;
+import com.xenoterracide.commons.model.EntityIdentifier;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.UUID;

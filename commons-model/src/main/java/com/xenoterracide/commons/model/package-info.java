@@ -1,4 +1,4 @@
 /**
  * Contains the common domain model classes.
  */
-package com.xenoterracide.model;
+package com.xenoterracide.commons.model;

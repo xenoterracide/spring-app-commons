@@ -3,7 +3,7 @@
 
 package com.xenoterracide.commons.jpa;
 
-import com.xenoterracide.model.Identifiable;
+import com.xenoterracide.commons.model.Identifiable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -16,6 +16,8 @@ import java.util.Objects;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.envers.Audited;
+import org.jmolecules.ddd.types.AggregateRoot;
+import org.jmolecules.ddd.types.Entity;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -27,7 +29,8 @@ import org.jspecify.annotations.Nullable;
  */
 @Audited
 @MappedSuperclass
-public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> implements Identifiable<@NonNull ID> {
+public abstract class AbstractSurrogateEntity<AGG extends AggregateRoot<AGG, ?>, ID extends AbstractIdentitifier>
+  implements Entity<AGG, ID>, Identifiable<@NonNull ID> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
 
@@ -116,11 +119,11 @@ public abstract class AbstractSurrogateEntity<ID extends AbstractIdentitifier> i
    *   How to Write an Equality Method in Java
    *   </a>
    */
-  protected abstract boolean canEqual(@NonNull AbstractSurrogateEntity<?> that);
+  protected abstract boolean canEqual(@NonNull AbstractSurrogateEntity<?, ?> that);
 
   @Override
   public final boolean equals(@Nullable Object other) {
-    if (other instanceof AbstractSurrogateEntity<?> that) {
+    if (other instanceof AbstractSurrogateEntity<?, ?> that) {
       // CHECKSTYLE.OFF: UnnecessaryParentheses
       return (
         that.canEqual(this) &&

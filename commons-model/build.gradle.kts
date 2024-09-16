@@ -9,7 +9,9 @@ plugins {
 
 dependencies {
   api(platform(libs.spring.bom))
+  api(platform(libs.jmolecules.bom))
   api(libs.spring.data.commons)
+  api(libs.jmolecules.ddd)
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.jakarta.persistence)

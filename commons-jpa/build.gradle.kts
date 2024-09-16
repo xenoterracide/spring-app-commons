@@ -19,9 +19,12 @@ dependencies {
   api(libs.spring.data.commons)
   api(libs.hibernate.envers)
 
+  implementation(platform(libs.jmolecules.bom))
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
+  implementation(libs.jmolecules.ddd)
+  implementation(libs.jmolecules.architecture.layered)
 
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)
@@ -47,7 +50,6 @@ testing {
         implementation(testFixtures(project()))
 
         implementation(platform(libs.jakarta.bom))
-        implementation(platform(libs.spring.bom))
         implementation(libs.spring.test)
         implementation(libs.spring.boot.test.autoconfigure)
         implementation(libs.spring.boot.test.core)
