@@ -24,6 +24,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+import org.jmolecules.ddd.types.Identifier;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -32,9 +33,9 @@ import org.jspecify.annotations.Nullable;
  */
 @Entity
 @Table(name = "identity_provider_users")
-public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@NonNull Identifier> {
+public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@NonNull Id> {
 
-  private IdentityProviderUser.@NonNull Identifier id;
+  private @NonNull Id id;
   private @Nullable User user;
 
   /**
@@ -48,7 +49,7 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    * @param id
    *   the primary key
    */
-  IdentityProviderUser(IdentityProviderUser.@NonNull Identifier id) {
+  IdentityProviderUser(@NonNull Id id) {
     this.id = id;
   }
 
@@ -68,12 +69,12 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
   @EmbeddedId
   @NotNull
   @Override
-  public IdentityProviderUser.@NonNull Identifier getId() {
+  public IdentityProviderUser.@NonNull Id getId() {
     return this.id;
   }
 
   @Initializer
-  void setId(IdentityProviderUser.@NonNull Identifier id) {
+  void setId(@NonNull Id id) {
     this.id = id;
   }
 
@@ -166,7 +167,7 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
    * The primary key for {@link IdentityProviderUser}.
    */
   @Embeddable
-  public static class Identifier implements Serializable {
+  public static class Id implements Serializable, Identifier {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -190,9 +191,9 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
     /**
      * For JPA.
      */
-    protected Identifier() {}
+    protected Id() {}
 
-    Identifier(@NonNull IdP idP, @NonNull String idPUserId, User.@NonNull Identifier userId) {
+    Id(@NonNull IdP idP, @NonNull String idPUserId, User.@NonNull Identifier userId) {
       this.idP = idP;
       this.idPUserId = idPUserId;
       this.userId = userId;
@@ -217,12 +218,12 @@ public class IdentityProviderUser implements Identifiable<IdentityProviderUser.@
      * @return {@code true} if this instance could be equal to the other object.
      */
     protected boolean canEqual(@NonNull Serializable that) {
-      return that instanceof Identifier;
+      return that instanceof Id;
     }
 
     @Override
     public final boolean equals(Object o) {
-      if (o instanceof Identifier that) {
+      if (o instanceof Id that) {
         // CHECKSTYLE.OFF: UnnecessaryParentheses
         return (
           that.canEqual(this) &&

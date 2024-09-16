@@ -26,7 +26,7 @@ final class UserFactory {
     @Nonnull String idPUserId,
     @Nonnull User user
   ) {
-    var idpUser = new IdentityProviderUser(new IdentityProviderUser.Identifier(idP, idPUserId, user.getId()));
+    var idpUser = new IdentityProviderUser(new IdentityProviderUser.Id(idP, idPUserId, user.getId()));
     idpUser.setUser(user);
     return idpUser;
   }

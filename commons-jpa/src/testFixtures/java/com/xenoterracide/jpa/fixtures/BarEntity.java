@@ -20,10 +20,11 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.UUID;
 import org.hibernate.envers.Audited;
+import org.jspecify.annotations.NonNull;
 
 @Audited
 @Entity
-public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
+public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id, @NonNull FooAggregate> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id", "name" };
 
@@ -59,7 +60,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
   }
 
   @Override
-  protected boolean canEqual(AbstractSurrogateEntity<?> that) {
+  protected boolean canEqual(AbstractSurrogateEntity<?, ?> that) {
     return that instanceof BarEntity;
   }
 
@@ -107,7 +108,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id> {
   }
 
   public record NameChanged(BarEntity.Id id, String name, Class<BarEntity> type)
-    implements EntityIdentifier<Id, BarEntity> {
+    implements EntityIdentifier<@NonNull Id, BarEntity> {
     public NameChanged(BarEntity.Id id, String name) {
       this(id, name, BarEntity.class);
     }

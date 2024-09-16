@@ -12,12 +12,14 @@ import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.envers.Audited;
 import org.jmolecules.ddd.types.AggregateRoot;
 import org.jmolecules.ddd.types.Entity;
+import org.jmolecules.ddd.types.Identifier;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -29,7 +31,7 @@ import org.jspecify.annotations.Nullable;
  */
 @Audited
 @MappedSuperclass
-public abstract class AbstractSurrogateEntity<AGG extends AggregateRoot<AGG, ?>, ID extends AbstractIdentitifier>
+public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, ?>>
   implements Entity<AGG, ID>, Identifiable<@NonNull ID> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };

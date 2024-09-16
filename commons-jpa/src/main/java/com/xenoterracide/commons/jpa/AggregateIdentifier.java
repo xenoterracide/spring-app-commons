@@ -4,6 +4,7 @@
 package com.xenoterracide.commons.jpa;
 
 import com.xenoterracide.commons.model.EntityIdentifier;
+import org.jmolecules.ddd.types.AggregateRoot;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -18,7 +19,7 @@ import org.jspecify.annotations.NonNull;
  * @param type
  *   the type of the aggregate
  */
-public record AggregateIdentifier<ID extends AbstractIdentitifier, AGG extends AbstractAggregate<@NonNull ID, ?>>(
+public record AggregateIdentifier<ID extends AbstractIdentitifier, AGG extends AggregateRoot<AGG, @NonNull ID>>(
   Class<AGG> type,
   ID id
 )

@@ -6,6 +6,8 @@ package com.xenoterracide.commons.jpa;
 import com.xenoterracide.commons.model.EntityIdentifier;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import org.jmolecules.ddd.types.AggregateRoot;
+import org.jmolecules.ddd.types.Identifier;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -30,8 +32,8 @@ import org.jspecify.annotations.NonNull;
  */
 public record DomainEvent<
   EVENTID extends Serializable,
-  AID extends AbstractIdentitifier,
-  AGG extends AbstractAggregate<AID, ?>,
+  AID extends Identifier & Serializable,
+  AGG extends AggregateRoot<AGG, AID>,
   PAYLOAD extends EntityIdentifier<?, ?>
 >(
   @NonNull EVENTID id,

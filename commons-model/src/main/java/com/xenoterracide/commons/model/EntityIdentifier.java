@@ -4,6 +4,7 @@
 package com.xenoterracide.commons.model;
 
 import java.io.Serializable;
+import org.jmolecules.ddd.types.Entity;
 import org.jmolecules.ddd.types.Identifier;
 import org.jspecify.annotations.NonNull;
 
@@ -16,7 +17,7 @@ import org.jspecify.annotations.NonNull;
  *   the type of the entity
  */
 public interface EntityIdentifier<
-  ID extends @NonNull Identifier & @NonNull Serializable, ENTITY extends Identifiable<@NonNull ID>
+  ID extends @NonNull Identifier & @NonNull Serializable, ENTITY extends Entity<?, @NonNull ID>
 >
   extends Identifiable<@NonNull ID> {
   /**

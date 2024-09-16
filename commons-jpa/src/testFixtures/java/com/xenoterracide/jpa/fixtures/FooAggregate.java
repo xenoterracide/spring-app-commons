@@ -97,7 +97,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?> that) {
+  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?, ?> that) {
     return that instanceof FooAggregate;
   }
 

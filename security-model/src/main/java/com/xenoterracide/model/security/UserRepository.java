@@ -42,5 +42,5 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
    */
   @Query("select u from User u join u.identityProviderUsers i where i.id = ?1")
   @NonNull
-  Optional<@Nullable User> findByIdentityProviderUser(IdentityProviderUser.@NonNull Identifier id);
+  Optional<@Nullable User> findByIdentityProviderUser(IdentityProviderUser.@NonNull Id id);
 }

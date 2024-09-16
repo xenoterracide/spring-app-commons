@@ -4,11 +4,13 @@
 package com.xenoterracide.commons.jpa;
 
 import jakarta.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import org.jmolecules.ddd.types.AggregateRoot;
+import org.jmolecules.ddd.types.Identifier;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.AfterDomainEventPublication;
@@ -23,9 +25,9 @@ import org.springframework.data.domain.DomainEvents;
  *   type parameter
  */
 @MappedSuperclass
-public abstract class AbstractAggregate<ID extends AbstractIdentitifier, THIS extends AbstractAggregate<ID, ?>>
-  extends AbstractSurrogateEntity<AbstractAggregate<?, ?>, @NonNull ID>
-  implements AggregateRoot<AbstractAggregate, ID> {
+public abstract class AbstractAggregate<ID extends Identifier & Serializable, THIS extends AggregateRoot<THIS, ID>>
+  extends AbstractSurrogateEntity<ID, THIS>
+  implements AggregateRoot<THIS, ID> {
 
   private final @Transient List<DomainEvent<?, ID, THIS, ?>> domainEvents = new ArrayList<>();
 
