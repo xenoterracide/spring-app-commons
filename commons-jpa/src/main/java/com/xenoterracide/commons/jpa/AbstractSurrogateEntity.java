@@ -24,9 +24,11 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The type Abstract uuid entity base.
+ * Base class for entities that use a surrogate identifier.
  *
  * @param <ID>
+ *   the type parameter
+ * @param <AGG>
  *   the type parameter
  */
 @Audited

@@ -1,12 +1,15 @@
-module com.xenoterracide.commons.model.test {
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked module com.xenoterracide.commons.model.test {
+  opens com.xenoterracide.commons.model.test
+    to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
+  requires static com.xenoterracide.tools.java;
+  requires static org.jspecify;
   requires org.junit.jupiter.api;
   requires org.assertj.core;
   requires com.xenoterracide.model;
   requires spring.boot.test.autoconfigure;
   requires spring.beans;
   requires jakarta.persistence;
-  requires static com.xenoterracide.tools.java;
   requires org.jmolecules.ddd;
-  requires org.jspecify;
-  opens com.xenoterracide.tm.model to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
 }

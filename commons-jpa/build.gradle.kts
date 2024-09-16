@@ -18,12 +18,12 @@ dependencies {
   api(libs.spring.context)
   api(libs.spring.data.commons)
   api(libs.hibernate.envers)
+  api(libs.jmolecules.ddd)
 
   implementation(platform(libs.jmolecules.bom))
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
-  implementation(libs.jmolecules.ddd)
   implementation(libs.jmolecules.architecture.layered)
 
   runtimeOnly(libs.starter.data.jpa)
