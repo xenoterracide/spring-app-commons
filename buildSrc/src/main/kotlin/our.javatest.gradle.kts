@@ -22,7 +22,7 @@ testing {
   suites {
     withType<JvmTestSuite>().configureEach {
       dependencies {
-        compileOnly(libs.jspecify)
+        implementation(libs.jspecify)
         implementation(platform(libs.jakarta.bom))
         implementation(platform(libs.spring.bom))
         implementation(platform(libs.junit.bom))
