@@ -12,5 +12,5 @@ import org.jspecify.annotations.NullMarked;
   requires spring.boot.test.autoconfigure;
   requires spring.orm;
   requires spring.graphql.test;
-  requires org.jspecify;
+  requires static org.jspecify;
 }

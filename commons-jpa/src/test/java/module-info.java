@@ -18,5 +18,5 @@ import org.jspecify.annotations.NullMarked;
   requires spring.test;
   requires spring.boot.test.autoconfigure;
   requires spring.orm;
-  requires org.jspecify;
+  requires static org.jspecify;
 }

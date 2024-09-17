@@ -10,5 +10,5 @@ import org.jspecify.annotations.NullMarked;
   requires com.xenoterracide.model.security;
   requires jakarta.validation;
   requires org.jmolecules.architecture.layered;
-  requires org.jspecify;
+  requires static org.jspecify;
 }
