@@ -27,5 +27,5 @@ import org.jspecify.annotations.NullMarked;
   requires transitive jakarta.persistence;
   requires transitive jakarta.validation;
   requires transitive com.xenoterracide.model;
-  requires org.jmolecules.ddd;
+  requires transitive org.jmolecules.ddd;
 }

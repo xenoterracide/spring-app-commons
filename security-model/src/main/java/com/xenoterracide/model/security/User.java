@@ -32,7 +32,7 @@ import org.jspecify.annotations.NonNull;
 @Entity
 @AggregateRoot
 @Table(name = "users")
-public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> implements Nameable {
+public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User> implements Nameable {
 
   private String name;
   private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers;
@@ -52,7 +52,7 @@ public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> imp
    * @param identityProviderUsers
    *   the linked identity provider users
    */
-  User(User.@NonNull Id id, @NonNull String name, @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers) {
+  User(@NonNull UserId id, @NonNull String name, @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers) {
     super(id);
     this.name = name;
     this.identityProviderUsers = identityProviderUsers;
@@ -123,7 +123,7 @@ public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> imp
    * A user identifier.
    */
   @ValueObject
-  public static class Id extends AbstractIdentitifier {
+  public static class UserId extends AbstractIdentitifier {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -131,9 +131,9 @@ public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> imp
     /**
      * For JPA.
      */
-    protected Id() {}
+    protected UserId() {}
 
-    Id(@NonNull UUID id) {
+    UserId(@NonNull UUID id) {
       super(id);
     }
 
@@ -142,13 +142,13 @@ public class User extends AbstractAggregate<User.@NonNull Id, @NonNull User> imp
      *
      * @return A new identifier.
      */
-    public static Id create() {
-      return new Id(UuidCreator.getTimeOrderedEpoch());
+    public static UserId create() {
+      return new UserId(UuidCreator.getTimeOrderedEpoch());
     }
 
     @Override
     protected boolean canEqual(@NonNull AbstractIdentitifier that) {
-      return that instanceof Id;
+      return that instanceof UserId;
     }
   }
 }

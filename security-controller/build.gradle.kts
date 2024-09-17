@@ -37,7 +37,7 @@ dependencies {
   testImplementation(libs.spring.graphql.test)
   testImplementation(libs.spring.test)
 
-  testRuntimeOnly(projects.coreTestApp)
+  testRuntimeOnly(projects.testAppCore)
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.mockito)
   testRuntimeOnly(libs.starter.webflux)

@@ -1,4 +1,6 @@
-module com.xenoterracide.commons.jpa.test {
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked module com.xenoterracide.commons.jpa.test {
   opens com.xenoterracide.commons.jpa.test
     to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
   opens com.xenoterracide.commons.jpa.test.transaction
@@ -16,4 +18,5 @@ module com.xenoterracide.commons.jpa.test {
   requires spring.test;
   requires spring.boot.test.autoconfigure;
   requires spring.orm;
+  requires org.jspecify;
 }

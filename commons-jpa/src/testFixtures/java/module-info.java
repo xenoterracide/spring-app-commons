@@ -1,4 +1,6 @@
-module com.xenoterracide.jpa.fixtures {
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked module com.xenoterracide.jpa.fixtures {
   exports com.xenoterracide.jpa.fixtures;
   opens com.xenoterracide.jpa.fixtures to org.hibernate.orm.core, spring.core;
   requires jakarta.persistence;

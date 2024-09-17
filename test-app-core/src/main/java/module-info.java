@@ -10,4 +10,5 @@ import org.jspecify.annotations.NullMarked;
   requires static org.jspecify;
   requires spring.boot.autoconfigure;
   requires spring.context;
+  requires org.jmolecules.architecture.layered;
 }

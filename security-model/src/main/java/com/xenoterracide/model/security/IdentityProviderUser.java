@@ -34,9 +34,9 @@ import org.jspecify.annotations.Nullable;
 @jakarta.persistence.Entity
 @org.jmolecules.ddd.annotation.Entity
 @Table(name = "identity_provider_users")
-public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@NonNull Id> {
+public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@NonNull IdentityProviderUserId> {
 
-  private @NonNull Id id;
+  private @NonNull IdentityProviderUserId id;
   private @Nullable User user;
 
   /**
@@ -50,7 +50,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
    * @param id
    *   the primary key
    */
-  IdentityProviderUser(@NonNull Id id) {
+  IdentityProviderUser(@NonNull IdentityProviderUserId id) {
     this.id = id;
   }
 
@@ -70,12 +70,12 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
   @EmbeddedId
   @NotNull
   @Override
-  public IdentityProviderUser.@NonNull Id getId() {
+  public @NonNull IdentityProviderUserId getId() {
     return this.id;
   }
 
   @Initializer
-  void setId(@NonNull Id id) {
+  void setId(@NonNull IdentityProviderUserId id) {
     this.id = id;
   }
 
@@ -169,7 +169,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
    */
   @ValueObject
   @Embeddable
-  public static class Id implements Serializable, Identifier {
+  public static class IdentityProviderUserId implements Serializable, Identifier {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -188,14 +188,14 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
      * The user.
      */
 
-    private User.Id userId;
+    private User.UserId userId;
 
     /**
      * For JPA.
      */
-    protected Id() {}
+    protected IdentityProviderUserId() {}
 
-    Id(@NonNull IdP idP, @NonNull String idPUserId, User.@NonNull Id userId) {
+    IdentityProviderUserId(@NonNull IdP idP, @NonNull String idPUserId, User.@NonNull UserId userId) {
       this.idP = idP;
       this.idPUserId = idPUserId;
       this.userId = userId;
@@ -220,12 +220,12 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
      * @return {@code true} if this instance could be equal to the other object.
      */
     protected boolean canEqual(@NonNull Serializable that) {
-      return that instanceof Id;
+      return that instanceof IdentityProviderUserId;
     }
 
     @Override
     public final boolean equals(Object o) {
-      if (o instanceof Id that) {
+      if (o instanceof IdentityProviderUserId that) {
         // CHECKSTYLE.OFF: UnnecessaryParentheses
         return (
           that.canEqual(this) &&
@@ -253,12 +253,12 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
       this.idPUserId = idPUserId;
     }
 
-    User.Id getUserId() {
+    User.UserId getUserId() {
       return this.userId;
     }
 
     @Initializer
-    void setUserId(User.@NonNull Id userId) {
+    void setUserId(User.@NonNull UserId userId) {
       this.userId = userId;
     }
   }

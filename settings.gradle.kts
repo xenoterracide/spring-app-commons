@@ -62,8 +62,8 @@ include(
   "authn-controller",
   "commons-jpa",
   "commons-model",
-  "core-test-app",
   "security-controller",
   "security-model",
+  "test-app-core",
   "test-authorization-server",
 )

@@ -4,6 +4,9 @@ import org.jspecify.annotations.NullMarked;
  * Security model.
  */
 @NullMarked module com.xenoterracide.model.security {
+  exports com.xenoterracide.model.security;
+  opens com.xenoterracide.model.security;
+
   requires static org.jmolecules.architecture.layered;
   requires static org.jspecify;
   requires static com.xenoterracide.tools.java;
@@ -19,6 +22,4 @@ import org.jspecify.annotations.NullMarked;
   requires spring.data.jpa;
   requires org.hibernate.orm.envers;
   requires com.github.f4b6a3.uuid;
-  exports com.xenoterracide.model.security;
-  opens com.xenoterracide.model.security;
 }

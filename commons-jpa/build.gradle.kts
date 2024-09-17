@@ -58,7 +58,7 @@ testing {
         runtimeOnly(libs.starter.validation)
         runtimeOnly(libs.starter.data.jpa)
         runtimeOnly(libs.starter.aop)
-        runtimeOnly(projects.coreTestApp)
+        runtimeOnly(projects.testAppCore)
         runtimeOnly(libs.spring.data.envers)
       }
     }
@@ -66,7 +66,6 @@ testing {
     val test by getting(JvmTestSuite::class) {
       dependencies {
         implementation(libs.spring.orm)
-        compileOnly(libs.jspecify)
       }
     }
     val whitebox by registering(JvmTestSuite::class) {

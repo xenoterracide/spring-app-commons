@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 /**
  * Repository for {@link User}.
  */
-public interface UserRepository extends WritableRepository<@NonNull User, User.@NonNull Id> {
+public interface UserRepository extends WritableRepository<@NonNull User, User.@NonNull UserId> {
   /**
    * Finds a user by id.
    *
@@ -21,7 +21,7 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
    * @return the user
    */
   @NonNull
-  Optional<@Nullable User> findById(User.@NonNull Id id);
+  Optional<@Nullable User> findById(User.@NonNull UserId id);
 
   /**
    * Finds a user by name.
@@ -42,5 +42,5 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
    */
   @Query("select u from User u join u.identityProviderUsers i where i.id = ?1")
   @NonNull
-  Optional<@Nullable User> findByIdentityProviderUser(IdentityProviderUser.@NonNull Id id);
+  Optional<@Nullable User> findByIdentityProviderUser(IdentityProviderUser.@NonNull IdentityProviderUserId id);
 }

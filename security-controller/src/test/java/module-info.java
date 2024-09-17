@@ -1,5 +1,7 @@
-module com.xenoterracide.controller.registration.test {
-  opens com.xenoterracide.controller.registration.test to org.junit.platform.commons, spring.core;
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked module com.xenoterracide.controller.registration.test {
+  opens com.xenoterracide.security.controller.test to org.junit.platform.commons, spring.core;
   requires org.assertj.core;
   requires com.xenoterracide.commons.jpa;
   requires org.junit.jupiter.api;
@@ -10,4 +12,5 @@ module com.xenoterracide.controller.registration.test {
   requires spring.boot.test.autoconfigure;
   requires spring.orm;
   requires spring.graphql.test;
+  requires org.jspecify;
 }

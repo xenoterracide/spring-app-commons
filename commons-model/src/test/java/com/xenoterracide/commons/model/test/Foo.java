@@ -18,7 +18,6 @@ import org.jspecify.annotations.NonNull;
 class Foo implements Identifiable<Foo.@NonNull FooId> {
 
   @Id
-  @GeneratedValue
   private FooId id;
 
   @Override
@@ -36,11 +35,14 @@ class Foo implements Identifiable<Foo.@NonNull FooId> {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final Long value;
+    @GeneratedValue
+    private Long value;
 
     FooId(@NonNull Long value) {
       this.value = value;
     }
+
+    protected FooId() {}
 
     @Override
     public boolean equals(Object o) {

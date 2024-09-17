@@ -1,7 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.controller.registration.test;
+package com.xenoterracide.security.controller.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
