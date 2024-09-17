@@ -20,11 +20,9 @@ dependencies {
   api(libs.hibernate.envers)
   api(libs.jmolecules.ddd)
 
-  implementation(platform(libs.jmolecules.bom))
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
-  implementation(libs.jmolecules.architecture.layered)
 
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)

@@ -22,11 +22,9 @@ dependencies {
   api(libs.jakarta.validation)
   api(libs.hibernate.envers)
   api(libs.spring.data.jpa)
+  api(libs.jmolecules.ddd)
 
-  implementation(platform(libs.jmolecules.bom))
   implementation(libs.uuid.creator)
-  implementation(libs.jmolecules.ddd)
-  implementation(libs.jmolecules.architecture.layered)
 
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.aop)

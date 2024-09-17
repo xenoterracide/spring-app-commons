@@ -5,10 +5,12 @@ import org.jspecify.annotations.NullMarked;
  */
 @NullMarked module com.xenoterracide.controller.registration {
   opens com.xenoterracide.security.controller to spring.core, org.hibernate.validator;
+
+  requires static org.jmolecules.architecture.layered;
+  requires static org.jspecify;
+
   requires spring.graphql;
   requires spring.context;
   requires com.xenoterracide.model.security;
   requires jakarta.validation;
-  requires org.jmolecules.architecture.layered;
-  requires static org.jspecify;
 }
