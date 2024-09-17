@@ -16,7 +16,7 @@ endef
 
 .PHONY: build
 build:
-	./gradlew spotlessApply build buildHealth || cat build/reports/dependency-analysis/build-health-report.txt
+	./gradlew spotlessApply build buildHealth || cat build/reports/dependency-analysis/build-health-report.txt && exit 1
 
 .PHONY: up
 up:
