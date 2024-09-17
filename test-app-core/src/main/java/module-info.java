@@ -7,8 +7,10 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked module com.xenoterracide {
   exports com.xenoterracide to spring.beans, spring.context;
   opens com.xenoterracide to spring.core;
+
   requires static org.jspecify;
+  requires static org.jmolecules.architecture.layered;
+
   requires spring.boot.autoconfigure;
   requires spring.context;
-  requires org.jmolecules.architecture.layered;
 }
