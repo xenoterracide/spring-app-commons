@@ -49,6 +49,10 @@ jakarta-transaction = { module = "jakarta.transaction:jakarta.transaction-api" }
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
 jetbrains-annotations = "org.jetbrains:annotations:+"
 jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
+jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
+jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
+jmolecules-events = { module = "org.jmolecules:jmolecules-events" }
+jmolecules-architecture-layered = { module = "org.jmolecules:jmolecules-layered-architecture" }
 jspecify = "org.jspecify:jspecify:1.+"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-bom = "org.junit:junit-bom:5.+"
@@ -85,6 +89,8 @@ spring-data-envers = { module = "org.springframework.data:spring-data-envers" }
 spring-graphql-core = { module = "org.springframework.graphql:spring-graphql" }
 spring-graphql-test = { module = "org.springframework.graphql:spring-graphql-test" }
 spring-instrument = { module = "org.springframework:spring-instrument" }
+spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom" }
+spring-modulith-core = { module = "org.springframework.modulith:spring-modulith-core" }
 spring-orm = { module = "org.springframework:spring-orm" }
 spring-test = { module = "org.springframework:spring-test" }
 spring-transaction = { module = "org.springframework:spring-tx" }

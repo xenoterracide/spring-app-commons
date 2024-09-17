@@ -2,17 +2,6 @@
 // SPDX-License-Identifier: MIT
 
 rootProject.name = "spring-app-commons"
-rootDir.resolve("module").listFiles()?.forEach { file ->
-  if (file.isDirectory && file?.list { _, name -> name == "build.gradle.kts" }
-      ?.isNotEmpty() == true
-  ) {
-    val name = file.name
-    include(":$name")
-    project(":$name").projectDir = file("module/$name")
-  } else {
-    logger.error("Invalid module directory: {}", file)
-  }
-}
 
 pluginManagement {
   repositories {
@@ -68,3 +57,13 @@ abstract class JakartaTransactionRule : ComponentMetadataRule {
     }
   }
 }
+
+include(
+  "authn-controller",
+  "commons-jpa",
+  "commons-model",
+  "security-controller",
+  "security-model",
+  "test-app-core",
+  "test-authorization-server",
+)

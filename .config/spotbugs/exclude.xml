@@ -20,4 +20,9 @@
   <Match>
     <Annotation name="jakarta.persistence.metamodel.StaticMetamodel" />
   </Match>
+  <Match>
+    <!-- same concept, should prefer mine except when interfacing with jmolecules -->
+    <Bug pattern="NM_SAME_SIMPLE_NAME_AS_INTERFACE" />
+    <Class name="com.xenoterracide.commons.model.Identifiable" />
+  </Match>
 </FindBugsFilter>

@@ -51,9 +51,14 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
 }
 
 dependencies {
+  compileOnly(libs.jspecify)
+  compileOnly(libs.jmolecules.architecture.layered)
+
   // spring should be using this, but it's not, and some jakarta versions are missing
   implementation(platform(libs.jakarta.bom))
   implementation(platform(libs.spring.bom))
+  implementation(platform(libs.jmolecules.bom))
+
   runtimeOnly(libs.starter.log4j2)
 
   modules {

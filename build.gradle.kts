@@ -29,6 +29,7 @@ dependencyAnalysis {
         exclude(libs.spring.test)
         exclude(libs.spring.boot.test.autoconfigure)
         exclude(libs.spring.boot.test.core)
+        exclude(libs.jspecify)
       }
     }
   }
