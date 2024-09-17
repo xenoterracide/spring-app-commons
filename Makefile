@@ -16,7 +16,7 @@ endef
 
 .PHONY: build
 build:
-	./gradlew spotlessApply build
+	./gradlew spotlessApply build buildHealth
 
 .PHONY: up
 up:
