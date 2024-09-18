@@ -6,10 +6,12 @@ package com.xenoterracide;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.modulith.Modulith;
 
 /**
  * Test application.
  */
+@Modulith
 @SpringBootApplication
 @PropertySource(
   value = "file:///${user.home}/.config/spring-boot/application.properties",

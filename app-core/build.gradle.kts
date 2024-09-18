@@ -13,14 +13,17 @@ tasks.javadoc {
 }
 
 dependencies {
+  implementation(platform(libs.spring.modulith.bom))
+  implementation(libs.spring.modulith.core)
+
   implementation(libs.spring.boot.autoconfigure)
   implementation(libs.spring.context)
 
   runtimeOnly(projects.securityController)
   runtimeOnly(libs.starter.actuator)
 
-  testImplementation(platform(libs.spring.modulith.bom))
-  testImplementation(libs.spring.modulith.core)
+  testImplementation(platform(libs.jmolecules.bom))
+  testImplementation(libs.jmolecules.archunit)
   testImplementation(libs.spring.test)
   testImplementation(libs.spring.boot.test.core)
   testRuntimeOnly(libs.h2)

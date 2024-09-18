@@ -50,9 +50,10 @@ jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
 jetbrains-annotations = "org.jetbrains:annotations:+"
 jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
+jmolecules-architecture-layered = { module = "org.jmolecules:jmolecules-layered-architecture" }
+jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:0.+"
 jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
 jmolecules-events = { module = "org.jmolecules:jmolecules-events" }
-jmolecules-architecture-layered = { module = "org.jmolecules:jmolecules-layered-architecture" }
 jspecify = "org.jspecify:jspecify:1.+"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-bom = "org.junit:junit-bom:5.+"
