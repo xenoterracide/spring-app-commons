@@ -81,7 +81,6 @@ testing {
 }
 
 tasks.compileJava {
-  options.release = 17
   options.compilerArgs.addAll(
     listOf(
       "-AaddSuppressWarningsAnnotation=true",

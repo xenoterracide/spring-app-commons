@@ -3,4 +3,19 @@
 
 package com.xenoterracide.test;
 
-class ApplicationTest {}
+import com.xenoterracide.Application;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.modulith.core.ApplicationModules;
+
+@SpringBootTest
+class ApplicationTest {
+
+  @Test
+  void contextLoads() {}
+
+  @Test
+  void modules() {
+    ApplicationModules.of(Application.class).verify();
+  }
+}

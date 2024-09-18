@@ -30,7 +30,3 @@ dependencies {
   testRuntimeOnly(libs.jakarta.interceptor)
   testRuntimeOnly(libs.jakarta.transaction)
 }
-
-tasks.compileJava {
-  options.release = 17
-}

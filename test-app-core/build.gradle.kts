@@ -8,10 +8,6 @@ plugins {
   alias(libs.plugins.java.module.testing)
 }
 
-tasks.compileJava {
-  options.release = 17
-}
-
 tasks.javadoc {
   enabled = false
 }

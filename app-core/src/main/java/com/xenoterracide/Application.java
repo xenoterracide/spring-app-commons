@@ -27,7 +27,7 @@ import org.springframework.context.annotation.PropertySource;
   value = "file:///${user.home}/.config/spring-boot/${spring.application.name}-local.properties",
   ignoreResourceNotFound = true
 )
-class Application {
+public class Application {
 
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
