@@ -59,6 +59,7 @@ abstract class JakartaTransactionRule : ComponentMetadataRule {
 }
 
 include(
+  "app-core",
   "authn-controller",
   "commons-jpa",
   "commons-model",

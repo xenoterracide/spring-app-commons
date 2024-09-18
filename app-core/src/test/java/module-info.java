@@ -1,6 +1,4 @@
-import org.jspecify.annotations.NullMarked;
-
-@NullMarked module com.xenoterracide.test.app.test {
+module com.xenoterracide.test {
   opens com.xenoterracide.test to org.junit.platform.commons;
 
   requires static org.jspecify;
