@@ -22,6 +22,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+import org.jmolecules.ddd.annotation.Identity;
 import org.jmolecules.ddd.annotation.ValueObject;
 import org.jmolecules.ddd.types.Entity;
 import org.jmolecules.ddd.types.Identifier;
@@ -67,6 +68,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
     return this.user != null;
   }
 
+  @Identity
   @EmbeddedId
   @NotNull
   @Override
