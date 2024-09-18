@@ -5,6 +5,7 @@ package com.xenoterracide.model.security;
 
 import com.xenoterracide.commons.model.WritableRepository;
 import java.util.Optional;
+import org.jmolecules.ddd.annotation.Repository;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 /**
  * Repository for {@link User}.
  */
+@Repository
 public interface UserRepository extends WritableRepository<@NonNull User, User.@NonNull UserId> {
   /**
    * Finds a user by id.
