@@ -10,6 +10,7 @@ dependencies {
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(libs.hibernate.jpa.modelgen)
 
+  compileOnly(libs.hibernate.validator)
   compileOnly(libs.java.tools)
 
   api(projects.commonsModel)
