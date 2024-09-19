@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.modulith.Modulith;
 
 /**
- * Test application.
+ * Main Application class.
  */
 @Modulith
 @SpringBootApplication
@@ -31,6 +31,12 @@ import org.springframework.modulith.Modulith;
 )
 public class Application {
 
+  /**
+   * Main method.
+   *
+   * @param args
+   *   command line arguments
+   */
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
   }

@@ -4,7 +4,7 @@ import org.jspecify.annotations.NullMarked;
  * Provide our default Application
  */
 @NullMarked module com.xenoterracide {
-  exports com.xenoterracide to spring.beans, spring.context, com.xenoterracide.test;
+  exports com.xenoterracide;
   opens com.xenoterracide to spring.core;
 
   requires static org.jspecify;

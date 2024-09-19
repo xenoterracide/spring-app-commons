@@ -13,18 +13,39 @@ tasks.javadoc {
 }
 
 dependencies {
-  implementation(platform(libs.spring.modulith.bom))
-  implementation(libs.spring.modulith.core)
+  api(platform(libs.spring.modulith.bom))
 
-  implementation(libs.spring.boot.autoconfigure)
+  api(libs.spring.boot.core)
+  api(libs.spring.modulith.core)
+  api(libs.spring.boot.autoconfigure)
+
   implementation(libs.spring.context)
 
   runtimeOnly(projects.securityController)
   runtimeOnly(libs.starter.actuator)
+}
 
-  testImplementation(platform(libs.jmolecules.bom))
-  testImplementation(libs.jmolecules.archunit)
-  testImplementation(libs.spring.test)
-  testImplementation(libs.spring.boot.test.core)
-  testRuntimeOnly(libs.h2)
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      withType<JvmTestSuite>().configureEach {
+        dependencies {
+          implementation(project())
+        }
+      }
+      dependencies {
+        implementation(platform(libs.jmolecules.bom))
+        implementation(libs.spring.test)
+        implementation(libs.spring.boot.test.core)
+        runtimeOnly(libs.h2)
+      }
+    }
+
+    val jmoleculesTest by registering(JvmTestSuite::class) {
+      dependencies {
+        implementation(libs.archunit.junit)
+        implementation(libs.jmolecules.archunit)
+      }
+    }
+  }
 }
