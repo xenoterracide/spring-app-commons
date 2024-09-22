@@ -21,7 +21,7 @@ up:
 
 .PHONY: format
 format:
-	./gradlew spotlessApply
+	./gradlew spotlessApply --quiet
 
 .PHONY: build
 build:

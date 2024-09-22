@@ -1,7 +1,7 @@
 // © Copyright 2024 Caleb Cushing
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-package com.xenoterracide.test.authorization.server;
+package com.xenoterracide.authorization.server;
 
 import com.xenoterracide.tools.java.annotation.ExcludeFromGeneratedCoverageReport;
 import java.util.UUID;
@@ -49,7 +49,8 @@ public class AuthorizationServer {
   /**
    * Main.
    *
-   * @param args arguments to the program
+   * @param args
+   *   arguments to the program
    */
   @ExcludeFromGeneratedCoverageReport
   public static void main(String[] args) {
