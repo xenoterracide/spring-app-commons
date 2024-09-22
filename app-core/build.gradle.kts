@@ -12,6 +12,10 @@ tasks.javadoc {
   enabled = false
 }
 
+coverage {
+  minimum = 0.3
+}
+
 dependencies {
   api(platform(libs.spring.modulith.bom))
 
