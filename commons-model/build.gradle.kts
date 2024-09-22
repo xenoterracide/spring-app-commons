@@ -8,6 +8,8 @@ plugins {
 }
 
 dependencies {
+  compileOnly(libs.hibernate.orm.core)
+
   api(platform(libs.spring.bom))
   api(platform(libs.jmolecules.bom))
   api(libs.spring.data.commons)

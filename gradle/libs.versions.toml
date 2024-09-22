@@ -6,7 +6,7 @@ spring = "3.+"
 [libraries]
 java-tools = "com.xenoterracide:tools:0.+"
 api-guardian = { module = "org.apiguardian:apiguardian-api" }
-assertj = "org.assertj:assertj-core:3+"
+assertj = "org.assertj:assertj-core:3.+"
 archunit-core = "com.tngtech.archunit:archunit:1.+"
 archunit-junit = "com.tngtech.archunit:archunit-junit5:1.+"
 autoservice = "com.google.auto.service:auto-service:1.+"

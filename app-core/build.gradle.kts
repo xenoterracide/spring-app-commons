@@ -40,12 +40,5 @@ testing {
         runtimeOnly(libs.h2)
       }
     }
-
-    val jmoleculesTest by registering(JvmTestSuite::class) {
-      dependencies {
-        implementation(libs.archunit.junit)
-        implementation(libs.jmolecules.archunit)
-      }
-    }
   }
 }

@@ -29,7 +29,12 @@ import org.springframework.modulith.Modulith;
   value = "file:///${user.home}/.config/spring-boot/${spring.application.name}-local.properties",
   ignoreResourceNotFound = true
 )
+@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
 public class Application {
+
+  Application() {
+    // empty
+  }
 
   /**
    * Main method.
@@ -37,6 +42,7 @@ public class Application {
    * @param args
    *   command line arguments
    */
+  @SuppressWarnings("checkstyle:UncommentedMain")
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
   }

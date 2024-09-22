@@ -5,4 +5,5 @@ module com.xenoterracide.test {
   requires org.junit.jupiter.api;
   requires org.springframework.modulith.core;
   requires com.xenoterracide;
+  requires org.assertj.core;
 }
