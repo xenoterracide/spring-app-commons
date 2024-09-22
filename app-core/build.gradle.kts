@@ -28,12 +28,8 @@ dependencies {
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
-      withType<JvmTestSuite>().configureEach {
-        dependencies {
-          implementation(project())
-        }
-      }
       dependencies {
+        implementation(project())
         implementation(platform(libs.jmolecules.bom))
         implementation(libs.spring.test)
         implementation(libs.spring.boot.test.core)
