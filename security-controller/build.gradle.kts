@@ -22,6 +22,7 @@ val demoServerApi by configurations.existing
 dependencies {
   api(libs.spring.context)
   compileOnly(libs.hibernate.validator)
+
   implementation(libs.jakarta.validation)
   implementation(libs.spring.graphql.core)
   implementation(projects.security)

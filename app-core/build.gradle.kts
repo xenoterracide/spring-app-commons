@@ -16,8 +16,6 @@ coverage {
 }
 
 dependencies {
-  api(platform(libs.spring.modulith.bom))
-
   api(libs.spring.boot.core)
   api(libs.spring.modulith.core)
   api(libs.spring.boot.autoconfigure)
@@ -33,8 +31,7 @@ testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(platform(libs.spring.modulith.bom))
-        implementation(platform(libs.jmolecules.bom))
+
         implementation(libs.spring.test)
         implementation(libs.spring.boot.test.core)
         implementation(libs.spring.modulith.docs)

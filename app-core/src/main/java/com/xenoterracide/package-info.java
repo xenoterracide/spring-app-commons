@@ -2,7 +2,7 @@
  * This package contains the main class for the application.
  */
 @InfrastructureLayer
-@ApplicationModule(displayName = "Application")
+@ApplicationModule(displayName = "Application", allowedDependencies = "")
 package com.xenoterracide;
 
 import org.jmolecules.architecture.layered.InfrastructureLayer;
