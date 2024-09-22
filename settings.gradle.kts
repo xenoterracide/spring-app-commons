@@ -64,7 +64,7 @@ include(
   "commons-jpa",
   "commons-model",
   "security-controller",
-  "security-model",
+  "security",
   "test-app-core",
   "test-authorization-server",
 )

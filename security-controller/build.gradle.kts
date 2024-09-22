@@ -24,7 +24,7 @@ dependencies {
   compileOnly(libs.hibernate.validator)
   implementation(libs.jakarta.validation)
   implementation(libs.spring.graphql.core)
-  implementation(projects.securityModel)
+  implementation(projects.security)
 
   runtimeOnly(libs.starter.graphql)
   runtimeOnly(libs.starter.validation)

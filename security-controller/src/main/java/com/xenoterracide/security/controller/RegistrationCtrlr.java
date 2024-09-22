@@ -3,9 +3,9 @@
 
 package com.xenoterracide.security.controller;
 
-import com.xenoterracide.model.security.IdentityProviderUser;
-import com.xenoterracide.model.security.User;
-import com.xenoterracide.model.security.UserRepository;
+import com.xenoterracide.security.user.IdentityProviderUser;
+import com.xenoterracide.security.user.User;
+import com.xenoterracide.security.user.UserRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
