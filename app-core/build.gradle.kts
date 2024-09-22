@@ -24,6 +24,7 @@ dependencies {
 
   implementation(libs.spring.context)
 
+  runtimeOnly(projects.securityController)
   runtimeOnly(libs.starter.actuator)
   runtimeOnly(libs.starter.modulith.core)
 }
