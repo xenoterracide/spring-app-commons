@@ -11,8 +11,9 @@ import org.springframework.modulith.Modulith;
 /**
  * Main Application class.
  */
-@Modulith
+
 @SpringBootApplication
+@Modulith(sharedModules = "security")
 @PropertySource(
   value = "file:///${user.home}/.config/spring-boot/application.properties",
   ignoreResourceNotFound = true

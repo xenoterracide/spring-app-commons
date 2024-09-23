@@ -76,7 +76,9 @@ dependencies {
   runtimeOnly(platform(libs.jmolecules.bom))
 
   compileOnly(libs.jspecify)
-  compileOnly(libs.jmolecules.architecture.layered)
+
+  implementation(libs.jmolecules.architecture.layered)
+  implementation(libs.spring.modulith.core)
 
   runtimeOnly(libs.starter.log4j2)
 

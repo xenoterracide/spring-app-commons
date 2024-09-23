@@ -13,4 +13,6 @@ import org.jspecify.annotations.NullMarked;
   requires spring.context;
   requires com.xenoterracide.security;
   requires jakarta.validation;
+  requires org.springframework.modulith.api;
+  requires org.jmolecules.ddd;
 }

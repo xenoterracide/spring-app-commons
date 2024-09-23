@@ -31,11 +31,11 @@ testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-
         implementation(libs.spring.test)
         implementation(libs.spring.boot.test.core)
         implementation(libs.spring.modulith.docs)
         implementation(libs.spring.modulith.test)
+
         runtimeOnly(libs.jmolecules.architecture.layered)
         runtimeOnly(libs.starter.modulith.test)
         runtimeOnly(libs.h2)

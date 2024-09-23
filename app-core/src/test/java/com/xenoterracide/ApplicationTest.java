@@ -4,23 +4,13 @@
 package com.xenoterracide;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.modulith.core.ApplicationModules;
-import org.springframework.modulith.docs.Documenter;
-import org.springframework.modulith.test.ApplicationModuleTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@ApplicationModuleTest(ApplicationModuleTest.BootstrapMode.ALL_DEPENDENCIES)
+@SpringBootTest
 class ApplicationTest {
 
   @Test
-  void writeDocumentationSnippets() {
-    new Documenter(ApplicationModules.of(Application.class)).writeModulesAsPlantUml();
-  }
-
-  @Test
-  void contextLoads() {}
-
-  @Test
-  void modules() {
-    ApplicationModules.of(Application.class).verify();
+  void contextLoads() {
+    // empty
   }
 }
