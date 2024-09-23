@@ -17,14 +17,13 @@ coverage {
 
 dependencies {
   api(libs.spring.boot.core)
-  api(libs.spring.modulith.core)
+
   api(libs.spring.boot.autoconfigure)
 
   implementation(libs.spring.context)
 
   runtimeOnly(projects.securityController)
   runtimeOnly(libs.starter.actuator)
-  runtimeOnly(libs.starter.modulith.core)
 }
 
 testing {
@@ -33,11 +32,9 @@ testing {
       dependencies {
         implementation(libs.spring.test)
         implementation(libs.spring.boot.test.core)
-        implementation(libs.spring.modulith.docs)
-        implementation(libs.spring.modulith.test)
 
         runtimeOnly(libs.jmolecules.architecture.layered)
-        runtimeOnly(libs.starter.modulith.test)
+
         runtimeOnly(libs.h2)
       }
     }

@@ -24,5 +24,4 @@ import org.jspecify.annotations.NullMarked;
   requires spring.data.jpa;
   requires org.hibernate.orm.envers;
   requires com.github.f4b6a3.uuid;
-  requires org.springframework.modulith.api;
 }

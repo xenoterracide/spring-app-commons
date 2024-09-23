@@ -1,6 +1,10 @@
-module com.xenoterracide.model.security.test {
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked module com.xenoterracide.model.security.test {
   opens com.xenoterracide.security.user.test
     to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
+  requires static org.jspecify;
+
   requires org.assertj.core;
   requires org.junit.jupiter.api;
   requires org.junit.jupiter.params;

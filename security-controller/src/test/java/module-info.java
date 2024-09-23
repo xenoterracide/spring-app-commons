@@ -13,6 +13,4 @@ import org.jspecify.annotations.NullMarked;
   requires spring.orm;
   requires spring.graphql.test;
   requires static org.jspecify;
-  requires org.springframework.modulith.test;
-  requires org.springframework.modulith.core;
 }

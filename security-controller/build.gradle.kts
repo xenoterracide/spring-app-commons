@@ -24,7 +24,6 @@ dependencies {
 
   compileOnly(libs.hibernate.validator)
 
-  implementation(libs.spring.modulith.core)
   implementation(libs.jakarta.validation)
   implementation(libs.spring.graphql.core)
   implementation(projects.security)
@@ -38,15 +37,12 @@ dependencies {
   testImplementation(libs.spring.boot.test.core)
   testImplementation(libs.spring.graphql.test)
   testImplementation(libs.spring.test)
-  testImplementation(libs.spring.modulith.test)
 
   testRuntimeOnly(projects.testAppCore)
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.mockito)
   testRuntimeOnly(libs.starter.webflux)
   testRuntimeOnly(libs.starter.test)
-  testRuntimeOnly(libs.starter.modulith.core)
-  testRuntimeOnly(libs.starter.modulith.test)
 
   demoServerApi(platform(libs.spring.bom))
   demoServerApi(libs.spring.boot.autoconfigure)
