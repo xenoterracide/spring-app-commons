@@ -16,11 +16,10 @@ coverage {
 }
 
 dependencies {
-  api(libs.spring.boot.core)
-
   api(libs.spring.boot.autoconfigure)
+  api(libs.spring.context)
 
-  implementation(libs.spring.context)
+  implementation(libs.spring.boot.core)
 
   runtimeOnly(projects.securityController)
   runtimeOnly(libs.starter.actuator)

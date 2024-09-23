@@ -1,6 +1,6 @@
 import org.jspecify.annotations.NullMarked;
 
-@NullMarked module com.xenoterracide.model.security.test {
+@NullMarked module com.xenoterracide.security.test {
   opens com.xenoterracide.security.user.test
     to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
   requires static org.jspecify;

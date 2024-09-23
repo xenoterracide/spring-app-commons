@@ -8,7 +8,8 @@ java-tools = "com.xenoterracide:tools:0.+"
 api-guardian = { module = "org.apiguardian:apiguardian-api" }
 assertj = "org.assertj:assertj-core:3.+"
 archunit-core = "com.tngtech.archunit:archunit:1.+"
-archunit-junit = "com.tngtech.archunit:archunit-junit5:1.+"
+archunit-junit-core = "com.tngtech.archunit:archunit-junit5:1.+"
+archunit-junit-api = "com.tngtech.archunit:archunit-junit5-api:1.+"
 autoservice = "com.google.auto.service:auto-service:1.+"
 checker-annotations = { module = "org.checkerframework:checker-qual", version.ref = "checker" }
 checker-core = { module = "org.checkerframework:checker", version.ref = "checker" }
