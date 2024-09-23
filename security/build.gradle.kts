@@ -60,6 +60,8 @@ testing {
       dependencies {
         implementation(project())
         implementation(libs.equalsverifier)
+        implementation(libs.jmolecules.archunit)
+        implementation(libs.archunit.junit)
       }
     }
   }
