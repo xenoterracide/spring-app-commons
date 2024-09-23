@@ -14,7 +14,7 @@ module com.xenoterracide.test.authorization.server {
   requires spring.web;
   requires spring.security.config;
   requires spring.security.web;
-  requires org.jmolecules.architecture.layered;
+  requires static org.jmolecules.architecture.layered;
   opens com.xenoterracide.authorization.server;
   exports com.xenoterracide.authorization.server;
 }

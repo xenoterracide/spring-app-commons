@@ -9,7 +9,7 @@ import org.jspecify.annotations.NullMarked;
 
   requires static org.jspecify;
 
-  requires org.jmolecules.architecture.layered;
+  requires static org.jmolecules.architecture.layered;
   requires spring.boot.autoconfigure;
   requires spring.context;
   requires spring.boot;
