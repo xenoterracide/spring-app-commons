@@ -131,6 +131,7 @@ org.springframework.boot:spring-boot-dependencies:3.3.4=compileClasspath,runtime
 org.springframework.boot:spring-boot-starter-log4j2:3.3.4=runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-test:3.3.4=testCompileClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot:3.3.4=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
+org.springframework.modulith:spring-modulith-bom:1.2.4=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework:spring-aop:6.1.13=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework:spring-beans:6.1.13=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework:spring-context:6.1.13=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath

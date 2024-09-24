@@ -154,6 +154,7 @@ org.springframework.boot:spring-boot-starter:3.3.4=runtimeClasspath,testFixtures
 org.springframework.boot:spring-boot-test-autoconfigure:3.3.4=testCompileClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-test:3.3.4=testCompileClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot:3.3.4=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
+org.springframework.modulith:spring-modulith-bom:1.2.4=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.security:spring-security-config:6.3.3=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.security:spring-security-core:6.3.3=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.security:spring-security-crypto:6.3.3=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath

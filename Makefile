@@ -17,15 +17,15 @@ endef
 .PHONY: up
 up:
 # success if no output
-	./gradlew dependencies --write-locks --quiet | grep -e "FAILED" || exit 0
+	./gradlew dependencies --write-locks --quiet --console=plain | grep -e FAILED || exit 0
 
 .PHONY: format
 format:
-	./gradlew spotlessApply --quiet
+	./gradlew spotlessApply --quiet --console=plain
 
 .PHONY: build
 build:
-	./gradlew spotlessApply build buildHealth || (cat build/reports/dependency-analysis/build-health-report.txt && exit 1)
+	./gradlew spotlessApply build --console=plain
 
 .PHONY: merge
 merge: create-pr build watch-full merge-squash

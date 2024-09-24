@@ -55,21 +55,25 @@ dependencies {
   api(platform(libs.spring.bom))
   api(platform(libs.junit.bom))
   api(platform(libs.jmolecules.bom))
+  api(platform(libs.spring.modulith.bom))
 
   compileOnly(platform(libs.jakarta.bom))
   compileOnly(platform(libs.spring.bom))
   compileOnly(platform(libs.junit.bom))
   compileOnly(platform(libs.jmolecules.bom))
+  compileOnly(platform(libs.spring.modulith.bom))
 
   implementation(platform(libs.jakarta.bom))
   implementation(platform(libs.spring.bom))
   implementation(platform(libs.junit.bom))
   implementation(platform(libs.jmolecules.bom))
+  implementation(platform(libs.spring.modulith.bom))
 
   runtimeOnly(platform(libs.jakarta.bom))
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(platform(libs.junit.bom))
   runtimeOnly(platform(libs.jmolecules.bom))
+  runtimeOnly(platform(libs.spring.modulith.bom))
 
   compileOnly(libs.jspecify)
   compileOnly(libs.jmolecules.architecture.layered)

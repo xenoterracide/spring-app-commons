@@ -4,7 +4,7 @@ import org.jspecify.annotations.NullMarked;
  * This module provides the registration controller.
  */
 @NullMarked module com.xenoterracide.controller.registration {
-  opens com.xenoterracide.security.controller to spring.core, org.hibernate.validator;
+  opens com.xenoterracide.controller.security to org.hibernate.validator, spring.core;
 
   requires static org.jmolecules.architecture.layered;
   requires static org.jspecify;
