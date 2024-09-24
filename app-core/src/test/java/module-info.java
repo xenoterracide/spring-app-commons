@@ -8,4 +8,6 @@ import org.jspecify.annotations.NullMarked;
   requires org.junit.jupiter.api;
   requires com.xenoterracide;
   requires org.assertj.core;
+  requires org.springframework.modulith.core;
+  requires org.apache.logging.log4j;
 }

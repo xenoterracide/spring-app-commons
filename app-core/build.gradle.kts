@@ -19,6 +19,7 @@ dependencies {
   api(libs.spring.boot.autoconfigure)
   api(libs.spring.context)
 
+  implementation(libs.spring.modulith.core)
   implementation(libs.spring.boot.core)
 
   runtimeOnly(projects.securityController)
@@ -29,8 +30,10 @@ testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
+        implementation(libs.log4j.api)
         implementation(libs.spring.test)
         implementation(libs.spring.boot.test.core)
+        implementation(libs.spring.modulith.test)
 
         runtimeOnly(libs.jmolecules.architecture.layered)
 

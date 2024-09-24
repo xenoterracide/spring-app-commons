@@ -17,7 +17,7 @@ endef
 .PHONY: up
 up:
 # success if no output
-	./gradlew dependencies --write-locks --quiet | grep -e "FAILED" || exit 0
+	./gradlew dependencies --write-locks --quiet | grep -e FAILED || exit 0
 
 .PHONY: format
 format:
