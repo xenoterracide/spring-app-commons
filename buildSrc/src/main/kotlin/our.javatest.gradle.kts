@@ -44,8 +44,6 @@ testing {
         compileOnly(libs.jspecify)
 
         implementation.bundle(libs.bundles.test.impl)
-
-        runtimeOnly(platform(libs.junit.bom))
         runtimeOnly.bundle(libs.bundles.test.runtime)
       }
     }

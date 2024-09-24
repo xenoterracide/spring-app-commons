@@ -18,8 +18,8 @@ coverage {
 dependencies {
   api(libs.spring.boot.autoconfigure)
   api(libs.spring.context)
+  api(libs.spring.modulith.api)
 
-  implementation(libs.spring.modulith.core)
   implementation(libs.spring.boot.core)
 
   runtimeOnly(projects.securityController)
@@ -33,7 +33,7 @@ testing {
         implementation(libs.log4j.api)
         implementation(libs.spring.test)
         implementation(libs.spring.boot.test.core)
-        implementation(libs.spring.modulith.test)
+        implementation(libs.spring.modulith.core)
 
         runtimeOnly(libs.jmolecules.architecture.layered)
 

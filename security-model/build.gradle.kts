@@ -25,7 +25,7 @@ dependencies {
   api(libs.jmolecules.ddd)
 
   implementation(libs.uuid.creator)
-  implementation(libs.spring.modulith.core)
+  implementation(libs.spring.modulith.api)
 
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.aop)
@@ -61,6 +61,7 @@ testing {
     }
     val whitebox by registering(JvmTestSuite::class) {
       dependencies {
+        implementation(project())
         implementation(libs.equalsverifier)
         implementation(libs.jmolecules.archunit)
         implementation(libs.archunit.core)

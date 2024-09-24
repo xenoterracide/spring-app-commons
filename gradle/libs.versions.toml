@@ -95,6 +95,7 @@ spring-graphql-core = { module = "org.springframework.graphql:spring-graphql" }
 spring-graphql-test = { module = "org.springframework.graphql:spring-graphql-test" }
 spring-instrument = { module = "org.springframework:spring-instrument" }
 spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version = "1.+" }
+spring-modulith-api = { module = "org.springframework.modulith:spring-modulith-api" }
 spring-modulith-core = { module = "org.springframework.modulith:spring-modulith-core" }
 spring-modulith-docs = { module = "org.springframework.modulith:spring-modulith-docs" }
 spring-modulith-test = { module = "org.springframework.modulith:spring-modulith-test" }
