@@ -25,7 +25,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: ./gradlew publish --info --build-cache --scan
+      - run: ./gradlew publish --build-cache --scan
         env:
           ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
           ORG_GRADLE_PROJECT_ghPassword: ${{ secrets.GITHUB_TOKEN }}

@@ -8,6 +8,8 @@ plugins {
 }
 
 dependencies {
+  compileOnly(libs.hibernate.orm.core)
+
   api(platform(libs.spring.bom))
   api(platform(libs.jmolecules.bom))
   api(libs.spring.data.commons)
@@ -29,8 +31,4 @@ dependencies {
   testRuntimeOnly(libs.jakarta.lang.model)
   testRuntimeOnly(libs.jakarta.interceptor)
   testRuntimeOnly(libs.jakarta.transaction)
-}
-
-tasks.compileJava {
-  options.release = 17
 }

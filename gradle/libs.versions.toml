@@ -6,7 +6,10 @@ spring = "3.+"
 [libraries]
 java-tools = "com.xenoterracide:tools:0.+"
 api-guardian = { module = "org.apiguardian:apiguardian-api" }
-assertj = "org.assertj:assertj-core:3+"
+assertj = "org.assertj:assertj-core:3.+"
+archunit-core = "com.tngtech.archunit:archunit:1.+"
+archunit-junit-core = "com.tngtech.archunit:archunit-junit5:1.+"
+archunit-junit-api = "com.tngtech.archunit:archunit-junit5-api:1.+"
 autoservice = "com.google.auto.service:auto-service:1.+"
 checker-annotations = { module = "org.checkerframework:checker-qual", version.ref = "checker" }
 checker-core = { module = "org.checkerframework:checker", version.ref = "checker" }
@@ -24,6 +27,7 @@ h2 = { module = "com.h2database:h2" }
 hibernate-envers = { module = "org.hibernate.orm:hibernate-envers" }
 hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
 hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.strictly = "6.4.+" }
+hibernate-validator = { module = "org.hibernate.validator:hibernate-validator" }
 httpcomponents-client5 = { module = "org.apache.httpcomponents.client5:httpclient5" }
 httpcomponents-core5-reactive = { module = "org.apache.httpcomponents.core5:httpcore5-reactive" }
 immutables-bom = "org.immutables:bom:2+"
@@ -50,9 +54,10 @@ jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
 jetbrains-annotations = "org.jetbrains:annotations:+"
 jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
+jmolecules-architecture-layered = { module = "org.jmolecules:jmolecules-layered-architecture" }
+jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:0.+"
 jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
 jmolecules-events = { module = "org.jmolecules:jmolecules-events" }
-jmolecules-architecture-layered = { module = "org.jmolecules:jmolecules-layered-architecture" }
 jspecify = "org.jspecify:jspecify:1.+"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-bom = "org.junit:junit-bom:5.+"
@@ -89,8 +94,10 @@ spring-data-envers = { module = "org.springframework.data:spring-data-envers" }
 spring-graphql-core = { module = "org.springframework.graphql:spring-graphql" }
 spring-graphql-test = { module = "org.springframework.graphql:spring-graphql-test" }
 spring-instrument = { module = "org.springframework:spring-instrument" }
-spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom" }
+spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version = "1.+" }
 spring-modulith-core = { module = "org.springframework.modulith:spring-modulith-core" }
+spring-modulith-docs = { module = "org.springframework.modulith:spring-modulith-docs" }
+spring-modulith-test = { module = "org.springframework.modulith:spring-modulith-test" }
 spring-orm = { module = "org.springframework:spring-orm" }
 spring-test = { module = "org.springframework:spring-test" }
 spring-transaction = { module = "org.springframework:spring-tx" }
@@ -111,6 +118,8 @@ starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data
 starter-graphql = { module = "org.springframework.boot:spring-boot-starter-graphql" }
 starter-json = { module = "org.springframework.boot:spring-boot-starter-json" }
 starter-log4j2 = { module = "org.springframework.boot:spring-boot-starter-log4j2" }
+starter-modulith-core = { module = "org.springframework.modulith:spring-modulith-starter-core" }
+starter-modulith-test = { module = "org.springframework.modulith:spring-modulith-starter-test" }
 starter-neo4j = { module = "org.springframework.boot:spring-boot-starter-data-neo4j" }
 starter-oauth2-authorization-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-authorization-server" }
 starter-oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client" }

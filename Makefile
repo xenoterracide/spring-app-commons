@@ -14,14 +14,18 @@ define gh_head_run_id
 	gh run list --workflow $(1) --commit $(HEAD) --json databaseId --jq '.[0].["databaseId"]'
 endef
 
-.PHONY: build
-build:
-	./gradlew spotlessApply build buildHealth || (cat build/reports/dependency-analysis/build-health-report.txt && exit 1)
-
 .PHONY: up
 up:
 # success if no output
 	./gradlew dependencies --write-locks --quiet | grep -e "FAILED" || exit 0
+
+.PHONY: format
+format:
+	./gradlew spotlessApply --quiet
+
+.PHONY: build
+build:
+	./gradlew spotlessApply build buildHealth || (cat build/reports/dependency-analysis/build-health-report.txt && exit 1)
 
 .PHONY: merge
 merge: create-pr build watch-full merge-squash

@@ -11,6 +11,8 @@ import org.jspecify.annotations.NullMarked;
 
   requires spring.graphql;
   requires spring.context;
-  requires com.xenoterracide.model.security;
+  requires com.xenoterracide.security;
   requires jakarta.validation;
+
+  requires org.jmolecules.ddd;
 }

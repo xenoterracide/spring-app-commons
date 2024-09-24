@@ -51,13 +51,28 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
 }
 
 dependencies {
-  compileOnly(libs.jspecify)
-  compileOnly(libs.jmolecules.architecture.layered)
+  api(platform(libs.jakarta.bom))
+  api(platform(libs.spring.bom))
+  api(platform(libs.junit.bom))
+  api(platform(libs.jmolecules.bom))
 
-  // spring should be using this, but it's not, and some jakarta versions are missing
+  compileOnly(platform(libs.jakarta.bom))
+  compileOnly(platform(libs.spring.bom))
+  compileOnly(platform(libs.junit.bom))
+  compileOnly(platform(libs.jmolecules.bom))
+
   implementation(platform(libs.jakarta.bom))
   implementation(platform(libs.spring.bom))
+  implementation(platform(libs.junit.bom))
   implementation(platform(libs.jmolecules.bom))
+
+  runtimeOnly(platform(libs.jakarta.bom))
+  runtimeOnly(platform(libs.spring.bom))
+  runtimeOnly(platform(libs.junit.bom))
+  runtimeOnly(platform(libs.jmolecules.bom))
+
+  compileOnly(libs.jspecify)
+  compileOnly(libs.jmolecules.architecture.layered)
 
   runtimeOnly(libs.starter.log4j2)
 

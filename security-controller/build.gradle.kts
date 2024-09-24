@@ -22,14 +22,15 @@ val demoServerApi by configurations.existing
 dependencies {
   api(libs.spring.context)
 
+  compileOnly(libs.hibernate.validator)
+
   implementation(libs.jakarta.validation)
   implementation(libs.spring.graphql.core)
-  implementation(projects.securityModel)
+  implementation(projects.security)
 
   runtimeOnly(libs.starter.graphql)
   runtimeOnly(libs.starter.validation)
   runtimeOnly(libs.starter.web)
-  runtimeOnly(libs.starter.log4j2)
 
   testImplementation(libs.spring.beans)
   testImplementation(libs.spring.boot.test.autoconfigure)
@@ -55,13 +56,4 @@ dependencies {
   demoServerRuntimeOnly(libs.starter.actuator)
   demoServerRuntimeOnly(libs.h2)
   demoServerRuntimeOnly(project)
-
-  modules {
-    module("org.springframework.boot:spring-boot-starter-logging") {
-      replacedBy(
-        "org.springframework.boot:spring-boot-starter-log4j2",
-        "Use Log4j2 instead of Logback",
-      )
-    }
-  }
 }

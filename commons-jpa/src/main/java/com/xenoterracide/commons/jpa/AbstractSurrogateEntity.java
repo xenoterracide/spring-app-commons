@@ -17,6 +17,7 @@ import java.util.Objects;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.envers.Audited;
+import org.jmolecules.ddd.annotation.Identity;
 import org.jmolecules.ddd.types.AggregateRoot;
 import org.jmolecules.ddd.types.Entity;
 import org.jmolecules.ddd.types.Identifier;
@@ -85,6 +86,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
   @Id
   @Valid
   @NotNull
+  @Identity
   @Column(nullable = false, updatable = false, unique = true)
   @Override
   public @NonNull ID getId() {
