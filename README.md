@@ -48,10 +48,11 @@ Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 ## License
 
 - Java: [AGPL-3.0-or-later](https://choosealicense.com/licenses/agpl-3.0/)
-  WITH [Universal-FOSS-exception-1.0](https://spdx.org/licenses/Universal-FOSS-exception-1.0.html) AND
-  [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/)\
-  For clarity the intent here is to maintain this software for _any_ open source and non-commercial use. If you would
-  like to use this for commercial purposes please contact me.
+  WITH [Universal-FOSS-exception-1.0](https://spdx.org/licenses/Universal-FOSS-exception-1.0.html)
+  AND [CC BY 4.0](https://choosealicense.com/licenses/cc-by-4.0/)\
+  OR [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/)\
+  For clarity the intent here is to maintain this software for _any_ open source and non-commercial use. Attribution is
+  required. If you would like to use this for commercial purposes please contact me.
 - Gradle Kotlin and Config Files: [MIT](https://choosealicense.com/licenses/mit/)
 - Documentation including Javadoc: [CC BY 4.0](https://choosealicense.com/licenses/cc-by-4.0/)
 
