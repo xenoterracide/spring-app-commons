@@ -37,14 +37,6 @@ tasks.withType<Javadoc>().configureEach {
       "implSpec:a:Implementation Spec:",
       "implNote:a:Implementation Note:",
     )
-    footer(
-      """
-      <p>
-      © Copyright Caleb Cushing $year<br />
-      SPDX-License-Identifier: CC-BY-4.0
-      </p>
-      """.trimMargin(),
-    )
   }
 }
 
