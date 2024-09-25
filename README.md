@@ -23,16 +23,19 @@ add a way to export these to your `PATH` in your `~/.profile`
 
 #### Fetching Dependencies
 
-In order to get snapshots of dependencies, you must have a GitHub token in your `~/.gradle/gradle.properties` file. This file should look like:
+In order to get snapshots of dependencies, you must have a GitHub token in your `~/.gradle/gradle.properties` file. This
+file should look like:
 
 ```properties
 ghUsername = <your username>
 ghPassword = <your token>
 ```
 
-You should generate your PAT as [Github Documents here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry#authenticating-to-github-packages).
+You should generate your PAT
+as [Github Documents here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry#authenticating-to-github-packages).
 
-> a personal access token (classic) with at least read:packages scope to install packages associated with other private repositories (which GITHUB_TOKEN can't access).
+> a personal access token (classic) with at least read:packages scope to install packages associated with other private
+> repositories (which GITHUB_TOKEN can't access).
 
 Then run.
 
@@ -44,10 +47,12 @@ Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ## License
 
-- Java:
-  - For everyone - [GNU Affero General Public License v3.0](https://choosealicense.com/licenses/agpl-3.0/)
-  - Alternatively for Individuals, Contributers, Sponsors, and Open Source projects - [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/)
-    - Donation may be used to become a contributor. Contact for details.
+- Java: [AGPL-3.0-or-later](https://choosealicense.com/licenses/agpl-3.0/)
+  WITH [Universal-FOSS-exception-1.0](https://spdx.org/licenses/Universal-FOSS-exception-1.0.html)
+  AND [CC BY 4.0](https://choosealicense.com/licenses/cc-by-4.0/)\
+  OR [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/)\
+  For clarity the intent here is to maintain this software for _any_ open source and non-commercial use. Attribution is
+  required. If you would like to use this for commercial purposes please contact me.
 - Gradle Kotlin and Config Files: [MIT](https://choosealicense.com/licenses/mit/)
 - Documentation including Javadoc: [CC BY 4.0](https://choosealicense.com/licenses/cc-by-4.0/)
 

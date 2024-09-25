@@ -3,6 +3,7 @@
 
 import net.ltgt.gradle.errorprone.errorprone
 import org.gradle.accessors.dm.LibrariesForLibs
+import java.time.LocalDate
 
 plugins {
   `java-library`
@@ -28,6 +29,7 @@ java {
 tasks.withType<Javadoc>().configureEach {
   dependsOn(tasks.classes)
   source(sourceSets.main.map { it.output.generatedSourcesDirs })
+  val year = LocalDate.now().year
   (options as StandardJavadocDocletOptions).apply {
     addMultilineStringsOption("tag").value = listOf(
       "apiSpec:a:API Spec:",
