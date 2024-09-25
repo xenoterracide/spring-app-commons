@@ -41,7 +41,7 @@ tasks.withType<Javadoc>().configureEach {
       """
       <p>
       © Copyright Caleb Cushing $year<br />
-      SPDX-License-Identifier: CC-BY-SA-4.0
+      SPDX-License-Identifier: CC-BY-4.0
       </p>
       """.trimMargin(),
     )
