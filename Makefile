@@ -1,3 +1,5 @@
+# © Copyright 2024 Caleb Cushing
+# SPDX-License-Identifier: MIT
 HEAD := $(shell git rev-parse --verify HEAD)
 GRADLE_DIR := $(wildcard ./.gradle/)
 BUILD_DIRS := $(wildcard ./build/ */build/ ./module/*/build/)
