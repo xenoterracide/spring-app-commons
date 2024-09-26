@@ -34,26 +34,31 @@ publishing {
             name = "AGPL-3.0-or-later"
             url = "https://choosealicense.com/licenses/agpl-3.0/"
             distribution = "repo"
-            comments = "Java - for everyone"
+            comments = "See README.md for more information."
           }
           license {
-            name = "Apache-2.0"
-            url = "https://choosealicense.com/licenses/apache-2.0/"
+            name = "Universal-FOSS-exception-1.0"
+            url = "https://spdx.org/licenses/Universal-FOSS-exception-1.0.html"
             distribution = "repo"
-            comments =
-              "Java - for Individuals, Contributers, Sponsors, and Open Source projects. Contact for Sponsorship"
+            comments = "See README.md for more information."
           }
           license {
             name = "MIT"
             url = "https://choosealicense.com/licenses/mit/"
             distribution = "repo"
-            comments = "Gradle Build Files and Configuration Files"
+            comments = "See README.md for more information."
           }
           license {
             name = "CC-BY-4.0"
             url = "https://choosealicense.com/licenses/cc-by-4.0/"
             distribution = "repo"
-            comments = "Documentation including Javadoc"
+            comments = "See README.md for more information."
+          }
+          license {
+            name = "CC-BY-NC-4.0"
+            url = "https://creativecommons.org/licenses/by-nc/4.0/"
+            distribution = "repo"
+            comments = "See README.md for more information."
           }
         }
         developers {
