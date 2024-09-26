@@ -35,7 +35,7 @@ jobs:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - run: gradle wrapper --write-locks
       - run: make ci-update-java
-      - uses: peter-evans/create-pull-request@v6
+      - uses: peter-evans/create-pull-request@v7
         with:
           title: "chore(deps): java"
           branch: topic/update-java
