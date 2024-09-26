@@ -19,11 +19,11 @@ endef
 .PHONY: up
 up:
 # success if no output
-	./gradlew dependencies --write-locks --quiet --console=plain | grep -e FAILED || exit 0
+	./gradlew dependencies --write-locks --console=plain | grep -e FAILED || exit 0
 
 .PHONY: format
 format:
-	./gradlew spotlessApply --quiet --console=plain
+	./gradlew spotlessApply --console=plain
 
 .PHONY: build
 build:
@@ -43,10 +43,10 @@ clean-cc: $(CONFIGURATION_CACHE)
 	- rm -rf $(CONFIGURATION_CACHE)
 
 ci-build:
-	./gradlew build buildHealth --build-cache --scan
+	./gradlew build --build-cache --scan
 
 ci-full:
-	./gradlew buildHealth build --no-build-cache --no-configuration-cache --scan
+	./gradlew build --no-build-cache --no-configuration-cache --scan
 
 ci-update-java: clean-lockfiles up-wrapper up up-all-deps
 
@@ -63,10 +63,10 @@ up-wrapper:
 	./gradlew wrapper --write-locks && ./gradlew wrapper
 
 up-all-deps:
-	./gradlew build buildHealth --write-locks --scan
+	./gradlew build --write-locks --scan --console=plain | grep -e FAILED -e https
 
 create-pr:
-	gh pr create || exit 0
+	gh pr create --body "" || exit 0
 
 merge-squash:
 	gh pr merge --squash --delete-branch --auto
