@@ -34,14 +34,14 @@ publishing {
             name = "AGPL-3.0-or-later"
             url = "https://choosealicense.com/licenses/agpl-3.0/"
             distribution = "repo"
-            comments = "Java - for everyone"
+            comments =
+              "All Java Source Code is AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC BY 4.0 OR CC-BY-NC-4.0"
           }
           license {
-            name = "Apache-2.0"
-            url = "https://choosealicense.com/licenses/apache-2.0/"
+            name = "Universal-FOSS-exception-1.0"
+            url = "https://spdx.org/licenses/Universal-FOSS-exception-1.0.html"
             distribution = "repo"
-            comments =
-              "Java - for Individuals, Contributers, Sponsors, and Open Source projects. Contact for Sponsorship"
+            comments = "Java may need to comply with this license."
           }
           license {
             name = "MIT"
@@ -53,7 +53,14 @@ publishing {
             name = "CC-BY-4.0"
             url = "https://choosealicense.com/licenses/cc-by-4.0/"
             distribution = "repo"
-            comments = "Documentation including Javadoc"
+            comments = "Java may need to comply with this license."
+          }
+          license {
+            name = "CC-BY-NC-4.0"
+            url = "https://creativecommons.org/licenses/by-nc/4.0/"
+            distribution = "repo"
+            comments =
+              "Documentation including Javadoc is CC-BY-NC-4.0. Java may also need to comply with this license."
           }
         }
         developers {
