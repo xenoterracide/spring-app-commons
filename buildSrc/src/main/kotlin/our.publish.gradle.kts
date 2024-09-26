@@ -34,33 +34,31 @@ publishing {
             name = "AGPL-3.0-or-later"
             url = "https://choosealicense.com/licenses/agpl-3.0/"
             distribution = "repo"
-            comments =
-              "All Java Source Code is AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC BY 4.0 OR CC-BY-NC-4.0"
+            comments = "See README.md for more information."
           }
           license {
             name = "Universal-FOSS-exception-1.0"
             url = "https://spdx.org/licenses/Universal-FOSS-exception-1.0.html"
             distribution = "repo"
-            comments = "Java may need to comply with this license."
+            comments = "See README.md for more information."
           }
           license {
             name = "MIT"
             url = "https://choosealicense.com/licenses/mit/"
             distribution = "repo"
-            comments = "Gradle Build Files and Configuration Files"
+            comments = "See README.md for more information."
           }
           license {
             name = "CC-BY-4.0"
             url = "https://choosealicense.com/licenses/cc-by-4.0/"
             distribution = "repo"
-            comments = "Java may need to comply with this license."
+            comments = "See README.md for more information."
           }
           license {
             name = "CC-BY-NC-4.0"
             url = "https://creativecommons.org/licenses/by-nc/4.0/"
             distribution = "repo"
-            comments =
-              "Documentation including Javadoc is CC-BY-NC-4.0. Java may also need to comply with this license."
+            comments = "See README.md for more information."
           }
         }
         developers {
