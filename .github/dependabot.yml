@@ -3,15 +3,14 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"
     commit-message:
-      prefix: "build(deps)"
+      prefix: "deps"
+    groups:
+      gradle-updates:
+        update-types:
+          - "semver-major"
     schedule:
       interval: "weekly"
       timezone: "US/Eastern"
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "minor"
-          - "patch"
   - package-ecosystem: "npm"
     directory: "/"
     commit-message:
@@ -22,5 +21,3 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    commit-message:
-      prefix: "ci(deps)"
