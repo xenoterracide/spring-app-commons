@@ -1,7 +1,6 @@
 version: 2
 updates:
   - package-ecosystem: "gradle"
-    registries: ["java-commons"]
     directory: "/"
     commit-message:
       prefix: "feat(deps)"
