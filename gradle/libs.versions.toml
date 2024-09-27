@@ -55,7 +55,7 @@ jetbrains-annotations = "org.jetbrains:annotations:+"
 jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
 jmolecules-architecture-layered = { module = "org.jmolecules:jmolecules-layered-architecture" }
-jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:0.+"
+jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:1.+"
 jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
 jmolecules-events = { module = "org.jmolecules:jmolecules-events" }
 jspecify = "org.jspecify:jspecify:1.+"
