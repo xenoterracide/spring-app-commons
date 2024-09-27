@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"
     commit-message:
-      prefix: "deps"
+      prefix: "build(deps)"
     groups:
       gradle-updates:
         update-types:
