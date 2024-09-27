@@ -7,7 +7,7 @@ updates:
     groups:
       gradle-updates:
         update-types:
-          - "semver-major"
+          - "major"
     schedule:
       interval: "weekly"
       timezone: "US/Eastern"
