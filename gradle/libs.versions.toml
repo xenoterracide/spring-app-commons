@@ -43,7 +43,7 @@ jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackso
 java-parser = "com.github.javaparser:javaparser-core:3.+"
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
 jakarta-bom = "jakarta.platform:jakarta.jakartaee-bom:10.+"
-jakarta-cdi = { module = "jakarta.enterprise:jakarta.enterprise.cdi-api", version = "3.+" }
+jakarta-cdi = { module = "jakarta.enterprise:jakarta.enterprise.cdi-api", version = "4.+" }
 jakarta-inject = { module = "jakarta.inject:jakarta.inject-api" }
 jakarta-interceptor = { module = "jakarta.interceptor:jakarta.interceptor-api" }
 jakarta-lang-model = { module = "jakarta.enterprise:jakarta.enterprise.lang-model" }
@@ -52,10 +52,10 @@ jakarta-servlet = { module = "jakarta.servlet:jakarta.servlet-api" }
 jakarta-transaction = { module = "jakarta.transaction:jakarta.transaction-api" }
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
 jetbrains-annotations = "org.jetbrains:annotations:+"
-jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
+jgit = "org.eclipse.jgit:org.eclipse.jgit:7.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
 jmolecules-architecture-layered = { module = "org.jmolecules:jmolecules-layered-architecture" }
-jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:0.+"
+jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:1.+"
 jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
 jmolecules-events = { module = "org.jmolecules:jmolecules-events" }
 jspecify = "org.jspecify:jspecify:1.+"
@@ -131,7 +131,7 @@ starter-validation = { module = "org.springframework.boot:spring-boot-starter-va
 starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
 testcontainers = "org.testcontainers:junit-jupiter:1.+"
-uuid-creator = "com.github.f4b6a3:uuid-creator:5.+"
+uuid-creator = "com.github.f4b6a3:uuid-creator:6.+"
 vavr = "io.vavr:vavr:0.+"
 
 [bundles]
@@ -151,7 +151,7 @@ jakarta-transaction = [
 ]
 
 [plugins]
-dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version = "1.+" }
+dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version = "2.+" }
 gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "1.+" }
 shadow = { id = "com.github.johnrengelman.shadow", version = "8.+" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
