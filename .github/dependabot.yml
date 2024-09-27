@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"
     commit-message:
-      prefix: "build(deps)"
+      prefix: "feat(deps)"
     groups:
       gradle-updates:
         update-types:
@@ -19,5 +19,7 @@ updates:
       interval: "weekly"
   - package-ecosystem: "github-actions"
     directory: "/"
+    commit-message:
+      prefix: "ci(deps)"
     schedule:
       interval: "weekly"
