@@ -4,13 +4,13 @@ updates:
     directory: "/"
     commit-message:
       prefix: "feat(deps)"
-    groups:
-      gradle-updates:
+    ignore:
+      - dependency-name: "*"
         update-types:
-          - "major"
+          - "semver:minor"
+          - "semver:patch"
     schedule:
       interval: "weekly"
-      timezone: "US/Eastern"
   - package-ecosystem: "npm"
     directory: "/"
     commit-message:
