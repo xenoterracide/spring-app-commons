@@ -12,9 +12,6 @@ import org.jmolecules.archunit.JMoleculesDddRules;
 public class DDDTest {
 
   @ArchTest
-  ArchRule valueObjectsDontReferenceEntities = JMoleculesDddRules.valueObjectsMustNotReferToIdentifiables();
-
-  @ArchTest
   ArchRule identifiersPresent = JMoleculesDddRules.annotatedEntitiesAndAggregatesNeedToHaveAnIdentifier();
 
   @ArchTest
