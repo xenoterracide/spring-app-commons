@@ -5,6 +5,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
   `java-library`
+  id("com.autonomousapps.dependency-analysis")
 }
 
 dependencyLocking {
