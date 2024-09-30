@@ -52,7 +52,7 @@ jakarta-servlet = { module = "jakarta.servlet:jakarta.servlet-api" }
 jakarta-transaction = { module = "jakarta.transaction:jakarta.transaction-api" }
 jakarta-validation = { module = "jakarta.validation:jakarta.validation-api" }
 jetbrains-annotations = "org.jetbrains:annotations:+"
-jgit = "org.eclipse.jgit:org.eclipse.jgit:6.+"
+jgit = "org.eclipse.jgit:org.eclipse.jgit:7.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
 jmolecules-architecture-layered = { module = "org.jmolecules:jmolecules-layered-architecture" }
 jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:1.+"
