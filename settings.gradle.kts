@@ -10,14 +10,16 @@ pluginManagement {
 }
 
 plugins {
-  id("com.gradle.enterprise") version ("3.16.2")
+  id("com.gradle.develocity") version "3.+"
 }
 
-gradleEnterprise {
+develocity {
   buildScan {
-    publishOnFailureIf(providers.environmentVariable("CI").isPresent)
-    termsOfServiceUrl = "https://gradle.com/terms-of-service"
-    termsOfServiceAgree = "yes"
+    publishing {
+      onlyIf { providers.environmentVariable("CI").isPresent }
+    }
+    termsOfUseUrl.set("https://gradle.com/terms-of-service")
+    termsOfUseAgree.set("yes")
   }
 }
 
