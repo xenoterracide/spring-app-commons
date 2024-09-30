@@ -82,9 +82,14 @@ publishing {
       name = "gh"
       url = uri("https://maven.pkg.github.com/$repoShort")
       credentials {
-        val creds = providers.credentials(PasswordCredentials::class, "gh").orNull
-        username = creds?.username
-        password = creds?.password
+        // use properties because gradles credentials errors if missing
+        providers.gradleProperty("ghUsername").let { username = it.orNull }
+        providers.gradleProperty("ghPassword").let { password = it.orNull }
+        // avoid congiguration cache missing on credentials
+        if (username == null || password == null) {
+          username = System.getenv("GITHUB_ACTOR")
+          password = System.getenv("GITHUB_TOKEN")
+        }
       }
     }
   }
