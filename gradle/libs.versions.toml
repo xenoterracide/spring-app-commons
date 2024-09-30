@@ -156,5 +156,4 @@ gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "1.+" }
 shadow = { id = "com.github.johnrengelman.shadow", version = "8.+" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
 semver = { id = "com.xenoterracide.gradle.semver", version = "0.+" }
-dgs-codegen = { id = "com.netflix.graphql.dgs.codegen", version = "6.+" }
 java-module-testing = { id = "org.gradlex.java-module-testing", version = "1.+" }
