@@ -15,9 +15,7 @@ plugins {
 
 develocity {
   buildScan {
-    publishing {
-      onlyIf { providers.environmentVariable("CI").isPresent }
-    }
+    publishing.onlyIf { providers.environmentVariable("CI").isPresent }
     termsOfUseUrl.set("https://gradle.com/terms-of-service")
     termsOfUseAgree.set("yes")
   }
