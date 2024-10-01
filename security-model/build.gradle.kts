@@ -74,7 +74,7 @@ testing {
 tasks.compileJava {
   options.compilerArgs.addAll(
     listOf(
-      "-AaddSuppressWarningsAnnotation=true",
+      "-AaddSuppressWarningsAnnotation=deprecation,rawtypes,missing-explicit-ctor",
       "-AaddGeneratedAnnotation=true",
     ),
   )
