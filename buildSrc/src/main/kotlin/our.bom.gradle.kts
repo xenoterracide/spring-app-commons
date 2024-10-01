@@ -34,9 +34,6 @@ configurations.configureEach {
           if (candidate.version.startsWith("6.5")) {
             reject("https://hibernate.atlassian.net/browse/HHH-18203")
           }
-          if (candidate.version.matches(Regex("^6\\.6\\.[01]\\..*"))) {
-            reject("https://hibernate.atlassian.net/browse/HHH-18676")
-          }
         }
       }
     }

@@ -81,11 +81,15 @@ testing {
   }
 }
 
-tasks.compileJava {
-  options.compilerArgs.addAll(
-    listOf(
-      "-AaddSuppressWarningsAnnotation=true",
-      "-AaddGeneratedAnnotation=true",
-    ),
+val jpaModelGen =
+  listOf(
+    "-AaddSuppressWarningsAnnotation=deprecation,rawtypes,missing-explicit-ctor",
+    "-AaddGeneratedAnnotation=true",
   )
+tasks.compileJava {
+  options.compilerArgs.addAll(jpaModelGen)
+}
+
+tasks.compileTestFixturesJava {
+  options.compilerArgs.addAll(jpaModelGen)
 }

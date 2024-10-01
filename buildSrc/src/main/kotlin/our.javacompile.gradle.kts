@@ -25,9 +25,14 @@ java {
   }
 }
 
-tasks.withType<Javadoc>().configureEach {
+tasks.javadoc {
+  // because classes is what runs source generation
   dependsOn(tasks.classes)
+  // so we can reference generated classes in our javadoc
   source(sourceSets.main.map { it.output.generatedSourcesDirs })
+  // because jpamodelgen puts non java sources in java source dirs https://hibernate.atlassian.net/browse/HHH-18676
+  include("**/*.java")
+
   (options as StandardJavadocDocletOptions).apply {
     addMultilineStringsOption("tag").value = listOf(
       "apiSpec:a:API Spec:",
