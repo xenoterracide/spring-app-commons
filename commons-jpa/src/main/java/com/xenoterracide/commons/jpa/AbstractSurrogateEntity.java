@@ -35,127 +35,85 @@ import org.jspecify.annotations.Nullable;
 @Audited
 @MappedSuperclass
 public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, ?>>
-  implements Entity<AGG, ID>, Identifiable<@NonNull ID> {
+    implements Entity<AGG, ID>, Identifiable<@NonNull ID> {
 
-  private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
+    private static final String[] DEFAULT_INCLUDED_FIELDS = { "id" };
 
-  @Transient
-  private boolean dirty;
+    @Transient
+    private boolean dirty;
 
-  /**
-   * Surrogate Identifier.
-   */
-  private @NonNull ID id;
-  private @Nullable Integer version;
+    /**
+     * Surrogate Identifier.
+     */
+    @NonNull
+    private ID id;
+    private Integer version;
 
-  /**
-   * NO-OP parent constuctor for JPA only.
-   */
-  protected AbstractSurrogateEntity() {
-    this.dirty = false;
-  }
-
-  /**
-   * Instantiates a new Abstract uuid entity base.
-   *
-   * @param id
-   *   the id
-   */
-  protected AbstractSurrogateEntity(@NonNull ID id) {
-    this.id = id;
-  }
-
-  @Version
-  @Nullable
-  @Column(nullable = false)
-  Integer getVersion() {
-    return this.version;
-  }
-
-  void setVersion(Integer version) {
-    this.version = version;
-  }
-
-  /**
-   * Mark this entity as having changed in memory from persistence.
-   */
-  protected void markDirty() {
-    this.dirty = true;
-  }
-
-  @Id
-  @Valid
-  @NotNull
-  @Identity
-  @Column(nullable = false, updatable = false, unique = true)
-  @Override
-  public @NonNull ID getId() {
-    return this.id;
-  }
-
-  /**
-   * Sets id.
-   *
-   * @param id
-   *   the id
-   * @apiNote for JPA use only
-   */
-  @Initializer
-  void setId(@NonNull ID id) {
-    this.id = id;
-  }
-
-  @Override
-  public @NonNull ID id() {
-    return this.getId();
-  }
-
-  @Override
-  public final int hashCode() {
-    return Objects.hash(this.id, this.version, this.dirty);
-  }
-
-  /**
-   * That is an {@code instanceof} this concrete class.
-   *
-   * @param that
-   *   the other object
-   * @return the boolean
-   * @see <a href="https://www.artima.com/articles/how-to-write-an-equality-method-in-java">
-   *   How to Write an Equality Method in Java
-   *   </a>
-   */
-  protected abstract boolean canEqual(@NonNull AbstractSurrogateEntity<?, ?> that);
-
-  @Override
-  public final boolean equals(@Nullable Object other) {
-    if (other instanceof AbstractSurrogateEntity<?, ?> that) {
-      // CHECKSTYLE.OFF: UnnecessaryParentheses
-      return (
-        that.canEqual(this) &&
-        Objects.equals(this.id, that.id) &&
-        Objects.equals(this.version, that.version) &&
-        this.dirty == that.dirty
-      );
-      // CHECKSTYLE.ON: UnnecessaryParentheses
+    protected AbstractSurrogateEntity() {
+        this.dirty = false;
     }
-    return false;
-  }
 
-  /**
-   * Override to change the fields included in {@link #toString()}.
-   *
-   * @return the fields included in {@link #toString()}
-   * @implSpec the fields should be a static final array of strings
-   */
-  protected @NonNull String[] includedFieldsInToString() {
-    return INCLUDED_FIELDS_IN_TO_STRING;
-  }
+    protected AbstractSurrogateEntity(@NonNull ID id) {
+        this.id = id;
+    }
 
-  @Override
-  public final @NonNull String toString() {
-    return new ReflectionToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
-      .setIncludeFieldNames(this.includedFieldsInToString())
-      .toString();
-  }
+    @Version
+    @Nullable
+    @Column(nullable = false)
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    protected void markDirty() {
+        dirty = true;
+    }
+
+    @Id
+    @Valid
+    @NotNull
+    @Identity
+    @Column(nullable = false, updatable = false, unique = true)
+    @Override
+    public @NonNull ID getId() {
+        return id;
+    }
+
+    public void setId(@NonNull ID id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, version, dirty);
+    }
+
+    protected abstract boolean canEqual(AbstractSurrogateEntity<?, ?> that);
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof AbstractSurrogateEntity<?, ?> that) {
+            return (
+                that.canEqual(this) &&
+                    Objects.equals(this.id, that.id) &&
+                    Objects.equals(this.version, that.version) &&
+                    this.dirty == that.dirty
+                );
+        }
+        return false;
+    }
+
+    protected String[] includedFieldsInToString() {
+        return DEFAULT_INCLUDED_FIELDS.clone();
+    }
+
+    @Override
+    public String toString() {
+        ReflectionToStringBuilder builder = new ReflectionToStringBuilder(this, ToStringStyle.DEFAULT_STYLE);
+        builder.setIncludeFieldNames(includedFieldsInToString());
+        return builder.toString();
+    }
 }
