@@ -59,13 +59,12 @@ abstract class JakartaTransactionRule : ComponentMetadataRule {
   }
 }
 
-include(
-  "app-core",
-  "authn-controller",
-  "commons-jpa",
-  "commons-model",
-  "security-controller",
-  "security-model",
-  "test-app-core",
-  "test-authorization-server",
-)
+rootDir.resolve("module").listFiles()?.forEach { file ->
+  if (file.isDirectory && file?.list { _, name -> name.startsWith("build.gradle") }
+      ?.isNotEmpty() == true
+  ) {
+    val name = file.name
+    include(":$name")
+    project(":$name").projectDir = file("module/$name")
+  }
+}
