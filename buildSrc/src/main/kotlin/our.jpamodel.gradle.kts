@@ -96,7 +96,3 @@ val jpaModelGen =
 tasks.compileJava {
   options.compilerArgs.addAll(jpaModelGen)
 }
-
-tasks.compileTestFixturesJava {
-  options.compilerArgs.addAll(jpaModelGen)
-}
