@@ -9,6 +9,6 @@ plugins {
   id("our.checkstyle")
   id("our.spotbugs")
   id("our.spotless")
-  id("our.coverage")
+  id("com.xenoterracide.gradle.convention.coverage")
   id("our.publish")
 }

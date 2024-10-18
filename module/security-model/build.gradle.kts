@@ -17,6 +17,11 @@ dependencies {
 
 testing {
   suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        runtimeOnly(projects.testAppCore)
+      }
+    }
     val whitebox by getting(JvmTestSuite::class) {
       dependencies {
         implementation(projects.commonsJpa)
