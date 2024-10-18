@@ -3,7 +3,7 @@ import org.jspecify.annotations.NullMarked;
 /**
  * Common Domain Model classes.
  */
-@NullMarked module com.xenoterracide.model {
+@NullMarked module com.xenoterracide.commons.model {
   exports com.xenoterracide.commons.model;
   opens com.xenoterracide.commons.model;
 

@@ -5,6 +5,8 @@ package com.xenoterracide.model.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.xenoterracide.commons.jpa.AggregateIdentifier;
+import com.xenoterracide.commons.model.EntityIdentifier;
 import com.xenoterracide.model.security.fixtures.IdentityProviderUserTestDataBuilder;
 import com.xenoterracide.model.security.fixtures.UserTestDataBuilder;
 import com.xenoterracide.model.security.user.IdentityProviderUser;
@@ -45,7 +47,12 @@ public class UserTest {
         IdentityProviderUserTestDataBuilder.create().build(),
         IdentityProviderUserTestDataBuilder.create().build()
       )
-      //.withPrefabValues(User.class, UserTestDataBuilder.create().build(), UserTestDataBuilder.create().build())
+      .withPrefabValues(User.class, UserTestDataBuilder.create().build(), UserTestDataBuilder.create().build())
+      .withPrefabValues(
+        EntityIdentifier.class,
+        new AggregateIdentifier<>(User.class, User.UserId.create()),
+        new AggregateIdentifier<>(User.class, User.UserId.create())
+      )
       .verify();
   }
 }
