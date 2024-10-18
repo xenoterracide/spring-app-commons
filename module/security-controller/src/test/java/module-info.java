@@ -10,7 +10,7 @@ import org.jspecify.annotations.NullMarked;
   requires spring.boot.test;
   requires spring.test;
   requires spring.boot.test.autoconfigure;
-  requires spring.orm;
+  // requires spring.orm;
   requires spring.graphql.test;
   requires static org.jspecify;
 }

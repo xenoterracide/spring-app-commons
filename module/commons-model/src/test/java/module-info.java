@@ -10,7 +10,7 @@ import org.jspecify.annotations.NullMarked;
 
   requires org.junit.jupiter.api;
   requires org.assertj.core;
-  requires com.xenoterracide.model;
+  requires com.xenoterracide.commons.model;
   requires spring.boot.test.autoconfigure;
   requires spring.beans;
   requires jakarta.persistence;

@@ -36,6 +36,7 @@ dependencies {
   testImplementation(libs.spring.boot.test.autoconfigure)
   testImplementation(libs.spring.boot.test.core)
   testImplementation(libs.spring.graphql.test)
+  // testImplementation(libs.spring.orm)
   testImplementation(libs.spring.test)
 
   testRuntimeOnly(projects.testAppCore)

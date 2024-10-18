@@ -15,7 +15,7 @@ import org.jspecify.annotations.NullMarked;
   requires spring.test;
   requires spring.boot.test.autoconfigure;
   requires spring.orm;
-  requires com.xenoterracide.security;
+  requires com.xenoterracide.model.security;
   requires jakarta.persistence;
   requires org.springframework.modulith.test;
 }

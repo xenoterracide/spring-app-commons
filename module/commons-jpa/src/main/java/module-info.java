@@ -13,11 +13,11 @@ import org.jspecify.annotations.NullMarked;
   opens com.xenoterracide.commons.jpa.transaction to spring.core;
 
   requires org.apache.commons.lang3;
-  requires spring.data.commons;
+  requires org.hibernate.orm.envers;
   requires spring.beans;
   requires spring.context;
+  requires spring.data.commons;
   requires spring.tx;
-  requires org.hibernate.orm.envers;
 
   requires static org.jspecify;
   requires static com.xenoterracide.tools.java;
@@ -26,6 +26,6 @@ import org.jspecify.annotations.NullMarked;
 
   requires transitive jakarta.persistence;
   requires transitive jakarta.validation;
-  requires transitive com.xenoterracide.model;
+  requires transitive com.xenoterracide.commons.model;
   requires transitive org.jmolecules.ddd;
 }
