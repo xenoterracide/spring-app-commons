@@ -36,8 +36,8 @@ configurations.configureEach {
           }
         }
 
-        if (candidate.group == "com.google.errorprone") {
-          if (candidate.version == "2.34.0") {
+        if (candidate.module == "nullaway") {
+          if (candidate.version == "0.12.0") {
             reject("https://github.com/uber/NullAway/issues/1059")
           }
         }
