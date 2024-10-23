@@ -35,6 +35,12 @@ configurations.configureEach {
             reject("https://hibernate.atlassian.net/browse/HHH-18203")
           }
         }
+
+        if (candidate.module == "nullaway") {
+          if (candidate.version == "0.12.0") {
+            reject("https://github.com/uber/NullAway/issues/1059")
+          }
+        }
       }
     }
   }
