@@ -35,6 +35,12 @@ configurations.configureEach {
             reject("https://hibernate.atlassian.net/browse/HHH-18203")
           }
         }
+
+        if (candidate.group == "com.google.errorprone") {
+          if (candidate.version == "2.34.0") {
+            reject("https://github.com/uber/NullAway/issues/1059")
+          }
+        }
       }
     }
   }
