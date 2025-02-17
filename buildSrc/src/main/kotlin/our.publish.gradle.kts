@@ -1,9 +1,9 @@
-// © Copyright 2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 plugins {
   `maven-publish`
-  id("com.xenoterracide.gradle.semver")
   id("com.xenoterracide.gradle.convention.publish")
 }
 
