@@ -1,10 +1,44 @@
+// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+//
+// SPDX-License-Identifier: CC0-1.0
+
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: ["config:recommended"],
+  dependencyDashboard: true,
+  automergeStrategy: "rebase",
   hostRules: [
     {
       hostType: "maven",
       matchHost: "https://maven.pkg.github.com",
+    },
+  ],
+  packageRules: [
+    {
+      description: "Only allow major standard upgrades",
+      matchManagers: ["gradle"],
+      matchUpdateTypes: ["minor", "patch", "pin"],
+      enabled: false,
+    },
+    {
+      matchManagers: ["asdf"],
+      groupName: "asdf",
+      automerge: true,
+    },
+    {
+      matchManagers: ["github-actions"],
+      automerge: true,
+    },
+    {
+      matchManagers: ["npm"],
+      groupName: "npm",
+      matchUpdateTypes: ["minor", "patch", "pin"],
+      automerge: true,
+    },
+    {
+      matchManagers: ["gradle-wrapper"],
+      matchUpdateTypes: ["minor", "patch", "pin"],
+      automerge: true,
     },
   ],
 }
