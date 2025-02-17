@@ -4,7 +4,7 @@
 buildscript { dependencyLocking { lockAllConfigurations() } }
 
 plugins {
-  our.spotless
+  `lifecycle-base`
   alias(libs.plugins.dependency.analysis)
 }
 
