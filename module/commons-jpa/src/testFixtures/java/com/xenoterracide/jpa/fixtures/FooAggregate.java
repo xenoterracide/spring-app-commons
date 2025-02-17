@@ -70,7 +70,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
 
   public void changeBarName(BarEntity.Id id, String name) {
     this.bars.stream()
-      .filter(PredicateTools.prop(Identifiable::getId, isEqual(id)))
+      .filter(PredicateTools.is(Identifiable::getId, isEqual(id)))
       .findAny()
       .ifPresent(e -> e.changeName(name));
   }

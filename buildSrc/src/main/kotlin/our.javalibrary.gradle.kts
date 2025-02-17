@@ -8,7 +8,6 @@ plugins {
   id("our.javatest")
   id("our.checkstyle")
   id("our.spotbugs")
-  id("our.spotless")
   id("com.xenoterracide.gradle.convention.coverage")
   id("our.publish")
 }
