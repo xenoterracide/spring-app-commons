@@ -19,4 +19,5 @@ dependencies {
 
   runtimeOnly(libs.plugin.convention.checkstyle)
   runtimeOnly(libs.plugin.convention.coverage)
+  runtimeOnly(libs.plugin.convention.spotbugs)
 }

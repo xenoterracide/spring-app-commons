@@ -1,10 +1,13 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
-com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.26=buildScriptClasspath,compileClasspath,runtimeClasspath
+com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.26=compileClasspath
+com.github.spotbugs.snom:spotbugs-gradle-plugin:6.1.5=buildScriptClasspath,runtimeClasspath
+com.github.spotbugs:com.github.spotbugs.gradle.plugin:6.1.5=buildScriptClasspath,runtimeClasspath
 com.xenoterracide.gradle.convention:checkstyle:0.2.2=buildScriptClasspath,runtimeClasspath
 com.xenoterracide.gradle.convention:coverage:0.2.2=buildScriptClasspath,runtimeClasspath
 com.xenoterracide.gradle.convention:publish:0.2.0=buildScriptClasspath,compileClasspath,runtimeClasspath
+com.xenoterracide.gradle.convention:spotbugs:0.2.2=buildScriptClasspath,runtimeClasspath
 com.xenoterracide:gradle-semver:0.11.4=buildScriptClasspath,compileClasspath,runtimeClasspath
 io.vavr:vavr-match:0.10.4=buildScriptClasspath,compileClasspath,runtimeClasspath
 io.vavr:vavr:0.10.4=buildScriptClasspath,compileClasspath,runtimeClasspath
