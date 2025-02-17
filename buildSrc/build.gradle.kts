@@ -15,7 +15,6 @@ dependencies {
   implementation(libs.plugin.convention.publish)
   implementation(libs.plugin.spotbugs)
   implementation(libs.plugin.errorprone)
-  implementation(libs.plugin.semver)
 
   runtimeOnly(libs.plugin.convention.checkstyle)
   runtimeOnly(libs.plugin.convention.coverage)

@@ -162,5 +162,5 @@ dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version =
 gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "1.+" }
 shadow = { id = "com.github.johnrengelman.shadow", version = "8.+" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
-semver = { id = "com.xenoterracide.gradle.semver", version = "0.+" }
+semver = { id = "com.xenoterracide.gradle.semver", version = "0.12.+" }
 java-module-testing = { id = "org.gradlex.java-module-testing", version = "1.+" }
