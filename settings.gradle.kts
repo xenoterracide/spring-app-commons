@@ -60,7 +60,9 @@ abstract class JakartaTransactionRule : ComponentMetadataRule {
 }
 
 rootDir.resolve("module").listFiles()?.forEach { file ->
-  if (file.isDirectory && file?.list { _, name -> name.startsWith("build.gradle") }
+  if (file.isDirectory &&
+    file
+      ?.list { _, name -> name.startsWith("build.gradle") }
       ?.isNotEmpty() == true
   ) {
     val name = file.name
