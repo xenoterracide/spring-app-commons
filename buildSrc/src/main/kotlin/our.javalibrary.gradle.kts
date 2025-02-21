@@ -1,5 +1,3 @@
-import org.gradle.accessors.dm.LibrariesForLibs
-
 // SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
@@ -9,13 +7,5 @@ plugins {
   id("our.bom")
   id("our.javacompile")
   id("our.javatest")
-  id("com.xenoterracide.gradle.convention.checkstyle")
-  id("com.xenoterracide.gradle.convention.coverage")
-  id("com.xenoterracide.gradle.convention.spotbugs")
-  id("our.publish")
-}
-
-val libs = the<LibrariesForLibs>()
-dependencies {
-  spotbugs(libs.spotbugs)
+  id("our.convention")
 }
