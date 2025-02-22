@@ -1,4 +1,5 @@
-// © Copyright 2023-2024 Caleb Cushing
+// Copyright 2023 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
@@ -16,6 +17,7 @@ val libs = the<LibrariesForLibs>()
 configurations.configureEach {
   exclude(group = "org.slf4j", module = "slf4j-nop")
   exclude(group = "junit", module = "junit")
+  exclude(group = "org.junit.jupiter", module = "junit-jupiter")
 
   resolutionStrategy {
     componentSelection {

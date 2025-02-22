@@ -41,8 +41,8 @@ testing {
         runtimeOnly(platform(libs.spring.modulith.bom))
 
         compileOnly(libs.jmolecules.architecture.layered)
-        compileOnly(libs.jspecify)
 
+        implementation(libs.jspecify)
         implementation.bundle(libs.bundles.test.impl)
         runtimeOnly.bundle(libs.bundles.test.runtime)
       }
