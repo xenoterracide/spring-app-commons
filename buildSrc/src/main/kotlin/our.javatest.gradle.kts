@@ -1,4 +1,4 @@
-// Copyright 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -41,8 +41,8 @@ testing {
         runtimeOnly(platform(libs.spring.modulith.bom))
 
         compileOnly(libs.jmolecules.architecture.layered)
-        compileOnly(libs.jspecify)
 
+        implementation(libs.jspecify)
         implementation.bundle(libs.bundles.test.impl)
         runtimeOnly.bundle(libs.bundles.test.runtime)
 

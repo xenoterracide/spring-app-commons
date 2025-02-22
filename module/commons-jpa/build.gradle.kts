@@ -1,4 +1,5 @@
-// © Copyright 2023-2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
@@ -36,6 +37,11 @@ dependencies {
 
   testFixturesApi(projects.commonsModel)
   testFixturesApi(libs.spring.data.jpa)
+  testFixturesApi(libs.hibernate.envers)
+  testFixturesApi(libs.jakarta.persistence)
+  testFixturesApi(libs.jakarta.validation)
+  testFixturesApi(libs.jmolecules.ddd)
+  testFixturesApi(libs.spring.data.commons)
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.java.tools)
 

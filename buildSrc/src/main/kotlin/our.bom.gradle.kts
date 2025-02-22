@@ -18,6 +18,7 @@ val libs = the<LibrariesForLibs>()
 configurations.configureEach {
   exclude(group = "org.slf4j", module = "slf4j-nop")
   exclude(group = "junit", module = "junit")
+  exclude(group = "org.junit.jupiter", module = "junit-jupiter")
 
   resolutionStrategy {
     componentSelection {

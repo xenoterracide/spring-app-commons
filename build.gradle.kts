@@ -8,6 +8,7 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 
 plugins {
   `lifecycle-base`
+  alias(libs.plugins.dependency.analysis)
   alias(libs.plugins.semver)
 }
 
@@ -22,4 +23,26 @@ version =
 
 tasks.dependencies {
   dependsOn(subprojects.map { it.tasks.dependencies })
+}
+
+tasks.check {
+  dependsOn(tasks.buildHealth)
+}
+
+dependencyAnalysis {
+  issues {
+    all {
+      onAny {
+        severity("fail")
+      }
+      onUnusedDependencies {
+        exclude(libs.junit.parameters)
+        exclude(libs.assertj)
+        exclude(libs.spring.test)
+        exclude(libs.spring.boot.test.autoconfigure)
+        exclude(libs.spring.boot.test.core)
+        exclude(libs.jspecify)
+      }
+    }
+  }
 }
