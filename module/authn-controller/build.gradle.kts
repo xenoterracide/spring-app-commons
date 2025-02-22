@@ -1,4 +1,5 @@
-// © Copyright 2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 import com.github.spotbugs.snom.SpotBugsTask
@@ -59,6 +60,10 @@ dependencies {
   demoServerRuntimeOnly(libs.starter.web)
   demoServerRuntimeOnly(libs.starter.security)
   demoServerRuntimeOnly(libs.starter.oauth2.resource.server)
+
+  constraints {
+    demoServerImplementation(libs.jboss.logging)
+  }
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
