@@ -46,7 +46,7 @@ as [Github Documents here](https://docs.github.com/en/packages/working-with-a-gi
 
 Then run.
 
-Run `npm ci && ./gradlew dependencies` to install dependencies.
+Run `pip install -r requirements.txt && npm ci && ./gradlew dependencies` to install dependencies.
 
 ### Committing
 
