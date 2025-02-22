@@ -45,6 +45,8 @@ testing {
 
         implementation.bundle(libs.bundles.test.impl)
         runtimeOnly.bundle(libs.bundles.test.runtime)
+
+        implementation.addConstraint(constraint(libs.jboss.logging))
       }
     }
   }

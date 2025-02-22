@@ -1,10 +1,12 @@
-// © Copyright 2023-2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
   `java-library`
+  `java-test-fixtures`
 }
 
 dependencyLocking {
@@ -21,24 +23,16 @@ configurations.configureEach {
     componentSelection {
       all {
         val nonRelease = Regex("^[\\d.]+-(RC|M|ea|beta|alpha).*$")
-        val module = Regex("^spotbugs.*")
-        val group = Regex("^com.xenoterracide$")
-        if (!candidate.group.matches(group) && !name.matches(module) && !candidate.module.matches(module)) {
+        if (candidate.group != "com.xenoterracide") {
           if (candidate.version.matches(nonRelease)) reject("no pre-release")
           if (candidate.version.endsWith("-SNAPSHOT")) reject("no snapshots")
         } else if (candidate.version.matches(nonRelease)) {
           logger.info("allowing: {}", candidate)
         }
 
-        if (candidate.module == "hibernate-jpamodelgen") {
-          if (candidate.version.startsWith("6.5")) {
-            reject("https://hibernate.atlassian.net/browse/HHH-18203")
-          }
-        }
-
-        if (candidate.module == "nullaway") {
-          if (candidate.version == "0.12.0") {
-            reject("https://github.com/uber/NullAway/issues/1059")
+        if (candidate.module == "jboss-logging") {
+          if (candidate.version.startsWith("3.6")) {
+            reject("broken with jpms")
           }
         }
       }
@@ -82,6 +76,13 @@ dependencies {
   compileOnly(libs.jmolecules.architecture.layered)
 
   runtimeOnly(libs.starter.log4j2)
+
+  constraints {
+    annotationProcessor(libs.jboss.logging)
+    implementation(libs.jboss.logging)
+    testFixturesAnnotationProcessor(libs.jboss.logging)
+    testFixturesImplementation(libs.jboss.logging)
+  }
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {

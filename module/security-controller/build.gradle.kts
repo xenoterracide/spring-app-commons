@@ -1,4 +1,5 @@
-// © Copyright 2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
@@ -57,4 +58,8 @@ dependencies {
   demoServerRuntimeOnly(libs.starter.actuator)
   demoServerRuntimeOnly(libs.h2)
   demoServerRuntimeOnly(project)
+
+  constraints {
+    demoServerImplementation(libs.jboss.logging)
+  }
 }
