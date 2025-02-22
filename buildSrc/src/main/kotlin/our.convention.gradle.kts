@@ -27,3 +27,11 @@ publicationLegal {
   inceptionYear.set(2024)
   spdxLicenseIdentifiers.addAll("AGPL-3.0-or-later", "Universal-FOSS-exception-1.0", "CC-BY-NC-4.0")
 }
+
+publishing {
+  publications {
+    register<MavenPublication>("maven") {
+      from(components["java"])
+    }
+  }
+}
