@@ -12,12 +12,16 @@ SPDX-License-Identifier: CC-BY-NC-4.0
 
 ### Languages
 
-[asdf](https://asdf-vm.com) is suggested, you can use whatever you'd like to get
+[asdf](https://asdf-vm.com) and [direnv](https://direnv.net) are suggested, but you can use whatever you'd like to get
 
-- Java 11+
+- Java
+- Ktlint
 - NodeJs
+- Python
 
-add a way to export these to your `PATH` in your `~/.profile`
+versions are committed in `.tool-versions`, simply following the major versions there will work.
+
+add a way to export these to your `PATH` in your `~/.profile` so that commit hooks in your IDE works.
 
 ### Build Tools
 
@@ -42,7 +46,7 @@ as [Github Documents here](https://docs.github.com/en/packages/working-with-a-gi
 
 Then run.
 
-Run `npm ci && ./gradlew dependencies` to install dependencies.
+Run `pip install -r requirements.txt && npm ci && ./gradlew dependencies` to install dependencies.
 
 ### Committing
 
