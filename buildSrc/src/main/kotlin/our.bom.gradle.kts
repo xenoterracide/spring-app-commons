@@ -49,10 +49,8 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
 
 configurations
   .matching {
-    !setOf(
-      "archives",
-      "default",
-    ).contains(it.name) &&
+    it.name != "archives" &&
+      it.name != "default" &&
       !it.name.endsWith("Classpath") &&
       !it.name.contains("Elements")
   }.configureEach {
