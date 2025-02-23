@@ -47,15 +47,13 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
   exclude(group = "ch.qos.logback", module = "logback-classic")
 }
 
-configurations
-  .matching { it.name != "archives" && it.name != "default" && !it.name.endsWith("Classpath") && !it.name.contains("Elements") }
-  .configureEach {
-    dependencies {
-      constraints {
-        this@configureEach(libs.jboss.logging)
-      }
+configurations.configureEach {
+  dependencies {
+    constraints {
+      this@configureEach(libs.jboss.logging)
     }
   }
+}
 
 dependencies {
   api(platform(libs.jakarta.bom))
