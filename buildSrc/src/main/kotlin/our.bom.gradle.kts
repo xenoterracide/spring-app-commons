@@ -48,12 +48,8 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
 }
 
 configurations
-  .matching {
-    it.name != "archives" &&
-      it.name != "default" &&
-      !it.name.endsWith("Classpath") &&
-      !it.name.contains("Elements")
-  }.configureEach {
+  .matching { it.name != "archives" && it.name != "default" && !it.name.endsWith("Classpath") && !it.name.contains("Elements") }
+  .configureEach {
     dependencies {
       constraints {
         this@configureEach(libs.jboss.logging)
