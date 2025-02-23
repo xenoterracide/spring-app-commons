@@ -58,8 +58,4 @@ dependencies {
   demoServerRuntimeOnly(libs.starter.actuator)
   demoServerRuntimeOnly(libs.h2)
   demoServerRuntimeOnly(project)
-
-  constraints {
-    demoServerImplementation(libs.jboss.logging)
-  }
 }
