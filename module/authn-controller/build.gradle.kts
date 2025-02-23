@@ -61,10 +61,6 @@ dependencies {
   demoServerRuntimeOnly(libs.starter.security)
   demoServerRuntimeOnly(libs.starter.oauth2.resource.server)
 
-  constraints {
-    demoServerImplementation(libs.jboss.logging)
-  }
-
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
       replacedBy(
