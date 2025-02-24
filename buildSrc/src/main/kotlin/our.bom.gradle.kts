@@ -6,7 +6,6 @@ import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
   `java-library`
-  `java-test-fixtures`
 }
 
 dependencyLocking {
@@ -48,6 +47,14 @@ configurations.matching { it.name == "runtimeClasspath" || it.name == "testRunti
   exclude(group = "ch.qos.logback", module = "logback-classic")
 }
 
+configurations.configureEach {
+  dependencies {
+    constraints {
+      this@configureEach(libs.jboss.logging)
+    }
+  }
+}
+
 dependencies {
   api(platform(libs.jakarta.bom))
   api(platform(libs.spring.bom))
@@ -77,13 +84,6 @@ dependencies {
   compileOnly(libs.jmolecules.architecture.layered)
 
   runtimeOnly(libs.starter.log4j2)
-
-  constraints {
-    annotationProcessor(libs.jboss.logging)
-    implementation(libs.jboss.logging)
-    testFixturesAnnotationProcessor(libs.jboss.logging)
-    testFixturesImplementation(libs.jboss.logging)
-  }
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
