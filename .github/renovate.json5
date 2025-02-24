@@ -30,6 +30,7 @@
       automerge: true,
     },
     {
+      schedule: ["* * * * 3"],
       matchManagers: ["npm"],
       groupName: "npm",
       matchUpdateTypes: ["minor", "patch", "pin"],
