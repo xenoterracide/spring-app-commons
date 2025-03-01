@@ -15,12 +15,16 @@
   ],
   packageRules: [
     {
-      description: "Only allow major standard upgrades",
+      // remember to sync with update-java
+      // every Wednesday at 4am
+      schedule: ["* 4 * * 3"],
       matchManagers: ["gradle", "gradle-wrapper"],
       matchUpdateTypes: ["minor", "patch", "pin"],
       enabled: false,
     },
     {
+      // Run every Wednesday
+      schedule: ["* * * * 3"],
       matchManagers: ["asdf"],
       groupName: "asdf",
       automerge: true,
@@ -30,6 +34,7 @@
       automerge: true,
     },
     {
+      // Run every Wednesday
       schedule: ["* * * * 3"],
       matchManagers: ["npm"],
       groupName: "npm",
