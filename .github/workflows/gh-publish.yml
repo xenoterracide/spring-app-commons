@@ -7,7 +7,10 @@ on:
   workflow_run:
     workflows: [build]
     types: [completed]
-    branches: ["**"]
+    branches:
+      - "**"
+      - "!renovate/**"
+      - "!deps/**"
     tags: [v*]
 jobs:
   publish:
@@ -33,12 +36,6 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: |
-          echo "stdout<<EOF" >> $GITHUB_OUTPUT
-          git diff origin/HEAD --name-only | wc -l | tee --append $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-        name: git number of file changes
-        id: git_num_file_changes
       - run: ./gradlew publishAllPublicationsToGhRepository --scan --no-configuration-cache
         if: steps.git_num_file_changes.outputs.stdout > 0
         env:
