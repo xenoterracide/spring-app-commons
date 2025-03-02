@@ -33,11 +33,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: ./gradlew publishAllPublicationsToGhRepository --validate-only --no-configuration-cache
-        env:
-          ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
-          ORG_GRADLE_PROJECT_ghPassword: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          echo "stdout<<EOF" >> $GITHUB_OUTPUT
+          git diff origin/HEAD --name-only | wc -l | tee --append $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        name: git number of file changes
+        id: git_num_file_changes
       - run: ./gradlew publishAllPublicationsToGhRepository --scan --no-configuration-cache
+        if: steps.git_num_file_changes.outputs.stdout > 0
         env:
           ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
           ORG_GRADLE_PROJECT_ghPassword: ${{ secrets.GITHUB_TOKEN }}
