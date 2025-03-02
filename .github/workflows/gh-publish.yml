@@ -33,10 +33,6 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-      - run: ./gradlew publishAllPublicationsToGhRepository --validate-only --no-configuration-cache
-        env:
-          ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
-          ORG_GRADLE_PROJECT_ghPassword: ${{ secrets.GITHUB_TOKEN }}
       - run: ./gradlew publishAllPublicationsToGhRepository --scan --no-configuration-cache
         env:
           ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
