@@ -74,6 +74,7 @@ log4j-api = { module = "org.apache.logging.log4j:log4j-api" }
 log4j-jpl = { module = "org.apache.logging.log4j:log4j-jpl" }
 log4j-jul = { module = "org.apache.logging.log4j:log4j-jul" }
 mockito = { module = "org.mockito:mockito-core" }
+plantuml = "net.sourceforge.plantuml:plantuml:1.+"
 plugin-convention-checkstyle = "com.xenoterracide.gradle.convention:checkstyle:0.2.+"
 plugin-convention-coverage = "com.xenoterracide.gradle.convention:coverage:0.2.+"
 plugin-convention-publish = "com.xenoterracide.gradle.convention:publish:0.2.+"
