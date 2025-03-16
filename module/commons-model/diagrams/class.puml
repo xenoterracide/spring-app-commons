@@ -1,0 +1,20 @@
+@startuml
+!pragma useIntermediatePackages false
+
+interface "EntityIdentifier" as com.xenoterracide.commons.model.EntityIdentifier<ID extends @NonNull Identifier & @NonNull Serializable, ENTITY extends Entity<?, @NonNull ID>> {
+  + {abstract}Class<ENTITY> type()
+}
+interface "Identifiable" as com.xenoterracide.commons.model.Identifiable<ID extends @NonNull Identifier & @NonNull Serializable> {
+  +ID getId()
+  +ID id()
+}
+interface "Nameable" as com.xenoterracide.commons.model.Nameable {
+  +String getName()
+  +String name()
+}
+interface "WritableRepository" as com.xenoterracide.commons.model.WritableRepository<AGG, ID extends Serializable> {
+  + {abstract}S save(S)
+  + {abstract}Iterable<@NonNull S> saveAll(Iterable<@NonNull S>)
+}
+com.xenoterracide.commons.model.EntityIdentifier .u.|> com.xenoterracide.commons.model.Identifiable
+@enduml

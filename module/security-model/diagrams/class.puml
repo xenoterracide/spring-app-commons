@@ -1,0 +1,68 @@
+@startuml
+!pragma useIntermediatePackages false
+
+entity "RevEntity" as com.xenoterracide.model.security.RevEntity {
+}
+abstract class "RevEntity_" as com.xenoterracide.model.security.RevEntity_ {
+}
+entity "IdentityProviderUser" as com.xenoterracide.model.security.user.IdentityProviderUser {
+  + {static}IdentityProviderUserBuilder builder()
+  +IdentityProviderUserId getId()
+  +IdP getIdP()
+  +String getIdPUserId()
+  +User getUser()
+}
+enum "IdentityProviderUser$IdP" as com.xenoterracide.model.security.user.IdentityProviderUser$IdP {
+}
+class "IdentityProviderUser$IdentityProviderUserId" as com.xenoterracide.model.security.user.IdentityProviderUser$IdentityProviderUserId {
+}
+class "IdentityProviderUserBuilder" as com.xenoterracide.model.security.user.IdentityProviderUserBuilder {
+  + {static}IdentityProviderUserBuilder create()
+  +IdentityProviderUserBuilder idP(IdP)
+  +IdentityProviderUserBuilder idPUserId(String)
+  +IdentityProviderUserBuilder user(User)
+  +IdentityProviderUser build()
+}
+abstract class "IdentityProviderUser_" as com.xenoterracide.model.security.user.IdentityProviderUser_ {
+}
+entity "User" as com.xenoterracide.model.security.user.User {
+  + {static}UserBuilder builder()
+  +Set<@NonNull IdentityProviderUser> linkedIdentityProviderUsers()
+  +void linkIdentityProvider(IdP, String)
+  +String getName()
+}
+class "User$UserId" as com.xenoterracide.model.security.user.User$UserId {
+  + {static}UserId create()
+}
+class "UserBuilder" as com.xenoterracide.model.security.user.UserBuilder {
+  + {static}UserBuilder create()
+  +UserBuilder name(String)
+  +UserBuilder addIdentityProviderUsers(IdentityProviderUser)
+  +UserBuilder addIdentityProviderUsers(IdentityProviderUser[])
+  +UserBuilder identityProviderUsers(Iterable<? extends IdentityProviderUser>)
+  +UserBuilder addAllIdentityProviderUsers(Iterable<? extends IdentityProviderUser>)
+  +User build()
+}
+class "UserFactory" as com.xenoterracide.model.security.user.UserFactory {
+}
+interface "UserRepository" as com.xenoterracide.model.security.user.UserRepository {
+  + {abstract}Optional<@Nullable User> findById(UserId)
+  + {abstract}Optional<@Nullable User> findByName(String)
+  + {abstract}Optional<@Nullable User> findByIdentityProviderUser(IdentityProviderUserId)
+}
+abstract class "User_" as com.xenoterracide.model.security.user.User_ {
+}
+com.xenoterracide.model.security.RevEntity_ --> com.xenoterracide.model.security.RevEntity
+com.xenoterracide.model.security.user.IdentityProviderUser --> com.xenoterracide.model.security.user.IdentityProviderUser$IdentityProviderUserId
+com.xenoterracide.model.security.user.IdentityProviderUser <--> com.xenoterracide.model.security.user.User
+com.xenoterracide.model.security.user.IdentityProviderUser$IdentityProviderUserId --> com.xenoterracide.model.security.user.User$UserId
+com.xenoterracide.model.security.user.IdentityProviderUser$IdentityProviderUserId --> com.xenoterracide.model.security.user.IdentityProviderUser$IdP
+com.xenoterracide.model.security.user.IdentityProviderUserBuilder --> com.xenoterracide.model.security.user.User
+com.xenoterracide.model.security.user.IdentityProviderUserBuilder --> com.xenoterracide.model.security.user.IdentityProviderUser$IdP
+com.xenoterracide.model.security.user.IdentityProviderUser_ --> com.xenoterracide.model.security.user.IdentityProviderUser
+com.xenoterracide.model.security.user.IdentityProviderUser_ --> com.xenoterracide.model.security.user.IdentityProviderUser$IdentityProviderUserId
+com.xenoterracide.model.security.user.IdentityProviderUser_ --> com.xenoterracide.model.security.user.User
+com.xenoterracide.model.security.user.UserBuilder --> com.xenoterracide.model.security.user.IdentityProviderUser
+com.xenoterracide.model.security.user.User_ --> com.xenoterracide.model.security.user.IdentityProviderUser
+com.xenoterracide.model.security.user.User_ --> com.xenoterracide.model.security.user.User
+@enduml
