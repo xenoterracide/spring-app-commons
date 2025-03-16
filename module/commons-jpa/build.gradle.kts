@@ -4,48 +4,46 @@
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
 
-plugins { our.javalibrary }
+plugins {
+  our.javalibrary
+  alias(libs.plugins.plantuml)
+}
+
+val plantuml by configurations.creating
 
 dependencies {
+  annotationProcessor(libs.hibernate.jpa.modelgen)
   annotationProcessor(platform(libs.jakarta.bom))
   annotationProcessor(platform(libs.spring.bom))
-  annotationProcessor(libs.hibernate.jpa.modelgen)
-
-  compileOnly(libs.hibernate.validator)
-  compileOnly(libs.java.tools)
-
-  api(projects.commonsModel)
+  api(libs.hibernate.envers)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
+  api(libs.jmolecules.ddd)
   api(libs.spring.context)
   api(libs.spring.data.commons)
-  api(libs.hibernate.envers)
-  api(libs.jmolecules.ddd)
-
+  api(projects.commonsModel)
+  compileOnly(libs.hibernate.validator)
+  compileOnly(libs.java.tools)
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
-
+  plantuml(libs.plantuml)
+  runtimeOnly(libs.bundles.jakarta.transaction)
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)
-  // transients required by jakarta transaction which is required by hibernate
-  runtimeOnly(libs.bundles.jakarta.transaction)
-
+  testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
   testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
   testFixturesAnnotationProcessor(platform(libs.spring.bom))
-  testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
-
-  testFixturesApi(projects.commonsModel)
-  testFixturesApi(libs.spring.data.jpa)
   testFixturesApi(libs.hibernate.envers)
   testFixturesApi(libs.jakarta.persistence)
   testFixturesApi(libs.jakarta.validation)
   testFixturesApi(libs.jmolecules.ddd)
   testFixturesApi(libs.spring.data.commons)
-  testFixturesImplementation(libs.uuid.creator)
-  testFixturesImplementation(libs.java.tools)
-
+  testFixturesApi(libs.spring.data.jpa)
+  testFixturesApi(projects.commonsModel)
   testFixturesCompileOnlyApi(libs.jspecify)
+  testFixturesImplementation(libs.java.tools)
+  testFixturesImplementation(libs.uuid.creator)
 }
 
 testing {
@@ -98,4 +96,15 @@ tasks.compileJava {
 
 tasks.compileTestFixturesJava {
   options.compilerArgs.addAll(jpaModelGen)
+}
+
+classDiagrams {
+  renderClasspath(plantuml)
+  diagram {
+    name("Security Model")
+    include(classes().insideOfProject())
+    exclude(fields().thatDontHaveAccessors())
+    writeTo(project.layout.files("diagrams/class.puml").single())
+    renderTo(project.layout.files("diagrams/class.svg").single())
+  }
 }

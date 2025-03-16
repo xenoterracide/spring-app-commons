@@ -1,0 +1,40 @@
+@startuml
+!pragma useIntermediatePackages false
+
+abstract class "AbstractAggregate" as com.xenoterracide.commons.jpa.AbstractAggregate<ID extends Identifier & Serializable, THIS extends AggregateRoot<THIS, ID>> {
+}
+abstract class "AbstractAggregate_" as com.xenoterracide.commons.jpa.AbstractAggregate_ {
+}
+abstract class "AbstractIdentitifier" as com.xenoterracide.commons.jpa.AbstractIdentitifier {
+}
+abstract class "AbstractIdentitifier_" as com.xenoterracide.commons.jpa.AbstractIdentitifier_ {
+}
+abstract class "AbstractSurrogateEntity" as com.xenoterracide.commons.jpa.AbstractSurrogateEntity<ID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, ?>> {
+  +ID getId()
+  +ID id()
+}
+abstract class "AbstractSurrogateEntity_" as com.xenoterracide.commons.jpa.AbstractSurrogateEntity_ {
+}
+class "AggregateIdentifier" as com.xenoterracide.commons.jpa.AggregateIdentifier<ID extends AbstractIdentitifier, AGG extends AggregateRoot<AGG, @NonNull ID>> {
+  +Class<AGG> type()
+  +ID id()
+}
+class "DomainEvent" as com.xenoterracide.commons.jpa.DomainEvent<EVENTID extends Serializable, AID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, AID>, PAYLOAD extends EntityIdentifier<?, ?>> {
+  +EVENTID id()
+  +ZonedDateTime occurredOn()
+  +EntityIdentifier<AID, AGG> aggregate()
+  +PAYLOAD payload()
+}
+annotation "TransactionScope" as com.xenoterracide.commons.jpa.annotation.TransactionScope {
+}
+class "TransactionScopeConfiguration" as com.xenoterracide.commons.jpa.transaction.TransactionScopeConfiguration {
+}
+class "Constants" as com.xenoterracide.commons.jpa.util.Constants {
+}
+com.xenoterracide.commons.jpa.AbstractAggregate -u-|> com.xenoterracide.commons.jpa.AbstractSurrogateEntity
+com.xenoterracide.commons.jpa.AbstractAggregate --> com.xenoterracide.commons.jpa.DomainEvent
+com.xenoterracide.commons.jpa.AbstractAggregate_ -u-|> com.xenoterracide.commons.jpa.AbstractSurrogateEntity_
+com.xenoterracide.commons.jpa.AbstractAggregate_ --> com.xenoterracide.commons.jpa.AbstractAggregate
+com.xenoterracide.commons.jpa.AbstractIdentitifier_ --> com.xenoterracide.commons.jpa.AbstractIdentitifier
+com.xenoterracide.commons.jpa.AbstractSurrogateEntity_ --> com.xenoterracide.commons.jpa.AbstractSurrogateEntity
+@enduml
