@@ -6,10 +6,7 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 
 plugins {
   our.javalibrary
-  alias(libs.plugins.plantuml)
 }
-
-val plantuml by configurations.creating
 
 dependencies {
   api(libs.spring.data.commons)
@@ -29,17 +26,4 @@ dependencies {
   testRuntimeOnly(libs.jakarta.lang.model)
   testRuntimeOnly(libs.jakarta.interceptor)
   testRuntimeOnly(libs.jakarta.transaction)
-
-  plantuml(libs.plantuml)
-}
-
-classDiagrams {
-  renderClasspath(plantuml)
-  diagram {
-    name("Security Model")
-    include(classes().insideOfProject())
-    exclude(fields().thatDontHaveAccessors())
-    writeTo(project.layout.files("diagrams/class.puml").single())
-    renderTo(project.layout.files("diagrams/class.svg").single())
-  }
 }

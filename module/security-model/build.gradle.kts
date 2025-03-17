@@ -1,4 +1,4 @@
-// Copyright 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -41,7 +41,7 @@ classDiagrams {
   renderClasspath(plantuml)
   diagram {
     name("Security Model")
-    include(classes().insideOfProject())
+    include(classes().withNameLike("com.xenoterracide.*"))
     exclude(fields().thatDontHaveAccessors())
     writeTo(project.layout.files("diagrams/class.puml").single())
     renderTo(project.layout.files("diagrams/class.svg").single())

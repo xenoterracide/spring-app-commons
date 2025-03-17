@@ -1,6 +1,32 @@
 @startuml
 !pragma useIntermediatePackages false
 
+abstract class "AbstractAggregate" as com.xenoterracide.commons.jpa.AbstractAggregate<ID extends Identifier & Serializable, THIS extends AggregateRoot<THIS, ID>> {
+}
+abstract class "AbstractAggregate_" as com.xenoterracide.commons.jpa.AbstractAggregate_ {
+}
+abstract class "AbstractIdentitifier" as com.xenoterracide.commons.jpa.AbstractIdentitifier {
+}
+abstract class "AbstractSurrogateEntity" as com.xenoterracide.commons.jpa.AbstractSurrogateEntity<ID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, ?>> {
+  +ID getId()
+  +ID id()
+}
+abstract class "AbstractSurrogateEntity_" as com.xenoterracide.commons.jpa.AbstractSurrogateEntity_ {
+}
+class "DomainEvent" as com.xenoterracide.commons.jpa.DomainEvent {
+}
+interface "Identifiable" as com.xenoterracide.commons.model.Identifiable<ID extends @NonNull Identifier & @NonNull Serializable> {
+  +ID getId()
+  +ID id()
+}
+interface "Nameable" as com.xenoterracide.commons.model.Nameable {
+  +String getName()
+  +String name()
+}
+interface "WritableRepository" as com.xenoterracide.commons.model.WritableRepository<AGG, ID extends Serializable> {
+  + {abstract}S save(S)
+  + {abstract}Iterable<@NonNull S> saveAll(Iterable<@NonNull S>)
+}
 entity "RevEntity" as com.xenoterracide.model.security.RevEntity {
 }
 abstract class "RevEntity_" as com.xenoterracide.model.security.RevEntity_ {
@@ -52,6 +78,14 @@ interface "UserRepository" as com.xenoterracide.model.security.user.UserReposito
 }
 abstract class "User_" as com.xenoterracide.model.security.user.User_ {
 }
+annotation "Initializer" as com.xenoterracide.tools.java.annotation.Initializer {
+}
+com.xenoterracide.commons.jpa.AbstractAggregate -u-|> com.xenoterracide.commons.jpa.AbstractSurrogateEntity
+com.xenoterracide.commons.jpa.AbstractAggregate --> com.xenoterracide.commons.jpa.DomainEvent
+com.xenoterracide.commons.jpa.AbstractAggregate_ -u-|> com.xenoterracide.commons.jpa.AbstractSurrogateEntity_
+com.xenoterracide.commons.jpa.AbstractAggregate_ --> com.xenoterracide.commons.jpa.AbstractAggregate
+com.xenoterracide.commons.jpa.AbstractSurrogateEntity .u.|> com.xenoterracide.commons.model.Identifiable
+com.xenoterracide.commons.jpa.AbstractSurrogateEntity_ --> com.xenoterracide.commons.jpa.AbstractSurrogateEntity
 com.xenoterracide.model.security.RevEntity_ --> com.xenoterracide.model.security.RevEntity
 com.xenoterracide.model.security.user.IdentityProviderUser --> com.xenoterracide.model.security.user.IdentityProviderUser$IdentityProviderUserId
 com.xenoterracide.model.security.user.IdentityProviderUser <--> com.xenoterracide.model.security.user.User
@@ -62,7 +96,12 @@ com.xenoterracide.model.security.user.IdentityProviderUserBuilder --> com.xenote
 com.xenoterracide.model.security.user.IdentityProviderUser_ --> com.xenoterracide.model.security.user.IdentityProviderUser
 com.xenoterracide.model.security.user.IdentityProviderUser_ --> com.xenoterracide.model.security.user.IdentityProviderUser$IdentityProviderUserId
 com.xenoterracide.model.security.user.IdentityProviderUser_ --> com.xenoterracide.model.security.user.User
+com.xenoterracide.model.security.user.User -u-|> com.xenoterracide.commons.jpa.AbstractAggregate
+com.xenoterracide.model.security.user.User .u.|> com.xenoterracide.commons.model.Nameable
+com.xenoterracide.model.security.user.User$UserId -u-|> com.xenoterracide.commons.jpa.AbstractIdentitifier
 com.xenoterracide.model.security.user.UserBuilder --> com.xenoterracide.model.security.user.IdentityProviderUser
+com.xenoterracide.model.security.user.UserRepository .u.|> com.xenoterracide.commons.model.WritableRepository
+com.xenoterracide.model.security.user.User_ -u-|> com.xenoterracide.commons.jpa.AbstractAggregate_
 com.xenoterracide.model.security.user.User_ --> com.xenoterracide.model.security.user.IdentityProviderUser
 com.xenoterracide.model.security.user.User_ --> com.xenoterracide.model.security.user.User
 @enduml

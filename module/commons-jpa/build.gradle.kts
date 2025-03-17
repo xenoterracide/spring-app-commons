@@ -6,10 +6,7 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 
 plugins {
   our.javalibrary
-  alias(libs.plugins.plantuml)
 }
-
-val plantuml by configurations.creating
 
 dependencies {
   annotationProcessor(libs.hibernate.jpa.modelgen)
@@ -27,7 +24,6 @@ dependencies {
   implementation(libs.commons.lang)
   implementation(libs.spring.beans)
   implementation(libs.spring.transaction)
-  plantuml(libs.plantuml)
   runtimeOnly(libs.bundles.jakarta.transaction)
   runtimeOnly(libs.starter.data.jpa)
   runtimeOnly(libs.starter.validation)
@@ -96,15 +92,4 @@ tasks.compileJava {
 
 tasks.compileTestFixturesJava {
   options.compilerArgs.addAll(jpaModelGen)
-}
-
-classDiagrams {
-  renderClasspath(plantuml)
-  diagram {
-    name("Security Model")
-    include(classes().insideOfProject())
-    exclude(fields().thatDontHaveAccessors())
-    writeTo(project.layout.files("diagrams/class.puml").single())
-    renderTo(project.layout.files("diagrams/class.svg").single())
-  }
 }

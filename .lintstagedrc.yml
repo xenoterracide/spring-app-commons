@@ -15,7 +15,7 @@
 "*.github/workflows/*yml":
   - *prettier
 # Documentation
-"(*.md|*.adoc)":
+"*(.md|.adoc|.puml|.svg)":
   - "reuse annotate --license 'CC-BY-NC-4.0' --copyright 'Caleb Cushing' --copyright-prefix spdx-string-symbol --merge-copyrights"
   - *prettier
 # Trivial files
