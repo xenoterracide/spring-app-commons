@@ -40,10 +40,11 @@ testing {
 classDiagrams {
   renderClasspath(plantuml)
   diagram {
+    val diagrams = project.layout.projectDirectory.dir("diagrams")
     name("Security Model")
     include(classes().withNameLike("com.xenoterracide.*"))
     exclude(fields().thatDontHaveAccessors())
-    writeTo(project.layout.files("diagrams/class.puml").single())
-    renderTo(project.layout.files("diagrams/class.svg").single())
+    writeTo(diagrams.file("class.puml"))
+    renderTo(diagrams.file("class.svg"))
   }
 }
