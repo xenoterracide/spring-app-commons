@@ -2,6 +2,6 @@
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
 io.github.classgraph:classgraph:4.8.152=classpath
-io.gitlab.plunts.plantuml:io.gitlab.plunts.plantuml.gradle.plugin:2.2.0=classpath
-io.gitlab.plunts:plantuml-gradle-plugin:2.2.0=classpath
+io.gitlab.plunts.plantuml:io.gitlab.plunts.plantuml.gradle.plugin:2.2.1=classpath
+io.gitlab.plunts:plantuml-gradle-plugin:2.2.1=classpath
 empty=
