@@ -44,7 +44,7 @@ classDiagrams {
     include(classes().withNameLike("com.xenoterracide.*"))
     exclude(fields().thatDontHaveAccessors())
 
-    val diagrams = project.layout.projectDirectory.dir("diagrams")
+    val diagrams = layout.projectDirectory.dir("diagrams")
     writeTo(diagrams.file("class.puml"))
     renderTo(diagrams.file("class.svg"))
   }
