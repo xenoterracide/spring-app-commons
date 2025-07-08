@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -155,9 +155,9 @@ class FooAggregateTransactionTest {
     Assertions.assertThat(f0).isNotNull();
     Assertions.assertThat(Hibernate.isInitialized(f0.getBars())).isFalse().describedAs("initialized");
     assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(() -> {
-      // attempt to initialize proxy outside of transaction
-      Assertions.assertThat(f0.getBars()).isNotEmpty();
-    });
+        // attempt to initialize proxy outside of transaction
+        Assertions.assertThat(f0.getBars()).isNotEmpty();
+      });
   }
 
   @Test
@@ -188,9 +188,9 @@ class FooAggregateTransactionTest {
     assertThat(Objects.equals(bar.getFoo(), foo)).isFalse().describedAs("foo equality");
 
     assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(() -> {
-      // attempt to initialize proxy outside of transaction
-      Assertions.assertThat(bar.getFoo().getName()).isNotEmpty();
-    });
+        // attempt to initialize proxy outside of transaction
+        Assertions.assertThat(bar.getFoo().getName()).isNotEmpty();
+      });
   }
 
   @Test
