@@ -1,4 +1,4 @@
-// Copyright 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -75,7 +75,7 @@ tasks.withType<JavaCompile>().configureEach {
     excludedPaths.set(".*/build/generated/sources/annotationProcessor/.*")
     option("NullAway:AnnotatedPackages", listOf("com", "org", "net", "io", "dev", "graphql").joinToString(","))
     option("NullAway:CheckOptionalEmptiness", true)
-    option("Nullaway:AcknowledgeRestrictiveAnnotations", true)
+    option("NullAway:AcknowledgeRestrictiveAnnotations", true)
     option("NullAway:CheckContracts", true)
     option(
       "NullAway:UnannotatedSubPackages",
@@ -267,7 +267,8 @@ tasks.withType<JavaCompile>().configureEach {
       )
     }
 
-    if (name.startsWith("compileTest")) {
+    // test fixtures are artifacts that are consumed by other projects, so we want to treat them more like code in main
+    if (name != "compileTestFixturesJava" && name.startsWith("compileTest")) {
       options.compilerArgs.addAll(
         listOf(
           "-Xlint:-unchecked",
