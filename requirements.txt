@@ -8,11 +8,11 @@
 #
 #    pip-compile
 #
-attrs==25.1.0
+attrs==25.3.0
     # via reuse
 binaryornot==0.4.4
     # via reuse
-boolean-py==4.0
+boolean-py==5.0
     # via
     #   license-expression
     #   reuse
@@ -22,17 +22,17 @@ chardet==5.2.0
     # via
     #   binaryornot
     #   python-debian
-click==8.1.8
+click==8.2.1
     # via
     #   pip-tools
     #   reuse
-jinja2==3.1.5
+jinja2==3.1.6
     # via reuse
-license-expression==30.4.1
+license-expression==30.4.3
     # via reuse
 markupsafe==3.0.2
     # via jinja2
-packaging==24.2
+packaging==25.0
     # via build
 pip-tools==7.4.1
     # via -r requirements.in
@@ -44,9 +44,9 @@ python-debian==1.0.1
     # via reuse
 reuse==5.0.2
     # via -r requirements.in
-tomlkit==0.13.2
+tomlkit==0.13.3
     # via reuse
-wheel==0.45.1
+wheel==0.46.1
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
