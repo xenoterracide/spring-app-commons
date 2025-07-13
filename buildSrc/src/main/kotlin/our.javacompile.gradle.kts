@@ -267,6 +267,7 @@ tasks.withType<JavaCompile>().configureEach {
       )
     }
 
+    // test fixtures are artifacts that are consumed by other projects, so we want to treat them more like code in main
     if (name != "compileTestFixturesJava" && name.startsWith("compileTest")) {
       options.compilerArgs.addAll(
         listOf(
