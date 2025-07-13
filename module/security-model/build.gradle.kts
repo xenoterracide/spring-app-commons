@@ -17,6 +17,8 @@ dependencies {
   api(projects.commonsJpa)
 
   implementation(libs.java.tools)
+  implementation(platform(libs.axon.bom))
+  implementation(libs.axon.spring.boot.starter)
 
   plantuml(libs.plantuml)
 }

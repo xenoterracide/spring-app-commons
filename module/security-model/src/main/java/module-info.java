@@ -32,4 +32,5 @@ import org.jspecify.annotations.NullMarked;
   requires spring.data.jpa;
   requires org.hibernate.orm.envers;
   requires org.jmolecules.ddd;
+  requires org.axonframework.spring;
 }

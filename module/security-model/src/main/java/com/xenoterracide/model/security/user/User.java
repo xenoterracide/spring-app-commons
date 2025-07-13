@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -20,6 +20,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.Set;
 import java.util.UUID;
+import org.axonframework.spring.stereotype.Aggregate;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.jmolecules.ddd.annotation.AggregateRoot;
@@ -32,6 +33,7 @@ import org.jspecify.annotations.NonNull;
 @Audited
 @Entity
 @AggregateRoot
+@Aggregate
 @Table(name = "users")
 public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User> implements Nameable {
 
