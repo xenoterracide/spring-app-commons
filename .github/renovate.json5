@@ -34,4 +34,7 @@
       automerge: true,
     },
   ],
+  "pip-compile": {
+    managerFilePatterns: ["/(^|/)requirements\\.txt$/"],
+  },
 }
