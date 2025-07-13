@@ -74,6 +74,9 @@ tasks.withType<JavaCompile>().configureEach {
     disableWarningsInGeneratedCode.set(true)
     excludedPaths.set(".*/build/generated/sources/annotationProcessor/.*")
     option("NullAway:AnnotatedPackages", listOf("com", "org", "net", "io", "dev", "graphql").joinToString(","))
+    option("NullAway:CheckOptionalEmptiness", true)
+    option("Nullaway:AcknowledgeRestrictiveAnnotations", true)
+    option("NullAway:CheckContracts", true)
     option(
       "NullAway:UnannotatedSubPackages",
       listOf(
@@ -256,9 +259,6 @@ tasks.withType<JavaCompile>().configureEach {
     }
 
     if (name == "compileJava" || name == "compileTestFixturesJava") {
-      option("NullAway:CheckOptionalEmptiness", true)
-      option("Nullaway:AcknowledgeRestrictiveAnnotations", true)
-      option("NullAway:CheckContracts", true)
       errors.addAll(
         listOf(
           "JavaTimeDefaultTimeZone",
