@@ -1,4 +1,5 @@
-// © Copyright 2023-2024 Caleb Cushing
+// Copyright 2023 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 import net.ltgt.gradle.errorprone.errorprone
@@ -72,7 +73,18 @@ tasks.withType<JavaCompile>().configureEach {
     )
     disableWarningsInGeneratedCode.set(true)
     excludedPaths.set(".*/build/generated/sources/annotationProcessor/.*")
-    option("NullAway:AnnotatedPackages", "com.xenoterracide")
+    option("NullAway:AnnotatedPackages", listOf("com", "org", "net", "io", "dev", "graphql").joinToString(","))
+    option(
+      "NullAway:UnannotatedSubPackages",
+      listOf(
+        "io.vavr",
+        "org.apache.commons.lang3",
+        "org.assertj",
+        "org.eclipse.jgit",
+        "org.jmolecules",
+        "org.junit",
+      ).joinToString(","),
+    )
 
     val errors =
       mutableListOf(
@@ -243,12 +255,19 @@ tasks.withType<JavaCompile>().configureEach {
       )
     }
 
-    if (name != "compileTestJava") {
+    if (name == "compileJava" || name == "compileTestFixturesJava") {
       option("NullAway:CheckOptionalEmptiness", true)
-      errors.addAll(listOf("NullAway", "JavaTimeDefaultTimeZone"))
+      option("Nullaway:AcknowledgeRestrictiveAnnotations", true)
+      option("NullAway:CheckContracts", true)
+      errors.addAll(
+        listOf(
+          "JavaTimeDefaultTimeZone",
+          "NullAway",
+        ),
+      )
     }
 
-    if (name == "compileTestJava") {
+    if (name.startsWith("compileTest")) {
       options.compilerArgs.addAll(
         listOf(
           "-Xlint:-unchecked",
@@ -256,8 +275,7 @@ tasks.withType<JavaCompile>().configureEach {
         ),
       )
       disable("JavaTimeDefaultTimeZone")
-      option("NullAway:HandleTestAssertionLibraries", true)
-      option("NullAway:ExcludedFieldAnnotations", "org.junit.jupiter.api.io.TempDir")
+      disable("NullAway")
     }
 
     error(*errors.toTypedArray())
