@@ -1,4 +1,5 @@
-// © Copyright 2023-2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
@@ -74,7 +75,7 @@ testing {
         implementation(libs.spring.modulith.test)
       }
     }
-    val whitebox by registering(JvmTestSuite::class) {
+    val testWhitebox by registering(JvmTestSuite::class) {
       dependencies {
         implementation(project())
         implementation(libs.archunit.core)

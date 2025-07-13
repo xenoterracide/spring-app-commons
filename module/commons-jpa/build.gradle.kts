@@ -73,7 +73,7 @@ testing {
         implementation(libs.spring.orm)
       }
     }
-    val whitebox by registering(JvmTestSuite::class) {
+    val testWhitebox by registering(JvmTestSuite::class) {
       dependencies {
         implementation(project())
         implementation(projects.commonsModel)

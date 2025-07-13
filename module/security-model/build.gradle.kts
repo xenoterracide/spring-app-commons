@@ -1,4 +1,4 @@
-// Copyright 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -28,7 +28,7 @@ testing {
         runtimeOnly(projects.testAppCore)
       }
     }
-    val whitebox by getting(JvmTestSuite::class) {
+    val testWhitebox by getting(JvmTestSuite::class) {
       dependencies {
         implementation(projects.commonsJpa)
         implementation(projects.commonsModel)
