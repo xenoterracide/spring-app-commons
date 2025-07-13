@@ -22,13 +22,13 @@ chardet==5.2.0
     # via
     #   binaryornot
     #   python-debian
-click==8.1.8
+click==8.2.1
     # via
     #   pip-tools
     #   reuse
 jinja2==3.1.6
     # via reuse
-license-expression==30.4.1
+license-expression==30.4.3
     # via reuse
 markupsafe==3.0.2
     # via jinja2
@@ -44,7 +44,7 @@ python-debian==0.1.49
     # via reuse
 reuse==5.0.2
     # via -r requirements.in
-tomlkit==0.13.2
+tomlkit==0.13.3
     # via reuse
 wheel==0.46.1
     # via pip-tools
