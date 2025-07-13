@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -108,8 +108,8 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id, @N
     }
   }
 
-  public record NameChanged(BarEntity.Id id, String name, Class<BarEntity> type)
-    implements EntityIdentifier<@NonNull Id, BarEntity> {
+  public record NameChanged(BarEntity.Id id, String name, Class<BarEntity> type) implements
+    EntityIdentifier<@NonNull Id, BarEntity> {
     public NameChanged(BarEntity.Id id, String name) {
       this(id, name, BarEntity.class);
     }
