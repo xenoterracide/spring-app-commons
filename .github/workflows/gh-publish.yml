@@ -29,11 +29,11 @@ jobs:
           filter: "blob:none"
           fetch-depth: 0
       - run: git remote set-head --auto origin
-      - uses: actions/setup-java@v4.7.0
+      - uses: actions/setup-java@v4.7.1
         with:
           distribution: temurin
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v4.3.1
+      - uses: gradle/actions/setup-gradle@v4.4.1
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       - run: ./gradlew publishAllPublicationsToGhRepository --scan --no-configuration-cache
