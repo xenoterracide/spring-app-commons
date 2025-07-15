@@ -36,7 +36,7 @@
   ],
   "pip-compile": {
     enabled: true,
-    managerFilePatterns: ["/(^|/)requirements\\.txt$/"],
+    managerFilePatterns: ["/^requirements\\.txt$/"],
   },
   pip_requirements: {
     enabled: false,
