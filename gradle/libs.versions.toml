@@ -165,7 +165,7 @@ jakarta-transaction = [
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis" }
 gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "1.+" }
 java-module-testing = { id = "org.gradlex.java-module-testing", version = "1.+" }
-semver = { id = "com.xenoterracide.gradle.semver", version = "0.12.+" }
+semver = { id = "com.xenoterracide.gradle.semver", version = "0.13.+" }
 shadow = { id = "com.github.johnrengelman.shadow", version = "8.+" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
 plantuml = { id = "io.gitlab.plunts.plantuml", version = "2.+" }
