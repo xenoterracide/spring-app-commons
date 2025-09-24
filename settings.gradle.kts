@@ -1,4 +1,5 @@
-// © Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 rootProject.name = "spring-app-commons"
@@ -10,7 +11,7 @@ pluginManagement {
 }
 
 plugins {
-  id("com.gradle.develocity") version "4.1"
+  id("com.gradle.develocity") version "4.2"
 }
 
 develocity {
