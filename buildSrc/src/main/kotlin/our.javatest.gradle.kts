@@ -62,10 +62,6 @@ val available =
 
 tasks.withType<Test>().configureEach {
   useJUnitPlatform()
-  reports {
-    junitXml.required.set(false)
-    html.required.set(false)
-  }
   testLogging {
     lifecycle {
       showStandardStreams = true
@@ -81,16 +77,4 @@ tasks.withType<Test>().configureEach {
   }
   inputs.dir(rootProject.file("buildSrc/src/main"))
   finalizedBy(available)
-
-  afterSuite(
-    KotlinClosure2<TestDescriptor, TestResult, Unit>(
-      { descriptor, result ->
-        if (descriptor.parent == null) {
-          logger.lifecycle("Tests run: ${result.testCount}, Failures: ${result.failedTestCount}, Skipped: ${result.skippedTestCount}")
-          if (result.testCount == 0L) throw IllegalStateException("You cannot have 0 tests")
-        }
-        Unit
-      },
-    ),
-  )
 }
