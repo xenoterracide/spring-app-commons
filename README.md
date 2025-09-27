@@ -26,7 +26,7 @@ add a way to export these to your `PATH` in your `~/.profile` so that commit hoo
 ### Build Tools
 
 - [Gradle](https://docs.gradle.org/current/userguide/command_line_interface.html)
-- [NPM](https://docs.npmjs.com/about-npm)
+- [Yarn 4](https://yarnpkg.com/getting-started/install) (via Corepack)
 
 #### Fetching Dependencies
 
@@ -46,7 +46,19 @@ as [Github Documents here](https://docs.github.com/en/packages/working-with-a-gi
 
 Then run.
 
-Run `pip install -r requirements.txt && npm ci && ./gradlew dependencies` to install dependencies.
+```sh
+# Enable Corepack, install Node dev tools, run postinstall, then verify Gradle deps
+corepack enable
+yarn install --immutable --inline-builds --check-resolutions
+yarn run -T postinstall
+./gradlew dependencies
+```
+
+If you need to run the postinstall step directly, the equivalent command is:
+
+```sh
+pip install -r requirements.txt && git config core.hooksPath .config/git/hooks
+```
 
 ### Committing
 
