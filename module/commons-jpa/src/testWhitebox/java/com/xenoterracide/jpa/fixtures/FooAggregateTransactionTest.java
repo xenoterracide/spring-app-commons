@@ -155,9 +155,9 @@ class FooAggregateTransactionTest {
     Assertions.assertThat(f0).isNotNull();
     Assertions.assertThat(Hibernate.isInitialized(f0.getBars())).isFalse().describedAs("initialized");
     assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(() -> {
-        // attempt to initialize proxy outside of transaction
-        Assertions.assertThat(f0.getBars()).isNotEmpty();
-      });
+      // attempt to initialize proxy outside of transaction
+      Assertions.assertThat(f0.getBars()).isNotEmpty();
+    });
   }
 
   @Test
@@ -188,9 +188,9 @@ class FooAggregateTransactionTest {
     assertThat(Objects.equals(bar.getFoo(), foo)).isFalse().describedAs("foo equality");
 
     assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(() -> {
-        // attempt to initialize proxy outside of transaction
-        Assertions.assertThat(bar.getFoo().getName()).isNotEmpty();
-      });
+      // attempt to initialize proxy outside of transaction
+      Assertions.assertThat(bar.getFoo().getName()).isNotEmpty();
+    });
   }
 
   @Test
