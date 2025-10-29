@@ -12,5 +12,6 @@ import java from "prettier-plugin-java";
 
 export default {
   printWidth: 120,
+  xmlWhitespaceSensitivity: "ignore",
   plugins: [xml, properties, java, toml, sh],
 };
