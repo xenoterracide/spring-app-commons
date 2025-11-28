@@ -1,8 +1,6 @@
 <!--
-Copyright 2024 Caleb Cushing.
-SPDX-FileCopyrightText: Copyright © 2025 Caleb Cushing
+SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
 
-SPDX-License-Identifier: CC-BY-4.0
 SPDX-License-Identifier: CC-BY-NC-4.0
 -->
 
@@ -54,9 +52,13 @@ yarn run -T postinstall
 ./gradlew dependencies
 ```
 
-If you need to run the postinstall step directly, the equivalent command is:
+If you need to run the postinstall step directly, you can recreate and use the Python lock file via pip-compile (PEP 621):
 
 ```sh
+# Regenerate requirements.txt from PEP 621 dependencies in pyproject.toml
+pip-compile -o requirements.txt pyproject.toml
+
+# Then install and set up commit hooks
 pip install -r requirements.txt && git config core.hooksPath .config/git/hooks
 ```
 
