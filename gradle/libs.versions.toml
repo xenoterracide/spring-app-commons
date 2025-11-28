@@ -36,7 +36,7 @@ httpcomponents-client5 = { module = "org.apache.httpcomponents.client5:httpclien
 httpcomponents-core5-reactive = { module = "org.apache.httpcomponents.core5:httpcore5-reactive" }
 immutables-annotate = { module = "org.immutables:annotate" }
 immutables-annotations = { module = "org.immutables:value-annotations" }
-immutables-bom = "org.immutables:bom:2+"
+immutables-bom = "org.immutables:bom:2.11.7"
 immutables-builder = { module = "org.immutables:builder" }
 immutables-core = { module = "org.immutables:value" }
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations" }
