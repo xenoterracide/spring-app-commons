@@ -1,4 +1,5 @@
-// © Copyright 2023-2024 Caleb Cushing
+// Copyright 2023 - 2025 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
@@ -12,12 +13,12 @@ tasks.javadoc {
 }
 
 dependencies {
-  implementation(libs.spring.boot.autoconfigure)
-  implementation(libs.spring.context)
+  implementation(sb.spring.boot.autoconfigure)
+  implementation(sb.spring.context)
 
-  runtimeOnly(libs.spring.test)
+  runtimeOnly(sb.spring.test)
 
-  testImplementation(libs.spring.boot.test.core)
+  testImplementation(sb.spring.boot.test)
 
-  testCompileOnly(libs.spring.test)
+  testCompileOnly(sb.spring.test)
 }

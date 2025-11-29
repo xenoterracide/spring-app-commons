@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.accessors.dm.LibrariesForSb
 
 plugins {
   `java-library`
@@ -13,6 +14,7 @@ dependencyLocking {
 }
 
 val libs = the<LibrariesForLibs>()
+val sb = the<LibrariesForSb>()
 
 configurations.configureEach {
   exclude(group = "org.slf4j", module = "slf4j-nop")

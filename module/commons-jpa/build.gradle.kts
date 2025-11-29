@@ -62,7 +62,7 @@ testing {
         runtimeOnly(libs.h2)
         runtimeOnly(libs.starter.validation)
         runtimeOnly(libs.starter.data.jpa)
-        runtimeOnly(libs.starter.aop)
+        runtimeOnly(sb.spring.boot.starter.aspectj)
         runtimeOnly(projects.testAppCore)
         runtimeOnly(libs.spring.data.envers)
       }

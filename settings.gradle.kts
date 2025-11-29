@@ -1,4 +1,4 @@
-// Copyright 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -41,6 +41,13 @@ dependencyResolutionManagement {
       credentials(PasswordCredentials::class)
     }
     mavenCentral()
+    mavenLocal()
+  }
+
+  versionCatalogs {
+    create("sb") {
+      from("com.xenoterracide.gradle:gradle-version-catalog-spring:0.0.1-alpha.0.56+git.56.72fc362")
+    }
   }
 }
 

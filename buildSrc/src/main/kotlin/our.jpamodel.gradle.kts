@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.accessors.dm.LibrariesForSb
 
 plugins {
   id("our.bom")
@@ -11,6 +12,7 @@ plugins {
 }
 
 val libs = the<LibrariesForLibs>()
+val sb = the<LibrariesForSb>()
 
 dependencies {
   annotationProcessor(platform(libs.jakarta.bom))
@@ -57,21 +59,21 @@ testing {
         implementation(testFixtures(project()))
 
         implementation(platform(libs.jakarta.bom))
-        implementation(libs.spring.test)
-        implementation(libs.spring.boot.test.autoconfigure)
-        implementation(libs.spring.boot.test.core)
+        implementation(sb.spring.test)
+        implementation(sb.spring.boot.test.autoconfigure)
+        implementation(sb.spring.boot.test)
 
-        runtimeOnly(libs.h2)
-        runtimeOnly(libs.starter.validation)
-        runtimeOnly(libs.starter.data.jpa)
-        runtimeOnly(libs.starter.aop)
-        runtimeOnly(libs.spring.data.envers)
+        runtimeOnly(sb.h2)
+        runtimeOnly(sb.spring.boot.starter.validation.test)
+        runtimeOnly(sb.spring.boot.starter.data.jpa.test)
+        runtimeOnly(sb.spring.boot.starter.aspectj.test)
+        runtimeOnly(sb.spring.data.envers)
       }
     }
 
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(libs.spring.beans)
+        implementation(sb.spring.beans)
         implementation(libs.spring.modulith.test)
       }
     }
@@ -83,7 +85,7 @@ testing {
         implementation(libs.equalsverifier)
         implementation(libs.jmolecules.archunit)
 
-        runtimeOnly(libs.hibernate.orm.core)
+        runtimeOnly(sb.hibernate.core)
       }
     }
   }

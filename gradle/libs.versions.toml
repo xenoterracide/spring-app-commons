@@ -5,9 +5,11 @@
 [versions]
 ep = "2.+"
 checker = "3.+"
-spring = "3.+"
+spring = "4.+"
 plugin-convention = "0.3.+"
 immutables = "2.+"
+jakarta = "11.+"
+junit = "6.+"
 
 [libraries]
 api-guardian = { module = "org.apiguardian:apiguardian-api" }
@@ -46,7 +48,7 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
 jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml" }
 jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names" }
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
-jakarta-bom = "jakarta.platform:jakarta.jakartaee-bom:10.+"
+jakarta-bom = { module = "jakarta.platform:jakarta.jakartaee-bom", version.ref = "jakarta" }
 jakarta-cdi = { module = "jakarta.enterprise:jakarta.enterprise.cdi-api" }
 jakarta-inject = { module = "jakarta.inject:jakarta.inject-api" }
 jakarta-interceptor = { module = "jakarta.interceptor:jakarta.interceptor-api" }
@@ -65,9 +67,9 @@ jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:1.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
 jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
 jmolecules-events = { module = "org.jmolecules:jmolecules-events" }
-jspecify = "org.jspecify:jspecify:1.+"
+jspecify = { module = "org.jspecify:jspecify" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
-junit-bom = "org.junit:junit-bom:5.+"
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }

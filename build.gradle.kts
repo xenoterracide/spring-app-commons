@@ -38,10 +38,10 @@ dependencyAnalysis {
       onUnusedDependencies {
         exclude(libs.junit.parameters)
         exclude(libs.assertj)
-        exclude(libs.spring.test)
-        exclude(libs.spring.boot.test.autoconfigure)
-        exclude(libs.spring.boot.test.core)
-        exclude(libs.jspecify)
+        exclude(sb.spring.test)
+        exclude(sb.spring.boot.test.autoconfigure)
+        exclude(sb.spring.boot.test)
+        exclude(sb.jspecify)
       }
     }
   }
