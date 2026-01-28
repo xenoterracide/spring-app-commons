@@ -23,6 +23,8 @@ commons-io = "commons-io:commons-io:2.+"
 commons-lang = "org.apache.commons:commons-lang3:3.+"
 compile-testing = "com.google.testing.compile:compile-testing:0.+"
 equalsverifier = "nl.jqno.equalsverifier:equalsverifier:3.+"
+eclipselink-persistence-core = { module = "org.eclipse.persistence:org.eclipse.persistence.core" }
+eclipselink-persistence-jpa = { module = "org.eclipse.persistence:org.eclipse.persistence.jpa" }
 errorprone-annotations = { module = "com.google.errorprone:error_prone_annotations", version.ref = "ep" }
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "ep" }
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
@@ -33,6 +35,8 @@ h2 = { module = "com.h2database:h2" }
 helidon-bundles-apt = { module = "io.helidon.bundles:bundles-apt" }
 helidon-codegen-apt = { module = "io.helidon.codegen:helidon-codegen-apt" }
 helidon-config-yaml = { module = "io.helidon.config:helidon-config-yaml" }
+helidon-data = { module = "io.helidon.data:helidon-data" }
+helidon-data-jakarta-peristence = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence" }
 helidon-dependencies = { module = "io.helidon:helidon-dependencies", version.ref = "helidon" }
 helidon-health-checks = { module = "io.helidon.health:helidon-health-checks" }
 helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-jsonp" }
