@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -7,7 +7,6 @@ package com.xenoterracide.model.security.user;
 import com.xenoterracide.commons.model.WritableRepository;
 import java.util.Optional;
 import org.jmolecules.ddd.annotation.Repository;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,7 +14,7 @@ import org.springframework.data.jpa.repository.Query;
  * Repository for {@link User}.
  */
 @Repository
-public interface UserRepository extends WritableRepository<@NonNull User, User.@NonNull UserId> {
+public interface UserRepository extends WritableRepository<User, User.UserId> {
   /**
    * Finds a user by id.
    *
@@ -23,8 +22,7 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
    *   the surrogate id
    * @return the user
    */
-  @NonNull
-  Optional<@Nullable User> findById(User.@NonNull UserId id);
+  Optional<@Nullable User> findById(User.UserId id);
 
   /**
    * Finds a user by name.
@@ -33,8 +31,7 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
    *   the username
    * @return the user
    */
-  @NonNull
-  Optional<@Nullable User> findByName(@NonNull String name);
+  Optional<@Nullable User> findByName(String name);
 
   /**
    * Finds a user by identity provider user.
@@ -44,6 +41,5 @@ public interface UserRepository extends WritableRepository<@NonNull User, User.@
    * @return the user
    */
   @Query("select u from User u join u.identityProviderUsers i where i.id = ?1")
-  @NonNull
-  Optional<@Nullable User> findByIdentityProviderUser(IdentityProviderUser.@NonNull IdentityProviderUserId id);
+  Optional<@Nullable User> findByIdentityProviderUser(IdentityProviderUser.IdentityProviderUserId id);
 }

@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -24,7 +24,6 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.jmolecules.ddd.annotation.ValueObject;
-import org.jspecify.annotations.NonNull;
 
 /**
  * A user.
@@ -33,10 +32,10 @@ import org.jspecify.annotations.NonNull;
 @Entity
 @AggregateRoot
 @Table(name = "users")
-public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User> implements Nameable {
+public class User extends AbstractAggregate<User.UserId, User> implements Nameable {
 
-  private @NonNull String name;
-  private @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers;
+  private String name;
+  private Set<IdentityProviderUser> identityProviderUsers;
 
   /**
    * For JPA.
@@ -53,7 +52,7 @@ public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User>
    * @param identityProviderUsers
    *   the linked identity provider users
    */
-  User(@NonNull UserId id, @NonNull String name, @NonNull Set<@NonNull IdentityProviderUser> identityProviderUsers) {
+  User(UserId id, String name, Set<IdentityProviderUser> identityProviderUsers) {
     super(id);
     this.name = name;
     this.identityProviderUsers = identityProviderUsers;
@@ -70,13 +69,12 @@ public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User>
 
   @NotAudited
   @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-  @NonNull
-  Set<@NonNull IdentityProviderUser> getIdentityProviderUsers() {
+  Set<IdentityProviderUser> getIdentityProviderUsers() {
     return this.identityProviderUsers;
   }
 
   @Initializer
-  void setIdentityProviderUsers(@NonNull Set<@NonNull IdentityProviderUser> idpUsers) {
+  void setIdentityProviderUsers(Set<IdentityProviderUser> idpUsers) {
     this.identityProviderUsers = idpUsers;
   }
 
@@ -85,8 +83,7 @@ public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User>
    *
    * @return set of identity provider users
    */
-  @NonNull
-  public Set<@NonNull IdentityProviderUser> linkedIdentityProviderUsers() {
+  public Set<IdentityProviderUser> linkedIdentityProviderUsers() {
     return Set.copyOf(this.getIdentityProviderUsers());
   }
 
@@ -98,7 +95,7 @@ public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User>
    * @param idpUserId
    *   the user identifier we got for that identity provider
    */
-  public void linkIdentityProvider(IdentityProviderUser.@NonNull IdP idp, @NonNull String idpUserId) {
+  public void linkIdentityProvider(IdentityProviderUser.IdP idp, String idpUserId) {
     var idpUser = IdentityProviderUser.builder().idP(idp).idPUserId(idpUserId).user(this).build();
     this.getIdentityProviderUsers().add(idpUser);
   }
@@ -111,12 +108,12 @@ public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User>
   }
 
   @Initializer
-  void setName(@NonNull String name) {
+  void setName(String name) {
     this.name = name;
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?, ?> that) {
+  protected boolean canEqual(AbstractSurrogateEntity<?, ?> that) {
     return that instanceof User;
   }
 
@@ -134,7 +131,7 @@ public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User>
      */
     protected UserId() {}
 
-    UserId(@NonNull UUID id) {
+    UserId(UUID id) {
       super(id);
     }
 
@@ -148,7 +145,7 @@ public class User extends AbstractAggregate<User.@NonNull UserId, @NonNull User>
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
+    protected boolean canEqual(AbstractIdentitifier that) {
       return that instanceof UserId;
     }
   }

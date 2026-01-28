@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -22,7 +22,6 @@ import org.jmolecules.ddd.annotation.Identity;
 import org.jmolecules.ddd.types.AggregateRoot;
 import org.jmolecules.ddd.types.Entity;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -36,7 +35,7 @@ import org.jspecify.annotations.Nullable;
 @Audited
 @MappedSuperclass
 public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, ?>>
-  implements Entity<AGG, ID>, Identifiable<@NonNull ID> {
+  implements Entity<AGG, ID>, Identifiable<ID> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
 
@@ -46,7 +45,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
   /**
    * Surrogate Identifier.
    */
-  private @NonNull ID id;
+  private ID id;
   private @Nullable Integer version;
 
   /**
@@ -62,7 +61,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
    * @param id
    *   the id
    */
-  protected AbstractSurrogateEntity(@NonNull ID id) {
+  protected AbstractSurrogateEntity(ID id) {
     this.id = id;
   }
 
@@ -90,7 +89,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
   @Identity
   @Column(nullable = false, updatable = false, unique = true)
   @Override
-  public @NonNull ID getId() {
+  public ID getId() {
     return this.id;
   }
 
@@ -102,12 +101,12 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
    * @apiNote for JPA use only
    */
   @Initializer
-  void setId(@NonNull ID id) {
+  void setId(ID id) {
     this.id = id;
   }
 
   @Override
-  public @NonNull ID id() {
+  public ID id() {
     return this.getId();
   }
 
@@ -126,7 +125,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
    *   How to Write an Equality Method in Java
    *   </a>
    */
-  protected abstract boolean canEqual(@NonNull AbstractSurrogateEntity<?, ?> that);
+  protected abstract boolean canEqual(AbstractSurrogateEntity<?, ?> that);
 
   @Override
   public final boolean equals(@Nullable Object other) {
@@ -149,12 +148,12 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
    * @return the fields included in {@link #toString()}
    * @implSpec the fields should be a static final array of strings
    */
-  protected @NonNull String[] includedFieldsInToString() {
+  protected String[] includedFieldsInToString() {
     return INCLUDED_FIELDS_IN_TO_STRING;
   }
 
   @Override
-  public final @NonNull String toString() {
+  public final String toString() {
     return new ReflectionToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
       .setIncludeFieldNames(this.includedFieldsInToString())
       .toString();

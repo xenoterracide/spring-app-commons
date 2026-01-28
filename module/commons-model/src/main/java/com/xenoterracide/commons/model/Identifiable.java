@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -6,7 +6,6 @@ package com.xenoterracide.commons.model;
 
 import java.io.Serializable;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -15,8 +14,7 @@ import org.jspecify.annotations.Nullable;
  * @param <ID>
  *   the type of the identifier.
  */
-public interface Identifiable<ID extends @NonNull Identifier & @NonNull Serializable>
-  extends org.jmolecules.ddd.types.Identifiable<ID> {
+public interface Identifiable<ID extends Identifier & Serializable> extends org.jmolecules.ddd.types.Identifiable<ID> {
   /**
    * Gets the identifier of this entity.
    *

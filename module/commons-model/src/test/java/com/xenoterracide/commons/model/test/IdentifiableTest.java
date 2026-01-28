@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -9,7 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.xenoterracide.commons.model.Identifiable;
 import java.io.Serializable;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 
 class IdentifiableTest {
@@ -24,9 +23,9 @@ class IdentifiableTest {
     assertThat(t1.getId()).isEqualTo(t2.id());
   }
 
-  record IdImpl(IdentifierImpl id) implements Identifiable<@NonNull IdentifierImpl> {}
+  record IdImpl(IdentifierImpl id) implements Identifiable<IdentifierImpl> {}
 
-  static class GetIdImpl implements Identifiable<@NonNull IdentifierImpl> {
+  static class GetIdImpl implements Identifiable<IdentifierImpl> {
 
     private final IdentifierImpl value;
 
