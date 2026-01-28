@@ -32,11 +32,12 @@ google-java-format = "com.google.googlejavaformat:google-java-format:+"
 graphql-java = { module = "com.graphql-java:graphql-java" }
 guava = "com.google.guava:guava:+"
 h2 = { module = "com.h2database:h2" }
-helidon-bundles-apt = { module = "io.helidon.bundles:bundles-apt" }
+helidon-bundles-apt = { module = "io.helidon.bundles:helidon-bundles-apt", version.ref = "helidon" }
 helidon-codegen-apt = { module = "io.helidon.codegen:helidon-codegen-apt" }
 helidon-config-yaml = { module = "io.helidon.config:helidon-config-yaml" }
 helidon-data = { module = "io.helidon.data:helidon-data" }
 helidon-data-jakarta-peristence = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence" }
+helidon-data-jakarta-peristence-codegen = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence-codegen" }
 helidon-dependencies = { module = "io.helidon:helidon-dependencies", version.ref = "helidon" }
 helidon-health-checks = { module = "io.helidon.health:helidon-health-checks" }
 helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-jsonp" }

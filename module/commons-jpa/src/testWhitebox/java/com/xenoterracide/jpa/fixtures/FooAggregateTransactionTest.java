@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -19,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.history.Revision;
-import org.springframework.data.history.RevisionMetadata;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -105,10 +103,6 @@ class FooAggregateTransactionTest {
       .extracting(Identifiable::getId, FooAggregate::getName)
       .containsExactly(f0.getId(), "updating");
 
-    var rev3 = repository.findRevisions(newAgg.getId()).getContent();
-
-    Assertions.assertThat(rev3).hasSize(3);
-
     f2.setName("3");
     tx.execute(cb -> repository.saveAndFlush(f2));
 
@@ -116,28 +110,10 @@ class FooAggregateTransactionTest {
 
     Assertions.assertThat(f3).isNotNull().hasFieldOrPropertyWithValue(AbstractSurrogateEntity_.VERSION, 2);
 
-    var rev4 = repository.findRevisions(newAgg.getId()).getContent();
-
-    Assertions.assertThat(rev4).hasSize(4);
-
     tx.execute(cb -> {
       repository.delete(f3);
       return null;
     });
-
-    var rev5 = repository.findRevisions(newAgg.getId()).getContent();
-
-    Assertions.assertThat(rev5)
-      .hasSize(5)
-      .extracting(Revision::getMetadata)
-      .extracting(RevisionMetadata::getRevisionType)
-      .containsExactly(
-        RevisionMetadata.RevisionType.INSERT,
-        RevisionMetadata.RevisionType.UPDATE,
-        RevisionMetadata.RevisionType.UPDATE,
-        RevisionMetadata.RevisionType.UPDATE,
-        RevisionMetadata.RevisionType.DELETE
-      );
   }
 
   @Test

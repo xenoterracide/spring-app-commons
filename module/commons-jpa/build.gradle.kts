@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -8,7 +8,9 @@ plugins { our.javalibrary }
 
 dependencies {
   annotationProcessor(platform(libs.jakarta.bom))
-  annotationProcessor(platform(libs.spring.bom))
+  annotationProcessor(platform(libs.helidon.dependencies))
+  annotationProcessor(libs.helidon.bundles.apt)
+  annotationProcessor(libs.helidon.data.jakarta.peristence.codegen)
   annotationProcessor(libs.hibernate.jpa.modelgen)
 
   compileOnly(libs.hibernate.validator)
@@ -17,31 +19,24 @@ dependencies {
   api(projects.commonsModel)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
-  api(libs.spring.context)
-  api(libs.spring.data.commons)
-  api(libs.hibernate.envers)
   api(libs.jmolecules.ddd)
 
+  implementation(platform(libs.helidon.dependencies))
   implementation(libs.commons.lang)
-  implementation(libs.spring.beans)
-  implementation(libs.spring.transaction)
+  implementation(libs.eclipselink.persistence.core)
+  implementation(libs.eclipselink.persistence.jpa)
+  implementation(libs.helidon.data)
+  implementation(libs.helidon.data.jakarta.peristence)
 
-  runtimeOnly(libs.starter.data.jpa)
-  runtimeOnly(libs.starter.validation)
   // transients required by jakarta transaction which is required by hibernate
   runtimeOnly(libs.bundles.jakarta.transaction)
 
   testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
-  testFixturesAnnotationProcessor(platform(libs.spring.bom))
-  testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
 
   testFixturesApi(projects.commonsModel)
-  testFixturesApi(libs.spring.data.jpa)
-  testFixturesApi(libs.hibernate.envers)
   testFixturesApi(libs.jakarta.persistence)
   testFixturesApi(libs.jakarta.validation)
   testFixturesApi(libs.jmolecules.ddd)
-  testFixturesApi(libs.spring.data.commons)
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.java.tools)
 
@@ -55,16 +50,8 @@ testing {
         implementation(testFixtures(project()))
 
         implementation(platform(libs.jakarta.bom))
-        implementation(libs.spring.test)
-        implementation(libs.spring.boot.test.autoconfigure)
-        implementation(libs.spring.boot.test.core)
 
         runtimeOnly(libs.h2)
-        runtimeOnly(libs.starter.validation)
-        runtimeOnly(libs.starter.data.jpa)
-        runtimeOnly(libs.starter.aop)
-        runtimeOnly(projects.testAppCore)
-        runtimeOnly(libs.spring.data.envers)
       }
     }
 
@@ -79,9 +66,6 @@ testing {
         implementation(projects.commonsModel)
         implementation(libs.equalsverifier)
         implementation(libs.commons.lang)
-        implementation(libs.spring.beans)
-        implementation(libs.spring.transaction)
-        implementation(libs.hibernate.orm.core)
       }
     }
   }
