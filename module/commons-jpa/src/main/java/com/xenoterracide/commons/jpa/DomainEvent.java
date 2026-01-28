@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import org.jmolecules.ddd.types.AggregateRoot;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.NonNull;
 
 /**
  * A domain event.
@@ -36,9 +35,4 @@ public record DomainEvent<
   AID extends Identifier & Serializable,
   AGG extends AggregateRoot<AGG, AID>,
   PAYLOAD extends EntityIdentifier<?, ?>
->(
-  @NonNull EVENTID id,
-  @NonNull ZonedDateTime occurredOn,
-  @NonNull EntityIdentifier<AID, AGG> aggregate,
-  @NonNull PAYLOAD payload
-) {}
+>(EVENTID id, ZonedDateTime occurredOn, EntityIdentifier<AID, AGG> aggregate, PAYLOAD payload) {}

@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -28,11 +28,10 @@ import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.AuditMappedBy;
 import org.hibernate.envers.Audited;
-import org.jspecify.annotations.NonNull;
 
 @Entity
 @Audited
-public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @NonNull FooAggregate> {
+public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregate> {
 
   private String name;
 
@@ -49,7 +48,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     return new FooAggregate(Id.create(), name);
   }
 
-  protected void registerEvent(EntityIdentifier<BarEntity.@NonNull Id, @NonNull BarEntity> event) {
+  protected void registerEvent(EntityIdentifier<BarEntity.Id, BarEntity> event) {
     super.registerEvent(FooEvent.create(this.getId(), event));
   }
 
@@ -59,7 +58,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
    * @return domain events
    */
   @Override
-  protected @NonNull Collection<DomainEvent<?, @NonNull Id, @NonNull FooAggregate, ?>> domainEvents() {
+  protected Collection<DomainEvent<?, Id, FooAggregate, ?>> domainEvents() {
     return super.domainEvents();
   }
 
@@ -98,7 +97,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
   }
 
   @Override
-  protected boolean canEqual(@NonNull AbstractSurrogateEntity<?, ?> that) {
+  protected boolean canEqual(AbstractSurrogateEntity<?, ?> that) {
     return that instanceof FooAggregate;
   }
 
@@ -118,7 +117,7 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.@NonNull Id, @N
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
+    protected boolean canEqual(AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }

@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import org.jmolecules.ddd.types.AggregateRoot;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.NonNull;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
@@ -43,7 +42,7 @@ public abstract class AbstractAggregate<ID extends Identifier & Serializable, TH
    * @param id
    *   the id
    */
-  protected AbstractAggregate(@NonNull ID id) {
+  protected AbstractAggregate(ID id) {
     super(id);
   }
 
@@ -53,7 +52,7 @@ public abstract class AbstractAggregate<ID extends Identifier & Serializable, TH
    * @param event
    *   the event
    */
-  protected void registerEvent(@NonNull DomainEvent<?, ID, THIS, ?> event) {
+  protected void registerEvent(DomainEvent<?, ID, THIS, ?> event) {
     this.domainEvents.add(event);
     this.markDirty();
   }
@@ -72,7 +71,7 @@ public abstract class AbstractAggregate<ID extends Identifier & Serializable, TH
    * @return the collection
    */
   @DomainEvents
-  protected @NonNull Collection<DomainEvent<?, ID, THIS, ?>> domainEvents() {
+  protected Collection<DomainEvent<?, ID, THIS, ?>> domainEvents() {
     return Collections.unmodifiableList(this.domainEvents);
   }
 }

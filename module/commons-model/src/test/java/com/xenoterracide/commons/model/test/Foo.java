@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -13,10 +13,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.NonNull;
 
 @Entity
-class Foo implements Identifiable<Foo.@NonNull FooId> {
+class Foo implements Identifiable<Foo.FooId> {
 
   @Id
   private FooId id;
@@ -27,7 +26,7 @@ class Foo implements Identifiable<Foo.@NonNull FooId> {
   }
 
   @Initializer
-  void setId(@NonNull FooId id) {
+  void setId(FooId id) {
     this.id = id;
   }
 
@@ -39,7 +38,7 @@ class Foo implements Identifiable<Foo.@NonNull FooId> {
     @GeneratedValue
     private Long value;
 
-    FooId(@NonNull Long value) {
+    FooId(Long value) {
       this.value = value;
     }
 
