@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -21,11 +21,10 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.UUID;
 import org.hibernate.envers.Audited;
-import org.jspecify.annotations.NonNull;
 
 @Audited
 @Entity
-public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id, @NonNull FooAggregate> {
+public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id, FooAggregate> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id", "name" };
 
@@ -103,13 +102,13 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.@NonNull Id, @N
     }
 
     @Override
-    protected boolean canEqual(@NonNull AbstractIdentitifier that) {
+    protected boolean canEqual(AbstractIdentitifier that) {
       return that instanceof Id;
     }
   }
 
   public record NameChanged(BarEntity.Id id, String name, Class<BarEntity> type) implements
-    EntityIdentifier<@NonNull Id, BarEntity> {
+    EntityIdentifier<Id, BarEntity> {
     public NameChanged(BarEntity.Id id, String name) {
       this(id, name, BarEntity.class);
     }

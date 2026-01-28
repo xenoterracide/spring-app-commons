@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -10,7 +10,6 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +37,7 @@ class TransactionScopeConfiguration {
 
   @Bean
   @TransactionScope
-  static ZonedDateTime zonedDateTimeNow(@NonNull Instant instantNow) {
+  static ZonedDateTime zonedDateTimeNow(Instant instantNow) {
     return instantNow.atZone(UTC);
   }
 
@@ -51,7 +50,7 @@ class TransactionScopeConfiguration {
    */
   @Bean
   @TransactionScope
-  static OffsetDateTime offsetDateTimeNow(@NonNull ZonedDateTime zonedDateTimeNow) {
+  static OffsetDateTime offsetDateTimeNow(ZonedDateTime zonedDateTimeNow) {
     return zonedDateTimeNow.toOffsetDateTime();
   }
 }

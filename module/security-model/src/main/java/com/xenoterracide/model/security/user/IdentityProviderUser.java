@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -27,7 +27,6 @@ import org.jmolecules.ddd.annotation.Identity;
 import org.jmolecules.ddd.annotation.ValueObject;
 import org.jmolecules.ddd.types.Entity;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -36,9 +35,9 @@ import org.jspecify.annotations.Nullable;
 @jakarta.persistence.Entity
 @org.jmolecules.ddd.annotation.Entity
 @Table(name = "identity_provider_users")
-public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@NonNull IdentityProviderUserId> {
+public class IdentityProviderUser implements Entity<User, IdentityProviderUser.IdentityProviderUserId> {
 
-  private @NonNull IdentityProviderUserId id;
+  private IdentityProviderUserId id;
   private @Nullable User user;
 
   /**
@@ -52,7 +51,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
    * @param id
    *   the primary key
    */
-  IdentityProviderUser(@NonNull IdentityProviderUserId id) {
+  IdentityProviderUser(IdentityProviderUserId id) {
     this.id = id;
   }
 
@@ -73,12 +72,12 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
   @EmbeddedId
   @NotNull
   @Override
-  public @NonNull IdentityProviderUserId getId() {
+  public IdentityProviderUserId getId() {
     return this.id;
   }
 
   @Initializer
-  void setId(@NonNull IdentityProviderUserId id) {
+  void setId(IdentityProviderUserId id) {
     this.id = id;
   }
 
@@ -89,7 +88,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
    */
   @NotNull
   @Transient
-  public @NonNull IdP getIdP() {
+  public IdP getIdP() {
     return this.id.getIdP();
   }
 
@@ -100,7 +99,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
    */
   @NotNull
   @Transient
-  public @NonNull String getIdPUserId() {
+  public String getIdPUserId() {
     return this.id.getIdPUserId();
   }
 
@@ -124,12 +123,12 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
     name = "user_id",
     foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
   )
-  public @NonNull User getUser() {
+  public User getUser() {
     return Objects.requireNonNull(this.user);
   }
 
   @Initializer
-  void setUser(@NonNull User user) {
+  void setUser(User user) {
     this.user = user;
   }
 
@@ -140,7 +139,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
    *   the object to compare
    * @return {@code true} if this instance could be equal to the other object
    */
-  protected boolean canEqual(@NonNull Entity<?, ?> that) {
+  protected boolean canEqual(Entity<?, ?> that) {
     return that instanceof IdentityProviderUser;
   }
 
@@ -198,7 +197,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
      */
     protected IdentityProviderUserId() {}
 
-    IdentityProviderUserId(@NonNull IdP idP, @NonNull String idPUserId, User.@NonNull UserId userId) {
+    IdentityProviderUserId(IdP idP, String idPUserId, User.UserId userId) {
       this.idP = idP;
       this.idPUserId = idPUserId;
       this.userId = userId;
@@ -211,7 +210,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
     }
 
     @Initializer
-    void setIdP(@NonNull IdP idP) {
+    void setIdP(IdP idP) {
       this.idP = idP;
     }
 
@@ -222,7 +221,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
      *   the object to compare
      * @return {@code true} if this instance could be equal to the other object.
      */
-    protected boolean canEqual(@NonNull Serializable that) {
+    protected boolean canEqual(Serializable that) {
       return that instanceof IdentityProviderUserId;
     }
 
@@ -252,7 +251,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
     }
 
     @Initializer
-    void setIdPUserId(@NonNull String idPUserId) {
+    void setIdPUserId(String idPUserId) {
       this.idPUserId = idPUserId;
     }
 
@@ -261,7 +260,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.@
     }
 
     @Initializer
-    void setUserId(User.@NonNull UserId userId) {
+    void setUserId(User.UserId userId) {
       this.userId = userId;
     }
   }

@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -12,7 +12,6 @@ import java.util.Objects;
 import java.util.UUID;
 import org.jmolecules.ddd.annotation.ValueObject;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -43,7 +42,7 @@ public abstract class AbstractIdentitifier implements Serializable, Identifier {
    * @param value
    *   the id
    */
-  protected AbstractIdentitifier(@NonNull UUID value) {
+  protected AbstractIdentitifier(UUID value) {
     this.value = value;
   }
 
@@ -62,7 +61,7 @@ public abstract class AbstractIdentitifier implements Serializable, Identifier {
    *   How to Write an Equality Method in Java
    *   </a>
    */
-  protected abstract boolean canEqual(@NonNull AbstractIdentitifier that);
+  protected abstract boolean canEqual(AbstractIdentitifier that);
 
   @Override
   public final boolean equals(@Nullable Object other) {

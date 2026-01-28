@@ -1,11 +1,10 @@
-// Copyright 2024 Caleb Cushing
+// Copyright 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
 package com.xenoterracide.commons.model;
 
 import java.io.Serializable;
-import org.jspecify.annotations.NonNull;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
@@ -19,7 +18,7 @@ import org.springframework.data.repository.Repository;
  *   the type of the identifier
  */
 @NoRepositoryBean
-public interface WritableRepository<AGG, ID extends Serializable> extends Repository<@NonNull AGG, @NonNull ID> {
+public interface WritableRepository<AGG, ID extends Serializable> extends Repository<AGG, ID> {
   /**
    * Saves an aggregate.
    *
@@ -29,7 +28,7 @@ public interface WritableRepository<AGG, ID extends Serializable> extends Reposi
    *   potentially a subtype of the aggregate.
    * @return the saved aggregate.
    */
-  <S extends @NonNull AGG> @NonNull S save(@NonNull S aggregate);
+  <S extends AGG> S save(S aggregate);
 
   /**
    * Saves all aggregates.
@@ -40,5 +39,5 @@ public interface WritableRepository<AGG, ID extends Serializable> extends Reposi
    *   potentially a subtype of the aggregate.
    * @return the saved aggregates.
    */
-  <S extends @NonNull AGG> Iterable<@NonNull S> saveAll(@NonNull Iterable<@NonNull S> aggregates);
+  <S extends AGG> Iterable<S> saveAll(Iterable<S> aggregates);
 }
