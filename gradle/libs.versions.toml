@@ -1,13 +1,14 @@
-# SPDX-FileCopyrightText: Copyright © 2025 Caleb Cushing
+# SPDX-FileCopyrightText: Copyright © 2025 - 2026 Caleb Cushing
 #
 # SPDX-License-Identifier: CC0-1.0
 
 [versions]
-ep = "2.+"
 checker = "3.+"
-spring = "3.+"
-plugin-convention = "0.3.+"
+ep = "2.+"
+helidon = "4.+"
 immutables = "2.+"
+plugin-convention = "0.3.+"
+spring = "3.+"
 
 [libraries]
 api-guardian = { module = "org.apiguardian:apiguardian-api" }
@@ -29,6 +30,20 @@ google-java-format = "com.google.googlejavaformat:google-java-format:+"
 graphql-java = { module = "com.graphql-java:graphql-java" }
 guava = "com.google.guava:guava:+"
 h2 = { module = "com.h2database:h2" }
+helidon-bundles-apt = { module = "io.helidon.bundles:bundles-apt" }
+helidon-codegen-apt = { module = "io.helidon.codegen:helidon-codegen-apt" }
+helidon-config-yaml = { module = "io.helidon.config:helidon-config-yaml" }
+helidon-dependencies = { module = "io.helidon:helidon-dependencies", version.ref = "helidon" }
+helidon-health-checks = { module = "io.helidon.health:helidon-health-checks" }
+helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-jsonp" }
+helidon-service-codegen = { module = "io.helidon.service:helidon-service-codegen" }
+helidon-service-registry = { module = "io.helidon.service:helidon-service-registry" }
+helidon-webclient = { module = "io.helidon.webclient:helidon-webclient" }
+helidon-webserver = { module = "io.helidon.webserver:helidon-webserver" }
+helidon-webserver-observe-health = { module = "io.helidon.webserver.observe:helidon-webserver-observe-health" }
+helidon-webserver-observe-metrics = { module = "io.helidon.webserver.observe:helidon-webserver-observe-metrics" }
+helidon-webserver-testing-junit5 = { module = "io.helidon.webserver.testing.junit5:helidon-webserver-testing-junit5" }
+
 hibernate-envers = { module = "org.hibernate.orm:hibernate-envers" }
 hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.strictly = "6.+" }
 hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
