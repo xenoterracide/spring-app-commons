@@ -26,14 +26,6 @@ class FooAggregateJpaTest {
         "[DEBUG_LOG] Persistence Unit Name: " +
           em.getEntityManagerFactory().getProperties().get("jakarta.persistence.persistence-unit-name")
       );
-      em
-        .createNativeQuery("CREATE TABLE FOOAGGREGATE (ID UUID PRIMARY KEY, NAME VARCHAR(255), VERSION INT)")
-        .executeUpdate();
-      em
-        .createNativeQuery(
-          "CREATE TABLE BARENTITY (ID UUID PRIMARY KEY, NAME VARCHAR(255), VERSION INT, FOO_ID UUID, FOREIGN KEY (FOO_ID) REFERENCES FOOAGGREGATE(ID))"
-        )
-        .executeUpdate();
     });
   }
 

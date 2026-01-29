@@ -21,6 +21,7 @@ import org.jmolecules.ddd.annotation.Identity;
 import org.jmolecules.ddd.types.AggregateRoot;
 import org.jmolecules.ddd.types.Entity;
 import org.jmolecules.ddd.types.Identifier;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -33,17 +34,22 @@ import org.jspecify.annotations.Nullable;
  */
 @MappedSuperclass
 public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, ?>>
-  implements Entity<AGG, ID>, Identifiable<ID> {
+  implements Entity<AGG, ID>, Identifiable<@NonNull ID> {
 
   private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
 
   @Transient
   private boolean dirty;
 
-  /**
-   * Surrogate Identifier.
-   */
+  @Id
+  @Valid
+  @NotNull
+  @Identity
+  @Column(nullable = false, updatable = false, unique = true)
   private ID id;
+
+  @Version
+  @Column(nullable = false)
   private @Nullable Integer version;
 
   /**
@@ -70,7 +76,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
     return this.version;
   }
 
-  void setVersion(Integer version) {
+  protected void setVersion(Integer version) {
     this.version = version;
   }
 
@@ -87,7 +93,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
   @Identity
   @Column(nullable = false, updatable = false, unique = true)
   @Override
-  public ID getId() {
+  public @NonNull ID getId() {
     return this.id;
   }
 
@@ -99,7 +105,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
    * @apiNote for JPA use only
    */
   @Initializer
-  void setId(ID id) {
+  protected void setId(ID id) {
     this.id = id;
   }
 

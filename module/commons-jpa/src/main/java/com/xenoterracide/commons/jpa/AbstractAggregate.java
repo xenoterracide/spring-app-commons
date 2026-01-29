@@ -5,6 +5,7 @@
 package com.xenoterracide.commons.jpa;
 
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,9 +13,6 @@ import java.util.Collections;
 import java.util.List;
 import org.jmolecules.ddd.types.AggregateRoot;
 import org.jmolecules.ddd.types.Identifier;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.AfterDomainEventPublication;
-import org.springframework.data.domain.DomainEvents;
 
 /**
  * An abstract class for Domain Aggregates.
@@ -60,7 +58,6 @@ public abstract class AbstractAggregate<ID extends Identifier & Serializable, TH
   /**
    * Clears domain events.
    */
-  @AfterDomainEventPublication
   protected void clearDomainEvents() {
     this.domainEvents.clear();
   }
@@ -70,7 +67,6 @@ public abstract class AbstractAggregate<ID extends Identifier & Serializable, TH
    *
    * @return the collection
    */
-  @DomainEvents
   protected Collection<DomainEvent<?, ID, THIS, ?>> domainEvents() {
     return Collections.unmodifiableList(this.domainEvents);
   }

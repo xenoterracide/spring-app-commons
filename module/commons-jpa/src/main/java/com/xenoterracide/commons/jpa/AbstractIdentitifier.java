@@ -27,9 +27,16 @@ public abstract class AbstractIdentitifier implements Serializable, Identifier {
   /**
    * The actual database UUID for id.
    */
-
   @NotNull
   private @Nullable UUID value;
+
+  protected @Nullable UUID getValue() {
+    return this.value;
+  }
+
+  protected void setValue(UUID value) {
+    this.value = value;
+  }
 
   /**
    * NO-OP parent constuctor for JPA only.
