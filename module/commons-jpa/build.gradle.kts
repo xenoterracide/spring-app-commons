@@ -25,6 +25,9 @@ dependencies {
   implementation(libs.commons.lang)
   testRuntimeOnly(libs.eclipselink.persistence.core)
   testRuntimeOnly(libs.eclipselink.persistence.jpa)
+  testRuntimeOnly(libs.h2)
+  testRuntimeOnly(libs.helidon.config.yaml)
+  testImplementation(libs.helidon.config)
   testFixturesApi(libs.helidon.data)
   testFixturesApi(libs.helidon.data.jakarta.persistence)
 
