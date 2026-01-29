@@ -6,12 +6,17 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked module com.xenoterracide.jpa.fixtures {
   exports com.xenoterracide.jpa.fixtures;
-  opens com.xenoterracide.jpa.fixtures to org.hibernate.orm.core, spring.core;
+  opens com.xenoterracide.jpa.fixtures
+    to
+      org.eclipse.persistence.core,
+      org.eclipse.persistence.jpa,
+      org.eclipse.persistence.asm,
+      org.eclipse.persistence.jpa.jpql;
   requires jakarta.persistence;
   requires com.xenoterracide.commons.jpa;
   requires com.xenoterracide.tools.java;
   requires com.github.f4b6a3.uuid;
   requires transitive io.helidon.data;
-  requires io.helidon.data.jakarta.persistence;
+  requires transitive io.helidon.data.jakarta.persistence;
   requires static org.jspecify;
 }

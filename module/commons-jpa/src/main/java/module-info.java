@@ -12,7 +12,8 @@ import org.jspecify.annotations.NullMarked;
   exports com.xenoterracide.commons.jpa.annotation;
   exports com.xenoterracide.commons.jpa.util;
 
-  opens com.xenoterracide.commons.jpa to org.hibernate.orm.core, spring.core, org.hibernate.validator;
+  opens com.xenoterracide.commons.jpa
+    to org.hibernate.validator, org.eclipse.persistence.core, org.eclipse.persistence.jpa;
 
   requires org.apache.commons.lang3;
 

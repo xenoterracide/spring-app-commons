@@ -5,8 +5,7 @@
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked module com.xenoterracide.commons.jpa.test {
-  opens com.xenoterracide.commons.jpa.test
-    to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
+  opens com.xenoterracide.commons.jpa.test to org.junit.platform.commons;
   requires org.assertj.core;
   requires com.xenoterracide.commons.jpa;
   requires org.junit.jupiter.api;
@@ -14,7 +13,8 @@ import org.jspecify.annotations.NullMarked;
   requires org.apache.commons.lang3;
   requires com.xenoterracide.jpa.fixtures;
   requires static org.jspecify;
+  requires io.helidon.config;
   requires io.helidon.service.registry;
   requires io.helidon.data.jakarta.persistence;
-  requires spring.beans;
+  requires io.helidon.transaction;
 }
