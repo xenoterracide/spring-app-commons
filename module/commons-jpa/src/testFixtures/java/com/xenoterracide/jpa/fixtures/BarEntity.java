@@ -20,9 +20,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.UUID;
-import org.hibernate.envers.Audited;
 
-@Audited
 @Entity
 public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id, FooAggregate> {
 

@@ -8,9 +8,9 @@ plugins { our.javalibrary }
 
 dependencies {
   annotationProcessor(platform(libs.jakarta.bom))
-  annotationProcessor(platform(libs.helidon.dependencies))
-  annotationProcessor(libs.helidon.bundles.apt)
-  annotationProcessor(libs.helidon.data.jakarta.peristence.codegen)
+  testFixturesAnnotationProcessor(platform(libs.helidon.dependencies))
+  testFixturesAnnotationProcessor(libs.helidon.bundles.apt)
+  testFixturesAnnotationProcessor(libs.helidon.data.jakarta.persistence.codegen)
   annotationProcessor(libs.hibernate.jpa.modelgen)
 
   compileOnly(libs.hibernate.validator)
@@ -21,12 +21,12 @@ dependencies {
   api(libs.jakarta.validation)
   api(libs.jmolecules.ddd)
 
-  implementation(platform(libs.helidon.dependencies))
+  api(platform(libs.helidon.dependencies))
   implementation(libs.commons.lang)
-  implementation(libs.eclipselink.persistence.core)
-  implementation(libs.eclipselink.persistence.jpa)
-  implementation(libs.helidon.data)
-  implementation(libs.helidon.data.jakarta.peristence)
+  testRuntimeOnly(libs.eclipselink.persistence.core)
+  testRuntimeOnly(libs.eclipselink.persistence.jpa)
+  testFixturesApi(libs.helidon.data)
+  testFixturesApi(libs.helidon.data.jakarta.persistence)
 
   // transients required by jakarta transaction which is required by hibernate
   runtimeOnly(libs.bundles.jakarta.transaction)

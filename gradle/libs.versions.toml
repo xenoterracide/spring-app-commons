@@ -5,6 +5,7 @@
 [versions]
 checker = "3.+"
 ep = "2.+"
+jakarta-ee = "10.+"
 helidon = "4.+"
 immutables = "2.+"
 plugin-convention = "0.3.+"
@@ -34,10 +35,11 @@ guava = "com.google.guava:guava:+"
 h2 = { module = "com.h2database:h2" }
 helidon-bundles-apt = { module = "io.helidon.bundles:helidon-bundles-apt", version.ref = "helidon" }
 helidon-codegen-apt = { module = "io.helidon.codegen:helidon-codegen-apt" }
+helidon-config = { module = "io.helidon.config:helidon-config" }
 helidon-config-yaml = { module = "io.helidon.config:helidon-config-yaml" }
 helidon-data = { module = "io.helidon.data:helidon-data" }
-helidon-data-jakarta-peristence = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence" }
-helidon-data-jakarta-peristence-codegen = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence-codegen" }
+helidon-data-jakarta-persistence = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence" }
+helidon-data-jakarta-persistence-codegen = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence-codegen" }
 helidon-dependencies = { module = "io.helidon:helidon-dependencies", version.ref = "helidon" }
 helidon-health-checks = { module = "io.helidon.health:helidon-health-checks" }
 helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-jsonp" }
@@ -66,7 +68,7 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
 jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml" }
 jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names" }
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
-jakarta-bom = "jakarta.platform:jakarta.jakartaee-bom:10.+"
+jakarta-bom = { module = "jakarta.platform:jakarta.jakartaee-bom", version.ref = "jakarta-ee" }
 jakarta-cdi = { module = "jakarta.enterprise:jakarta.enterprise.cdi-api" }
 jakarta-inject = { module = "jakarta.inject:jakarta.inject-api" }
 jakarta-interceptor = { module = "jakarta.interceptor:jakarta.interceptor-api" }

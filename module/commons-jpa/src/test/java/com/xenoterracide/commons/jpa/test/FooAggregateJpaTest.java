@@ -1,4 +1,4 @@
-// Copyright 2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -8,21 +8,15 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import com.xenoterracide.jpa.fixtures.FooAggregate;
 import com.xenoterracide.jpa.fixtures.FooAggregateRepository;
+import io.helidon.service.registry.Services;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.orm.jpa.JpaSystemException;
-import org.springframework.test.context.ActiveProfiles;
 
-@DataJpaTest
-@ActiveProfiles({ "test", "test-jpa" })
 class FooAggregateJpaTest {
 
-  @Autowired
-  FooAggregateRepository repository;
+  FooAggregateRepository repository = Services.get(FooAggregateRepository.class);
 
   @Test
   void noId() {
-    assertThatExceptionOfType(JpaSystemException.class).isThrownBy(() -> repository.save(new FooAggregate()));
+    assertThatExceptionOfType(IllegalAccessException.class).isThrownBy(() -> repository.save(new FooAggregate()));
   }
 }

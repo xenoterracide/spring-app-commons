@@ -1,4 +1,4 @@
-// Copyright 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -26,11 +26,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import org.hibernate.envers.AuditMappedBy;
-import org.hibernate.envers.Audited;
 
 @Entity
-@Audited
 public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregate> {
 
   private String name;
@@ -75,7 +72,6 @@ public class FooAggregate extends AbstractAggregate<FooAggregate.Id, FooAggregat
       .ifPresent(e -> e.changeName(name));
   }
 
-  @AuditMappedBy(mappedBy = "foo")
   @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "foo")
   public Set<BarEntity> getBars() {
     return this.bars;

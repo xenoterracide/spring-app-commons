@@ -4,13 +4,13 @@
 
 package com.xenoterracide.jpa.fixtures;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import io.helidon.data.Data;
 
-public interface FooAggregateRepository extends JpaRepository<FooAggregate, FooAggregate.Id> {
-  @Query("from FooAggregate f inner join fetch f.bars where f.id = :id")
+@Data.Repository
+public interface FooAggregateRepository extends Data.BasicRepository<FooAggregate, FooAggregate.Id> {
+  @Data.Query("from FooAggregate f inner join fetch f.bars where f.id = :id")
   FooAggregate findOneById(FooAggregate.Id id);
 
-  @Query("from BarEntity b where b.id = :id")
+  @Data.Query("from BarEntity b where b.id = :id")
   BarEntity findOneBarEntityById(BarEntity.Id id);
 }
