@@ -43,6 +43,7 @@ helidon-data-jakarta-persistence-codegen = { module = "io.helidon.data.jakarta.p
 helidon-dependencies = { module = "io.helidon:helidon-dependencies", version.ref = "helidon" }
 helidon-health-checks = { module = "io.helidon.health:helidon-health-checks" }
 helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-jsonp" }
+helidon-logging-log4j = { module = "io.helidon.logging:helidon-logging-log4j" }
 helidon-service-codegen = { module = "io.helidon.service:helidon-service-codegen" }
 helidon-service-registry = { module = "io.helidon.service:helidon-service-registry" }
 helidon-webclient = { module = "io.helidon.webclient:helidon-webclient" }

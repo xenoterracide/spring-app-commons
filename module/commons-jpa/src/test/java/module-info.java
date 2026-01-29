@@ -17,4 +17,5 @@ import org.jspecify.annotations.NullMarked;
   requires io.helidon.service.registry;
   requires io.helidon.data.jakarta.persistence;
   requires io.helidon.transaction;
+  requires org.apache.logging.log4j;
 }

@@ -1,32 +1,15 @@
+lo
 data:
+  sources:
+    sql:
+      - name: default
+        provider.hikari:
+          username: sa
+          password: ""
+          url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+          jdbc-driver-class-name: org.h2.Driver
   persistence-units:
     jakarta:
-      - connection:
-          url: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
-          jdbc-driver-class-name: "org.h2.Driver"
-          properties:
-            eclipselink.target-database: "H2"
-            eclipselink.weaving: "false"
-            eclipselink.logging.level: "FINE"
-            eclipselink.ddl-generation: "drop-and-create-tables"
-            eclipselink.ddl-generation.output-mode: "database"
-            jakarta.persistence.schema-generation.database.action: "drop-and-create"
-            jakarta.persistence.jdbc.driver: "org.h2.Driver"
-            jakarta.persistence.jdbc.url: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
-            jakarta.persistence.jdbc.user: "sa"
-            jakarta.persistence.jdbc.password: ""
-      - name: "test"
-        connection:
-          url: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
-          jdbc-driver-class-name: "org.h2.Driver"
-          properties:
-            eclipselink.target-database: "H2"
-            eclipselink.weaving: "false"
-            eclipselink.logging.level: "FINE"
-            eclipselink.ddl-generation: "drop-and-create-tables"
-            eclipselink.ddl-generation.output-mode: "database"
-            jakarta.persistence.schema-generation.database.action: "drop-and-create"
-            jakarta.persistence.jdbc.driver: "org.h2.Driver"
-            jakarta.persistence.jdbc.url: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
-            jakarta.persistence.jdbc.user: "sa"
-            jakarta.persistence.jdbc.password: ""
+      - data-source: "default"
+        properties:
+          jakarta.persistence.schema-generation.database.action: "drop-and-create"

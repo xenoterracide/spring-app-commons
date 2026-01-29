@@ -9,24 +9,27 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import com.xenoterracide.jpa.fixtures.FooAggregate;
 import com.xenoterracide.jpa.fixtures.FooAggregateRepository;
+import io.helidon.data.jakarta.persistence.JpaRepositoryExecutor;
 import io.helidon.service.registry.ServiceRegistryManager;
 import io.helidon.transaction.TxException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class FooAggregateJpaTest {
 
   private static final ServiceRegistryManager REGISTRY_MANAGER = ServiceRegistryManager.start();
+  private static final Logger log = LogManager.getLogger(FooAggregateJpaTest.class);
 
-  static {
+  @BeforeAll
+  static void beforeAll() {
     var registry = REGISTRY_MANAGER.registry();
-    var executor = registry.get(io.helidon.data.jakarta.persistence.JpaRepositoryExecutor.class);
-    executor.run(em -> {
-      System.out.println(
-        "[DEBUG_LOG] Persistence Unit Name: " +
-          em.getEntityManagerFactory().getProperties().get("jakarta.persistence.persistence-unit-name")
-      );
-    });
+    log.warn("got registry");
+    var executor = registry.get(JpaRepositoryExecutor.class);
+    log.warn("got executor");
+    executor.run(em -> log.error("EntityManager Properties: {}", em.getEntityManagerFactory().getProperties()));
   }
 
   FooAggregateRepository repository = REGISTRY_MANAGER.registry().get(FooAggregateRepository.class);

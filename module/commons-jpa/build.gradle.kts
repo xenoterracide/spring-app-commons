@@ -23,8 +23,9 @@ dependencies {
 
   api(platform(libs.helidon.dependencies))
   implementation(libs.commons.lang)
-  testRuntimeOnly(libs.eclipselink.persistence.core)
-  testRuntimeOnly(libs.eclipselink.persistence.jpa)
+  testImplementation(libs.log4j.api)
+  testRuntimeOnly(libs.helidon.logging.log4j)
+  testRuntimeOnly(libs.hibernate.orm.core)
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.helidon.config.yaml)
   testImplementation(libs.helidon.config)
