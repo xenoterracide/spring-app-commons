@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -62,6 +62,7 @@ val available =
 
 tasks.withType<Test>().configureEach {
   useJUnitPlatform()
+  jvmArgs("-Dlog4j2.enableAnsi=true")
   testLogging {
     lifecycle {
       showStandardStreams = true
