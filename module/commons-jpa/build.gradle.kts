@@ -24,6 +24,7 @@ dependencies {
   api(platform(libs.helidon.dependencies))
   implementation(libs.commons.lang)
   testImplementation(libs.log4j.api)
+  testRuntimeOnly(libs.helidon.data.sql.datasource.hikari)
   testRuntimeOnly(libs.helidon.logging.log4j)
   testRuntimeOnly(libs.hibernate.orm.core)
   testRuntimeOnly(libs.h2)

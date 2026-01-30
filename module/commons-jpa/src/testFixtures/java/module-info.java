@@ -6,12 +6,7 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked module com.xenoterracide.jpa.fixtures {
   exports com.xenoterracide.jpa.fixtures;
-  opens com.xenoterracide.jpa.fixtures
-    to
-      org.eclipse.persistence.core,
-      org.eclipse.persistence.jpa,
-      org.eclipse.persistence.asm,
-      org.eclipse.persistence.jpa.jpql;
+  opens com.xenoterracide.jpa.fixtures to org.hibernate.orm.core;
   requires jakarta.persistence;
   requires com.xenoterracide.commons.jpa;
   requires com.xenoterracide.tools.java;

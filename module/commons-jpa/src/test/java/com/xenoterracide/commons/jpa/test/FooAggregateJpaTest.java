@@ -26,10 +26,8 @@ class FooAggregateJpaTest {
   @BeforeAll
   static void beforeAll() {
     var registry = REGISTRY_MANAGER.registry();
-    log.warn("got registry");
     var executor = registry.get(JpaRepositoryExecutor.class);
-    log.warn("got executor");
-    executor.run(em -> log.error("EntityManager Properties: {}", em.getEntityManagerFactory().getProperties()));
+    executor.run(em -> log.info("EntityManager Properties: {}", em.getEntityManagerFactory().getProperties()));
   }
 
   FooAggregateRepository repository = REGISTRY_MANAGER.registry().get(FooAggregateRepository.class);
@@ -52,6 +50,9 @@ class FooAggregateJpaTest {
   void noId() {
     assertThatExceptionOfType(TxException.class)
       .isThrownBy(() -> repository.save(new FooAggregate()))
-      .withStackTraceContaining("jakarta.persistence.PersistenceException");
+      .withStackTraceContaining(
+        "Identifier of entity '%s' must be manually assigned before calling 'persist()'",
+        FooAggregate.class.getCanonicalName()
+      );
   }
 }

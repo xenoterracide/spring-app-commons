@@ -62,7 +62,6 @@ val available =
 
 tasks.withType<Test>().configureEach {
   useJUnitPlatform()
-  jvmArgs("-Dlog4j2.enableAnsi=true")
   testLogging {
     lifecycle {
       showStandardStreams = true

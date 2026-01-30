@@ -5,9 +5,10 @@
 [versions]
 checker = "3.+"
 ep = "2.+"
-jakarta-ee = "10.+"
 helidon = "4.+"
+hibernate = "6.+"
 immutables = "2.+"
+jakarta-ee = "10.+"
 plugin-convention = "0.3.+"
 spring = "3.+"
 
@@ -40,6 +41,8 @@ helidon-config-yaml = { module = "io.helidon.config:helidon-config-yaml" }
 helidon-data = { module = "io.helidon.data:helidon-data" }
 helidon-data-jakarta-persistence = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence" }
 helidon-data-jakarta-persistence-codegen = { module = "io.helidon.data.jakarta.persistence:helidon-data-jakarta-persistence-codegen" }
+helidon-data-sql-datasource-hikari = { module = "io.helidon.data.sql.datasource:helidon-data-sql-datasource-hikari" }
+helidon-dbclient-hikari = { module = "io.helidon.dbclient:helidon-dbclient-hikari" }
 helidon-dependencies = { module = "io.helidon:helidon-dependencies", version.ref = "helidon" }
 helidon-health-checks = { module = "io.helidon.health:helidon-health-checks" }
 helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-jsonp" }
@@ -53,8 +56,8 @@ helidon-webserver-observe-metrics = { module = "io.helidon.webserver.observe:hel
 helidon-webserver-testing-junit5 = { module = "io.helidon.webserver.testing.junit5:helidon-webserver-testing-junit5" }
 
 hibernate-envers = { module = "org.hibernate.orm:hibernate-envers" }
-hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.strictly = "6.+" }
-hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
+hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.ref = "hibernate" }
+hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core", version.ref = "hibernate" }
 hibernate-validator = { module = "org.hibernate.validator:hibernate-validator" }
 httpcomponents-client5 = { module = "org.apache.httpcomponents.client5:httpclient5" }
 httpcomponents-core5-reactive = { module = "org.apache.httpcomponents.core5:httpcore5-reactive" }
