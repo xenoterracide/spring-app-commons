@@ -41,15 +41,8 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
   @Transient
   private boolean dirty;
 
-  @Id
-  @Valid
-  @NotNull
-  @Identity
-  @Column(nullable = false, updatable = false, unique = true)
   private ID id;
 
-  @Version
-  @Column(nullable = false)
   private @Nullable Integer version;
 
   /**
