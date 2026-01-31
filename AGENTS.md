@@ -11,5 +11,3 @@ SPDX-License-Identifier: CC-BY-NC-4.0
 ## Design
 
 - architecture is hexagonal, CQRS
-
-## Commit messages
