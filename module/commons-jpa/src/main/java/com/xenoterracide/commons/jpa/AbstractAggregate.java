@@ -32,9 +32,7 @@ public abstract class AbstractAggregate<ID extends Identifier & Serializable, TH
   /**
    * NO-OP parent constuctor for JPA only.
    */
-  protected AbstractAggregate() {
-    super();
-  }
+  protected AbstractAggregate() {}
 
   /**
    * Instantiates a new Abstract aggregate.

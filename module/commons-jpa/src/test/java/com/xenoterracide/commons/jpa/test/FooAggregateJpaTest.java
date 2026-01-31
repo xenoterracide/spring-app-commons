@@ -22,6 +22,7 @@ class FooAggregateJpaTest {
 
   private static final ServiceRegistryManager REGISTRY_MANAGER = ServiceRegistryManager.start();
   private static final Logger log = LogManager.getLogger(FooAggregateJpaTest.class);
+  FooAggregateRepository repository = REGISTRY_MANAGER.registry().get(FooAggregateRepository.class);
 
   @BeforeAll
   static void beforeAll() {
@@ -29,8 +30,6 @@ class FooAggregateJpaTest {
     var executor = registry.get(JpaRepositoryExecutor.class);
     executor.run(em -> log.info("EntityManager Properties: {}", em.getEntityManagerFactory().getProperties()));
   }
-
-  FooAggregateRepository repository = REGISTRY_MANAGER.registry().get(FooAggregateRepository.class);
 
   @AfterAll
   static void afterAll() {

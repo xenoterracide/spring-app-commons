@@ -1,4 +1,4 @@
-// Copyright 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
 
@@ -30,14 +30,6 @@ public abstract class AbstractIdentitifier implements Serializable, Identifier {
   @NotNull
   private @Nullable UUID value;
 
-  protected @Nullable UUID getValue() {
-    return this.value;
-  }
-
-  protected void setValue(UUID value) {
-    this.value = value;
-  }
-
   /**
    * NO-OP parent constuctor for JPA only.
    */
@@ -50,6 +42,14 @@ public abstract class AbstractIdentitifier implements Serializable, Identifier {
    *   the id
    */
   protected AbstractIdentitifier(UUID value) {
+    this.value = value;
+  }
+
+  protected @Nullable UUID getValue() {
+    return this.value;
+  }
+
+  protected void setValue(UUID value) {
     this.value = value;
   }
 
