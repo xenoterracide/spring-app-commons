@@ -24,8 +24,6 @@ import java.util.UUID;
 @Entity
 public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id, FooAggregate> {
 
-  private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id", "name" };
-
   private String name;
 
   private FooAggregate foo;
@@ -75,13 +73,7 @@ public class BarEntity extends AbstractSurrogateEntity<BarEntity.Id, FooAggregat
 
   void changeName(String name) {
     this.setName(name);
-    this.markDirty();
     this.foo.registerEvent(new NameChanged(this.getId(), name));
-  }
-
-  @Override
-  protected String[] includedFieldsInToString() {
-    return INCLUDED_FIELDS_IN_TO_STRING;
   }
 
   public static class Id extends AbstractIdentitifier {

@@ -9,7 +9,6 @@ import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
 import jakarta.persistence.Version;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -36,24 +35,18 @@ import org.jspecify.annotations.Nullable;
 public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, ?>>
   implements Entity<AGG, ID>, Identifiable<@NonNull ID> {
 
-  private static final String[] INCLUDED_FIELDS_IN_TO_STRING = {
-    AbstractSurrogateEntity_.ID,
-    AbstractSurrogateEntity_.VERSION,
-  };
+  private @Nullable ID id;
 
-  @Transient
-  private boolean dirty;
-
-  private ID id;
-
-  private int version = 0;
+  /**
+   * @implNote The optimistic lock is {@link Nullable} because otherwise a new object would have the same version as
+   *   the first persisted version causing you to be able to have a safe upgrade instead of a conflict.
+   */
+  private @Nullable Integer version;
 
   /**
    * NO-OP parent constuctor for JPA only.
    */
-  protected AbstractSurrogateEntity() {
-    this.dirty = false;
-  }
+  protected AbstractSurrogateEntity() {}
 
   /**
    * Instantiates a new Abstract uuid entity base.
@@ -67,19 +60,12 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
 
   @Version
   @Column(nullable = false)
-  int getVersion() {
+  protected @Nullable Integer getVersion() {
     return this.version;
   }
 
-  protected void setVersion(int version) {
+  protected void setVersion(Integer version) {
     this.version = version;
-  }
-
-  /**
-   * Mark this entity as having changed in memory from persistence.
-   */
-  protected void markDirty() {
-    this.dirty = true;
   }
 
   @Id
@@ -89,7 +75,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
   @Column(nullable = false, updatable = false, unique = true)
   @Override
   public @NonNull ID getId() {
-    return this.id;
+    return Objects.requireNonNull(this.id);
   }
 
   /**
@@ -101,7 +87,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
    */
   @Initializer
   protected void setId(ID id) {
-    this.id = id;
+    this.id = Objects.requireNonNull(id);
   }
 
   @Override
@@ -111,7 +97,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
 
   @Override
   public final int hashCode() {
-    return Objects.hash(this.id, this.version, this.dirty);
+    return Objects.hash(this.id, this.version);
   }
 
   /**
@@ -126,35 +112,30 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
    */
   protected abstract boolean canEqual(AbstractSurrogateEntity<?, ?> that);
 
+  /**
+   * @param other
+   *   the reference object with which to compare.
+   * @return {@code true} if this object is the same as the {@code other}
+   * @implNote check version to avoid bad behavior when added to a {@link java.util.Set}. In java when two objects
+   *   are equal if you try to add bot to the {@link java.util.Set}, the one being added second is ignored. When
+   *   interacting with JPA this can cause surprising behavior as you might wonder why your update isn't updating at
+   *   all. Instead, ensuring that the same object is added to the {@link java.util.Set} twice will ensure a runtime
+   *   error that can be easily seen.
+   */
   @Override
   public final boolean equals(@Nullable Object other) {
     if (other instanceof AbstractSurrogateEntity<?, ?> that) {
       // CHECKSTYLE.OFF: UnnecessaryParentheses
-      return (
-        that.canEqual(this) &&
-        Objects.equals(this.id, that.id) &&
-        Objects.equals(this.version, that.version) &&
-        this.dirty == that.dirty
-      );
+      return (that.canEqual(this) && Objects.equals(this.id, that.id) && Objects.equals(this.version, that.version));
       // CHECKSTYLE.ON: UnnecessaryParentheses
     }
     return false;
   }
 
-  /**
-   * Override to change the fields included in {@link #toString()}.
-   *
-   * @return the fields included in {@link #toString()}
-   * @implSpec the fields should be a static final array of strings
-   */
-  protected String[] includedFieldsInToString() {
-    return INCLUDED_FIELDS_IN_TO_STRING;
-  }
-
   @Override
   public final String toString() {
     return new ReflectionToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
-      .setIncludeFieldNames(this.includedFieldsInToString())
+      .setIncludeFieldNames(AbstractSurrogateEntity_.ID, AbstractSurrogateEntity_.VERSION)
       .toString();
   }
 }
