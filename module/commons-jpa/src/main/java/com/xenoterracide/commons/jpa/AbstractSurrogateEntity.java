@@ -36,14 +36,17 @@ import org.jspecify.annotations.Nullable;
 public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializable, AGG extends AggregateRoot<AGG, ?>>
   implements Entity<AGG, ID>, Identifiable<@NonNull ID> {
 
-  private static final String[] INCLUDED_FIELDS_IN_TO_STRING = { "id" };
+  private static final String[] INCLUDED_FIELDS_IN_TO_STRING = {
+    AbstractSurrogateEntity_.ID,
+    AbstractSurrogateEntity_.VERSION,
+  };
 
   @Transient
   private boolean dirty;
 
   private ID id;
 
-  private @Nullable Integer version;
+  private int version = 0;
 
   /**
    * NO-OP parent constuctor for JPA only.
@@ -63,13 +66,12 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
   }
 
   @Version
-  @Nullable
   @Column(nullable = false)
-  Integer getVersion() {
+  int getVersion() {
     return this.version;
   }
 
-  protected void setVersion(Integer version) {
+  protected void setVersion(int version) {
     this.version = version;
   }
 

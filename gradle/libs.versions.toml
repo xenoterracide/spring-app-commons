@@ -24,6 +24,7 @@ checker-core = { module = "org.checkerframework:checker", version.ref = "checker
 commons-io = "commons-io:commons-io:2.+"
 commons-lang = "org.apache.commons:commons-lang3:3.+"
 compile-testing = "com.google.testing.compile:compile-testing:0.+"
+datasource-proxy = "net.ttddyy:datasource-proxy:1.+"
 equalsverifier = "nl.jqno.equalsverifier:equalsverifier:3.+"
 eclipselink-persistence-core = { module = "org.eclipse.persistence:org.eclipse.persistence.core" }
 eclipselink-persistence-jpa = { module = "org.eclipse.persistence:org.eclipse.persistence.jpa" }
@@ -49,6 +50,7 @@ helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-
 helidon-logging-log4j = { module = "io.helidon.logging:helidon-logging-log4j" }
 helidon-service-codegen = { module = "io.helidon.service:helidon-service-codegen" }
 helidon-service-registry = { module = "io.helidon.service:helidon-service-registry" }
+helidon-transaction-narayana = { module = "io.helidon.transaction:helidon-transaction-narayana" }
 helidon-webclient = { module = "io.helidon.webclient:helidon-webclient" }
 helidon-webserver = { module = "io.helidon.webserver:helidon-webserver" }
 helidon-webserver-observe-health = { module = "io.helidon.webserver.observe:helidon-webserver-observe-health" }

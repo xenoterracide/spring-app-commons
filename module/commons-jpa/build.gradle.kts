@@ -23,13 +23,7 @@ dependencies {
 
   api(platform(libs.helidon.dependencies))
   implementation(libs.commons.lang)
-  testImplementation(libs.log4j.api)
-  testRuntimeOnly(libs.helidon.data.sql.datasource.hikari)
-  testRuntimeOnly(libs.helidon.logging.log4j)
-  testRuntimeOnly(libs.hibernate.orm.core)
-  testRuntimeOnly(libs.h2)
-  testRuntimeOnly(libs.helidon.config.yaml)
-  testImplementation(libs.helidon.config)
+
   testFixturesApi(libs.helidon.data)
   testFixturesApi(libs.helidon.data.jakarta.persistence)
 
@@ -57,17 +51,25 @@ testing {
         implementation(platform(libs.jakarta.bom))
 
         runtimeOnly(libs.h2)
+        runtimeOnly(libs.helidon.logging.log4j)
+        implementation(libs.log4j.api)
+        runtimeOnly(libs.helidon.data.sql.datasource.hikari)
+        runtimeOnly(libs.helidon.config.yaml)
+        implementation(libs.helidon.config)
       }
     }
 
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(libs.spring.orm)
+        runtimeOnly(libs.hibernate.orm.core)
       }
     }
     val testWhitebox by registering(JvmTestSuite::class) {
       dependencies {
         implementation(project())
+        implementation(libs.hibernate.orm.core)
+        implementation(libs.helidon.transaction.narayana)
+        implementation(libs.jakarta.transaction)
         implementation(projects.commonsModel)
         implementation(libs.equalsverifier)
         implementation(libs.commons.lang)
