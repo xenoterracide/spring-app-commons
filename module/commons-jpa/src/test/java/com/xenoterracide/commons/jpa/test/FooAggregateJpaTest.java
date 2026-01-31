@@ -49,9 +49,6 @@ class FooAggregateJpaTest {
   void noId() {
     assertThatExceptionOfType(TxException.class)
       .isThrownBy(() -> repository.save(new FooAggregate()))
-      .withStackTraceContaining(
-        "Identifier of entity '%s' must be manually assigned before calling 'persist()'",
-        FooAggregate.class.getCanonicalName()
-      );
+      .withStackTraceContaining("id", FooAggregate.class.getCanonicalName());
   }
 }

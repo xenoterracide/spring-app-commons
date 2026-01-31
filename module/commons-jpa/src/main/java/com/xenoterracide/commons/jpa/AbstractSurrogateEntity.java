@@ -75,7 +75,7 @@ public abstract class AbstractSurrogateEntity<ID extends Identifier & Serializab
   @Column(nullable = false, updatable = false, unique = true)
   @Override
   public @NonNull ID getId() {
-    return Objects.requireNonNull(this.id);
+    return Objects.requireNonNull(this.id, "id");
   }
 
   /**
