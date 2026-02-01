@@ -16,9 +16,10 @@ SPDX-License-Identifier: CC-BY-NC-4.0
 ## Instructions
 
 - Use for PR's or commit message's
+- this is a git conventional commit format
+  - review `git-conventional-commits.yaml` values in `convention.commitTypes` for `<type>`'s available
 - the git subject line becomes the PR title
 - You MUST follow the exact template
-- this is a git conventional commit format
 
 ## Template
 

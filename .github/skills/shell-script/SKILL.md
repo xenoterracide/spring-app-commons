@@ -13,5 +13,5 @@ SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
 SPDX-License-Identifier: CC-BY-NC-4.0
 -->
 
-- always verify with `shellcheck` for best practices
+- always verify with `shellcheck` for best practices, and fix any issues
 - only write a posix complaint shell script unless otherwise specified or in a shell-specific file such `.zshrc` or files with extensions like `.bash` or `.zsh`
