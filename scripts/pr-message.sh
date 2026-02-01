@@ -42,7 +42,7 @@ fi
 TITLE_FILE=""
 BODY_FILE=""
 BASE_REF="${PRMSG_BASE_REF:-}"
-SKILL_FILE="${PRMSG_SKILL_FILE:-.github/skills/commit-or-pr-message/SKILL.md}"
+SKILL_FILE="${PRMSG_SKILL_FILE:-}"
 DRY_RUN=0
 
 if [ -z "$BASE_REF" ]; then
