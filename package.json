@@ -6,7 +6,6 @@
   "devDependencies": {
     "@github/copilot": "^0.0.400",
     "@prettier/plugin-xml": "^3.4.2",
-    "concurrently": "^9.2.1",
     "git-conventional-commits": "^2.8.0",
     "lint-staged": "^16.2.1",
     "prettier": "^3.6.2",
