@@ -34,7 +34,7 @@ Rules:
 - Keep the FIRST line <= 72 characters.
 - Use a specific scope when possible.
 - Body:
-  - Provide 2-6 bullet points.
+  - Provide 0-6 bullet points.
   - Explain WHAT changed and WHY.
   - Wrap body lines to <= 72 characters.
   - Do not repeat the subject.
