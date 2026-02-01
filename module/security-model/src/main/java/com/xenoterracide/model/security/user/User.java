@@ -20,15 +20,12 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.util.Set;
 import java.util.UUID;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 /**
  * A user.
  */
-@Audited
 @Entity
 @AggregateRoot
 @Table(name = "users")
@@ -52,7 +49,7 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
    * @param identityProviderUsers
    *   the linked identity provider users
    */
-  User(UserId id, String name, Set<IdentityProviderUser> identityProviderUsers) {
+  protected User(UserId id, String name, Set<IdentityProviderUser> identityProviderUsers) {
     super(id);
     this.name = name;
     this.identityProviderUsers = identityProviderUsers;
@@ -67,14 +64,13 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
     return UserBuilder.create();
   }
 
-  @NotAudited
   @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-  Set<IdentityProviderUser> getIdentityProviderUsers() {
+  protected Set<IdentityProviderUser> getIdentityProviderUsers() {
     return this.identityProviderUsers;
   }
 
   @Initializer
-  void setIdentityProviderUsers(Set<IdentityProviderUser> idpUsers) {
+  protected void setIdentityProviderUsers(Set<IdentityProviderUser> idpUsers) {
     this.identityProviderUsers = idpUsers;
   }
 
@@ -108,7 +104,7 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
   }
 
   @Initializer
-  void setName(String name) {
+  protected void setName(String name) {
     this.name = name;
   }
 

@@ -23,6 +23,7 @@ dependencies {
   implementation(libs.helidon.data)
   implementation(libs.helidon.data.jakarta.persistence)
   implementation(libs.java.tools)
+  runtimeOnly(libs.bundles.helidon.data.jpa.runtime)
 
   plantuml(libs.plantuml)
 }

@@ -24,20 +24,7 @@ public interface WritableRepository<AGG, ID extends Serializable> extends Reposi
    *
    * @param aggregate
    *   the aggregate to save.
-   * @param <S>
-   *   potentially a subtype of the aggregate.
    * @return the saved aggregate.
    */
-  <S extends AGG> S save(S aggregate);
-
-  /**
-   * Saves all aggregates.
-   *
-   * @param aggregates
-   *   the aggregates to save.
-   * @param <S>
-   *   potentially a subtype of the aggregate.
-   * @return the saved aggregates.
-   */
-  <S extends AGG> Iterable<S> saveAll(Iterable<S> aggregates);
+  AGG save(AGG aggregate);
 }

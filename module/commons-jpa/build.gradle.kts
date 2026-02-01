@@ -22,6 +22,7 @@ dependencies {
   api(libs.jmolecules.ddd)
 
   api(platform(libs.helidon.dependencies))
+  api(libs.helidon.data)
   implementation(libs.commons.lang)
 
   testFixturesApi(libs.helidon.data)

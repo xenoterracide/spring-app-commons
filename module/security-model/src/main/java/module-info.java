@@ -34,4 +34,5 @@ import org.jspecify.annotations.NullMarked;
   requires io.helidon.service.registry;
   requires io.helidon.data.jakarta.persistence;
   requires io.helidon.config;
+  requires io.helidon.data;
 }
