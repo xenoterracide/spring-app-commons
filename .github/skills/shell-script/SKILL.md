@@ -14,4 +14,4 @@ SPDX-License-Identifier: CC-BY-NC-4.0
 -->
 
 - always verify with `shellcheck` for best practices, and fix any issues
-- only write a posix complaint shell script unless otherwise specified or in a shell-specific file such `.zshrc` or files with extensions like `.bash` or `.zsh`
+- only write a posix compliant shell script unless otherwise specified or in a shell-specific file such `.zshrc` or files with extensions like `.bash` or `.zsh`
