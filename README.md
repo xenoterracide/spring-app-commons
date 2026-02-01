@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 
 SPDX-License-Identifier: CC-BY-NC-4.0
 -->
@@ -32,8 +32,8 @@ In order to get snapshots of dependencies, you must have a GitHub token in your 
 file should look like:
 
 ```properties
-ghUsername = <your username>
-ghPassword = <your token>
+ghUsername=<your username>
+ghPassword=<your token>
 ```
 
 You should generate your PAT
