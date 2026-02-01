@@ -1,5 +1,5 @@
 ---
-name: commit-message
+name: commit-or-pr-message
 description: Generates a concise and descriptive commit or PR message based on the code changes.
 license: CC0-1.0
 metadata:
@@ -34,7 +34,12 @@ Rules:
 - Keep the FIRST line <= 72 characters.
 - Use a specific scope when possible.
 - Body:
-  - Provide 0-6 bullet points.
-  - Explain WHAT changed and WHY.
-  - Wrap body lines to <= 72 characters.
-  - Do not repeat the subject.
+  - Optional
+  - Either:
+    - A short paragraph, or
+    - 0–6 bullet points
+  - Each bullet must describe one complete logical change,
+    including purpose or impact
+  - Do not split a single idea across multiple bullets
+  - Explain WHAT and WHY
+  - Wrap lines to <= 72 chars
