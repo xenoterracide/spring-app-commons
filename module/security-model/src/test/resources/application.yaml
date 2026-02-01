@@ -1,0 +1,19 @@
+data:
+  sources:
+    sql:
+      - name: "example"
+        provider.hikari:
+          username: "sa"
+          password: ""
+          url: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
+          jdbc-driver-class-name: "org.h2.Driver"
+  persistence-units:
+    jakarta:
+      - data-source: "example"
+        # init-script: "init.sql"
+        properties:
+          #          eclipselink.target-database: "MySQL"
+          #          eclipselink.target-server: "None"
+          hibernate:
+            show_sql: true
+          jakarta.persistence.schema-generation.database.action: "drop-and-create"

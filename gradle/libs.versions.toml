@@ -191,6 +191,29 @@ jakarta-transaction = [
   "jakarta-inject",
 ]
 
+helidon-data-jpa-runtime = [
+  # ---- Core DI / registry ----
+  "helidon-service-registry",
+
+  # ---- Data framework ----
+  "helidon-data",
+  "helidon-data-jakarta-persistence",
+
+  # ---- SQL + pooling ----
+  "helidon-data-sql-datasource-hikari",
+
+  # ---- JPA + transactions ----
+  "hibernate-orm-core",
+  "jakarta-transaction",
+
+  # ---- Config ----
+  "helidon-config",
+  "helidon-config-yaml",
+
+  # ---- Logging ----
+  "helidon-logging-log4j",
+]
+
 [plugins]
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis" }
 gradle-plugin-publish = { id = "com.gradle.plugin-publish", version = "1.+" }

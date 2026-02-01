@@ -29,6 +29,7 @@ dependencies {
 
   // transients required by jakarta transaction which is required by hibernate
   runtimeOnly(libs.bundles.jakarta.transaction)
+  runtimeOnly(libs.bundles.helidon.data.jpa.runtime)
 
   testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
 
@@ -51,11 +52,7 @@ testing {
         implementation(platform(libs.jakarta.bom))
 
         runtimeOnly(libs.h2)
-        runtimeOnly(libs.helidon.logging.log4j)
         implementation(libs.log4j.api)
-        runtimeOnly(libs.helidon.data.sql.datasource.hikari)
-        runtimeOnly(libs.helidon.config.yaml)
-        implementation(libs.helidon.config)
       }
     }
 

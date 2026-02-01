@@ -30,4 +30,8 @@ import org.jspecify.annotations.NullMarked;
   requires spring.data.jpa;
   requires org.hibernate.orm.envers;
   requires org.jmolecules.ddd;
+  requires io.helidon.common;
+  requires io.helidon.service.registry;
+  requires io.helidon.data.jakarta.persistence;
+  requires io.helidon.config;
 }

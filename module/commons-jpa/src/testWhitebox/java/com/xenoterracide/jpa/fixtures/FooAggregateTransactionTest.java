@@ -16,7 +16,6 @@ import io.helidon.transaction.Tx;
 import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.assertj.core.api.Assertions;
 import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.AfterAll;
@@ -53,11 +52,11 @@ class FooAggregateTransactionTest {
     var f0 = Tx.transaction(() -> repository.findOneById(newAgg.getId()));
     log.info("FOUND: {}", f0);
 
-    Assertions.assertThat(f0)
+    assertThat(f0)
       .isNotNull()
       .isNotSameAs(newAgg)
-      .isEqualTo(newAgg)
-      .satisfies(agg -> Assertions.assertThat(agg.getBars()).hasSize(1))
+      .isNotEqualTo(newAgg)
+      .satisfies(agg -> assertThat(agg.getBars()).hasSize(1))
       .extracting(Identifiable::getId, FooAggregate::getName)
       .containsExactly(newAgg.getId(), "new");
 
@@ -67,12 +66,12 @@ class FooAggregateTransactionTest {
 
     var f1 = Tx.transaction(() -> repository.findOneById(newAgg.getId()));
 
-    Assertions.assertThat(f1)
+    assertThat(f1)
       .isNotNull()
       .isNotSameAs(newAgg)
       .isNotEqualTo(newAgg)
       .satisfies(agg -> {
-        Assertions.assertThat(agg.getBars())
+        assertThat(agg.getBars())
           .hasSize(1)
           .extracting(Identifiable::getId)
           .containsExactly(f0.getBars().stream().map(AbstractSurrogateEntity::getId).findFirst().orElseThrow());
@@ -91,16 +90,16 @@ class FooAggregateTransactionTest {
 
     var f2 = Tx.transaction(() -> repository.findOneById(newAgg.getId()));
 
-    Assertions.assertThat(f2)
+    assertThat(f2)
       .isNotNull()
       .isNotSameAs(newAgg)
       .isNotEqualTo(newAgg)
       .satisfies(agg -> {
-        Assertions.assertThat(agg.getBars())
+        assertThat(agg.getBars())
           .hasSize(4)
           .extracting(BarEntity::getName)
           .containsExactlyInAnyOrder("new0", "new1", "new2", "new3");
-        Assertions.assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
+        assertThat(Hibernate.isInitialized(agg.getBars())).isTrue().describedAs("initialized");
       })
       .hasFieldOrPropertyWithValue(AbstractSurrogateEntity_.VERSION, 1)
       .extracting(Identifiable::getId, FooAggregate::getName)
@@ -149,15 +148,15 @@ class FooAggregateTransactionTest {
       return repository.save(newAgg);
     });
 
-    Assertions.assertThat(saved).isNotNull();
+    assertThat(saved).isNotNull();
 
     var f0 = Tx.transaction(() -> repository.findById(saved.getId()).orElseThrow());
 
-    Assertions.assertThat(f0).isNotNull();
-    Assertions.assertThat(Hibernate.isInitialized(f0.getBars())).isFalse().describedAs("initialized");
+    assertThat(f0).isNotNull();
+    assertThat(Hibernate.isInitialized(f0.getBars())).isFalse().describedAs("initialized");
     assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(() -> {
       // attempt to initialize proxy outside of transaction
-      Assertions.assertThat(f0.getBars()).isNotEmpty();
+      assertThat(f0.getBars()).isNotEmpty();
     });
   }
 
@@ -170,27 +169,27 @@ class FooAggregateTransactionTest {
       return repository.save(newAgg);
     });
 
-    Assertions.assertThat(foo).isNotNull();
+    assertThat(foo).isNotNull();
 
     var saved = foo.getBars().stream().findAny().get();
 
     var bar = Tx.transaction(() -> repository.findOneBarEntityById(saved.getId()));
 
-    Assertions.assertThat(bar).isNotNull();
-    Assertions.assertThat(Hibernate.isInitialized(bar.getFoo())).isFalse().describedAs("initialized");
+    assertThat(bar).isNotNull();
+    assertThat(Hibernate.isInitialized(bar.getFoo())).isFalse().describedAs("initialized");
 
     // if designed right asking for an id we already have shouldn't trigger a load
-    Assertions.assertThat(bar.getFoo().getId()).isNotNull();
-    Assertions.assertThat(Hibernate.isInitialized(bar.getFoo())).isFalse().describedAs("still not lazy loaded");
+    assertThat(bar.getFoo().getId()).isNotNull();
+    assertThat(Hibernate.isInitialized(bar.getFoo())).isFalse().describedAs("still not lazy loaded");
 
-    Assertions.assertThat(bar).isNotSameAs(saved).isEqualTo(saved);
+    assertThat(bar).isNotSameAs(saved).isEqualTo(saved);
 
     // checking this way as assertThat calls toString which trigers proxy load, proxy can't be equal to non-proxy
     assertThat(Objects.equals(bar.getFoo(), foo)).isFalse().describedAs("foo equality");
 
     assertThatExceptionOfType(LazyInitializationException.class).isThrownBy(() -> {
       // attempt to initialize proxy outside of transaction
-      Assertions.assertThat(bar.getFoo().getName()).isNotEmpty();
+      assertThat(bar.getFoo().getName()).isNotEmpty();
     });
   }
 }
