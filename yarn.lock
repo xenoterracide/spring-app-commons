@@ -47,6 +47,89 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@github/copilot-darwin-arm64@npm:0.0.400":
+  version: 0.0.400
+  resolution: "@github/copilot-darwin-arm64@npm:0.0.400"
+  bin:
+    copilot-darwin-arm64: copilot
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@github/copilot-darwin-x64@npm:0.0.400":
+  version: 0.0.400
+  resolution: "@github/copilot-darwin-x64@npm:0.0.400"
+  bin:
+    copilot-darwin-x64: copilot
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@github/copilot-linux-arm64@npm:0.0.400":
+  version: 0.0.400
+  resolution: "@github/copilot-linux-arm64@npm:0.0.400"
+  bin:
+    copilot-linux-arm64: copilot
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@github/copilot-linux-x64@npm:0.0.400":
+  version: 0.0.400
+  resolution: "@github/copilot-linux-x64@npm:0.0.400"
+  bin:
+    copilot-linux-x64: copilot
+  conditions: os=linux & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@github/copilot-win32-arm64@npm:0.0.400":
+  version: 0.0.400
+  resolution: "@github/copilot-win32-arm64@npm:0.0.400"
+  bin:
+    copilot-win32-arm64: copilot.exe
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@github/copilot-win32-x64@npm:0.0.400":
+  version: 0.0.400
+  resolution: "@github/copilot-win32-x64@npm:0.0.400"
+  bin:
+    copilot-win32-x64: copilot.exe
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@github/copilot@npm:^0.0.400":
+  version: 0.0.400
+  resolution: "@github/copilot@npm:0.0.400"
+  dependencies:
+    "@github/copilot-darwin-arm64": "npm:0.0.400"
+    "@github/copilot-darwin-x64": "npm:0.0.400"
+    "@github/copilot-linux-arm64": "npm:0.0.400"
+    "@github/copilot-linux-x64": "npm:0.0.400"
+    "@github/copilot-win32-arm64": "npm:0.0.400"
+    "@github/copilot-win32-x64": "npm:0.0.400"
+  dependenciesMeta:
+    "@github/copilot-darwin-arm64":
+      optional: true
+    "@github/copilot-darwin-x64":
+      optional: true
+    "@github/copilot-linux-arm64":
+      optional: true
+    "@github/copilot-linux-x64":
+      optional: true
+    "@github/copilot-win32-arm64":
+      optional: true
+    "@github/copilot-win32-x64":
+      optional: true
+  bin:
+    copilot: npm-loader.js
+  checksum: 10c0/2f9fe0b65564b43b053e1f157666fdfff0c9c4f21a2fa1127c5d729eef4a164344d1ff26bd0ca8c463d00806b9dbddd453d9bbebdda94ed9561fda3a092d5ace
+  languageName: node
+  linkType: hard
+
 "@prettier/plugin-xml@npm:^3.4.2":
   version: 3.4.2
   resolution: "@prettier/plugin-xml@npm:3.4.2"
@@ -55,13 +138,6 @@ __metadata:
   peerDependencies:
     prettier: ^3.0.0
   checksum: 10c0/e5343e71b3c2850d879bb4390d9918dab1238eb79adefb1357a4e4c7207a19a1ac8192a967112325e1280f0d6bda397014fd83df6f8844e0afac5e2d747a814b
-  languageName: node
-  linkType: hard
-
-"@reteps/dockerfmt@npm:^0.3.6":
-  version: 0.3.6
-  resolution: "@reteps/dockerfmt@npm:0.3.6"
-  checksum: 10c0/b6ca467ba97ea49071c44d0fbecf131fc8045165e950d0d01372c1834000c58d53f62bff42f09b851f7a9d91899047f071cd8fe57e1fc88fc27e2a3d2bdb214d
   languageName: node
   linkType: hard
 
@@ -472,18 +548,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sh@npm:^0.18.0":
-  version: 0.18.0
-  resolution: "prettier-plugin-sh@npm:0.18.0"
-  dependencies:
-    "@reteps/dockerfmt": "npm:^0.3.6"
-    sh-syntax: "npm:^0.5.8"
-  peerDependencies:
-    prettier: ^3.6.0
-  checksum: 10c0/d8946440abaab1c0f32cee270e0ad285e1f4bba0008aff7c55a9a1c8639032aa8b397aef8f8387a5b88c3f4fb657f1d4d1ab7ae6a1f5c4599875080fb951b9b1
-  languageName: node
-  linkType: hard
-
 "prettier-plugin-toml@npm:^2.0.6":
   version: 2.0.6
   resolution: "prettier-plugin-toml@npm:2.0.6"
@@ -535,15 +599,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sh-syntax@npm:^0.5.8":
-  version: 0.5.8
-  resolution: "sh-syntax@npm:0.5.8"
-  dependencies:
-    tslib: "npm:^2.8.1"
-  checksum: 10c0/2d2609fc8760ef97175c852be26ee3eeb196078c5aec282c8b96a59ee362be4f470d3e0df4e372da6c7a7b44ccc42910cbdcb0915271b3cb6a6212d00dde116f
-  languageName: node
-  linkType: hard
-
 "signal-exit@npm:^4.1.0":
   version: 4.1.0
   resolution: "signal-exit@npm:4.1.0"
@@ -565,13 +620,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "spring-app-commons@workspace:."
   dependencies:
+    "@github/copilot": "npm:^0.0.400"
     "@prettier/plugin-xml": "npm:^3.4.2"
     git-conventional-commits: "npm:^2.8.0"
     lint-staged: "npm:^16.2.1"
     prettier: "npm:^3.6.2"
     prettier-plugin-java: "npm:^2.7.5"
     prettier-plugin-properties: "npm:^0.3.0"
-    prettier-plugin-sh: "npm:^0.18.0"
     prettier-plugin-toml: "npm:^2.0.6"
   languageName: unknown
   linkType: soft
@@ -639,13 +694,6 @@ __metadata:
   dependencies:
     is-number: "npm:^7.0.0"
   checksum: 10c0/487988b0a19c654ff3e1961b87f471702e708fa8a8dd02a298ef16da7206692e8552a0250e8b3e8759270f62e9d8314616f6da274734d3b558b1fc7b7724e892
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.8.1":
-  version: 2.8.1
-  resolution: "tslib@npm:2.8.1"
-  checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
   languageName: node
   linkType: hard
 

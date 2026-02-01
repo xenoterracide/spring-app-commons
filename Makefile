@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+# SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 #
 # SPDX-License-Identifier: MIT
 
@@ -64,7 +64,35 @@ up-all-deps:
 	./gradlew build --write-locks --scan --console=plain | grep -e FAILED -e https
 
 create-pr:
-	gh pr create --body "" || exit 0
+	@tmp_dir=$$(mktemp -d); \
+	head_before=$$(git rev-parse HEAD); \
+	if gh pr view --json number > /dev/null 2>&1; then \
+		./gradlew check; \
+		printf '%s\n' "Updating PR message..."; \
+		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+		  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		head_after=$$(git rev-parse HEAD); \
+		if [ "$$head_before" != "$$head_after" ]; then \
+			./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+			  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		fi; \
+		title=$$(cat "$$tmp_dir/title.txt"); \
+		gh pr edit --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
+		GH_PAGER=cat gh pr view; \
+	else \
+		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+		  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		head_after=$$(git rev-parse HEAD); \
+		if [ "$$head_before" != "$$head_after" ]; then \
+			./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+			  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		fi; \
+		title=$$(cat "$$tmp_dir/title.txt"); \
+		gh pr create --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
+		printf '%s\n' "PR created with generated message."; \
+		GH_PAGER=cat gh pr view; \
+	fi; \
+	rm -rf "$$tmp_dir"
 
 push:
 	git push
@@ -74,6 +102,15 @@ merge-head:
 	git merge origin/HEAD
 
 merge-squash:
+	@if [ -n "$$({ git status --porcelain=1 2>/dev/null; } )" ]; then \
+		printf '%s\n' "WARNING: Uncommitted changes detected. Review before merge." 1>&2; \
+	fi; \
+	printf '%s' "Proceed with squash merge? [Y/n] "; \
+	read -r reply; \
+	case "$$reply" in \
+		""|y|Y|yes|YES) ;; \
+		*) printf '%s\n' "Merge cancelled."; exit 1 ;; \
+	esac; \
 	gh pr merge --squash --delete-branch --auto
 
 run-url:
