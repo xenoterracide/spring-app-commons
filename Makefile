@@ -65,10 +65,29 @@ up-all-deps:
 
 create-pr:
 	@tmp_dir=$$(mktemp -d); \
-	./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
-	  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
-	title=$$(cat "$$tmp_dir/title.txt"); \
-	gh pr create --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
+	head_before=$$(git rev-parse HEAD); \
+	if gh pr view --json number > /dev/null 2>&1; then \
+		./gradlew check; \
+		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+		  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		head_after=$$(git rev-parse HEAD); \
+		if [ "$$head_before" != "$$head_after" ]; then \
+			./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+			  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		fi; \
+		title=$$(cat "$$tmp_dir/title.txt"); \
+		gh pr edit --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
+	else \
+		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+		  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		head_after=$$(git rev-parse HEAD); \
+		if [ "$$head_before" != "$$head_after" ]; then \
+			./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+			  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		fi; \
+		title=$$(cat "$$tmp_dir/title.txt"); \
+		gh pr create --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
+	fi; \
 	rm -rf "$$tmp_dir"
 
 push:
