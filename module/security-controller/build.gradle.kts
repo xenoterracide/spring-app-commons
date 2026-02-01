@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -21,30 +21,16 @@ val demoServerRuntimeOnly by configurations.existing
 val demoServerApi by configurations.existing
 
 dependencies {
-  api(libs.spring.context)
-
   compileOnly(libs.hibernate.validator)
 
   implementation(libs.jakarta.validation)
-  implementation(libs.spring.graphql.core)
   implementation(projects.securityModel)
 
-  runtimeOnly(libs.starter.graphql)
-  runtimeOnly(libs.starter.validation)
-  runtimeOnly(libs.starter.web)
-
-  testImplementation(libs.spring.beans)
-  testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.spring.boot.test.core)
-  testImplementation(libs.spring.graphql.test)
-  // testImplementation(libs.spring.orm)
-  testImplementation(libs.spring.test)
+  runtimeOnly(platform(libs.helidon.dependencies))
 
   testRuntimeOnly(projects.testAppCore)
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(libs.mockito)
-  testRuntimeOnly(libs.starter.webflux)
-  testRuntimeOnly(libs.starter.test)
 
   demoServerApi(platform(libs.spring.bom))
   demoServerApi(libs.spring.boot.autoconfigure)
