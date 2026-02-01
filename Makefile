@@ -98,6 +98,15 @@ merge-head:
 	git merge origin/HEAD
 
 merge-squash:
+	@if [ -n "$$({ git status --porcelain=1 2>/dev/null; } )" ]; then \
+		printf '%s\n' "WARNING: Uncommitted changes detected. Review before merge." 1>&2; \
+	fi; \
+	printf '%s' "Proceed with squash merge? [Y/n] "; \
+	read -r reply; \
+	case "$$reply" in \
+		""|y|Y|yes|YES) ;; \
+		*) printf '%s\n' "Merge cancelled."; exit 1 ;; \
+	esac; \
 	gh pr merge --squash --delete-branch --auto
 
 run-url:
