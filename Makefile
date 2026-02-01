@@ -68,6 +68,7 @@ create-pr:
 	head_before=$$(git rev-parse HEAD); \
 	if gh pr view --json number > /dev/null 2>&1; then \
 		./gradlew check; \
+		printf '%s\n' "Updating PR message..."; \
 		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
 		  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
 		head_after=$$(git rev-parse HEAD); \
@@ -76,7 +77,6 @@ create-pr:
 			  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
 		fi; \
 		title=$$(cat "$$tmp_dir/title.txt"); \
-		printf '%s\n' "Updating PR message..."; \
 		gh pr edit --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
 		gh --no-pager pr view; \
 	else \
