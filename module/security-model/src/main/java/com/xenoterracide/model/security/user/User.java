@@ -10,6 +10,8 @@ import com.xenoterracide.commons.jpa.AbstractIdentitifier;
 import com.xenoterracide.commons.jpa.AbstractSurrogateEntity;
 import com.xenoterracide.commons.model.Nameable;
 import com.xenoterracide.tools.java.annotation.Initializer;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import org.jmolecules.ddd.annotation.AggregateRoot;
@@ -27,12 +30,13 @@ import org.jmolecules.ddd.annotation.ValueObject;
  * A user.
  */
 @Entity
+@Access(AccessType.PROPERTY)
 @AggregateRoot
 @Table(name = "users")
 public class User extends AbstractAggregate<User.UserId, User> implements Nameable {
 
   private String name;
-  private Set<IdentityProviderUser> identityProviderUsers;
+  private List<IdentityProviderUser> identityProviderUsers;
 
   /**
    * For JPA.
@@ -49,7 +53,7 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
    * @param identityProviderUsers
    *   the linked identity provider users
    */
-  protected User(UserId id, String name, Set<IdentityProviderUser> identityProviderUsers) {
+  protected User(UserId id, String name, List<IdentityProviderUser> identityProviderUsers) {
     super(id);
     this.name = name;
     this.identityProviderUsers = identityProviderUsers;
@@ -65,12 +69,12 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
   }
 
   @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-  protected Set<IdentityProviderUser> getIdentityProviderUsers() {
+  protected List<IdentityProviderUser> getIdentityProviderUsers() {
     return this.identityProviderUsers;
   }
 
   @Initializer
-  protected void setIdentityProviderUsers(Set<IdentityProviderUser> idpUsers) {
+  protected void setIdentityProviderUsers(List<IdentityProviderUser> idpUsers) {
     this.identityProviderUsers = idpUsers;
   }
 

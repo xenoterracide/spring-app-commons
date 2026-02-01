@@ -4,8 +4,8 @@
 
 package com.xenoterracide.model.security.user;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import org.immutables.builder.Builder;
 import org.immutables.value.Value;
 import org.jmolecules.architecture.layered.InfrastructureLayer;
@@ -20,8 +20,8 @@ final class UserFactory {
   private UserFactory() {}
 
   @Builder.Factory
-  static User user(String name, Set<IdentityProviderUser> identityProviderUsers) {
-    return new User(User.UserId.create(), name, new HashSet<>(identityProviderUsers));
+  static User user(String name, List<IdentityProviderUser> identityProviderUsers) {
+    return new User(User.UserId.create(), name, new ArrayList<>(identityProviderUsers));
   }
 
   @Builder.Factory

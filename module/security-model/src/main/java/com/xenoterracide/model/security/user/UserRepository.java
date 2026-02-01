@@ -7,7 +7,6 @@ package com.xenoterracide.model.security.user;
 import io.helidon.data.Data;
 import java.util.Optional;
 import org.jmolecules.ddd.annotation.Repository;
-import org.springframework.data.jpa.repository.Query;
 
 /**
  * Repository for {@link User}.
@@ -31,6 +30,6 @@ public interface UserRepository extends Data.BasicRepository<User, User.UserId> 
    *   the identity provider user id
    * @return the user
    */
-  @Query("select u from User u join u.identityProviderUsers i where i.id = ?1")
+  @Data.Query("select u from User u join u.identityProviderUsers i where i.id = :id")
   Optional<User> findByIdentityProviderUser(IdentityProviderUser.IdentityProviderUserId id);
 }

@@ -26,4 +26,6 @@ import org.jspecify.annotations.NullMarked;
   requires io.helidon.data.jakarta.persistence;
   requires org.apache.logging.log4j;
   requires io.helidon.config;
+  requires io.helidon.transaction;
+  requires spring.data.commons;
 }

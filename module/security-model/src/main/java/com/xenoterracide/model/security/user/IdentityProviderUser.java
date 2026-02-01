@@ -5,6 +5,8 @@
 package com.xenoterracide.model.security.user;
 
 import com.xenoterracide.tools.java.annotation.Initializer;
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
@@ -34,6 +36,7 @@ import org.jspecify.annotations.Nullable;
  */
 @jakarta.persistence.Entity
 @org.jmolecules.ddd.annotation.Entity
+@Access(AccessType.PROPERTY)
 @Table(name = "identity_provider_users")
 public class IdentityProviderUser implements Entity<User, IdentityProviderUser.IdentityProviderUserId> {
 
@@ -64,10 +67,6 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
     return IdentityProviderUserBuilder.create();
   }
 
-  boolean hasUser() {
-    return this.user != null;
-  }
-
   @Identity
   @EmbeddedId
   @NotNull
@@ -77,7 +76,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
   }
 
   @Initializer
-  void setId(IdentityProviderUserId id) {
+  protected void setId(IdentityProviderUserId id) {
     this.id = id;
   }
 
@@ -123,12 +122,12 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
     name = "user_id",
     foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
   )
-  public User getUser() {
-    return Objects.requireNonNull(this.user);
+  public @Nullable User getUser() {
+    return this.user;
   }
 
   @Initializer
-  void setUser(User user) {
+  protected void setUser(User user) {
     this.user = user;
   }
 
@@ -197,7 +196,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
      */
     protected IdentityProviderUserId() {}
 
-    IdentityProviderUserId(IdP idP, String idPUserId, User.UserId userId) {
+    protected IdentityProviderUserId(IdP idP, String idPUserId, User.UserId userId) {
       this.idP = idP;
       this.idPUserId = idPUserId;
       this.userId = userId;
@@ -205,12 +204,12 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
 
     @Column(nullable = false, insertable = false, updatable = false)
     @Enumerated(EnumType.STRING)
-    IdP getIdP() {
+    protected IdP getIdP() {
       return this.idP;
     }
 
     @Initializer
-    void setIdP(IdP idP) {
+    protected void setIdP(IdP idP) {
       this.idP = idP;
     }
 
@@ -246,21 +245,21 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
     }
 
     @Column(nullable = false, updatable = false, name = "idp_user_id")
-    String getIdPUserId() {
+    protected String getIdPUserId() {
       return this.idPUserId;
     }
 
     @Initializer
-    void setIdPUserId(String idPUserId) {
+    protected void setIdPUserId(String idPUserId) {
       this.idPUserId = idPUserId;
     }
 
-    User.UserId getUserId() {
+    protected User.UserId getUserId() {
       return this.userId;
     }
 
     @Initializer
-    void setUserId(User.UserId userId) {
+    protected void setUserId(User.UserId userId) {
       this.userId = userId;
     }
   }

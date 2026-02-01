@@ -7,10 +7,12 @@ package com.xenoterracide.model.security.user.test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.xenoterracide.model.security.fixtures.UserTestDataBuilder;
+import com.xenoterracide.model.security.user.IdentityProviderUser;
+import com.xenoterracide.model.security.user.User;
 import com.xenoterracide.model.security.user.UserRepository;
 import io.helidon.data.jakarta.persistence.JpaRepositoryExecutor;
 import io.helidon.service.registry.ServiceRegistryManager;
-import jakarta.persistence.EntityManager;
+import io.helidon.transaction.Tx;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
@@ -22,7 +24,6 @@ class UserJpaTest {
   static final ServiceRegistryManager REGISTRY_MANAGER = ServiceRegistryManager.start();
   static final Logger log = LogManager.getLogger(UserJpaTest.class);
   UserRepository userRepository = REGISTRY_MANAGER.registry().get(UserRepository.class);
-  EntityManager em = REGISTRY_MANAGER.registry().get(EntityManager.class);
 
   @BeforeAll
   static void beforeAll() {
@@ -40,15 +41,17 @@ class UserJpaTest {
   void save() {
     var u0 = UserTestDataBuilder.create().build();
     userRepository.save(u0);
-    em.flush();
-    em.clear();
 
-    var u1 = userRepository.findById(u0.getId()).orElseThrow();
+    var u1Pair = Tx.transaction(() -> {
+      var user = userRepository.findById(u0.getId()).orElseThrow();
+      var ipdId = user.linkedIdentityProviderUsers().iterator().next().getId();
+      return new UserIdPair(ipdId, user);
+    });
 
-    var u2 = userRepository
-      .findByIdentityProviderUser(u1.linkedIdentityProviderUsers().iterator().next().getId())
-      .orElseThrow();
+    var u2 = userRepository.findByIdentityProviderUser(u1Pair.idpUserId()).orElseThrow();
 
-    assertThat(u2).isEqualTo(u1);
+    assertThat(u2).isEqualTo(u1Pair.user());
   }
+
+  record UserIdPair(IdentityProviderUser.IdentityProviderUserId idpUserId, User user) {}
 }
