@@ -78,7 +78,7 @@ create-pr:
 		fi; \
 		title=$$(cat "$$tmp_dir/title.txt"); \
 		gh pr edit --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
-		gh --no-pager pr view; \
+		GH_PAGER=cat gh pr view; \
 	else \
 		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
 		  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
@@ -90,7 +90,7 @@ create-pr:
 		title=$$(cat "$$tmp_dir/title.txt"); \
 		gh pr create --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
 		printf '%s\n' "PR created with generated message."; \
-		gh --no-pager pr view; \
+		GH_PAGER=cat gh pr view; \
 	fi; \
 	rm -rf "$$tmp_dir"
 
