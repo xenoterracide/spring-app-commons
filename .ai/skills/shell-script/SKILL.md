@@ -1,5 +1,5 @@
 ---
-name: commit-message
+name: shell-script
 description: Write a shell script
 license: CC0-1.0
 metadata:
