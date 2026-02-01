@@ -1,9 +1,10 @@
 ---
 name: commit-message
-description: Generates a concise and descriptive commit message based on the provided code changes.
+description: Generates a concise and descriptive commit or PR message based on the code changes.
 license: CC0-1.0
 metadata:
   author: Caleb Cushing
+allowed-tools: bash(git:*) bash(make:*)
 ---
 
 <!--
@@ -12,7 +13,14 @@ SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
 SPDX-License-Identifier: CC-BY-NC-4.0
 -->
 
-You MUST follow this exact template:
+## Instructions
+
+- Use for PR's or commit message's
+- the git subject line becomes the PR title
+- You MUST follow the exact template
+- this is a git conventional commit format
+
+## Template
 
 <type>(<scope>): <summary>
 
