@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+# SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 #
 # SPDX-License-Identifier: MIT
 
@@ -64,7 +64,12 @@ up-all-deps:
 	./gradlew build --write-locks --scan --console=plain | grep -e FAILED -e https
 
 create-pr:
-	gh pr create --body "" || exit 0
+	@tmp_dir=$$(mktemp -d); \
+	./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+	  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+	title=$$(cat "$$tmp_dir/title.txt"); \
+	gh pr create --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
+	rm -rf "$$tmp_dir"
 
 push:
 	git push
