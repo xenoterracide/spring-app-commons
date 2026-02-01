@@ -76,8 +76,8 @@ create-pr:
 			  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
 		fi; \
 		title=$$(cat "$$tmp_dir/title.txt"); \
+		printf '%s\n' "Updating PR message..."; \
 		gh pr edit --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
-		printf '%s\n' "PR message updated."; \
 		gh --no-pager pr view; \
 	else \
 		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
