@@ -29,7 +29,15 @@ if ! command -v "$YARN_CMD" > /dev/null 2>&1; then
   fi
 fi
 
-COPILOT_DLX_PACKAGE="${COPILOT_PRMSG_DLX_PACKAGE:-${COPILOT_COMMITMSG_DLX_PACKAGE:-@github/copilot-cli}}"
+if [ ! -f "yarn.lock" ] || ! grep -q "@github/copilot@" yarn.lock; then
+  printf '%s\n' "pr-message: ERROR: @github/copilot is not installed (add it to devDependencies)" 1>&2
+  exit 1
+fi
+
+if ! $YARN_CMD exec copilot --help > /dev/null 2>&1; then
+  printf '%s\n' "pr-message: ERROR: copilot CLI not available via yarn exec" 1>&2
+  exit 1
+fi
 
 TITLE_FILE=""
 BODY_FILE=""
@@ -141,7 +149,7 @@ Rules:
 - Keep the FIRST line <= 72 characters.
 - Use a specific scope when possible.
 - Body:
-  - Provide 2-6 bullet points.
+  - Provide 0-6 bullet points.
   - Explain WHAT changed and WHY.
   - Wrap body lines to <= 72 characters.
   - Do not repeat the subject.
@@ -182,32 +190,12 @@ COPILOT_FALLBACK_MODEL="${COPILOT_PRMSG_FALLBACK_MODEL:-${COPILOT_COMMITMSG_FALL
 log "pr-message: invoking copilot (files: $(printf '%s\n' "$CHANGED_FILES" | wc -l | tr -d ' '))"
 log "pr-message: copilot model=$COPILOT_MODEL (fallback=$COPILOT_FALLBACK_MODEL)"
 
-run_copilot_exec() {
-  _model="$1"
-  _out_file="$2"
-  _err_file="$3"
-
-  $YARN_CMD exec copilot --model "$_model" -s -p "$PROMPT" > "$_out_file" 2> "$_err_file" || return $?
-}
-
-run_copilot_dlx() {
-  _model="$1"
-  _out_file="$2"
-  _err_file="$3"
-
-  $YARN_CMD dlx "$COPILOT_DLX_PACKAGE" --model "$_model" -s -p "$PROMPT" > "$_out_file" 2> "$_err_file" || return $?
-}
-
 run_copilot() {
   _model="$1"
   _out_file="$2"
   _err_file="$3"
 
-  run_copilot_exec "$_model" "$_out_file" "$_err_file" || true
-  if grep -qi "command not found: copilot" "$_err_file"; then
-    log "pr-message: copilot not found in repo; trying yarn dlx $COPILOT_DLX_PACKAGE"
-    run_copilot_dlx "$_model" "$_out_file" "$_err_file" || return $?
-  fi
+  $YARN_CMD exec copilot --model "$_model" -s -p "$PROMPT" > "$_out_file" 2> "$_err_file" || return $?
 }
 
 TMP_OUT=$(mktemp)
