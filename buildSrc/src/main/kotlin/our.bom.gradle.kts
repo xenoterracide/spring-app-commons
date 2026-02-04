@@ -20,11 +20,6 @@ configurations.configureEach {
   exclude(group = "org.junit.jupiter", module = "junit-jupiter")
 
   resolutionStrategy {
-    eachDependency {
-      if (requested.group == "io.github.graphql-java" && requested.name == "graphql-java-annotations") {
-        useVersion("21.5")
-      }
-    }
     componentSelection {
       all {
         val nonRelease = Regex("^[\\d.]+-(RC|M|ea|beta|alpha).*$")

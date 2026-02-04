@@ -5,6 +5,7 @@
 [versions]
 checker = "3.+"
 ep = "2.+"
+graphql-java-annotations = "+"
 helidon = "4.+"
 hibernate = "6.+"
 immutables = "2.+"
@@ -33,7 +34,7 @@ errorprone-core = { module = "com.google.errorprone:error_prone_core", version.r
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
 google-java-format = "com.google.googlejavaformat:google-java-format:+"
 graphql-java = { module = "com.graphql-java:graphql-java" }
-graphql-java-annotations = { module = "io.github.graphql-java:graphql-java-annotations" }
+graphql-java-annotations = { module = "io.github.graphql-java:graphql-java-annotations", version.ref = "graphql-java-annotations" }
 guava = "com.google.guava:guava:+"
 h2 = { module = "com.h2database:h2" }
 helidon-bundles-apt = { module = "io.helidon.bundles:helidon-bundles-apt", version.ref = "helidon" }
