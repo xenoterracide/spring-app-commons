@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
+# SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 #
 # SPDX-License-Identifier: MIT
 
@@ -6,6 +6,7 @@ HEAD := $(shell git rev-parse --verify HEAD)
 GRADLE_DIR := $(wildcard ./.gradle/)
 BUILD_DIRS := $(wildcard ./build/ */build/ ./module/*/build/)
 CONFIGURATION_CACHE := $(wildcard $(GRADLE_DIR)configuration-cache/)
+SKILL_FILE := .ai/skills/commit-or-pr-message/SKILL.md
 
 check_defined = $(strip $(foreach 1, $1,$(call __check_defined,$1,$(strip $(value 2)))))
 __check_defined = $(if $(value $1),, $(error Undefined $1$(if $2, ($2))))
@@ -70,22 +71,22 @@ create-pr:
 		./gradlew check; \
 		printf '%s\n' "Updating PR message..."; \
 		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
-		  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		  --skill-file "$(SKILL_FILE)" || exit 0; \
 		head_after=$$(git rev-parse HEAD); \
 		if [ "$$head_before" != "$$head_after" ]; then \
 			./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
-			  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+			  --skill-file "$(SKILL_FILE)" || exit 0; \
 		fi; \
 		title=$$(cat "$$tmp_dir/title.txt"); \
 		gh pr edit --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
 		GH_PAGER=cat gh pr view; \
 	else \
 		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
-		  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+		  --skill-file "$(SKILL_FILE)" || exit 0; \
 		head_after=$$(git rev-parse HEAD); \
 		if [ "$$head_before" != "$$head_after" ]; then \
 			./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
-			  --skill-file ".github/skills/commit-or-pr-message/SKILL.md" || exit 0; \
+			  --skill-file "$(SKILL_FILE)" || exit 0; \
 		fi; \
 		title=$$(cat "$$tmp_dir/title.txt"); \
 		gh pr create --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
