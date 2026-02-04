@@ -25,7 +25,8 @@ dependencies {
 
   implementation(libs.jakarta.validation)
   implementation(projects.securityModel)
-  implementation(libs.helidon.webserver.graphql)
+  api(platform(libs.helidon.dependencies))
+  api(libs.helidon.webserver.graphql)
   implementation(libs.graphql.java)
   implementation(libs.graphql.java.annotations)
 
@@ -47,4 +48,13 @@ dependencies {
   demoServerRuntimeOnly(libs.starter.actuator)
   demoServerRuntimeOnly(libs.h2)
   demoServerRuntimeOnly(project)
+}
+testing {
+  suites {
+    val testIntegration by registering(JvmTestSuite::class) {
+      dependencies {
+        implementation(project())
+      }
+    }
+  }
 }

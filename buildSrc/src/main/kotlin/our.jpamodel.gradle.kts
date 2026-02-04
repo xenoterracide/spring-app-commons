@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -52,6 +52,23 @@ dependencies {
 
 testing {
   suites {
+    val testWhitebox by registering(JvmTestSuite::class) {
+      dependencies {
+        implementation(project())
+        implementation(libs.archunit.core)
+        implementation(libs.archunit.junit.api)
+        implementation(libs.equalsverifier)
+        implementation(libs.jmolecules.archunit)
+
+        runtimeOnly(libs.hibernate.orm.core)
+      }
+    }
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        implementation(libs.spring.beans)
+        implementation(libs.spring.modulith.test)
+      }
+    }
     withType<JvmTestSuite>().configureEach {
       dependencies {
         implementation(testFixtures(project()))
@@ -66,24 +83,6 @@ testing {
         runtimeOnly(libs.starter.data.jpa)
         runtimeOnly(libs.starter.aop)
         runtimeOnly(libs.spring.data.envers)
-      }
-    }
-
-    val test by getting(JvmTestSuite::class) {
-      dependencies {
-        implementation(libs.spring.beans)
-        implementation(libs.spring.modulith.test)
-      }
-    }
-    val testWhitebox by registering(JvmTestSuite::class) {
-      dependencies {
-        implementation(project())
-        implementation(libs.archunit.core)
-        implementation(libs.archunit.junit.api)
-        implementation(libs.equalsverifier)
-        implementation(libs.jmolecules.archunit)
-
-        runtimeOnly(libs.hibernate.orm.core)
       }
     }
   }
