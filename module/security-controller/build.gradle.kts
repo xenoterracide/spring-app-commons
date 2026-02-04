@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -25,6 +25,9 @@ dependencies {
 
   implementation(libs.jakarta.validation)
   implementation(projects.securityModel)
+  implementation(libs.helidon.webserver.graphql)
+  implementation(libs.graphql.java)
+  implementation(libs.graphql.java.annotations)
 
   runtimeOnly(platform(libs.helidon.dependencies))
 

@@ -14,10 +14,11 @@
     "prettier-plugin-toml": "^2.0.6"
   },
   "scripts": {
-    "test": "./gradlew check",
-    "merge": "gh pr create --fill-first; gh pr view && ./gradlew buildHealth build && gh run watch --exit-status && gh pr merge --squash --delete-branch --auto",
-    "watch": "./gradlew testClasses demoServerClasses --continuous",
+    "contributor": "pip install -r requirements.txt && git config core.hooksPath .config/git/hooks",
     "dependencies:for": "./gradlew dependencies --configuration",
-    "setup": "pip install -r requirements.txt && git config core.hooksPath .config/git/hooks"
+    "merge": "make merge",
+    "test": "./gradlew check",
+    "ug": "./gradlew dependencies --write-locks --console=plain | grep -e FAILED || exit 0",
+    "ug:scan": "./gradlew dependencies --write-locks --console=plain --scan | grep -e FAILED -e https || exit 0"
   }
 }

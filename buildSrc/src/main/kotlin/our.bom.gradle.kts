@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -20,6 +20,11 @@ configurations.configureEach {
   exclude(group = "org.junit.jupiter", module = "junit-jupiter")
 
   resolutionStrategy {
+    eachDependency {
+      if (requested.group == "io.github.graphql-java" && requested.name == "graphql-java-annotations") {
+        useVersion("21.5")
+      }
+    }
     componentSelection {
       all {
         val nonRelease = Regex("^[\\d.]+-(RC|M|ea|beta|alpha).*$")

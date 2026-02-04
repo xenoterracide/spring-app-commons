@@ -33,6 +33,7 @@ errorprone-core = { module = "com.google.errorprone:error_prone_core", version.r
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
 google-java-format = "com.google.googlejavaformat:google-java-format:+"
 graphql-java = { module = "com.graphql-java:graphql-java" }
+graphql-java-annotations = { module = "io.github.graphql-java:graphql-java-annotations" }
 guava = "com.google.guava:guava:+"
 h2 = { module = "com.h2database:h2" }
 helidon-bundles-apt = { module = "io.helidon.bundles:helidon-bundles-apt", version.ref = "helidon" }
@@ -45,7 +46,6 @@ helidon-data-jakarta-persistence-codegen = { module = "io.helidon.data.jakarta.p
 helidon-data-sql-datasource-hikari = { module = "io.helidon.data.sql.datasource:helidon-data-sql-datasource-hikari" }
 helidon-dbclient-hikari = { module = "io.helidon.dbclient:helidon-dbclient-hikari" }
 helidon-dependencies = { module = "io.helidon:helidon-dependencies", version.ref = "helidon" }
-helidon-graphql = { module = "io.helidon.webserver:helidon-webserver-graphql" }
 helidon-health-checks = { module = "io.helidon.health:helidon-health-checks" }
 helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-jsonp" }
 helidon-logging-log4j = { module = "io.helidon.logging:helidon-logging-log4j" }
@@ -54,6 +54,7 @@ helidon-service-registry = { module = "io.helidon.service:helidon-service-regist
 helidon-transaction-narayana = { module = "io.helidon.transaction:helidon-transaction-narayana" }
 helidon-webclient = { module = "io.helidon.webclient:helidon-webclient" }
 helidon-webserver = { module = "io.helidon.webserver:helidon-webserver" }
+helidon-webserver-graphql = { module = "io.helidon.webserver:helidon-webserver-graphql" }
 helidon-webserver-observe-health = { module = "io.helidon.webserver.observe:helidon-webserver-observe-health" }
 helidon-webserver-observe-metrics = { module = "io.helidon.webserver.observe:helidon-webserver-observe-metrics" }
 helidon-webserver-testing-junit5 = { module = "io.helidon.webserver.testing.junit5:helidon-webserver-testing-junit5" }
