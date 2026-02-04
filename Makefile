@@ -29,7 +29,13 @@ build:
 	./gradlew build --console=plain
 
 .PHONY: merge
-merge: merge-head push create-pr watch-full merge-squash
+merge: merge-head push
+	@if gh pr view --json number > /dev/null 2>&1; then \
+		$(MAKE) watch-full create-pr; \
+	else \
+		$(MAKE) create-pr watch-full; \
+	fi
+	@$(MAKE) merge-squash
 
 .PHONY: clean
 clean:
