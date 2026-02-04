@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright © 2025 - 2026 Caleb Cushing
+# SPDX-FileCopyrightText: Copyright © 2025, 2026 Caleb Cushing
 #
 # SPDX-License-Identifier: CC0-1.0
 
@@ -45,6 +45,7 @@ helidon-data-jakarta-persistence-codegen = { module = "io.helidon.data.jakarta.p
 helidon-data-sql-datasource-hikari = { module = "io.helidon.data.sql.datasource:helidon-data-sql-datasource-hikari" }
 helidon-dbclient-hikari = { module = "io.helidon.dbclient:helidon-dbclient-hikari" }
 helidon-dependencies = { module = "io.helidon:helidon-dependencies", version.ref = "helidon" }
+helidon-graphql = { module = "io.helidon.webserver:helidon-webserver-graphql" }
 helidon-health-checks = { module = "io.helidon.health:helidon-health-checks" }
 helidon-http-media-jsonp = { module = "io.helidon.http.media:helidon-http-media-jsonp" }
 helidon-logging-log4j = { module = "io.helidon.logging:helidon-logging-log4j" }
