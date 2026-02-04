@@ -29,7 +29,7 @@ build:
 	./gradlew build --console=plain
 
 .PHONY: merge
-merge: merge-head push create-pr build watch-full merge-squash
+merge: merge-head push create-pr watch-full merge-squash
 
 .PHONY: clean
 clean:
@@ -64,11 +64,10 @@ up-wrapper:
 up-all-deps:
 	./gradlew build --write-locks --scan --console=plain | grep -e FAILED -e https
 
-create-pr:
+create-pr: build
 	@tmp_dir=$$(mktemp -d); \
 	head_before=$$(git rev-parse HEAD); \
 	if gh pr view --json number > /dev/null 2>&1; then \
-		./gradlew check; \
 		printf '%s\n' "Updating PR message..."; \
 		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
 		  --skill-file "$(SKILL_FILE)" || exit 0; \
