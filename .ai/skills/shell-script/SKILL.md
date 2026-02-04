@@ -1,4 +1,8 @@
 ---
+# SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+#
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
 name: shell-script
 description: Write a shell script
 license: CC0-1.0

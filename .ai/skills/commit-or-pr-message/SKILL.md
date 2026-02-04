@@ -1,4 +1,8 @@
 ---
+# SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+#
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
 name: commit-or-pr-message
 description: Generates a concise and descriptive commit or PR message based on the code changes.
 license: CC0-1.0
