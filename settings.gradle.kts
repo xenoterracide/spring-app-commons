@@ -1,4 +1,4 @@
-// Copyright 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -69,5 +69,13 @@ rootDir.resolve("module").listFiles()?.forEach { file ->
     val name = file.name
     include(":$name")
     project(":$name").projectDir = file("module/$name")
+  }
+}
+
+dependencyResolutionManagement {
+  versionCatalogs {
+    create("sb") {
+      from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:3.5.0-rc.8")
+    }
   }
 }
