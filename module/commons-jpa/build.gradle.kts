@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -17,17 +17,17 @@ dependencies {
   api(projects.commonsModel)
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
-  api(libs.spring.context)
-  api(libs.spring.data.commons)
+  api(sb.spring.context)
+  api(sb.spring.data.commons)
   api(libs.hibernate.envers)
   api(libs.jmolecules.ddd)
 
   implementation(libs.commons.lang)
-  implementation(libs.spring.beans)
-  implementation(libs.spring.transaction)
+  implementation(sb.spring.beans)
+  implementation(sb.spring.tx)
 
-  runtimeOnly(libs.starter.data.jpa)
-  runtimeOnly(libs.starter.validation)
+  runtimeOnly(sb.spring.boot.starter.data.jpa)
+  runtimeOnly(sb.spring.boot.starter.validation)
   // transients required by jakarta transaction which is required by hibernate
   runtimeOnly(libs.bundles.jakarta.transaction)
 
@@ -36,12 +36,12 @@ dependencies {
   testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
 
   testFixturesApi(projects.commonsModel)
-  testFixturesApi(libs.spring.data.jpa)
+  testFixturesApi(sb.spring.data.jpa)
   testFixturesApi(libs.hibernate.envers)
   testFixturesApi(libs.jakarta.persistence)
   testFixturesApi(libs.jakarta.validation)
   testFixturesApi(libs.jmolecules.ddd)
-  testFixturesApi(libs.spring.data.commons)
+  testFixturesApi(sb.spring.data.commons)
   testFixturesImplementation(libs.uuid.creator)
   testFixturesImplementation(libs.java.tools)
 
@@ -55,22 +55,22 @@ testing {
         implementation(testFixtures(project()))
 
         implementation(platform(libs.jakarta.bom))
-        implementation(libs.spring.test)
-        implementation(libs.spring.boot.test.autoconfigure)
-        implementation(libs.spring.boot.test.core)
+        implementation(sb.spring.test)
+        implementation(sb.spring.boot.test.autoconfigure)
+        implementation(sb.spring.boot.test)
 
         runtimeOnly(libs.h2)
-        runtimeOnly(libs.starter.validation)
-        runtimeOnly(libs.starter.data.jpa)
-        runtimeOnly(libs.starter.aop)
+        runtimeOnly(sb.spring.boot.starter.validation)
+        runtimeOnly(sb.spring.boot.starter.data.jpa)
+        runtimeOnly(sb.spring.boot.starter.aop)
         runtimeOnly(projects.testAppCore)
-        runtimeOnly(libs.spring.data.envers)
+        runtimeOnly(sb.spring.data.envers)
       }
     }
 
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(libs.spring.orm)
+        implementation(sb.spring.orm)
       }
     }
     val testWhitebox by registering(JvmTestSuite::class) {
@@ -79,8 +79,8 @@ testing {
         implementation(projects.commonsModel)
         implementation(libs.equalsverifier)
         implementation(libs.commons.lang)
-        implementation(libs.spring.beans)
-        implementation(libs.spring.transaction)
+        implementation(sb.spring.beans)
+        implementation(sb.spring.tx)
         implementation(libs.hibernate.orm.core)
       }
     }
@@ -98,4 +98,17 @@ tasks.compileJava {
 
 tasks.compileTestFixturesJava {
   options.compilerArgs.addAll(jpaModelGen)
+}
+
+dependencies {
+  runtimeOnly(sb.spring.boot.starter.log4j2)
+
+  modules {
+    module("org.springframework.boot:spring-boot-starter-logging") {
+      replacedBy(
+        "org.springframework.boot:spring-boot-starter-log4j2",
+        "Use Log4j2 instead of Logback",
+      )
+    }
+  }
 }

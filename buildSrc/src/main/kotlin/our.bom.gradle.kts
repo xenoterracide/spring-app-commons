@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -83,14 +83,14 @@ dependencies {
   compileOnly(libs.jspecify)
   compileOnly(libs.jmolecules.architecture.layered)
 
-  runtimeOnly(libs.starter.log4j2)
+//  runtimeOnly(libs.starter.log4j2)
 
-  modules {
-    module("org.springframework.boot:spring-boot-starter-logging") {
-      replacedBy(
-        "org.springframework.boot:spring-boot-starter-log4j2",
-        "Use Log4j2 instead of Logback",
-      )
-    }
-  }
+//  modules {
+//    module("org.springframework.boot:spring-boot-starter-logging") {
+//      replacedBy(
+//        "org.springframework.boot:spring-boot-starter-log4j2",
+//        "Use Log4j2 instead of Logback",
+//      )
+//    }
+//  }
 }

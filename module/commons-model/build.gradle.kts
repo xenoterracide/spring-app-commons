@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -9,15 +9,15 @@ plugins {
 }
 
 dependencies {
-  api(libs.spring.data.commons)
+  api(sb.spring.data.commons)
   api(libs.jmolecules.ddd)
 
   testImplementation(libs.jakarta.persistence)
   testImplementation(libs.java.tools)
-  testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.spring.beans)
+  testImplementation(sb.spring.boot.test.autoconfigure)
+  testImplementation(sb.spring.beans)
 
-  testRuntimeOnly(libs.starter.data.jpa)
+  testRuntimeOnly(sb.spring.boot.starter.data.jpa)
   testRuntimeOnly(libs.h2)
   testRuntimeOnly(projects.testAppCore)
 

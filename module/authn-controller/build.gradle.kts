@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -23,43 +23,43 @@ val demoServerRuntimeOnly by configurations.existing
 val demoServerApi by configurations.existing
 
 dependencies {
-  implementation(libs.spring.security.config)
-  implementation(libs.spring.security.web)
-  implementation(libs.spring.context)
+  implementation(sb.spring.security.config)
+  implementation(sb.spring.security.web)
+  implementation(sb.spring.context)
 
-  runtimeOnly(libs.starter.security)
-  runtimeOnly(libs.starter.web)
-  runtimeOnly(libs.starter.oauth2.resource.server)
+  runtimeOnly(sb.spring.boot.starter.security)
+  runtimeOnly(sb.spring.boot.starter.web)
+  runtimeOnly(sb.spring.boot.starter.oauth2.resource.server)
 
   testFixturesImplementation(platform(libs.spring.bom))
-  testFixturesImplementation(libs.log4j.api)
-  testFixturesImplementation(libs.spring.security.core)
-  testFixturesImplementation(libs.spring.web)
+  testFixturesImplementation(sb.log4j.api)
+  testFixturesImplementation(sb.spring.security.core)
+  testFixturesImplementation(sb.spring.web)
 
-  testImplementation(libs.bundles.spring.test)
+  testImplementation(sb.spring.boot.test)
 
-  testRuntimeOnly(libs.starter.web)
-  testRuntimeOnly(libs.starter.webflux)
+  testRuntimeOnly(sb.spring.boot.starter.web)
+  testRuntimeOnly(sb.spring.boot.starter.webflux)
   testRuntimeOnly(projects.testAppCore)
 
   demoServerApi(platform(libs.spring.bom))
-  demoServerApi(libs.spring.context)
-  demoServerApi(libs.spring.boot.autoconfigure)
+  demoServerApi(sb.spring.context)
+  demoServerApi(sb.spring.boot.autoconfigure)
 
   demoServerImplementation(platform(libs.spring.bom))
-  demoServerImplementation(libs.spring.security.config)
-  demoServerImplementation(libs.spring.webmvc)
-  demoServerImplementation(libs.spring.boot.actuator)
-  demoServerImplementation(libs.spring.boot.core)
+  demoServerImplementation(sb.spring.security.config)
+  demoServerImplementation(sb.spring.webmvc)
+  demoServerImplementation(sb.spring.boot.actuator)
+  demoServerImplementation(sb.spring.boot)
 
   demoServerRuntimeOnly(platform(libs.spring.bom))
   demoServerRuntimeOnly(testFixtures(project))
-  demoServerRuntimeOnly(libs.spring.boot.devtools)
-  demoServerRuntimeOnly(libs.starter.actuator)
-  demoServerRuntimeOnly(libs.starter.log4j2)
-  demoServerRuntimeOnly(libs.starter.web)
-  demoServerRuntimeOnly(libs.starter.security)
-  demoServerRuntimeOnly(libs.starter.oauth2.resource.server)
+  demoServerRuntimeOnly(sb.spring.boot.devtools)
+  demoServerRuntimeOnly(sb.spring.boot.starter.actuator)
+  demoServerRuntimeOnly(sb.spring.boot.starter.log4j2)
+  demoServerRuntimeOnly(sb.spring.boot.starter.web)
+  demoServerRuntimeOnly(sb.spring.boot.starter.security)
+  demoServerRuntimeOnly(sb.spring.boot.starter.oauth2.resource.server)
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
@@ -89,4 +89,17 @@ tasks.withType<SpotBugsTask>().configureEach {
 
 tasks.withType<Javadoc>().configureEach {
   enabled = false
+}
+
+dependencies {
+  runtimeOnly(sb.spring.boot.starter.log4j2)
+
+  modules {
+    module("org.springframework.boot:spring-boot-starter-logging") {
+      replacedBy(
+        "org.springframework.boot:spring-boot-starter-log4j2",
+        "Use Log4j2 instead of Logback",
+      )
+    }
+  }
 }

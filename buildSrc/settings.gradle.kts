@@ -1,4 +1,6 @@
-// © Copyright 2023-2024 Caleb Cushing
+// © 2023, 2024 Copyright Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 rootProject.name = "buildSrc"
@@ -23,5 +25,14 @@ dependencyResolutionManagement {
 
   repositories {
     gradlePluginPortal() // this should only be necessary in buildSrc/settings.gradle.kts
+  }
+}
+
+dependencyResolutionManagement {
+  versionCatalogs {
+    create("sb") {
+      from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:3.5.0-rc.8")
+      bundle("spring-test", listOf("spring-test", "spring-boot-test", "spring-boot-test-autoconfigure"))
+    }
   }
 }

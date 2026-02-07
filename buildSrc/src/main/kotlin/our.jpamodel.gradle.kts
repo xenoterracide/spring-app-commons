@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -27,14 +27,14 @@ dependencies {
   api(libs.jakarta.persistence)
   api(libs.jakarta.validation)
   api(libs.jmolecules.ddd)
-  api(libs.spring.data.jpa)
+//  api(libs.spring.data.jpa)
 
   implementation(platform(libs.spring.modulith.bom))
   implementation(libs.uuid.creator)
   implementation(libs.spring.modulith.api)
 
-  runtimeOnly(libs.starter.data.jpa)
-  runtimeOnly(libs.starter.validation)
+//  runtimeOnly(libs.starter.data.jpa)
+//  runtimeOnly(libs.starter.validation)
   // transients required by jakarta transaction which is required by hibernate
   runtimeOnly(libs.bundles.jakarta.transaction)
 
@@ -43,7 +43,7 @@ dependencies {
   testFixturesAnnotationProcessor(platform(libs.immutables.bom))
   testFixturesAnnotationProcessor(libs.immutables.core)
 
-  testFixturesRuntimeOnly(libs.spring.data.jpa)
+//  testFixturesRuntimeOnly(libs.spring.data.jpa)
 
   testFixturesCompileOnly(platform(libs.immutables.bom))
   testFixturesCompileOnly(libs.bundles.immutables)
@@ -57,21 +57,21 @@ testing {
         implementation(testFixtures(project()))
 
         implementation(platform(libs.jakarta.bom))
-        implementation(libs.spring.test)
-        implementation(libs.spring.boot.test.autoconfigure)
-        implementation(libs.spring.boot.test.core)
-
-        runtimeOnly(libs.h2)
-        runtimeOnly(libs.starter.validation)
-        runtimeOnly(libs.starter.data.jpa)
-        runtimeOnly(libs.starter.aop)
-        runtimeOnly(libs.spring.data.envers)
+//        implementation(libs.spring.test)
+//        implementation(libs.spring.boot.test.autoconfigure)
+//        implementation(libs.spring.boot.test.core)
+//
+//        runtimeOnly(libs.h2)
+//        runtimeOnly(libs.starter.validation)
+//        runtimeOnly(libs.starter.data.jpa)
+//        runtimeOnly(libs.starter.aop)
+//        runtimeOnly(libs.spring.data.envers)
       }
     }
 
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(libs.spring.beans)
+//        implementation(libs.spring.beans)
         implementation(libs.spring.modulith.test)
       }
     }
@@ -83,7 +83,7 @@ testing {
         implementation(libs.equalsverifier)
         implementation(libs.jmolecules.archunit)
 
-        runtimeOnly(libs.hibernate.orm.core)
+//        runtimeOnly(libs.hibernate.orm.core)
       }
     }
   }
