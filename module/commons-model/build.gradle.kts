@@ -11,19 +11,27 @@ plugins {
 dependencies {
   api(sb.spring.data.commons)
   api(libs.jmolecules.ddd)
+}
 
-  testImplementation(libs.jakarta.persistence)
-  testImplementation(libs.java.tools)
-  testImplementation(sb.spring.boot.test.autoconfigure)
-  testImplementation(sb.spring.beans)
-
-  testRuntimeOnly(sb.spring.boot.starter.data.jpa)
-  testRuntimeOnly(libs.h2)
-  testRuntimeOnly(projects.testAppCore)
-
-  // inexplicit transients
-  testRuntimeOnly(libs.jakarta.cdi)
-  testRuntimeOnly(libs.jakarta.lang.model)
-  testRuntimeOnly(libs.jakarta.interceptor)
-  testRuntimeOnly(libs.jakarta.transaction)
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        implementation(libs.jakarta.persistence)
+        implementation(libs.java.tools)
+        implementation(sb.spring.beans)
+        implementation(sb.spring.boot.test.autoconfigure)
+        runtimeOnly(projects.testAppCore)
+        runtimeOnly(sb.h2)
+        runtimeOnly(sb.spring.boot.starter.data.jpa)
+        runtimeOnly.bundle(libs.bundles.jakarta.transaction)
+      }
+    }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation.bundle(sb.bundles.test.impl)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
+      }
+    }
+  }
 }

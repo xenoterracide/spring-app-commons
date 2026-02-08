@@ -22,42 +22,47 @@ val demoServerApi by configurations.existing
 
 dependencies {
   api(sb.spring.context)
-
   compileOnly(libs.hibernate.validator)
-
-  implementation(libs.jakarta.validation)
-  implementation(sb.spring.graphql)
-  implementation(projects.securityModel)
-
-  runtimeOnly(sb.spring.boot.starter.graphql)
-  runtimeOnly(sb.spring.boot.starter.validation)
-  runtimeOnly(sb.spring.boot.starter.web)
-
-  testImplementation(sb.spring.beans)
-  testImplementation(sb.spring.boot.test.autoconfigure)
-  testImplementation(sb.spring.boot.test)
-  testImplementation(sb.spring.graphql.test)
-  // testImplementation(sb.spring.orm)
-  testImplementation(sb.spring.test)
-
-  testRuntimeOnly(projects.testAppCore)
-  testRuntimeOnly(libs.h2)
-  testRuntimeOnly(libs.mockito)
-  testRuntimeOnly(sb.spring.boot.starter.webflux)
-  testRuntimeOnly(sb.spring.boot.starter.test)
-
   demoServerApi(platform(libs.spring.bom))
   demoServerApi(sb.spring.boot.autoconfigure)
-
   demoServerImplementation(platform(libs.spring.bom))
   demoServerImplementation(sb.spring.boot)
   demoServerImplementation(sb.spring.context)
-
   demoServerRuntimeOnly(platform(libs.spring.bom))
+  demoServerRuntimeOnly(project)
+  demoServerRuntimeOnly(sb.h2)
   demoServerRuntimeOnly(sb.spring.boot.devtools)
   demoServerRuntimeOnly(sb.spring.boot.starter.actuator)
-  demoServerRuntimeOnly(libs.h2)
-  demoServerRuntimeOnly(project)
+  implementation(libs.jakarta.validation)
+  implementation(projects.securityModel)
+  implementation(sb.spring.graphql)
+  runtimeOnly(sb.spring.boot.starter.graphql)
+  runtimeOnly(sb.spring.boot.starter.validation)
+  runtimeOnly(sb.spring.boot.starter.web)
+}
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        implementation(sb.spring.beans)
+        implementation(sb.spring.boot.test)
+        implementation(sb.spring.boot.test.autoconfigure)
+        implementation(sb.spring.graphql.test)
+        implementation(sb.spring.test)
+        runtimeOnly(libs.mockito)
+        runtimeOnly(projects.testAppCore)
+        runtimeOnly(sb.h2)
+        runtimeOnly(sb.spring.boot.starter.test)
+        runtimeOnly(sb.spring.boot.starter.webflux)
+      }
+    }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation.bundle(sb.bundles.test.impl)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
+      }
+    }
+  }
 }
 
 dependencies {

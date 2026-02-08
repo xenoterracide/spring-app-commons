@@ -4,7 +4,6 @@
 
 [versions]
 ep = "2.+"
-checker = "3.+"
 spring = "3.+"
 plugin-convention = "0.3.+"
 immutables = "2.+"
@@ -17,7 +16,6 @@ commons-lang = "org.apache.commons:commons-lang3:3.+"
 equalsverifier = "nl.jqno.equalsverifier:equalsverifier:3.+"
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "ep" }
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
-h2 = { module = "com.h2database:h2" }
 hibernate-envers = { module = "org.hibernate.orm:hibernate-envers" }
 hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.strictly = "6.+" }
 hibernate-orm-core = { module = "org.hibernate.orm:hibernate-core" }
@@ -44,12 +42,8 @@ jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:1.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
 jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
 jspecify = "org.jspecify:jspecify:1.+"
-junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-bom = "org.junit:junit-bom:5.+"
-junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
-junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 junit-parameters = { module = "org.junit.jupiter:junit-jupiter-params" }
-log4j-api = { module = "org.apache.logging.log4j:log4j-api" }
 mockito = { module = "org.mockito:mockito-core" }
 plantuml = "net.sourceforge.plantuml:plantuml:1.+"
 plugin-convention-checkstyle = { module = "com.xenoterracide.gradle.convention:checkstyle", version.ref = "plugin-convention" }
@@ -63,7 +57,6 @@ spring-bom = { module = "org.springframework.boot:spring-boot-dependencies", ver
 spring-modulith-api = { module = "org.springframework.modulith:spring-modulith-api" }
 spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version = "1.+" }
 spring-modulith-core = { module = "org.springframework.modulith:spring-modulith-core" }
-spring-modulith-docs = { module = "org.springframework.modulith:spring-modulith-docs" }
 spring-modulith-test = { module = "org.springframework.modulith:spring-modulith-test" }
 uuid-creator = "com.github.f4b6a3:uuid-creator:6.+"
 
@@ -71,8 +64,6 @@ uuid-creator = "com.github.f4b6a3:uuid-creator:6.+"
 compile = ["jakarta-annotation", "jspecify"]
 immutables = ["immutables-annotations", "immutables-builder", "immutables-annotate"]
 ep = ["errorprone-core", "errorprone-nullaway"]
-test-impl = ["junit-api", "assertj", "junit-parameters"]
-test-runtime = ["junit-engine", "junit-launcher"]
 jakarta-transaction = [
   "jakarta-transaction",
   "jakarta-cdi",

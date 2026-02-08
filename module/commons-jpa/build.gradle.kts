@@ -50,24 +50,6 @@ dependencies {
 
 testing {
   suites {
-    withType<JvmTestSuite>().configureEach {
-      dependencies {
-        implementation(testFixtures(project()))
-
-        implementation(platform(libs.jakarta.bom))
-        implementation(sb.spring.test)
-        implementation(sb.spring.boot.test.autoconfigure)
-        implementation(sb.spring.boot.test)
-
-        runtimeOnly(libs.h2)
-        runtimeOnly(sb.spring.boot.starter.validation)
-        runtimeOnly(sb.spring.boot.starter.data.jpa)
-        runtimeOnly(sb.spring.boot.starter.aop)
-        runtimeOnly(projects.testAppCore)
-        runtimeOnly(sb.spring.data.envers)
-      }
-    }
-
     val test by getting(JvmTestSuite::class) {
       dependencies {
         implementation(sb.spring.orm)
@@ -82,6 +64,25 @@ testing {
         implementation(sb.spring.beans)
         implementation(sb.spring.tx)
         implementation(libs.hibernate.orm.core)
+      }
+    }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation(testFixtures(project()))
+
+        implementation(platform(libs.jakarta.bom))
+        implementation(sb.spring.test)
+        implementation(sb.spring.boot.test.autoconfigure)
+        implementation(sb.spring.boot.test)
+        implementation.bundle(sb.bundles.test.impl)
+
+        runtimeOnly(sb.h2)
+        runtimeOnly(sb.spring.boot.starter.validation)
+        runtimeOnly(sb.spring.boot.starter.data.jpa)
+        runtimeOnly(sb.spring.boot.starter.aop)
+        runtimeOnly(projects.testAppCore)
+        runtimeOnly(sb.spring.data.envers)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
       }
     }
   }

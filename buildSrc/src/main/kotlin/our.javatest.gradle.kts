@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -43,8 +43,6 @@ testing {
         compileOnly(libs.jmolecules.architecture.layered)
 
         implementation(libs.jspecify)
-        implementation.bundle(libs.bundles.test.impl)
-        runtimeOnly.bundle(libs.bundles.test.runtime)
 
         implementation.addConstraint(constraint(libs.jboss.logging))
       }

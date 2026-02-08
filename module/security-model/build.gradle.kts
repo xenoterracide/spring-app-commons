@@ -39,6 +39,12 @@ testing {
         implementation(projects.commonsModel)
       }
     }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation.bundle(sb.bundles.test.impl)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
+      }
+    }
   }
 }
 

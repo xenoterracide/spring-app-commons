@@ -16,10 +16,22 @@ tasks.javadoc {
 dependencies {
   implementation(sb.spring.boot.autoconfigure)
   implementation(sb.spring.context)
-
   runtimeOnly(sb.spring.test)
+}
 
-  testImplementation(sb.spring.boot.test)
-
-  testCompileOnly(sb.spring.test)
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        compileOnly(sb.spring.test)
+        implementation(sb.spring.boot.test)
+      }
+    }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation.bundle(sb.bundles.test.impl)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
+      }
+    }
+  }
 }

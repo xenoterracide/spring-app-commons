@@ -33,8 +33,10 @@ testing {
         implementation(libs.spring.modulith.core)
         implementation(sb.log4j.api)
         implementation(sb.spring.boot.test)
+        implementation.bundle(sb.bundles.test.impl)
         runtimeOnly(libs.jmolecules.architecture.layered)
         runtimeOnly(sb.h2)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
       }
     }
   }
