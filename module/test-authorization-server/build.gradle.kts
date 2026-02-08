@@ -33,8 +33,9 @@ dependencies {
 
   testImplementation(platform(libs.spring.bom))
   testImplementation(libs.bundles.test.impl)
-  testImplementation(sb.bundles.spring.test)
   testImplementation(libs.httpcomponents.client5)
+  testImplementation(sb.spring.test)
+  testImplementation(sb.spring.boot.test)
   testImplementation(sb.spring.beans)
 
   testRuntimeOnly(platform(libs.spring.bom))

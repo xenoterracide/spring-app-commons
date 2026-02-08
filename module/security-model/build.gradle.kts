@@ -16,6 +16,7 @@ dependencies {
   api(projects.commonsJpa)
   api(projects.commonsModel)
   api(sb.spring.data.jpa)
+  runtimeOnly(sb.spring.boot.starter.data.jpa)
   implementation(libs.java.tools)
   plantuml(libs.plantuml)
   testFixturesCompileOnly(sb.jakarta.annotation.api)
@@ -25,6 +26,7 @@ testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
+        runtimeOnly(sb.h2)
         runtimeOnly(projects.testAppCore)
         implementation(sb.spring.beans)
         implementation(sb.spring.boot.test.autoconfigure)

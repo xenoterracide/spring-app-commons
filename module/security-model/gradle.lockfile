@@ -29,6 +29,7 @@ com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava=anno
 com.google.j2objc:j2objc-annotations:3.0.0=checkstyle
 com.google.j2objc:j2objc-annotations:3.1=annotationProcessor,plantuml,testAnnotationProcessor,testFixturesAnnotationProcessor,testWhiteboxAnnotationProcessor
 com.google.protobuf:protobuf-java:3.25.5=annotationProcessor,testAnnotationProcessor,testFixturesAnnotationProcessor,testWhiteboxAnnotationProcessor
+com.h2database:h2:2.3.232=testRuntimeClasspath
 com.puppycrawl.tools:checkstyle:10.24.0=checkstyle
 com.sun.istack:istack-commons-runtime:4.1.2=annotationProcessor,runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
 com.tngtech.archunit:archunit-junit5-api:1.4.1=testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath

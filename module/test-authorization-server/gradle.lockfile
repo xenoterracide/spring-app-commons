@@ -128,7 +128,6 @@ org.springframework.boot:spring-boot-starter-security:3.5.10=runtimeClasspath,te
 org.springframework.boot:spring-boot-starter-tomcat:3.5.10=runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-starter-web:3.5.10=runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-starter:3.5.10=runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
-org.springframework.boot:spring-boot-test-autoconfigure:3.5.10=testCompileClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-test:3.5.10=testCompileClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot:3.5.10=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.modulith:spring-modulith-bom:1.4.7=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
