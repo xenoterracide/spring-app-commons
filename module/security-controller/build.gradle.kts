@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -21,41 +21,59 @@ val demoServerRuntimeOnly by configurations.existing
 val demoServerApi by configurations.existing
 
 dependencies {
-  api(libs.spring.context)
-
-  compileOnly(libs.hibernate.validator)
-
-  implementation(libs.jakarta.validation)
-  implementation(libs.spring.graphql.core)
-  implementation(projects.securityModel)
-
-  runtimeOnly(libs.starter.graphql)
-  runtimeOnly(libs.starter.validation)
-  runtimeOnly(libs.starter.web)
-
-  testImplementation(libs.spring.beans)
-  testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.spring.boot.test.core)
-  testImplementation(libs.spring.graphql.test)
-  // testImplementation(libs.spring.orm)
-  testImplementation(libs.spring.test)
-
-  testRuntimeOnly(projects.testAppCore)
-  testRuntimeOnly(libs.h2)
-  testRuntimeOnly(libs.mockito)
-  testRuntimeOnly(libs.starter.webflux)
-  testRuntimeOnly(libs.starter.test)
-
+  api(sb.spring.context)
+  compileOnly(sb.hibernate.validator)
   demoServerApi(platform(libs.spring.bom))
-  demoServerApi(libs.spring.boot.autoconfigure)
-
+  demoServerApi(sb.spring.boot.autoconfigure)
   demoServerImplementation(platform(libs.spring.bom))
-  demoServerImplementation(libs.spring.boot.core)
-  demoServerImplementation(libs.spring.context)
-
+  demoServerImplementation(sb.spring.boot)
+  demoServerImplementation(sb.spring.context)
   demoServerRuntimeOnly(platform(libs.spring.bom))
-  demoServerRuntimeOnly(libs.spring.boot.devtools)
-  demoServerRuntimeOnly(libs.starter.actuator)
-  demoServerRuntimeOnly(libs.h2)
   demoServerRuntimeOnly(project)
+  demoServerRuntimeOnly(sb.h2)
+  demoServerRuntimeOnly(sb.spring.boot.devtools)
+  demoServerRuntimeOnly(sb.spring.boot.starter.actuator)
+  implementation(projects.securityModel)
+  implementation(sb.jakarta.validation.api)
+  implementation(sb.spring.graphql)
+  runtimeOnly(sb.spring.boot.starter.graphql)
+  runtimeOnly(sb.spring.boot.starter.validation)
+  runtimeOnly(sb.spring.boot.starter.web)
+}
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        implementation(sb.spring.beans)
+        implementation(sb.spring.boot.test)
+        implementation(sb.spring.boot.test.autoconfigure)
+        implementation(sb.spring.graphql.test)
+        implementation(sb.spring.test)
+        runtimeOnly(projects.testAppCore)
+        runtimeOnly(sb.h2)
+        runtimeOnly(sb.mockito.core)
+        runtimeOnly(sb.spring.boot.starter.test)
+        runtimeOnly(sb.spring.boot.starter.webflux)
+      }
+    }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation.bundle(sb.bundles.test.impl)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
+      }
+    }
+  }
+}
+
+dependencies {
+  runtimeOnly(sb.spring.boot.starter.log4j2)
+
+  modules {
+    module("org.springframework.boot:spring-boot-starter-logging") {
+      replacedBy(
+        "org.springframework.boot:spring-boot-starter-log4j2",
+        "Use Log4j2 instead of Logback",
+      )
+    }
+  }
 }

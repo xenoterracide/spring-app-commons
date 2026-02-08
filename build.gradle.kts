@@ -1,6 +1,6 @@
 import org.semver4j.Semver
 
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -38,9 +38,6 @@ dependencyAnalysis {
       onUnusedDependencies {
         exclude(libs.junit.parameters)
         exclude(libs.assertj)
-        exclude(libs.spring.test)
-        exclude(libs.spring.boot.test.autoconfigure)
-        exclude(libs.spring.boot.test.core)
         exclude(libs.jspecify)
       }
     }

@@ -1,4 +1,6 @@
-// © Copyright 2024 Caleb Cushing
+// © 2024 Copyright Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
@@ -16,29 +18,39 @@ coverage {
 }
 
 dependencies {
-  api(libs.spring.boot.autoconfigure)
-  api(libs.spring.context)
   api(libs.spring.modulith.api)
-
-  implementation(libs.spring.boot.core)
-
+  api(sb.spring.boot.autoconfigure)
+  api(sb.spring.context)
+  implementation(sb.spring.boot)
   runtimeOnly(projects.securityController)
-  runtimeOnly(libs.starter.actuator)
+  runtimeOnly(sb.spring.boot.starter.actuator)
 }
 
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(libs.log4j.api)
-        implementation(libs.spring.test)
-        implementation(libs.spring.boot.test.core)
         implementation(libs.spring.modulith.core)
-
+        implementation(sb.log4j.api)
+        implementation(sb.spring.boot.test)
+        implementation.bundle(sb.bundles.test.impl)
         runtimeOnly(libs.jmolecules.architecture.layered)
-
-        runtimeOnly(libs.h2)
+        runtimeOnly(sb.h2)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
       }
+    }
+  }
+}
+
+dependencies {
+  runtimeOnly(sb.spring.boot.starter.log4j2)
+
+  modules {
+    module("org.springframework.boot:spring-boot-starter-logging") {
+      replacedBy(
+        "org.springframework.boot:spring-boot-starter-log4j2",
+        "Use Log4j2 instead of Logback",
+      )
     }
   }
 }

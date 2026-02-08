@@ -1,4 +1,6 @@
-// © Copyright 2023-2024 Caleb Cushing
+// © 2023, 2024 Copyright Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
@@ -12,12 +14,24 @@ tasks.javadoc {
 }
 
 dependencies {
-  implementation(libs.spring.boot.autoconfigure)
-  implementation(libs.spring.context)
+  implementation(sb.spring.boot.autoconfigure)
+  implementation(sb.spring.context)
+  runtimeOnly(sb.spring.test)
+}
 
-  runtimeOnly(libs.spring.test)
-
-  testImplementation(libs.spring.boot.test.core)
-
-  testCompileOnly(libs.spring.test)
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        compileOnly(sb.spring.test)
+        implementation(sb.spring.boot.test)
+      }
+    }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation.bundle(sb.bundles.test.impl)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
+      }
+    }
+  }
 }

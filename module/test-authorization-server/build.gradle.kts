@@ -1,4 +1,6 @@
-// © Copyright 2024 Caleb Cushing
+// © 2024 Copyright Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+//
 // SPDX-License-Identifier: MIT
 
 buildscript { dependencyLocking { lockAllConfigurations() } }
@@ -9,33 +11,43 @@ plugins {
 
 dependencies {
   api(platform(libs.spring.bom))
-  api(libs.spring.boot.autoconfigure)
+  api(sb.spring.boot.autoconfigure)
 
   implementation(platform(libs.spring.bom))
-  implementation(libs.spring.boot.core)
-  implementation(libs.spring.context)
-  implementation(libs.spring.security.oauth2.authorization.server)
-  implementation(libs.spring.security.oauth2.core)
-  implementation(libs.spring.core)
-  implementation(libs.spring.security.config)
-  implementation(libs.spring.security.web)
-  implementation(libs.spring.web)
+  implementation(sb.spring.boot)
+  implementation(sb.spring.context)
+  implementation(sb.spring.security.oauth2.authorization.server)
+  implementation(sb.spring.security.oauth2.core)
+  implementation(sb.spring.core)
+  implementation(sb.spring.security.config)
+  implementation(sb.spring.security.web)
+  implementation(sb.spring.web)
 
   compileOnly(libs.java.tools)
 
   runtimeOnly(platform(libs.spring.bom))
-  runtimeOnly(libs.starter.oauth2.authorization.server)
-  runtimeOnly(libs.starter.security)
-  runtimeOnly(libs.starter.web)
-  runtimeOnly(libs.spring.boot.devtools)
-
-  testImplementation(platform(libs.spring.bom))
-  testImplementation(libs.bundles.test.impl)
-  testImplementation(libs.bundles.spring.test)
-  testImplementation(libs.httpcomponents.client5)
-  testImplementation(libs.spring.beans)
-
-  testRuntimeOnly(platform(libs.spring.bom))
-  testRuntimeOnly(libs.bundles.test.runtime)
-  testRuntimeOnly(projects.testAppCore)
+  runtimeOnly(sb.spring.boot.starter.oauth2.authorization.server)
+  runtimeOnly(sb.spring.boot.starter.security)
+  runtimeOnly(sb.spring.boot.starter.web)
+  runtimeOnly(sb.spring.boot.devtools)
+}
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        implementation(sb.httpclient5)
+        implementation(sb.spring.test)
+        implementation(sb.spring.boot.test)
+        implementation(sb.spring.beans)
+        runtimeOnly(platform(libs.spring.bom))
+        runtimeOnly(projects.testAppCore)
+      }
+    }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation.bundle(sb.bundles.test.impl)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
+      }
+    }
+  }
 }

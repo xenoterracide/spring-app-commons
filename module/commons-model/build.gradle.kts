@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -9,21 +9,29 @@ plugins {
 }
 
 dependencies {
-  api(libs.spring.data.commons)
+  api(sb.spring.data.commons)
   api(libs.jmolecules.ddd)
+}
 
-  testImplementation(libs.jakarta.persistence)
-  testImplementation(libs.java.tools)
-  testImplementation(libs.spring.boot.test.autoconfigure)
-  testImplementation(libs.spring.beans)
-
-  testRuntimeOnly(libs.starter.data.jpa)
-  testRuntimeOnly(libs.h2)
-  testRuntimeOnly(projects.testAppCore)
-
-  // inexplicit transients
-  testRuntimeOnly(libs.jakarta.cdi)
-  testRuntimeOnly(libs.jakarta.lang.model)
-  testRuntimeOnly(libs.jakarta.interceptor)
-  testRuntimeOnly(libs.jakarta.transaction)
+testing {
+  suites {
+    val test by getting(JvmTestSuite::class) {
+      dependencies {
+        implementation(libs.java.tools)
+        implementation(sb.jakarta.persistence.api)
+        implementation(sb.spring.beans)
+        implementation(sb.spring.boot.test.autoconfigure)
+        runtimeOnly(projects.testAppCore)
+        runtimeOnly(sb.h2)
+        runtimeOnly(sb.spring.boot.starter.data.jpa)
+        runtimeOnly.bundle(libs.bundles.jakarta.transaction)
+      }
+    }
+    withType<JvmTestSuite>().configureEach {
+      dependencies {
+        implementation.bundle(sb.bundles.test.impl)
+        runtimeOnly.bundle(sb.bundles.test.runtime)
+      }
+    }
+  }
 }
