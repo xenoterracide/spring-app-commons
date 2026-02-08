@@ -15,9 +15,12 @@ val plantuml by configurations.creating
 dependencies {
   api(projects.commonsJpa)
   api(projects.commonsModel)
+  api(sb.hibernate.envers)
+  api(sb.jakarta.persistence.api)
+  api(sb.jakarta.validation.api)
   api(sb.spring.data.jpa)
-  runtimeOnly(sb.spring.boot.starter.data.jpa)
   implementation(libs.java.tools)
+  runtimeOnly(sb.spring.boot.starter.data.jpa)
   plantuml(libs.plantuml)
   testFixturesCompileOnly(sb.jakarta.annotation.api)
 }

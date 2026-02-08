@@ -21,29 +21,19 @@ dependencies {
 
   compileOnly(platform(libs.immutables.bom))
   compileOnly(libs.bundles.immutables)
-  compileOnly(libs.hibernate.validator)
 
-  api(libs.hibernate.envers)
-  api(libs.jakarta.persistence)
-  api(libs.jakarta.validation)
   api(libs.jmolecules.ddd)
-//  api(libs.spring.data.jpa)
 
   implementation(platform(libs.spring.modulith.bom))
   implementation(libs.uuid.creator)
   implementation(libs.spring.modulith.api)
 
-//  runtimeOnly(libs.starter.data.jpa)
-//  runtimeOnly(libs.starter.validation)
-  // transients required by jakarta transaction which is required by hibernate
   runtimeOnly(libs.bundles.jakarta.transaction)
 
   testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
   testFixturesAnnotationProcessor(platform(libs.spring.bom))
   testFixturesAnnotationProcessor(platform(libs.immutables.bom))
   testFixturesAnnotationProcessor(libs.immutables.core)
-
-//  testFixturesRuntimeOnly(libs.spring.data.jpa)
 
   testFixturesCompileOnly(platform(libs.immutables.bom))
   testFixturesCompileOnly(libs.bundles.immutables)
@@ -55,23 +45,12 @@ testing {
     withType<JvmTestSuite>().configureEach {
       dependencies {
         implementation(testFixtures(project()))
-
         implementation(platform(libs.jakarta.bom))
-//        implementation(libs.spring.test)
-//        implementation(libs.spring.boot.test.autoconfigure)
-//        implementation(libs.spring.boot.test.core)
-//
-//        runtimeOnly(libs.h2)
-//        runtimeOnly(libs.starter.validation)
-//        runtimeOnly(libs.starter.data.jpa)
-//        runtimeOnly(libs.starter.aop)
-//        runtimeOnly(libs.spring.data.envers)
       }
     }
 
     val test by getting(JvmTestSuite::class) {
       dependencies {
-//        implementation(libs.spring.beans)
         implementation(libs.spring.modulith.test)
       }
     }
@@ -82,8 +61,6 @@ testing {
         implementation(libs.archunit.junit.api)
         implementation(libs.equalsverifier)
         implementation(libs.jmolecules.archunit)
-
-//        runtimeOnly(libs.hibernate.orm.core)
       }
     }
   }

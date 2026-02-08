@@ -35,7 +35,7 @@ testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(libs.httpcomponents.client5)
+        implementation(sb.httpclient5)
         implementation(sb.spring.test)
         implementation(sb.spring.boot.test)
         implementation(sb.spring.beans)

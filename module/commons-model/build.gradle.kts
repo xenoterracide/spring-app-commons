@@ -17,8 +17,8 @@ testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(libs.jakarta.persistence)
         implementation(libs.java.tools)
+        implementation(sb.jakarta.persistence.api)
         implementation(sb.spring.beans)
         implementation(sb.spring.boot.test.autoconfigure)
         runtimeOnly(projects.testAppCore)

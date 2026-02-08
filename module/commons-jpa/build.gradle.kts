@@ -7,45 +7,37 @@ buildscript { dependencyLocking { lockAllConfigurations() } }
 plugins { our.javalibrary }
 
 dependencies {
+  annotationProcessor(libs.hibernate.jpa.modelgen)
   annotationProcessor(platform(libs.jakarta.bom))
   annotationProcessor(platform(libs.spring.bom))
-  annotationProcessor(libs.hibernate.jpa.modelgen)
-
-  compileOnly(libs.hibernate.validator)
-  compileOnly(libs.java.tools)
-
+  api(sb.jakarta.persistence.api)
+  api(sb.jakarta.validation.api)
+  api(libs.jmolecules.ddd)
   api(projects.commonsModel)
-  api(libs.jakarta.persistence)
-  api(libs.jakarta.validation)
+  api(sb.hibernate.envers)
   api(sb.spring.context)
   api(sb.spring.data.commons)
-  api(libs.hibernate.envers)
-  api(libs.jmolecules.ddd)
-
-  implementation(libs.commons.lang)
+  compileOnly(libs.java.tools)
+  compileOnly(sb.hibernate.validator)
+  implementation(sb.commons.lang3)
   implementation(sb.spring.beans)
   implementation(sb.spring.tx)
-
+  runtimeOnly(libs.bundles.jakarta.transaction)
   runtimeOnly(sb.spring.boot.starter.data.jpa)
   runtimeOnly(sb.spring.boot.starter.validation)
-  // transients required by jakarta transaction which is required by hibernate
-  runtimeOnly(libs.bundles.jakarta.transaction)
-
+  testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
   testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
   testFixturesAnnotationProcessor(platform(libs.spring.bom))
-  testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
-
-  testFixturesApi(projects.commonsModel)
-  testFixturesApi(sb.spring.data.jpa)
-  testFixturesApi(libs.hibernate.envers)
-  testFixturesApi(libs.jakarta.persistence)
-  testFixturesApi(libs.jakarta.validation)
   testFixturesApi(libs.jmolecules.ddd)
+  testFixturesApi(projects.commonsModel)
+  testFixturesApi(sb.hibernate.envers)
+  testFixturesApi(sb.jakarta.persistence.api)
+  testFixturesApi(sb.jakarta.validation.api)
   testFixturesApi(sb.spring.data.commons)
-  testFixturesImplementation(libs.uuid.creator)
-  testFixturesImplementation(libs.java.tools)
-
+  testFixturesApi(sb.spring.data.jpa)
   testFixturesCompileOnlyApi(libs.jspecify)
+  testFixturesImplementation(libs.java.tools)
+  testFixturesImplementation(libs.uuid.creator)
 }
 
 testing {
@@ -60,10 +52,10 @@ testing {
         implementation(project())
         implementation(projects.commonsModel)
         implementation(libs.equalsverifier)
-        implementation(libs.commons.lang)
+        implementation(sb.commons.lang3)
         implementation(sb.spring.beans)
         implementation(sb.spring.tx)
-        implementation(libs.hibernate.orm.core)
+        implementation(sb.hibernate.core)
       }
     }
     withType<JvmTestSuite>().configureEach {

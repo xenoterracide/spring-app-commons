@@ -22,7 +22,7 @@ val demoServerApi by configurations.existing
 
 dependencies {
   api(sb.spring.context)
-  compileOnly(libs.hibernate.validator)
+  compileOnly(sb.hibernate.validator)
   demoServerApi(platform(libs.spring.bom))
   demoServerApi(sb.spring.boot.autoconfigure)
   demoServerImplementation(platform(libs.spring.bom))
@@ -33,8 +33,8 @@ dependencies {
   demoServerRuntimeOnly(sb.h2)
   demoServerRuntimeOnly(sb.spring.boot.devtools)
   demoServerRuntimeOnly(sb.spring.boot.starter.actuator)
-  implementation(libs.jakarta.validation)
   implementation(projects.securityModel)
+  implementation(sb.jakarta.validation.api)
   implementation(sb.spring.graphql)
   runtimeOnly(sb.spring.boot.starter.graphql)
   runtimeOnly(sb.spring.boot.starter.validation)
@@ -49,9 +49,9 @@ testing {
         implementation(sb.spring.boot.test.autoconfigure)
         implementation(sb.spring.graphql.test)
         implementation(sb.spring.test)
-        runtimeOnly(libs.mockito)
         runtimeOnly(projects.testAppCore)
         runtimeOnly(sb.h2)
+        runtimeOnly(sb.mockito.core)
         runtimeOnly(sb.spring.boot.starter.test)
         runtimeOnly(sb.spring.boot.starter.webflux)
       }
