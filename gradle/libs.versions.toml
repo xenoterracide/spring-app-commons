@@ -66,5 +66,5 @@ jakarta-transaction = [
 
 [plugins]
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis" }
-semver = { id = "com.xenoterracide.gradle.semver", version = "0.14.+" }
+semver = { id = "com.xenoterracide.gradle.semver", version = "0.15.+" }
 plantuml = { id = "io.gitlab.plunts.plantuml", version = "2.+" }
