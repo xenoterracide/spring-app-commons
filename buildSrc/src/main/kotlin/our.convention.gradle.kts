@@ -40,3 +40,8 @@ java {
     languageVersion.set(JavaLanguageVersion.of(25))
   }
 }
+
+tasks.javadoc {
+  // because jpamodelgen puts non java sources in java source dirs https://hibernate.atlassian.net/browse/HHH-18676
+  include("**/*.java")
+}
