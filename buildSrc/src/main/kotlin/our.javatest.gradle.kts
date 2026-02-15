@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -7,8 +7,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
-  `java-library`
-  `java-test-fixtures`
+  id("com.xenoterracide.gradle.convention.test")
 }
 
 val libs = the<LibrariesForLibs>()
@@ -28,7 +27,7 @@ testing {
         compileOnly(platform(libs.junit.bom))
         compileOnly(platform(libs.spring.bom))
         compileOnly(platform(libs.spring.modulith.bom))
-        implementation(libs.jspecify)
+        compileOnly(libs.jspecify)
         implementation(platform(libs.jakarta.bom))
         implementation(platform(libs.jmolecules.bom))
         implementation(platform(libs.junit.bom))
@@ -44,31 +43,4 @@ testing {
       }
     }
   }
-}
-
-val available =
-  tasks.register("tests available") {
-    val java: Provider<FileCollection> = sourceSets.test.map { it.java }
-    doLast {
-      if (java.get().isEmpty) throw RuntimeException("no tests found")
-    }
-  }
-
-tasks.withType<Test>().configureEach {
-  useJUnitPlatform()
-  testLogging {
-    lifecycle {
-      showStandardStreams = true
-      displayGranularity = 2
-      exceptionFormat = TestExceptionFormat.FULL
-      events.addAll(
-        listOf(
-          TestLogEvent.SKIPPED,
-          TestLogEvent.FAILED,
-        ),
-      )
-    }
-  }
-  inputs.dir(rootProject.file("buildSrc/src/main"))
-  finalizedBy(available)
 }
