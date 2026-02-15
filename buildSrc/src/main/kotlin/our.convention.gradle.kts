@@ -9,6 +9,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 plugins {
   id("com.autonomousapps.dependency-analysis")
   id("com.xenoterracide.gradle.convention.checkstyle")
+  id("com.xenoterracide.gradle.convention.compile")
   id("com.xenoterracide.gradle.convention.coverage")
   id("com.xenoterracide.gradle.convention.publish")
   id("com.xenoterracide.gradle.convention.spotbugs")
@@ -28,10 +29,13 @@ publicationLegal {
   spdxLicenseIdentifiers.addAll("AGPL-3.0-or-later")
 }
 
-publishing {
-  publications {
-    register<MavenPublication>("maven") {
-      from(components["java"])
-    }
+dependencies {
+  errorprone(libs.bundles.ep)
+  compileOnly(libs.bundles.compile)
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(25))
   }
 }
