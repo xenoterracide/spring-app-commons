@@ -6,7 +6,6 @@ package com.xenoterracide.commons.model;
 
 import java.io.Serializable;
 import org.jmolecules.ddd.types.Identifier;
-import org.jspecify.annotations.Nullable;
 
 /**
  * An entity that has an identifier.
@@ -21,7 +20,7 @@ public interface Identifiable<ID extends Identifier & Serializable> extends org.
    * @return the identifier of this entity
    */
   @Override
-  default @Nullable ID getId() {
+  default ID getId() {
     return this.id();
   }
 
@@ -31,7 +30,7 @@ public interface Identifiable<ID extends Identifier & Serializable> extends org.
    * @return the identifier of this entity
    * @see #getId()
    */
-  default @Nullable ID id() {
+  default ID id() {
     return this.getId();
   }
 }
