@@ -5,7 +5,7 @@
 [versions]
 ep = "2.+"
 spring = "3.+"
-plugin-convention = "0.3.+"
+plugin-convention = "0.16.+"
 immutables = "2.+"
 
 [libraries]
