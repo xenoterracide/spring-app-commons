@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -25,7 +25,7 @@ repositoryHost.namespace.set("xenoterracide")
 
 publicationLegal {
   inceptionYear.set(2024)
-  spdxLicenseIdentifiers.addAll("AGPL-3.0-or-later", "Universal-FOSS-exception-1.0", "CC-BY-NC-4.0")
+  spdxLicenseIdentifiers.addAll("AGPL-3.0-or-later")
 }
 
 publishing {
