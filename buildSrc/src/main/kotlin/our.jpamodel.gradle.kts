@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -6,8 +6,8 @@ import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
   id("our.bom")
-  id("our.javacompile")
   id("our.javatest")
+  `java-library`
 }
 
 val libs = the<LibrariesForLibs>()
@@ -26,7 +26,7 @@ dependencies {
 
   implementation(platform(libs.spring.modulith.bom))
   implementation(libs.uuid.creator)
-  implementation(libs.spring.modulith.api)
+  compileOnly(libs.spring.modulith.api)
 
   runtimeOnly(libs.bundles.jakarta.transaction)
 

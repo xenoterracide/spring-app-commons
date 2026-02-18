@@ -1,5 +1,5 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
-com.xenoterracide.gradle.vc:version-catalog-spring-boot:3.5.0-rc.8=incomingCatalogForSb0
+com.xenoterracide.gradle.vc:version-catalog-spring-boot:3.5.0=incomingCatalogForSb0
 empty=incomingCatalogForLibs0

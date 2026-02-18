@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -54,12 +54,6 @@ testing {
         runtimeOnly(sb.mockito.core)
         runtimeOnly(sb.spring.boot.starter.test)
         runtimeOnly(sb.spring.boot.starter.webflux)
-      }
-    }
-    withType<JvmTestSuite>().configureEach {
-      dependencies {
-        implementation.bundle(sb.bundles.test.impl)
-        runtimeOnly.bundle(sb.bundles.test.runtime)
       }
     }
   }

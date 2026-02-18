@@ -1,11 +1,11 @@
-# SPDX-FileCopyrightText: Copyright © 2025, 2026 Caleb Cushing
+# SPDX-FileCopyrightText: Copyright © 2025 - 2026 Caleb Cushing
 #
 # SPDX-License-Identifier: CC0-1.0
 
 [versions]
 ep = "2.+"
 spring = "3.+"
-plugin-convention = "0.3.+"
+plugin-convention = "0.16.+"
 immutables = "2.+"
 
 [libraries]
@@ -39,11 +39,14 @@ junit-bom = "org.junit:junit-bom:5.+"
 junit-parameters = { module = "org.junit.jupiter:junit-jupiter-params" }
 plantuml = "net.sourceforge.plantuml:plantuml:1.+"
 plugin-convention-checkstyle = { module = "com.xenoterracide.gradle.convention:checkstyle", version.ref = "plugin-convention" }
+plugin-convention-compile = { module = "com.xenoterracide.gradle.convention:compile", version.ref = "plugin-convention" }
 plugin-convention-coverage = { module = "com.xenoterracide.gradle.convention:coverage", version.ref = "plugin-convention" }
+plugin-convention-javadoc = { module = "com.xenoterracide.gradle.convention:javadoc", version.ref = "plugin-convention" }
 plugin-convention-publish = { module = "com.xenoterracide.gradle.convention:publish", version.ref = "plugin-convention" }
 plugin-convention-spotbugs = { module = "com.xenoterracide.gradle.convention:spotbugs", version.ref = "plugin-convention" }
-plugin-dependency-analysis = "com.autonomousapps:dependency-analysis-gradle-plugin:2.+"
-plugin-errorprone = "net.ltgt.gradle:gradle-errorprone-plugin:4.+"
+plugin-convention-test = { module = "com.xenoterracide.gradle.convention:test", version.ref = "plugin-convention" }
+plugin-dependency-analysis = "com.autonomousapps:dependency-analysis-gradle-plugin:3.+"
+plugin-errorprone = "net.ltgt.gradle:gradle-errorprone-plugin:5.+"
 spotbugs = "com.github.spotbugs:spotbugs:4.+"
 spring-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring" }
 spring-modulith-api = { module = "org.springframework.modulith:spring-modulith-api" }
@@ -66,5 +69,5 @@ jakarta-transaction = [
 
 [plugins]
 dependency-analysis = { id = "com.autonomousapps.dependency-analysis" }
-semver = { id = "com.xenoterracide.gradle.semver", version = "0.14.+" }
+semver = { id = "com.xenoterracide.gradle.semver", version = "0.15.+" }
 plantuml = { id = "io.gitlab.plunts.plantuml", version = "2.+" }

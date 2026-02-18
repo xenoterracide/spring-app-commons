@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -40,12 +40,6 @@ testing {
       dependencies {
         implementation(projects.commonsJpa)
         implementation(projects.commonsModel)
-      }
-    }
-    withType<JvmTestSuite>().configureEach {
-      dependencies {
-        implementation.bundle(sb.bundles.test.impl)
-        runtimeOnly.bundle(sb.bundles.test.runtime)
       }
     }
   }

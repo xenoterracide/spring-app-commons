@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -9,7 +9,9 @@ import org.gradle.accessors.dm.LibrariesForLibs
 plugins {
   id("com.autonomousapps.dependency-analysis")
   id("com.xenoterracide.gradle.convention.checkstyle")
+  id("com.xenoterracide.gradle.convention.compile")
   id("com.xenoterracide.gradle.convention.coverage")
+  id("com.xenoterracide.gradle.convention.javadoc")
   id("com.xenoterracide.gradle.convention.publish")
   id("com.xenoterracide.gradle.convention.spotbugs")
 }
@@ -25,13 +27,21 @@ repositoryHost.namespace.set("xenoterracide")
 
 publicationLegal {
   inceptionYear.set(2024)
-  spdxLicenseIdentifiers.addAll("AGPL-3.0-or-later", "Universal-FOSS-exception-1.0", "CC-BY-NC-4.0")
+  spdxLicenseIdentifiers.addAll("AGPL-3.0-or-later")
 }
 
-publishing {
-  publications {
-    register<MavenPublication>("maven") {
-      from(components["java"])
-    }
+dependencies {
+  errorprone(libs.bundles.ep)
+  compileOnly(libs.bundles.compile)
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(25))
   }
+}
+
+tasks.javadoc {
+  // because jpamodelgen puts non java sources in java source dirs https://hibernate.atlassian.net/browse/HHH-18676
+  include("**/*.java")
 }
