@@ -12,6 +12,7 @@ dependencyLocking { lockAllConfigurations() }
 
 dependencies {
   implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+  implementation(files(sb.javaClass.superclass.protectionDomain.codeSource.location))
   implementation(libs.plugin.convention.publish)
   implementation(libs.plugin.dependency.analysis)
   implementation(libs.plugin.errorprone)

@@ -1,5 +1,4 @@
-// © 2023, 2024 Copyright Caleb Cushing
-// SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+// Copyright 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -31,8 +30,10 @@ dependencyResolutionManagement {
 dependencyResolutionManagement {
   versionCatalogs {
     create("sb") {
-      from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:3.5.0-rc.8")
+      from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:3.5.0")
       bundle("spring-test", listOf("spring-test", "spring-boot-test", "spring-boot-test-autoconfigure"))
+      bundle("test-impl", listOf("junit-jupiter-api", "assertj-core", "junit-jupiter-params"))
+      bundle("test-runtime", listOf("junit-platform-engine", "junit-platform-launcher"))
     }
   }
 }

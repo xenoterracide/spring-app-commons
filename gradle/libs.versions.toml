@@ -1,5 +1,4 @@
-# SPDX-FileCopyrightText: Copyright © 2025 2026 Caleb Cushing
-# SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+# SPDX-FileCopyrightText: Copyright © 2025 - 2026 Caleb Cushing
 #
 # SPDX-License-Identifier: CC0-1.0
 
@@ -48,9 +47,6 @@ plugin-convention-spotbugs = { module = "com.xenoterracide.gradle.convention:spo
 plugin-convention-test = { module = "com.xenoterracide.gradle.convention:test", version.ref = "plugin-convention" }
 plugin-dependency-analysis = "com.autonomousapps:dependency-analysis-gradle-plugin:3.+"
 plugin-errorprone = "net.ltgt.gradle:gradle-errorprone-plugin:5.+"
-plugin-gradle-maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.+" }
-plugin-gradle-plugin-publish = "com.gradle.publish:plugin-publish-plugin:2.+"
-plugin-spotbugs = { module = "com.github.spotbugs.snom:spotbugs-gradle-plugin", version = "6.+" }
 spotbugs = "com.github.spotbugs:spotbugs:4.+"
 spring-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring" }
 spring-modulith-api = { module = "org.springframework.modulith:spring-modulith-api" }

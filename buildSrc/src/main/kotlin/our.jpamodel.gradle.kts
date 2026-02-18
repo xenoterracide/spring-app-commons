@@ -26,7 +26,7 @@ dependencies {
 
   implementation(platform(libs.spring.modulith.bom))
   implementation(libs.uuid.creator)
-  implementation(libs.spring.modulith.api)
+  compileOnly(libs.spring.modulith.api)
 
   runtimeOnly(libs.bundles.jakarta.transaction)
 
