@@ -6,10 +6,8 @@
  * The {@link com.xenoterracide.model.security.user.User} aggregate.
  */
 @DomainLayer
-@NamedInterface
 @NullMarked
 package com.xenoterracide.model.security.user;
 
 import org.jmolecules.architecture.layered.DomainLayer;
 import org.jspecify.annotations.NullMarked;
-import org.springframework.modulith.NamedInterface;
