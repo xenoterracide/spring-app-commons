@@ -14,9 +14,8 @@ on:
 jobs:
   update-java:
     uses: xenoterracide/github/.github/workflows/update-java.yml@develop
-    with:
-      secrets:
-        gradle_encryption_key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+    secrets:
+      gradle_encryption_key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
   create-pr:
     runs-on: ubuntu-latest
     timeout-minutes: 10
