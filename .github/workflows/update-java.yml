@@ -18,4 +18,6 @@ jobs:
       gradle_encryption_key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
       merge_pat: ${{ secrets.GH_MERGE_PAT }}
     permissions:
+      contents: read
+      packages: read
       pull-requests: write
