@@ -17,6 +17,7 @@ jobs:
     secrets:
       gradle_encryption_key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
   create-pr:
+    needs: update-java
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
