@@ -13,16 +13,20 @@ on:
 
 jobs:
   update-java:
+    uses: xenoterracide/github/.github/workflows/update-java.yml@develop
+    with:
+      secrets:
+        gradle_encryption_key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+  create-pr:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
       packages: read
     env:
-      ORG_GRADLE_PROJECT_ghUsername: ${{ secrets.GITHUB_ACTOR }}
-      ORG_GRADLE_PROJECT_ghPassword: ${{ secrets.GITHUB_TOKEN }}
+      ORG_GRADLE_PROJECT_ghUsername: ${{ github.actor }}
+      ORG_GRADLE_PROJECT_ghPassword: ${{ github.token }}
     steps:
-      - uses: xenoterracide/github/.github/workflows/update-java.yml@develop
       - uses: peter-evans/create-pull-request@v8.1.0
         id: create_pr
         with:
