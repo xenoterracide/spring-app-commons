@@ -8,7 +8,7 @@ on:
     - cron: "0 3 * * *"
   push:
     branches:
-      - ci/auto-update*
+      - "ci/auto-update**"
       - ci/auto-update
 
 jobs:
