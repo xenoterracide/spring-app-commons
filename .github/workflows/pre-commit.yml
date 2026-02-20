@@ -6,7 +6,7 @@ name: precommit
 on: [push, workflow_call]
 jobs:
   general:
-    uses: ../../.share/.github/workflows/pre-commit.yml
+    uses: ./.share/.github/workflows/pre-commit.yml
   format-kotlin:
     runs-on: ubuntu-24.04
     steps:
