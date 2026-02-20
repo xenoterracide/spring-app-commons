@@ -9,8 +9,6 @@ on:
   push:
     branches:
       - "ci/auto-update**"
-      - ci/auto-update
-
 jobs:
   update-java:
     uses: xenoterracide/github/.github/workflows/update-java.yml@develop
