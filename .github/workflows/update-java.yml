@@ -16,24 +16,4 @@ jobs:
     uses: xenoterracide/github/.github/workflows/update-java.yml@develop
     secrets:
       gradle_encryption_key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-  create-pr:
-    needs: update-java
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      packages: read
-    env:
-      ORG_GRADLE_PROJECT_ghUsername: ${{ github.actor }}
-      ORG_GRADLE_PROJECT_ghPassword: ${{ github.token }}
-    steps:
-      - uses: peter-evans/create-pull-request@v8.1.0
-        id: create_pr
-        with:
-          title: "chore(deps): java"
-          branch: deps/update-java
-          token: ${{ secrets.GH_MERGE_PAT }}
-      - run: gh pr merge --auto --squash ${{ steps.create_pr.outputs.pull-request-number }}
-        if: ${{ steps.create_pr.outputs.pull-request-number != '' }}
-        env:
-          GH_TOKEN: ${{ secrets.GH_MERGE_PAT }}
+      merge_pat: ${{ secrets.GH_MERGE_PAT }}
