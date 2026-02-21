@@ -21,6 +21,7 @@ testing {
         implementation(sbd4.jakarta.persistence.api)
         implementation(sbd4.spring.beans)
         implementation(sbd4.spring.boot.test.autoconfigure)
+        implementation(sbd4.spring.boot.data.jpa.test)
         runtimeOnly(projects.testAppCore)
         runtimeOnly(sbd4.h2)
         runtimeOnly(sbd4.spring.boot.starter.data.jpa)

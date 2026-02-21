@@ -27,11 +27,5 @@ testing {
         implementation(sbd4.spring.boot.test)
       }
     }
-    withType<JvmTestSuite>().configureEach {
-      dependencies {
-        implementation.bundle(sbd4.bundles.test.impl)
-        runtimeOnly.bundle(sbd4.bundles.test.runtime)
-      }
-    }
   }
 }

@@ -60,19 +60,18 @@ testing {
     }
     withType<JvmTestSuite>().configureEach {
       dependencies {
-        implementation(testFixtures(project()))
-
         implementation(platform(libs.jakarta.bom))
-        implementation(sbd4.spring.test)
-        implementation(sbd4.spring.boot.test.autoconfigure)
         implementation(sbd4.spring.boot.test)
+        implementation(sbd4.spring.boot.test.autoconfigure)
+        implementation(sbd4.spring.test)
+        implementation(sbd4.spring.boot.data.jpa.test)
+        implementation(testFixtures(project()))
         implementation.bundle(sbd4.bundles.test.impl)
-
-        runtimeOnly(sbd4.h2)
-        runtimeOnly(sbd4.spring.boot.starter.validation)
-        runtimeOnly(sbd4.spring.boot.starter.data.jpa)
-        runtimeOnly(sbd4.spring.boot.starter.aspectj)
         runtimeOnly(projects.testAppCore)
+        runtimeOnly(sbd4.h2)
+        runtimeOnly(sbd4.spring.boot.starter.aspectj)
+        runtimeOnly(sbd4.spring.boot.starter.data.jpa)
+        runtimeOnly(sbd4.spring.boot.starter.validation)
         runtimeOnly(sbd4.spring.data.envers)
         runtimeOnly.bundle(sbd4.bundles.test.runtime)
       }

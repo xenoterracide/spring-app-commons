@@ -1,6 +1,7 @@
-// SPDX-FileCopyrightText: Copyright © 2024 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024, 2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 import org.jspecify.annotations.NullMarked;
 
@@ -19,4 +20,5 @@ import org.jspecify.annotations.NullMarked;
   requires spring.beans;
   requires jakarta.persistence;
   requires org.jmolecules.ddd;
+  requires spring.boot.data.jpa.test;
 }
