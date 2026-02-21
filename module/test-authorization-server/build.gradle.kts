@@ -11,42 +11,42 @@ plugins {
 
 dependencies {
   api(platform(libs.spring.bom))
-  api(sb.spring.boot.autoconfigure)
+  api(sbd3.spring.boot.autoconfigure)
 
   implementation(platform(libs.spring.bom))
-  implementation(sb.spring.boot)
-  implementation(sb.spring.context)
-  implementation(sb.spring.security.oauth2.authorization.server)
-  implementation(sb.spring.security.oauth2.core)
-  implementation(sb.spring.core)
-  implementation(sb.spring.security.config)
-  implementation(sb.spring.security.web)
-  implementation(sb.spring.web)
+  implementation(sbd3.spring.boot)
+  implementation(sbd3.spring.context)
+  implementation(sbd3.spring.security.oauth2.authorization.server)
+  implementation(sbd3.spring.security.oauth2.core)
+  implementation(sbd3.spring.core)
+  implementation(sbd3.spring.security.config)
+  implementation(sbd3.spring.security.web)
+  implementation(sbd3.spring.web)
 
   compileOnly(libs.java.tools)
 
   runtimeOnly(platform(libs.spring.bom))
-  runtimeOnly(sb.spring.boot.starter.oauth2.authorization.server)
-  runtimeOnly(sb.spring.boot.starter.security)
-  runtimeOnly(sb.spring.boot.starter.web)
-  runtimeOnly(sb.spring.boot.devtools)
+  runtimeOnly(sbd3.spring.boot.starter.oauth2.authorization.server)
+  runtimeOnly(sbd3.spring.boot.starter.security)
+  runtimeOnly(sbd3.spring.boot.starter.web)
+  runtimeOnly(sbd3.spring.boot.devtools)
 }
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(sb.httpclient5)
-        implementation(sb.spring.test)
-        implementation(sb.spring.boot.test)
-        implementation(sb.spring.beans)
+        implementation(sbd3.httpclient5)
+        implementation(sbd3.spring.test)
+        implementation(sbd3.spring.boot.test)
+        implementation(sbd3.spring.beans)
         runtimeOnly(platform(libs.spring.bom))
         runtimeOnly(projects.testAppCore)
       }
     }
     withType<JvmTestSuite>().configureEach {
       dependencies {
-        implementation.bundle(sb.bundles.test.impl)
-        runtimeOnly.bundle(sb.bundles.test.runtime)
+        implementation.bundle(sbd3.bundles.test.impl)
+        runtimeOnly.bundle(sbd3.bundles.test.runtime)
       }
     }
   }

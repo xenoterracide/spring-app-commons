@@ -1,18 +1,16 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
-import org.gradle.accessors.dm.LibrariesForSb
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.accessors.dm.LibrariesForSbd3
 
 plugins {
   id("com.xenoterracide.gradle.convention.test")
 }
 
 val libs = the<LibrariesForLibs>()
-val sb = the<LibrariesForSb>()
+val sbd3 = the<LibrariesForSbd3>()
 
 dependencies {
   testFixturesImplementation(platform(libs.jakarta.bom))
@@ -35,13 +33,13 @@ testing {
         implementation(platform(libs.junit.bom))
         implementation(platform(libs.spring.bom))
         implementation(platform(libs.spring.modulith.bom))
-        implementation.bundle(sb.bundles.test.impl)
+        implementation.bundle(sbd3.bundles.test.impl)
         runtimeOnly(platform(libs.jakarta.bom))
         runtimeOnly(platform(libs.jmolecules.bom))
         runtimeOnly(platform(libs.junit.bom))
         runtimeOnly(platform(libs.spring.bom))
         runtimeOnly(platform(libs.spring.modulith.bom))
-        runtimeOnly.bundle(sb.bundles.test.runtime)
+        runtimeOnly.bundle(sbd3.bundles.test.runtime)
 
         implementation.addConstraint(constraint(libs.jboss.logging))
       }

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -21,46 +21,46 @@ val demoServerRuntimeOnly by configurations.existing
 val demoServerApi by configurations.existing
 
 dependencies {
-  api(sb.spring.context)
-  compileOnly(sb.hibernate.validator)
+  api(sbd3.spring.context)
+  compileOnly(sbd3.hibernate.validator)
   demoServerApi(platform(libs.spring.bom))
-  demoServerApi(sb.spring.boot.autoconfigure)
+  demoServerApi(sbd3.spring.boot.autoconfigure)
   demoServerImplementation(platform(libs.spring.bom))
-  demoServerImplementation(sb.spring.boot)
-  demoServerImplementation(sb.spring.context)
+  demoServerImplementation(sbd3.spring.boot)
+  demoServerImplementation(sbd3.spring.context)
   demoServerRuntimeOnly(platform(libs.spring.bom))
   demoServerRuntimeOnly(project)
-  demoServerRuntimeOnly(sb.h2)
-  demoServerRuntimeOnly(sb.spring.boot.devtools)
-  demoServerRuntimeOnly(sb.spring.boot.starter.actuator)
+  demoServerRuntimeOnly(sbd3.h2)
+  demoServerRuntimeOnly(sbd3.spring.boot.devtools)
+  demoServerRuntimeOnly(sbd3.spring.boot.starter.actuator)
   implementation(projects.securityModel)
-  implementation(sb.jakarta.validation.api)
-  implementation(sb.spring.graphql)
-  runtimeOnly(sb.spring.boot.starter.graphql)
-  runtimeOnly(sb.spring.boot.starter.validation)
-  runtimeOnly(sb.spring.boot.starter.web)
+  implementation(sbd3.jakarta.validation.api)
+  implementation(sbd3.spring.graphql)
+  runtimeOnly(sbd3.spring.boot.starter.graphql)
+  runtimeOnly(sbd3.spring.boot.starter.validation)
+  runtimeOnly(sbd3.spring.boot.starter.web)
 }
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(sb.spring.beans)
-        implementation(sb.spring.boot.test)
-        implementation(sb.spring.boot.test.autoconfigure)
-        implementation(sb.spring.graphql.test)
-        implementation(sb.spring.test)
+        implementation(sbd3.spring.beans)
+        implementation(sbd3.spring.boot.test)
+        implementation(sbd3.spring.boot.test.autoconfigure)
+        implementation(sbd3.spring.graphql.test)
+        implementation(sbd3.spring.test)
         runtimeOnly(projects.testAppCore)
-        runtimeOnly(sb.h2)
-        runtimeOnly(sb.mockito.core)
-        runtimeOnly(sb.spring.boot.starter.test)
-        runtimeOnly(sb.spring.boot.starter.webflux)
+        runtimeOnly(sbd3.h2)
+        runtimeOnly(sbd3.mockito.core)
+        runtimeOnly(sbd3.spring.boot.starter.test)
+        runtimeOnly(sbd3.spring.boot.starter.webflux)
       }
     }
   }
 }
 
 dependencies {
-  runtimeOnly(sb.spring.boot.starter.log4j2)
+  runtimeOnly(sbd3.spring.boot.starter.log4j2)
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {

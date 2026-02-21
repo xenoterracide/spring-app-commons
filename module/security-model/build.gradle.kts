@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -15,25 +15,25 @@ val plantuml by configurations.creating
 dependencies {
   api(projects.commonsJpa)
   api(projects.commonsModel)
-  api(sb.hibernate.envers)
-  api(sb.jakarta.persistence.api)
-  api(sb.jakarta.validation.api)
-  api(sb.spring.data.jpa)
+  api(sbd3.hibernate.envers)
+  api(sbd3.jakarta.persistence.api)
+  api(sbd3.jakarta.validation.api)
+  api(sbd3.spring.data.jpa)
   implementation(libs.java.tools)
-  runtimeOnly(sb.spring.boot.starter.data.jpa)
+  runtimeOnly(sbd3.spring.boot.starter.data.jpa)
   plantuml(libs.plantuml)
-  testFixturesCompileOnly(sb.jakarta.annotation.api)
+  testFixturesCompileOnly(sbd3.jakarta.annotation.api)
 }
 
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        runtimeOnly(sb.h2)
+        runtimeOnly(sbd3.h2)
         runtimeOnly(projects.testAppCore)
-        implementation(sb.spring.beans)
-        implementation(sb.spring.boot.test.autoconfigure)
-        implementation(sb.spring.test)
+        implementation(sbd3.spring.beans)
+        implementation(sbd3.spring.boot.test.autoconfigure)
+        implementation(sbd3.spring.test)
       }
     }
     val testWhitebox by getting(JvmTestSuite::class) {
@@ -57,7 +57,7 @@ classDiagrams {
 }
 
 dependencies {
-  runtimeOnly(sb.spring.boot.starter.log4j2)
+  runtimeOnly(sbd3.spring.boot.starter.log4j2)
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {

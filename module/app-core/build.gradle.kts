@@ -19,11 +19,11 @@ coverage {
 
 dependencies {
   api(libs.spring.modulith.api)
-  api(sb.spring.boot.autoconfigure)
-  api(sb.spring.context)
-  implementation(sb.spring.boot)
+  api(sbd3.spring.boot.autoconfigure)
+  api(sbd3.spring.context)
+  implementation(sbd3.spring.boot)
   runtimeOnly(projects.securityController)
-  runtimeOnly(sb.spring.boot.starter.actuator)
+  runtimeOnly(sbd3.spring.boot.starter.actuator)
 }
 
 testing {
@@ -31,19 +31,19 @@ testing {
     val test by getting(JvmTestSuite::class) {
       dependencies {
         implementation(libs.spring.modulith.core)
-        implementation(sb.log4j.api)
-        implementation(sb.spring.boot.test)
-        implementation.bundle(sb.bundles.test.impl)
+        implementation(sbd3.log4j.api)
+        implementation(sbd3.spring.boot.test)
+        implementation.bundle(sbd3.bundles.test.impl)
         runtimeOnly(libs.jmolecules.architecture.layered)
-        runtimeOnly(sb.h2)
-        runtimeOnly.bundle(sb.bundles.test.runtime)
+        runtimeOnly(sbd3.h2)
+        runtimeOnly.bundle(sbd3.bundles.test.runtime)
       }
     }
   }
 }
 
 dependencies {
-  runtimeOnly(sb.spring.boot.starter.log4j2)
+  runtimeOnly(sbd3.spring.boot.starter.log4j2)
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
