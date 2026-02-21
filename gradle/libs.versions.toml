@@ -4,10 +4,11 @@
 
 [versions]
 ep = "2.+"
+immutables = "2.+"
+jakarta = "11.+"
+plugin-convention = "0.16.+"
 spring-boot = "4.+"
 spring-modulith = "2.+"
-plugin-convention = "0.16.+"
-immutables = "2.+"
 
 [libraries]
 archunit-core = "com.tngtech.archunit:archunit:1.+"
@@ -22,7 +23,7 @@ immutables-bom = { module = "org.immutables:bom", version.ref = "immutables" }
 immutables-builder = { module = "org.immutables:builder" }
 immutables-core = { module = "org.immutables:value" }
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
-jakarta-bom = "jakarta.platform:jakarta.jakartaee-bom:10.+"
+jakarta-bom = { module = "jakarta.platform:jakarta.jakartaee-bom", version.ref = "jakarta" }
 jakarta-cdi = { module = "jakarta.enterprise:jakarta.enterprise.cdi-api" }
 jakarta-inject = { module = "jakarta.inject:jakarta.inject-api" }
 jakarta-interceptor = { module = "jakarta.interceptor:jakarta.interceptor-api" }
