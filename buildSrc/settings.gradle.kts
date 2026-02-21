@@ -9,12 +9,6 @@ dependencyResolutionManagement {
     create("libs") {
       from(files("../gradle/libs.versions.toml"))
     }
-    create("sbd3") {
-      from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:3.5.0")
-      bundle("spring-test", listOf("spring-test", "spring-boot-test", "spring-boot-test-autoconfigure"))
-      bundle("test-impl", listOf("junit-jupiter-api", "assertj-core", "junit-jupiter-params"))
-      bundle("test-runtime", listOf("junit-platform-engine", "junit-platform-launcher"))
-    }
     create("sbd4") {
       from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:4.0.0")
       bundle("spring-test", listOf("spring-test", "spring-boot-test", "spring-boot-test-autoconfigure"))

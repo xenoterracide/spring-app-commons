@@ -3,14 +3,14 @@
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
-import org.gradle.accessors.dm.LibrariesForSbd3
+import org.gradle.accessors.dm.LibrariesForSbd4
 
 plugins {
   id("com.xenoterracide.gradle.convention.test")
 }
 
 val libs = the<LibrariesForLibs>()
-val sbd3 = the<LibrariesForSbd3>()
+val sbd4 = the<LibrariesForSbd4>()
 
 dependencies {
   testFixturesImplementation(platform(libs.jakarta.bom))
@@ -27,19 +27,19 @@ testing {
         compileOnly(platform(libs.junit.bom))
         compileOnly(platform(libs.spring.bom))
         compileOnly(platform(libs.spring.modulith.bom))
-        compileOnly(libs.jspecify)
+        compileOnly(sbd4.jspecify)
         implementation(platform(libs.jakarta.bom))
         implementation(platform(libs.jmolecules.bom))
         implementation(platform(libs.junit.bom))
         implementation(platform(libs.spring.bom))
         implementation(platform(libs.spring.modulith.bom))
-        implementation.bundle(sbd3.bundles.test.impl)
+        implementation.bundle(sbd4.bundles.test.impl)
         runtimeOnly(platform(libs.jakarta.bom))
         runtimeOnly(platform(libs.jmolecules.bom))
         runtimeOnly(platform(libs.junit.bom))
         runtimeOnly(platform(libs.spring.bom))
         runtimeOnly(platform(libs.spring.modulith.bom))
-        runtimeOnly.bundle(sbd3.bundles.test.runtime)
+        runtimeOnly.bundle(sbd4.bundles.test.runtime)
 
         implementation.addConstraint(constraint(libs.jboss.logging))
       }

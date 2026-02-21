@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.accessors.dm.LibrariesForSbd4
 
 plugins {
   `java-library`
@@ -13,6 +14,7 @@ dependencyLocking {
 }
 
 val libs = the<LibrariesForLibs>()
+var sbd4 = the<LibrariesForSbd4>()
 
 configurations.configureEach {
   exclude(group = "org.slf4j", module = "slf4j-nop")
@@ -80,7 +82,7 @@ dependencies {
   runtimeOnly(platform(libs.jmolecules.bom))
   runtimeOnly(platform(libs.spring.modulith.bom))
 
-  compileOnly(libs.jspecify)
+  compileOnly(sbd4.jspecify)
   compileOnly(libs.jmolecules.architecture.layered)
 
 //  runtimeOnly(libs.starter.log4j2)

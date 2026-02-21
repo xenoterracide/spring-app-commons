@@ -137,7 +137,6 @@ org.jmolecules:jmolecules-ddd:1.10.0=compileClasspath,runtimeClasspath,testCompi
 org.jmolecules:jmolecules-layered-architecture:1.10.0=compileClasspath,testCompileClasspath,testWhiteboxCompileClasspath
 org.jspecify:jspecify:1.0.0=annotationProcessor,checkstyle,compileClasspath,plantuml,testAnnotationProcessor,testCompileClasspath,testFixturesAnnotationProcessor,testFixturesCompileClasspath,testWhiteboxAnnotationProcessor,testWhiteboxCompileClasspath
 org.junit.jupiter:junit-jupiter-api:5.14.3=testCompileClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
-org.junit.jupiter:junit-jupiter-engine:5.14.3=testRuntimeClasspath,testWhiteboxRuntimeClasspath
 org.junit.jupiter:junit-jupiter-params:5.14.3=testCompileClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
 org.junit.platform:junit-platform-commons:1.14.3=testCompileClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
 org.junit.platform:junit-platform-engine:1.14.3=testRuntimeClasspath,testWhiteboxRuntimeClasspath
