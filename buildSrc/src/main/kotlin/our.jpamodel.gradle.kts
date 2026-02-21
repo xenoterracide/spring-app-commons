@@ -1,8 +1,9 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.accessors.dm.LibrariesForSbd4
 
 plugins {
   id("our.bom")
@@ -11,6 +12,7 @@ plugins {
 }
 
 val libs = the<LibrariesForLibs>()
+val sbd4 = the<LibrariesForSbd4>()
 
 dependencies {
   annotationProcessor(platform(libs.jakarta.bom))
@@ -37,7 +39,7 @@ dependencies {
 
   testFixturesCompileOnly(platform(libs.immutables.bom))
   testFixturesCompileOnly(libs.bundles.immutables)
-  testFixturesCompileOnly(libs.jspecify)
+  testFixturesCompileOnly(sbd4.jspecify)
 }
 
 testing {

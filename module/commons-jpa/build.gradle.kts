@@ -10,32 +10,32 @@ dependencies {
   annotationProcessor(libs.hibernate.jpa.modelgen)
   annotationProcessor(platform(libs.jakarta.bom))
   annotationProcessor(platform(libs.spring.bom))
-  api(sbd3.jakarta.persistence.api)
-  api(sbd3.jakarta.validation.api)
+  api(sbd4.jakarta.persistence.api)
+  api(sbd4.jakarta.validation.api)
   api(libs.jmolecules.ddd)
   api(projects.commonsModel)
-  api(sbd3.hibernate.envers)
-  api(sbd3.spring.context)
-  api(sbd3.spring.data.commons)
+  api(sbd4.hibernate.envers)
+  api(sbd4.spring.context)
+  api(sbd4.spring.data.commons)
   compileOnly(libs.java.tools)
-  compileOnly(sbd3.hibernate.validator)
-  implementation(sbd3.commons.lang3)
-  implementation(sbd3.spring.beans)
-  implementation(sbd3.spring.tx)
+  compileOnly(sbd4.hibernate.validator)
+  implementation(sbd4.commons.lang3)
+  implementation(sbd4.spring.beans)
+  implementation(sbd4.spring.tx)
   runtimeOnly(libs.bundles.jakarta.transaction)
-  runtimeOnly(sbd3.spring.boot.starter.data.jpa)
-  runtimeOnly(sbd3.spring.boot.starter.validation)
+  runtimeOnly(sbd4.spring.boot.starter.data.jpa)
+  runtimeOnly(sbd4.spring.boot.starter.validation)
   testFixturesAnnotationProcessor(libs.hibernate.jpa.modelgen)
   testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
   testFixturesAnnotationProcessor(platform(libs.spring.bom))
   testFixturesApi(libs.jmolecules.ddd)
   testFixturesApi(projects.commonsModel)
-  testFixturesApi(sbd3.hibernate.envers)
-  testFixturesApi(sbd3.jakarta.persistence.api)
-  testFixturesApi(sbd3.jakarta.validation.api)
-  testFixturesApi(sbd3.spring.data.commons)
-  testFixturesApi(sbd3.spring.data.jpa)
-  testFixturesCompileOnlyApi(libs.jspecify)
+  testFixturesApi(sbd4.hibernate.envers)
+  testFixturesApi(sbd4.jakarta.persistence.api)
+  testFixturesApi(sbd4.jakarta.validation.api)
+  testFixturesApi(sbd4.spring.data.commons)
+  testFixturesApi(sbd4.spring.data.jpa)
+  testFixturesCompileOnlyApi(sbd4.jspecify)
   testFixturesImplementation(libs.java.tools)
   testFixturesImplementation(libs.uuid.creator)
 }
@@ -44,7 +44,7 @@ testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(sbd3.spring.orm)
+        implementation(sbd4.spring.orm)
       }
     }
     val testWhitebox by registering(JvmTestSuite::class) {
@@ -52,10 +52,10 @@ testing {
         implementation(project())
         implementation(projects.commonsModel)
         implementation(libs.equalsverifier)
-        implementation(sbd3.commons.lang3)
-        implementation(sbd3.spring.beans)
-        implementation(sbd3.spring.tx)
-        implementation(sbd3.hibernate.core)
+        implementation(sbd4.commons.lang3)
+        implementation(sbd4.spring.beans)
+        implementation(sbd4.spring.tx)
+        implementation(sbd4.hibernate.core)
       }
     }
     withType<JvmTestSuite>().configureEach {
@@ -63,18 +63,18 @@ testing {
         implementation(testFixtures(project()))
 
         implementation(platform(libs.jakarta.bom))
-        implementation(sbd3.spring.test)
-        implementation(sbd3.spring.boot.test.autoconfigure)
-        implementation(sbd3.spring.boot.test)
-        implementation.bundle(sbd3.bundles.test.impl)
+        implementation(sbd4.spring.test)
+        implementation(sbd4.spring.boot.test.autoconfigure)
+        implementation(sbd4.spring.boot.test)
+        implementation.bundle(sbd4.bundles.test.impl)
 
-        runtimeOnly(sbd3.h2)
-        runtimeOnly(sbd3.spring.boot.starter.validation)
-        runtimeOnly(sbd3.spring.boot.starter.data.jpa)
-        runtimeOnly(sbd3.spring.boot.starter.aop)
+        runtimeOnly(sbd4.h2)
+        runtimeOnly(sbd4.spring.boot.starter.validation)
+        runtimeOnly(sbd4.spring.boot.starter.data.jpa)
+        runtimeOnly(sbd4.spring.boot.starter.aspectj)
         runtimeOnly(projects.testAppCore)
-        runtimeOnly(sbd3.spring.data.envers)
-        runtimeOnly.bundle(sbd3.bundles.test.runtime)
+        runtimeOnly(sbd4.spring.data.envers)
+        runtimeOnly.bundle(sbd4.bundles.test.runtime)
       }
     }
   }
@@ -94,7 +94,7 @@ tasks.compileTestFixturesJava {
 }
 
 dependencies {
-  runtimeOnly(sbd3.spring.boot.starter.log4j2)
+  runtimeOnly(sbd4.spring.boot.starter.log4j2)
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {

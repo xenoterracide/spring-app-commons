@@ -36,10 +36,10 @@ dependencyAnalysis {
         severity("fail")
       }
       onUnusedDependencies {
-        exclude(sbd3.junit.jupiter.params)
-        exclude(sbd3.org.junit.jupiter.junit.jupiter)
-        exclude(sbd3.assertj.core)
-        exclude(libs.jspecify)
+        exclude(sbd4.junit.jupiter.params)
+        // exclude(sbd4.org.junit.jupiter.junit.jupiter)
+        exclude(sbd4.assertj.core)
+        exclude(sbd4.jspecify)
       }
     }
   }

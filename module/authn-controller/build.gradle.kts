@@ -24,31 +24,31 @@ val demoServerApi by configurations.existing
 
 dependencies {
   demoServerApi(platform(libs.spring.bom))
-  demoServerApi(sbd3.spring.boot.autoconfigure)
-  demoServerApi(sbd3.spring.context)
+  demoServerApi(sbd4.spring.boot.autoconfigure)
+  demoServerApi(sbd4.spring.context)
   demoServerImplementation(platform(libs.spring.bom))
-  demoServerImplementation(sbd3.spring.boot)
-  demoServerImplementation(sbd3.spring.boot.actuator)
-  demoServerImplementation(sbd3.spring.security.config)
-  demoServerImplementation(sbd3.spring.webmvc)
+  demoServerImplementation(sbd4.spring.boot)
+  demoServerImplementation(sbd4.spring.boot.actuator)
+  demoServerImplementation(sbd4.spring.security.config)
+  demoServerImplementation(sbd4.spring.webmvc)
   demoServerRuntimeOnly(platform(libs.spring.bom))
-  demoServerRuntimeOnly(sbd3.spring.boot.devtools)
-  demoServerRuntimeOnly(sbd3.spring.boot.starter.actuator)
-  demoServerRuntimeOnly(sbd3.spring.boot.starter.log4j2)
-  demoServerRuntimeOnly(sbd3.spring.boot.starter.oauth2.resource.server)
-  demoServerRuntimeOnly(sbd3.spring.boot.starter.security)
-  demoServerRuntimeOnly(sbd3.spring.boot.starter.web)
+  demoServerRuntimeOnly(sbd4.spring.boot.devtools)
+  demoServerRuntimeOnly(sbd4.spring.boot.starter.actuator)
+  demoServerRuntimeOnly(sbd4.spring.boot.starter.log4j2)
+  demoServerRuntimeOnly(sbd4.spring.boot.starter.oauth2.resource.server)
+  demoServerRuntimeOnly(sbd4.spring.boot.starter.security)
+  demoServerRuntimeOnly(sbd4.spring.boot.starter.web)
   demoServerRuntimeOnly(testFixtures(project))
-  implementation(sbd3.spring.context)
-  implementation(sbd3.spring.security.config)
-  implementation(sbd3.spring.security.web)
-  runtimeOnly(sbd3.spring.boot.starter.oauth2.resource.server)
-  runtimeOnly(sbd3.spring.boot.starter.security)
-  runtimeOnly(sbd3.spring.boot.starter.web)
+  implementation(sbd4.spring.context)
+  implementation(sbd4.spring.security.config)
+  implementation(sbd4.spring.security.web)
+  runtimeOnly(sbd4.spring.boot.starter.oauth2.resource.server)
+  runtimeOnly(sbd4.spring.boot.starter.security)
+  runtimeOnly(sbd4.spring.boot.starter.web)
   testFixturesImplementation(platform(libs.spring.bom))
-  testFixturesImplementation(sbd3.log4j.api)
-  testFixturesImplementation(sbd3.spring.security.core)
-  testFixturesImplementation(sbd3.spring.web)
+  testFixturesImplementation(sbd4.log4j.api)
+  testFixturesImplementation(sbd4.spring.security.core)
+  testFixturesImplementation(sbd4.spring.web)
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {
@@ -64,16 +64,16 @@ testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        implementation(sbd3.spring.boot.test)
-        runtimeOnly(sbd3.spring.boot.starter.web)
-        runtimeOnly(sbd3.spring.boot.starter.webflux)
+        implementation(sbd4.spring.boot.test)
+        runtimeOnly(sbd4.spring.boot.starter.web)
+        runtimeOnly(sbd4.spring.boot.starter.webflux)
         runtimeOnly(projects.testAppCore)
       }
     }
     withType<JvmTestSuite>().configureEach {
       dependencies {
-        implementation.bundle(sbd3.bundles.test.impl)
-        runtimeOnly.bundle(sbd3.bundles.test.runtime)
+        implementation.bundle(sbd4.bundles.test.impl)
+        runtimeOnly.bundle(sbd4.bundles.test.runtime)
       }
     }
   }
@@ -100,7 +100,7 @@ tasks.withType<Javadoc>().configureEach {
 }
 
 dependencies {
-  runtimeOnly(sbd3.spring.boot.starter.log4j2)
+  runtimeOnly(sbd4.spring.boot.starter.log4j2)
 
   modules {
     module("org.springframework.boot:spring-boot-starter-logging") {

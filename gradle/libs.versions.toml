@@ -4,8 +4,8 @@
 
 [versions]
 ep = "2.+"
-spring-boot = "3.+"
-spring-modulith = "1.+"
+spring-boot = "4.+"
+spring-modulith = "2.+"
 plugin-convention = "0.16.+"
 immutables = "2.+"
 
@@ -35,7 +35,6 @@ jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:1.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
 jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
 jspecify = "org.jspecify:jspecify:1.+"
-junit-bom = "org.junit:junit-bom:5.+"
 plantuml = "net.sourceforge.plantuml:plantuml:1.+"
 plugin-convention-checkstyle = { module = "com.xenoterracide.gradle.convention:checkstyle", version.ref = "plugin-convention" }
 plugin-convention-compile = { module = "com.xenoterracide.gradle.convention:compile", version.ref = "plugin-convention" }

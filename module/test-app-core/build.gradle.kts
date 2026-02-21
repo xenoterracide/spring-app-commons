@@ -14,23 +14,23 @@ tasks.javadoc {
 }
 
 dependencies {
-  implementation(sbd3.spring.boot.autoconfigure)
-  implementation(sbd3.spring.context)
-  runtimeOnly(sbd3.spring.test)
+  implementation(sbd4.spring.boot.autoconfigure)
+  implementation(sbd4.spring.context)
+  runtimeOnly(sbd4.spring.test)
 }
 
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        compileOnly(sbd3.spring.test)
-        implementation(sbd3.spring.boot.test)
+        compileOnly(sbd4.spring.test)
+        implementation(sbd4.spring.boot.test)
       }
     }
     withType<JvmTestSuite>().configureEach {
       dependencies {
-        implementation.bundle(sbd3.bundles.test.impl)
-        runtimeOnly.bundle(sbd3.bundles.test.runtime)
+        implementation.bundle(sbd4.bundles.test.impl)
+        runtimeOnly.bundle(sbd4.bundles.test.runtime)
       }
     }
   }
