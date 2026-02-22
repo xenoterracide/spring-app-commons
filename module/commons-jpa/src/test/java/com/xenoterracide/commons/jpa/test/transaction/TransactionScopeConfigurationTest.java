@@ -4,7 +4,9 @@
 
 package com.xenoterracide.commons.jpa.test.transaction;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.within;
 
 import com.xenoterracide.commons.jpa.util.Constants;
 import java.time.Instant;
