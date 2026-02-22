@@ -49,15 +49,6 @@ dependencies {
   testFixturesImplementation(sbd4.log4j.api)
   testFixturesImplementation(sbd4.spring.security.core)
   testFixturesImplementation(sbd4.spring.web)
-
-  modules {
-    module("org.springframework.boot:spring-boot-starter-logging") {
-      replacedBy(
-        "org.springframework.boot:spring-boot-starter-log4j2",
-        "Use Log4j2 instead of Logback",
-      )
-    }
-  }
 }
 
 testing {
@@ -97,17 +88,4 @@ tasks.withType<SpotBugsTask>().configureEach {
 
 tasks.withType<Javadoc>().configureEach {
   enabled = false
-}
-
-dependencies {
-  runtimeOnly(sbd4.spring.boot.starter.log4j2)
-
-  modules {
-    module("org.springframework.boot:spring-boot-starter-logging") {
-      replacedBy(
-        "org.springframework.boot:spring-boot-starter-log4j2",
-        "Use Log4j2 instead of Logback",
-      )
-    }
-  }
 }

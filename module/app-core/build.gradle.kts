@@ -41,16 +41,3 @@ testing {
     }
   }
 }
-
-dependencies {
-  runtimeOnly(sbd4.spring.boot.starter.log4j2)
-
-  modules {
-    module("org.springframework.boot:spring-boot-starter-logging") {
-      replacedBy(
-        "org.springframework.boot:spring-boot-starter-log4j2",
-        "Use Log4j2 instead of Logback",
-      )
-    }
-  }
-}
