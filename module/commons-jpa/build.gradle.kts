@@ -56,15 +56,15 @@ testing {
         implementation(sbd4.spring.beans)
         implementation(sbd4.spring.tx)
         implementation(sbd4.hibernate.core)
+        implementation(sbd4.spring.boot.jdbc.test)
       }
     }
     withType<JvmTestSuite>().configureEach {
       dependencies {
         implementation(platform(libs.jakarta.bom))
+        compileOnly(sbd4.spring.boot.data.jpa.test)
         implementation(sbd4.spring.boot.test)
-        implementation(sbd4.spring.boot.test.autoconfigure)
         implementation(sbd4.spring.test)
-        implementation(sbd4.spring.boot.data.jpa.test)
         implementation(testFixtures(project()))
         implementation.bundle(sbd4.bundles.test.impl)
         runtimeOnly(projects.testAppCore)

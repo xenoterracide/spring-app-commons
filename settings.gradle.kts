@@ -30,6 +30,7 @@ dependencyResolutionManagement {
 
   components {
     withModule<JakartaTransactionRule>("jakarta.transaction:jakarta.transaction-api")
+    withModule<JakartaElCapabilityRule>("jakarta.el:jakarta.el-api")
     withModule<JakartaElCapabilityRule>("org.apache.tomcat.embed:tomcat-embed-el")
     withModule<JakartaElCapabilityRule>("org.glassfish:jakarta.el")
   }

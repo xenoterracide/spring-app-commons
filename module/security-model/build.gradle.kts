@@ -32,6 +32,7 @@ testing {
         runtimeOnly(sbd4.h2)
         runtimeOnly(projects.testAppCore)
         implementation(sbd4.spring.beans)
+        implementation(sbd4.spring.boot.data.jpa.test)
         implementation(sbd4.spring.boot.test.autoconfigure)
         implementation(sbd4.spring.test)
       }

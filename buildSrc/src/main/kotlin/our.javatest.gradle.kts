@@ -17,6 +17,12 @@ dependencies {
   testFixturesImplementation(platform(libs.spring.bom))
 }
 
+/*
+tasks.withType<Test>().configureEach {
+  jvmArgs("--add-reads", "org.hibernate.validator=org.apache.tomcat.embed.el")
+}
+ */
+
 testing {
   suites {
     withType<JvmTestSuite>().configureEach {

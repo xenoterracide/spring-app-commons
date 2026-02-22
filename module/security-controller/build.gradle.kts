@@ -46,7 +46,6 @@ testing {
       dependencies {
         implementation(sbd4.spring.beans)
         implementation(sbd4.spring.boot.test)
-        implementation(sbd4.spring.boot.test.autoconfigure)
         implementation(sbd4.spring.graphql.test)
         implementation(sbd4.spring.boot.graphql.test)
         implementation(sbd4.spring.test)

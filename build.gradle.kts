@@ -37,7 +37,7 @@ dependencyAnalysis {
       }
       onUnusedDependencies {
         exclude(sbd4.junit.jupiter.params)
-        // exclude(sbd4.org.junit.jupiter.junit.jupiter)
+        exclude(sbd4.junit.jupiter)
         exclude(sbd4.assertj.core)
         exclude(sbd4.jspecify)
       }
