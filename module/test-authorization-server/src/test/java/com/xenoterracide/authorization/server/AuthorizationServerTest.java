@@ -1,6 +1,7 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 package com.xenoterracide.authorization.server;
 
@@ -21,6 +22,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -134,6 +136,32 @@ class AuthorizationServerTest {
     var tokenResponse = rc
       .post()
       .uri(this.tokenUriPath)
+      .body(params)
+      .retrieve()
+      .toEntity(OAuth2AccessTokenResponse.class);
+
+    assertThat(tokenResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(tokenResponse.getBody().getAccessToken()).isNotNull();
+  }
+
+  @Test
+  void clientCredentials() {
+    var rc = this.oauthTestClient.getObject();
+
+    var params = new LinkedMultiValueMap<String, String>();
+    params.add(OAuth2ParameterNames.GRANT_TYPE, AuthorizationGrantType.CLIENT_CREDENTIALS.getValue());
+    params.add(OAuth2ParameterNames.SCOPE, "openid profile email");
+
+    var credentials = HttpHeaders.encodeBasicAuth(
+      AuthorizationServer.CONFIDENTIAL_CLIENT_ID,
+      AuthorizationServer.CONFIDENTIAL_CLIENT_SECRET,
+      StandardCharsets.UTF_8
+    );
+
+    var tokenResponse = rc
+      .post()
+      .uri(this.tokenUriPath)
+      .header(HttpHeaders.AUTHORIZATION, "Basic " + credentials)
       .body(params)
       .retrieve()
       .toEntity(OAuth2AccessTokenResponse.class);

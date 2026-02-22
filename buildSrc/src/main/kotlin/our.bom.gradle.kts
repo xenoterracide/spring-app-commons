@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.accessors.dm.LibrariesForSbd4
 
 plugins {
   `java-library`
@@ -13,6 +14,7 @@ dependencyLocking {
 }
 
 val libs = the<LibrariesForLibs>()
+var sbd4 = the<LibrariesForSbd4>()
 
 configurations.configureEach {
   exclude(group = "org.slf4j", module = "slf4j-nop")
@@ -20,6 +22,11 @@ configurations.configureEach {
   exclude(group = "org.junit.jupiter", module = "junit-jupiter")
 
   resolutionStrategy {
+    capabilitiesResolution {
+      withCapability("jakarta.el", "jakarta.el-impl") {
+        select("org.apache.tomcat.embed:tomcat-embed-el:0")
+      }
+    }
     componentSelection {
       all {
         val nonRelease = Regex("^[\\d.]+-(RC|M|ea|beta|alpha).*$")
@@ -28,12 +35,6 @@ configurations.configureEach {
           if (candidate.version.endsWith("-SNAPSHOT")) reject("no snapshots")
         } else if (candidate.version.matches(nonRelease)) {
           logger.info("allowing: {}", candidate)
-        }
-
-        if (candidate.module == "jboss-logging") {
-          if (candidate.version.startsWith("3.6")) {
-            reject("broken with jpms")
-          }
         }
       }
     }
@@ -58,39 +59,35 @@ configurations.configureEach {
 dependencies {
   api(platform(libs.jakarta.bom))
   api(platform(libs.spring.bom))
-  api(platform(libs.junit.bom))
   api(platform(libs.jmolecules.bom))
   api(platform(libs.spring.modulith.bom))
 
   compileOnly(platform(libs.jakarta.bom))
   compileOnly(platform(libs.spring.bom))
-  compileOnly(platform(libs.junit.bom))
   compileOnly(platform(libs.jmolecules.bom))
   compileOnly(platform(libs.spring.modulith.bom))
 
   implementation(platform(libs.jakarta.bom))
   implementation(platform(libs.spring.bom))
-  implementation(platform(libs.junit.bom))
   implementation(platform(libs.jmolecules.bom))
   implementation(platform(libs.spring.modulith.bom))
 
   runtimeOnly(platform(libs.jakarta.bom))
   runtimeOnly(platform(libs.spring.bom))
-  runtimeOnly(platform(libs.junit.bom))
   runtimeOnly(platform(libs.jmolecules.bom))
   runtimeOnly(platform(libs.spring.modulith.bom))
 
-  compileOnly(libs.jspecify)
+  compileOnly(sbd4.jspecify)
   compileOnly(libs.jmolecules.architecture.layered)
 
-//  runtimeOnly(libs.starter.log4j2)
+  runtimeOnly(sbd4.spring.boot.starter.log4j2)
 
-//  modules {
-//    module("org.springframework.boot:spring-boot-starter-logging") {
-//      replacedBy(
-//        "org.springframework.boot:spring-boot-starter-log4j2",
-//        "Use Log4j2 instead of Logback",
-//      )
-//    }
-//  }
+  modules {
+    module("org.springframework.boot:spring-boot-starter-logging") {
+      replacedBy(
+        "org.springframework.boot:spring-boot-starter-log4j2",
+        "Use Log4j2 instead of Logback",
+      )
+    }
+  }
 }

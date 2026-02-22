@@ -1,22 +1,25 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
 import org.gradle.accessors.dm.LibrariesForLibs
-import org.gradle.accessors.dm.LibrariesForSb
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.accessors.dm.LibrariesForSbd4
 
 plugins {
   id("com.xenoterracide.gradle.convention.test")
 }
 
 val libs = the<LibrariesForLibs>()
-val sb = the<LibrariesForSb>()
+val sbd4 = the<LibrariesForSbd4>()
 
 dependencies {
   testFixturesImplementation(platform(libs.jakarta.bom))
   testFixturesImplementation(platform(libs.spring.bom))
+}
+
+tasks.withType<Test>().configureEach {
+  // https://bz.apache.org/bugzilla/show_bug.cgi?id=69958
+  jvmArgs("--add-reads", "org.hibernate.validator=org.apache.tomcat.embed.el")
 }
 
 testing {
@@ -26,22 +29,19 @@ testing {
         compileOnly(libs.jmolecules.architecture.layered)
         compileOnly(platform(libs.jakarta.bom))
         compileOnly(platform(libs.jmolecules.bom))
-        compileOnly(platform(libs.junit.bom))
         compileOnly(platform(libs.spring.bom))
         compileOnly(platform(libs.spring.modulith.bom))
-        compileOnly(libs.jspecify)
+        compileOnly(sbd4.jspecify)
         implementation(platform(libs.jakarta.bom))
         implementation(platform(libs.jmolecules.bom))
-        implementation(platform(libs.junit.bom))
         implementation(platform(libs.spring.bom))
         implementation(platform(libs.spring.modulith.bom))
-        implementation.bundle(sb.bundles.test.impl)
+        implementation.bundle(sbd4.bundles.test.impl)
         runtimeOnly(platform(libs.jakarta.bom))
         runtimeOnly(platform(libs.jmolecules.bom))
-        runtimeOnly(platform(libs.junit.bom))
         runtimeOnly(platform(libs.spring.bom))
         runtimeOnly(platform(libs.spring.modulith.bom))
-        runtimeOnly.bundle(sb.bundles.test.runtime)
+        runtimeOnly.bundle(sbd4.bundles.test.runtime)
 
         implementation.addConstraint(constraint(libs.jboss.logging))
       }

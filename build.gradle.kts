@@ -1,6 +1,6 @@
 import org.semver4j.Semver
 
-// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -36,10 +36,38 @@ dependencyAnalysis {
         severity("fail")
       }
       onUnusedDependencies {
-        exclude(sb.junit.jupiter.params)
-        exclude(sb.org.junit.jupiter.junit.jupiter)
-        exclude(sb.assertj.core)
-        exclude(libs.jspecify)
+        exclude(sbd4.junit.jupiter.params)
+        exclude(sbd4.junit.jupiter)
+        exclude(sbd4.assertj.core)
+        exclude(sbd4.jspecify)
+      }
+    }
+    // buildHealth does not understand JPMS module-info requires
+    project(":test-authorization-server") {
+      onUnusedDependencies {
+        exclude(sbd4.spring.security.oauth2.authorization.server)
+      }
+      onIncorrectConfiguration {
+        exclude(sbd4.spring.security.oauth2.core)
+      }
+    }
+    // spring-boot-data-jpa-test has runtime components needed beyond compile-only
+    project(":commons-jpa") {
+      onCompileOnly {
+        exclude(sbd4.spring.boot.data.jpa.test)
+      }
+    }
+    project(":commons-model") {
+      onCompileOnly {
+        exclude(sbd4.spring.boot.data.jpa.test)
+      }
+    }
+    project(":security-model") {
+      onUnusedDependencies {
+        exclude(sbd4.spring.boot.test.autoconfigure)
+      }
+      onCompileOnly {
+        exclude(sbd4.spring.boot.data.jpa.test)
       }
     }
   }

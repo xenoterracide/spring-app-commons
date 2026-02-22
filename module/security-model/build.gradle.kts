@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright © 2023 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2023-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
@@ -15,25 +15,26 @@ val plantuml by configurations.creating
 dependencies {
   api(projects.commonsJpa)
   api(projects.commonsModel)
-  api(sb.hibernate.envers)
-  api(sb.jakarta.persistence.api)
-  api(sb.jakarta.validation.api)
-  api(sb.spring.data.jpa)
+  api(sbd4.hibernate.envers)
+  api(sbd4.jakarta.persistence.api)
+  api(sbd4.jakarta.validation.api)
+  api(sbd4.spring.data.jpa)
   implementation(libs.java.tools)
-  runtimeOnly(sb.spring.boot.starter.data.jpa)
+  runtimeOnly(sbd4.spring.boot.starter.data.jpa)
   plantuml(libs.plantuml)
-  testFixturesCompileOnly(sb.jakarta.annotation.api)
+  testFixturesCompileOnly(sbd4.jakarta.annotation.api)
 }
 
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
       dependencies {
-        runtimeOnly(sb.h2)
+        runtimeOnly(sbd4.h2)
         runtimeOnly(projects.testAppCore)
-        implementation(sb.spring.beans)
-        implementation(sb.spring.boot.test.autoconfigure)
-        implementation(sb.spring.test)
+        implementation(sbd4.spring.beans)
+        implementation(sbd4.spring.boot.data.jpa.test)
+        implementation(sbd4.spring.boot.test.autoconfigure)
+        implementation(sbd4.spring.test)
       }
     }
     val testWhitebox by getting(JvmTestSuite::class) {
@@ -53,18 +54,5 @@ classDiagrams {
     exclude(fields().thatDontHaveAccessors())
     writeTo(project.layout.files("diagrams/class.puml").single())
     renderTo(project.layout.files("diagrams/class.svg").single())
-  }
-}
-
-dependencies {
-  runtimeOnly(sb.spring.boot.starter.log4j2)
-
-  modules {
-    module("org.springframework.boot:spring-boot-starter-logging") {
-      replacedBy(
-        "org.springframework.boot:spring-boot-starter-log4j2",
-        "Use Log4j2 instead of Logback",
-      )
-    }
   }
 }
