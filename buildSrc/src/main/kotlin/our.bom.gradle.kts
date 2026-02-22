@@ -36,12 +36,6 @@ configurations.configureEach {
         } else if (candidate.version.matches(nonRelease)) {
           logger.info("allowing: {}", candidate)
         }
-
-        if (candidate.module == "jboss-logging") {
-          if (candidate.version.startsWith("3.6")) {
-            reject("broken with jpms")
-          }
-        }
       }
     }
   }
