@@ -22,6 +22,11 @@ configurations.configureEach {
   exclude(group = "org.junit.jupiter", module = "junit-jupiter")
 
   resolutionStrategy {
+    capabilitiesResolution {
+      withCapability("jakarta.el", "jakarta.el-impl") {
+        select("org.apache.tomcat.embed:tomcat-embed-el:0")
+      }
+    }
     componentSelection {
       all {
         val nonRelease = Regex("^[\\d.]+-(RC|M|ea|beta|alpha).*$")

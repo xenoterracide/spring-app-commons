@@ -30,6 +30,8 @@ dependencyResolutionManagement {
 
   components {
     withModule<JakartaTransactionRule>("jakarta.transaction:jakarta.transaction-api")
+    withModule<JakartaElCapabilityRule>("org.apache.tomcat.embed:tomcat-embed-el")
+    withModule<JakartaElCapabilityRule>("org.glassfish:jakarta.el")
   }
 
   repositories {
@@ -45,6 +47,17 @@ dependencyResolutionManagement {
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+@CacheableRule
+abstract class JakartaElCapabilityRule : ComponentMetadataRule {
+  override fun execute(context: ComponentMetadataContext) {
+    context.details.allVariants {
+      withCapabilities {
+        addCapability("jakarta.el", "jakarta.el-impl", context.details.id.version)
+      }
+    }
+  }
+}
 
 @CacheableRule
 abstract class JakartaTransactionRule : ComponentMetadataRule {
@@ -84,7 +97,7 @@ dependencyResolutionManagement {
       from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:4.0.0")
       bundle("spring-test", listOf("spring-test", "spring-boot-test", "spring-boot-test-autoconfigure"))
       bundle("test-impl", listOf("junit-jupiter-api", "assertj-core", "junit-jupiter-params"))
-      bundle("test-runtime", listOf("junit-platform-engine", "junit-platform-launcher"))
+      bundle("test-runtime", listOf("junit-jupiter-engine", "junit-platform-launcher"))
     }
   }
 }

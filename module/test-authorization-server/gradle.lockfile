@@ -94,6 +94,7 @@ org.jmolecules:jmolecules-bom:2023.3.4=compileClasspath,runtimeClasspath,testCom
 org.jmolecules:jmolecules-layered-architecture:1.10.0=compileClasspath,testCompileClasspath
 org.jspecify:jspecify:1.0.0=annotationProcessor,checkstyle,compileClasspath,runtimeClasspath,testAnnotationProcessor,testCompileClasspath,testFixturesAnnotationProcessor,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.junit.jupiter:junit-jupiter-api:6.0.3=testCompileClasspath,testRuntimeClasspath
+org.junit.jupiter:junit-jupiter-engine:6.0.3=testRuntimeClasspath
 org.junit.jupiter:junit-jupiter-params:6.0.3=testCompileClasspath,testRuntimeClasspath
 org.junit.platform:junit-platform-commons:6.0.3=testCompileClasspath,testRuntimeClasspath
 org.junit.platform:junit-platform-engine:6.0.3=testRuntimeClasspath
