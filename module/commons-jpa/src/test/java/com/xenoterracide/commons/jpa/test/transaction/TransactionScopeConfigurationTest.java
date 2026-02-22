@@ -73,8 +73,7 @@ class TransactionScopeConfigurationTest {
   static class TimeClassProvider implements ArgumentsProvider {
 
     @Override
-    public Stream<? extends Arguments> provideArguments(ParameterDeclarations parameters, ExtensionContext context)
-      throws Exception {
+    public Stream<? extends Arguments> provideArguments(ParameterDeclarations parameters, ExtensionContext context) {
       return Stream.of(
         Arguments.of(Instant.class),
         Arguments.of(ZonedDateTime.class),
