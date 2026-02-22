@@ -50,7 +50,7 @@ plugin-errorprone = "net.ltgt.gradle:gradle-errorprone-plugin:5.+"
 spotbugs = "com.github.spotbugs:spotbugs:4.+"
 spring-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring" }
 spring-modulith-api = { module = "org.springframework.modulith:spring-modulith-api" }
-spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version = "1.+" }
+spring-modulith-bom = { module = "org.springframework.modulith:spring-modulith-bom", version = "2.+" }
 spring-modulith-core = { module = "org.springframework.modulith:spring-modulith-core" }
 spring-modulith-test = { module = "org.springframework.modulith:spring-modulith-test" }
 uuid-creator = "com.github.f4b6a3:uuid-creator:6.+"
