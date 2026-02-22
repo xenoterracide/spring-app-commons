@@ -27,22 +27,22 @@ create-pr: build
 	head_before=$$(git rev-parse HEAD); \
 	if gh pr view --json number > /dev/null 2>&1; then \
 		printf '%s\n' "Updating PR message..."; \
-		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+		pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
 		  --skill-file "$(SKILL_FILE)" || exit 0; \
 		head_after=$$(git rev-parse HEAD); \
 		if [ "$$head_before" != "$$head_after" ]; then \
-			./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+			pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
 			  --skill-file "$(SKILL_FILE)" || exit 0; \
 		fi; \
 		title=$$(cat "$$tmp_dir/title.txt"); \
 		gh pr edit --title "$$title" --body-file "$$tmp_dir/body.txt" || exit 0; \
 		GH_PAGER=cat gh pr view; \
 	else \
-		./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+		pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
 		  --skill-file "$(SKILL_FILE)" || exit 0; \
 		head_after=$$(git rev-parse HEAD); \
 		if [ "$$head_before" != "$$head_after" ]; then \
-			./scripts/pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
+			pr-message.sh --title-file "$$tmp_dir/title.txt" --body-file "$$tmp_dir/body.txt" \
 			  --skill-file "$(SKILL_FILE)" || exit 0; \
 		fi; \
 		title=$$(cat "$$tmp_dir/title.txt"); \
