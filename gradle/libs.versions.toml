@@ -35,7 +35,7 @@ jmolecules-archunit = "org.jmolecules.integrations:jmolecules-archunit:1.+"
 jmolecules-bom = "org.jmolecules:jmolecules-bom:2023.+"
 jmolecules-ddd = { module = "org.jmolecules:jmolecules-ddd" }
 jspecify = "org.jspecify:jspecify:1.+"
-junit-bom = "org.junit:junit-bom:5.+"
+junit-bom = "org.junit:junit-bom:6.+"
 junit-parameters = { module = "org.junit.jupiter:junit-jupiter-params" }
 plantuml = "net.sourceforge.plantuml:plantuml:1.+"
 plugin-convention-checkstyle = { module = "com.xenoterracide.gradle.convention:checkstyle", version.ref = "plugin-convention" }
