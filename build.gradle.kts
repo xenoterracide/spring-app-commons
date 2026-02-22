@@ -42,5 +42,14 @@ dependencyAnalysis {
         exclude(sbd4.jspecify)
       }
     }
+    // buildHealth does not understand JPMS module-info requires
+    project(":test-authorization-server") {
+      onUnusedDependencies {
+        exclude(sbd4.spring.security.oauth2.authorization.server)
+      }
+      onIncorrectConfiguration {
+        exclude(sbd4.spring.security.oauth2.core)
+      }
+    }
   }
 }

@@ -9,9 +9,13 @@ import com.xenoterracide.tools.java.annotation.ExcludeFromGeneratedCoverageRepor
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 /**
  * Test Authorization Server to mimick Auth0.
@@ -20,13 +24,21 @@ import org.springframework.security.web.SecurityFilterChain;
 public class AuthorizationServer {
 
   /**
-   * Client ID for the client.
+   * Client ID for the public client (authorization code flow).
    */
   public static final String CLIENT_ID = "client";
   /**
-   * Redirect URI for the client.
+   * Redirect URI for the public client.
    */
   public static final String REDIRECT_URI = "http://localhost:3000";
+  /**
+   * Client ID for the confidential client (client credentials flow).
+   */
+  public static final String CONFIDENTIAL_CLIENT_ID = "confidential";
+  /**
+   * Client secret for the confidential client.
+   */
+  public static final String CONFIDENTIAL_CLIENT_SECRET = "secret";
 
   AuthorizationServer() {}
 
@@ -42,13 +54,28 @@ public class AuthorizationServer {
   }
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+  @Order(1)
+  SecurityFilterChain authorizationServerFilterChain(HttpSecurity http) throws Exception {
+    http
+      .securityMatcher("/oauth/**", "/.well-known/**", "/oauth2/**", "/userinfo")
+      .csrf(csrf -> csrf.disable())
+      .oauth2AuthorizationServer(authorizationServer -> authorizationServer.oidc(Customizer.withDefaults()))
+      .exceptionHandling(exceptions ->
+        exceptions.defaultAuthenticationEntryPointFor(
+          new LoginUrlAuthenticationEntryPoint("/login"),
+          new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
+        )
+      );
+    return http.build();
+  }
+
+  @Bean
+  @Order(2)
+  SecurityFilterChain defaultFilterChain(HttpSecurity http) throws Exception {
     http
       .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
-      .formLogin(Customizer.withDefaults())
-      .oauth2AuthorizationServer(
-        authorizationServer -> authorizationServer.oidc(Customizer.withDefaults()) // Enable OpenID Connect 1.0
-      );
+      .csrf(csrf -> csrf.disable())
+      .formLogin(Customizer.withDefaults());
     return http.build();
   }
 }
