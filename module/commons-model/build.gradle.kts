@@ -20,7 +20,7 @@ testing {
         implementation(libs.java.tools)
         implementation(sbd4.jakarta.persistence.api)
         implementation(sbd4.spring.beans)
-        compileOnly(sbd4.spring.boot.data.jpa.test)
+        implementation(sbd4.spring.boot.data.jpa.test)
         runtimeOnly(projects.testAppCore)
         runtimeOnly(sbd4.h2)
         runtimeOnly(sbd4.spring.boot.starter.data.jpa)
