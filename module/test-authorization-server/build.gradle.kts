@@ -24,6 +24,7 @@ dependencies {
   implementation(sbd4.spring.web)
 
   compileOnly(libs.java.tools)
+  compileOnly(sbd4.spring.boot.servlet)
 
   runtimeOnly(platform(libs.spring.bom))
   runtimeOnly(sbd4.spring.boot.starter.oauth2.authorization.server)

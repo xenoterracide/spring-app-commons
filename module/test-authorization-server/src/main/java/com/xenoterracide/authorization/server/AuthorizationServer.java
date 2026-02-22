@@ -55,7 +55,7 @@ public class AuthorizationServer {
 
   @Bean
   @Order(1)
-  SecurityFilterChain authorizationServerFilterChain(HttpSecurity http) throws Exception {
+  SecurityFilterChain authorizationServerFilterChain(HttpSecurity http) {
     http
       .securityMatcher("/oauth/**", "/.well-known/**", "/oauth2/**", "/userinfo")
       .csrf(csrf -> csrf.disable())
@@ -71,7 +71,7 @@ public class AuthorizationServer {
 
   @Bean
   @Order(2)
-  SecurityFilterChain defaultFilterChain(HttpSecurity http) throws Exception {
+  SecurityFilterChain defaultFilterChain(HttpSecurity http) {
     http
       .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
       .csrf(csrf -> csrf.disable())

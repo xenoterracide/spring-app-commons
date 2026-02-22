@@ -51,5 +51,24 @@ dependencyAnalysis {
         exclude(sbd4.spring.security.oauth2.core)
       }
     }
+    // spring-boot-data-jpa-test has runtime components needed beyond compile-only
+    project(":commons-jpa") {
+      onCompileOnly {
+        exclude(sbd4.spring.boot.data.jpa.test)
+      }
+    }
+    project(":commons-model") {
+      onCompileOnly {
+        exclude(sbd4.spring.boot.data.jpa.test)
+      }
+    }
+    project(":security-model") {
+      onUnusedDependencies {
+        exclude(sbd4.spring.boot.test.autoconfigure)
+      }
+      onCompileOnly {
+        exclude(sbd4.spring.boot.data.jpa.test)
+      }
+    }
   }
 }
