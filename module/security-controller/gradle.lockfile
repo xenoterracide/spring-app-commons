@@ -186,6 +186,7 @@ org.springframework.boot:spring-boot-data-commons:4.0.3=demoServerRuntimeClasspa
 org.springframework.boot:spring-boot-data-jpa:4.0.3=demoServerRuntimeClasspath,runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-dependencies:4.0.3=compileClasspath,demoServerCompileClasspath,demoServerRuntimeClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-devtools:4.0.3=demoServerRuntimeClasspath
+org.springframework.boot:spring-boot-graphql-test:4.0.3=testCompileClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-graphql:4.0.3=demoServerRuntimeClasspath,runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
 org.springframework.boot:spring-boot-health:4.0.3=demoServerRuntimeClasspath
 org.springframework.boot:spring-boot-hibernate:4.0.3=demoServerRuntimeClasspath,runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath
