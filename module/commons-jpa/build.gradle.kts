@@ -62,7 +62,7 @@ testing {
     withType<JvmTestSuite>().configureEach {
       dependencies {
         implementation(platform(libs.jakarta.bom))
-        compileOnly(sbd4.spring.boot.data.jpa.test)
+        implementation(sbd4.spring.boot.data.jpa.test)
         implementation(sbd4.spring.boot.test)
         implementation(sbd4.spring.test)
         implementation(testFixtures(project()))
