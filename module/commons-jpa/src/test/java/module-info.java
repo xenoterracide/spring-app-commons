@@ -21,7 +21,7 @@ import org.jspecify.annotations.NullMarked;
   requires org.apache.commons.lang3;
   requires com.xenoterracide.jpa.fixtures;
   requires spring.test;
-  requires spring.boot.test.autoconfigure;
+  // requires spring.boot.test.autoconfigure;
   requires spring.orm;
   requires static org.jspecify;
   requires spring.boot.data.jpa.test;

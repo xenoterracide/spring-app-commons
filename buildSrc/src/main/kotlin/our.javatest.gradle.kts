@@ -17,11 +17,10 @@ dependencies {
   testFixturesImplementation(platform(libs.spring.bom))
 }
 
-/*
 tasks.withType<Test>().configureEach {
+  // https://bz.apache.org/bugzilla/show_bug.cgi?id=69958
   jvmArgs("--add-reads", "org.hibernate.validator=org.apache.tomcat.embed.el")
 }
- */
 
 testing {
   suites {
