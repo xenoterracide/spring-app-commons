@@ -1,9 +1,10 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
 import com.xenoterracide.gradle.convention.publish.GithubPublicRepositoryConfiguration
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.api.publish.tasks.GenerateModuleMetadata
 
 
 plugins {
@@ -44,4 +45,10 @@ java {
 tasks.javadoc {
   // because jpamodelgen puts non java sources in java source dirs https://hibernate.atlassian.net/browse/HHH-18676
   include("**/*.java")
+}
+
+// Workaround for Gradle issue: plainJavadocJar task is not automatically wired as a dependency
+// of generateMetadataFileForMavenPublication when using the maven-publish plugin with java-library.
+tasks.withType<GenerateModuleMetadata>().configureEach {
+  dependsOn(tasks.named("plainJavadocJar"))
 }
