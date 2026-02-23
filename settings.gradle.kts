@@ -88,12 +88,6 @@ rootDir.resolve("module").listFiles()?.forEach { file ->
 
 dependencyResolutionManagement {
   versionCatalogs {
-    create("sbd3") {
-      from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:3.5.0")
-      bundle("spring-test", listOf("spring-test", "spring-boot-test", "spring-boot-test-autoconfigure"))
-      bundle("test-impl", listOf("assertj-core", "junit-jupiter-api", "junit-jupiter-params"))
-      bundle("test-runtime", listOf("junit-jupiter-engine", "junit-platform-launcher"))
-    }
     create("sbd4") {
       from("com.xenoterracide.gradle.vc:version-catalog-spring-boot:4.0.0")
       bundle("spring-test", listOf("spring-test", "spring-boot-test", "spring-boot-test-autoconfigure"))
