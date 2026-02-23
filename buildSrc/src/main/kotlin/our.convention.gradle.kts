@@ -47,8 +47,15 @@ tasks.javadoc {
   include("**/*.java")
 }
 
-// Workaround for Gradle issue: plainJavadocJar task is not automatically wired as a dependency
-// of generateMetadataFileForMavenPublication when using the maven-publish plugin with java-library.
+// Workaround for https://github.com/gradle/gradle/issues/26091
+// plainJavadocJar task is not automatically wired as a dependency of generateMetadataFileForMavenPublication.
+// Also addresses duplicate javadoc artifacts from java-library (plainJavadocJar) and java.withJavadocJar() (javadocJar).
 tasks.withType<GenerateModuleMetadata>().configureEach {
   dependsOn(tasks.named("plainJavadocJar"))
+}
+
+// Disable the javadocJar task from java.withJavadocJar() to avoid duplicate artifacts in publication
+// since java-library already provides plainJavadocJar with the same output.
+tasks.named("javadocJar") {
+  enabled = false
 }
