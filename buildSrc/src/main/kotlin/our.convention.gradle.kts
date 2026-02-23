@@ -1,9 +1,10 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: MIT
 
 import com.xenoterracide.gradle.convention.publish.GithubPublicRepositoryConfiguration
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.api.publish.tasks.GenerateModuleMetadata
 
 
 plugins {
@@ -44,4 +45,20 @@ java {
 tasks.javadoc {
   // because jpamodelgen puts non java sources in java source dirs https://hibernate.atlassian.net/browse/HHH-18676
   include("**/*.java")
+}
+
+// Workaround for https://github.com/gradle/gradle/issues/26091
+// plainJavadocJar task is not automatically wired as a dependency of generateMetadataFileForMavenPublication.
+// Also addresses duplicate javadoc artifacts from java-library (plainJavadocJar) and java.withJavadocJar() (javadocJar).
+tasks.withType<GenerateModuleMetadata>().configureEach {
+  dependsOn(tasks.matching { it.name == "plainJavadocJar" || it.name == "javadocJar" })
+}
+
+// Disable javadocJar when plainJavadocJar exists to avoid duplicate artifacts in publication.
+// Uses afterEvaluate instead of whenTaskAdded to avoid early task realization that can break
+// other plugins (like the coverage plugin's lazy configuration).
+afterEvaluate {
+  if (tasks.names.contains("plainJavadocJar") && tasks.names.contains("javadocJar")) {
+    tasks.named("javadocJar") { enabled = false }
+  }
 }
