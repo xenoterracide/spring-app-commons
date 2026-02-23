@@ -50,12 +50,16 @@ tasks.javadoc {
 // Workaround for https://github.com/gradle/gradle/issues/26091
 // plainJavadocJar task is not automatically wired as a dependency of generateMetadataFileForMavenPublication.
 // Also addresses duplicate javadoc artifacts from java-library (plainJavadocJar) and java.withJavadocJar() (javadocJar).
+// Use lazy configuration to handle tasks registered by different plugins at different times.
 tasks.withType<GenerateModuleMetadata>().configureEach {
-  dependsOn(tasks.named("plainJavadocJar"))
+  dependsOn(tasks.matching { it.name == "plainJavadocJar" || it.name == "javadocJar" })
 }
 
-// Disable the javadocJar task from java.withJavadocJar() to avoid duplicate artifacts in publication
-// since java-library already provides plainJavadocJar with the same output.
-tasks.named("javadocJar") {
-  enabled = false
+// Prefer plainJavadocJar over javadocJar to avoid duplicate artifacts in publication.
+// The java-library plugin provides plainJavadocJar, and vanniktech's plugin also creates it.
+// If both exist, we disable javadocJar (from java.withJavadocJar) as it's redundant.
+tasks.whenTaskAdded {
+  if (name == "plainJavadocJar" && tasks.names.contains("javadocJar")) {
+    tasks.named("javadocJar") { enabled = false }
+  }
 }
