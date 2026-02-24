@@ -7,6 +7,7 @@ package com.xenoterracide.controller.security;
 import com.xenoterracide.model.security.user.User;
 import com.xenoterracide.model.security.user.UserRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
@@ -28,18 +29,17 @@ public class RegistrationCtrlr {
 
   @MutationMapping
   User registerUser(@Valid @Argument RegistrationInput input) {
-    var user = User.builder().name(input.username()).build();
+    var user = User.builder().name(input.email()).build();
 
-    user.linkIdentityProvider(URI.create(input.issuer()), input.subject(), input.email(), input.emailVerified());
+    user.linkIdentityProvider(input.issuer(), input.subject(), input.email(), input.emailVerified());
 
     return this.userRepository.save(user);
   }
 
   record RegistrationInput(
-    @NotBlank String username,
-    @NotBlank String issuer,
+    @NotNull URI issuer,
     @NotBlank String subject,
-    @NotBlank String email,
-    @NotNull Boolean emailVerified
+    @NotBlank @Email String email,
+    boolean emailVerified
   ) {}
 }

@@ -5,9 +5,8 @@
 mutation RegisterUser {
   registerUser(
     input: {
-      username: "test",
       issuer: "https://auth0.example.com/",
-      subject: "test",
+      subject: "auth0|123456789",
       email: "test@example.com",
       emailVerified: true
     }
