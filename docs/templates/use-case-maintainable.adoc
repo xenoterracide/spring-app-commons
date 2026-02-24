@@ -40,43 +40,40 @@
 
 == Main Success Scenario
 
-// Each step has a semantic anchor like [#step-validate-user]
-// Extensions reference these anchors, not numbers
-// NOTE: Use [#anchor] syntax (inline) NOT [[anchor]] (block) to avoid breaking list numbering
+// Each step has a semantic anchor with the FULL STEP TEXT as the reftext.
+// Format: [[stable-anchor,Full Human Readable Step Text]]
+// This gives humans clickable links showing the full phrase,
+// while AIs/tools can use the stable anchor ID.
 
-[#step-{unique-id}-1]
-1. *{step-1-action}* +
-   _Result: {step-1-result}_
+. [[step-initiate,{step-1-text}]] *{step-1-text}* +
+  _{step-1-result}_
 
-[#step-{unique-id}-2]
-2. *{step-2-action}* +
-   _Result: {step-2-result}_
+. [[step-authenticate,{step-2-text}]] *{step-2-text}* +
+  _{step-2-result}_
 
-[#step-{unique-id}-3]
-3. *{step-3-action}* +
-   _Result: {step-3-result}_
+. [[step-validate,{step-3-text}]] *{step-3-text}* +
+  _{step-3-result}_
 
-[#step-{unique-id}-4]
-4. *{step-4-action}* +
-   _Result: {step-4-result}_
+. [[step-create,{step-4-text}]] *{step-4-text}* +
+  _{step-4-result}_
 
-[#step-{unique-id}-5]
-5. *{step-5-action}* +
-   _Result: {step-5-result}_
+. [[step-complete,{step-5-text}]] *{step-5-text}* +
+  _{step-5-result}_
 
 == Extensions (Alternative Flows)
 
-// Instead of "3a", use the semantic anchor <<step-UC001-3>>
-// If you reorder steps, only the anchor definition moves - references stay valid
+// Extensions reference steps using <<anchor>> syntax.
+// The rendered link will show the full step text, not the anchor ID.
+// Example: <<step-validate>> renders as "System validates identity is new"
 
-=== At <<step-{unique-id}-3>>: {extension-1-name}
+=== At <<step-validate>>: {extension-1-name}
 
 *Condition:* {extension-1-condition}
 
 *Steps:*
 . {extension-1-step-1}
 . {extension-1-step-2}
-. *Resume:* Return to <<step-{unique-id}-4>> (or <<step-{unique-id}-5>>, or *ENDS*)
+. *Resume:* Return to <<step-create>> (or <<step-complete>>, or *ENDS*)
 
 === At <<step-{unique-id}-3>>: {extension-2-name}
 

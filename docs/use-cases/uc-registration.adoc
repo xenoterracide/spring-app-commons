@@ -9,20 +9,20 @@
 [cols="1,3"]
 |===
 | Primary Actor | Anonymous User with Identity Provider credentials
-| Scope         | Security Module - Registration Context
-| Level         | User Goal
-| Trigger       | User initiates registration through an Identity Provider
+| Scope | Security Module - Registration Context
+| Level | User Goal
+| Trigger | User initiates registration through an Identity Provider
 |===
 
 == Stakeholders and Interests
 
 *User*::
-  Wants seamless registration without new passwords.
+  Wants seamless registration without creating new passwords.
   Expects to be recognized on return visits regardless of which IdP they used.
 
 *System Owner*::
   Needs accurate user tracking without duplication.
-  Must support multiple IdPs (Auth0, Google, Microsoft) without vendor lock-in.
+  Must support multiple IdPs without vendor lock-in.
 
 *Security Auditor*::
   Requires clear audit trail.
@@ -37,228 +37,140 @@
 
 === Success Guarantee
 
-* New `User` aggregate created with unique surrogate ID
-* `IdentityProviderUser` entity created linking User to IdP identity (`iss`, `sub`)
-* Domain events published: `UserRegistered`, `IdentityLinked`
+* User account created with unique identifier
+* Identity Provider identity linked to user account
+* Domain events published for user registration and identity linkage
 
 === Minimal Guarantee
 
-* No duplicate user records created for same IdP identity
+* No duplicate accounts created for same identity
 * Failed attempts logged for audit
 
 == Main Success Scenario
 
-:step-initiate-registration-num: 1
-{step-initiate-registration-num}. *User initiates registration via Identity Provider*::
-   _User clicks "Sign up with Google/Auth0/Microsoft"_
+. [[step-initiate,User initiates registration via Identity Provider]] *User initiates registration via Identity Provider* +
+  _User clicks "Sign up with..." button for chosen provider_
 
-:step-redirect-idp-num: 2
-{step-redirect-idp-num}. *System redirects to Identity Provider for authentication*::
-   _System constructs OIDC authorization request with appropriate scopes_
+. [[step-authenticate,System authenticates user through Identity Provider]] *System authenticates user through Identity Provider* +
+  _User completes login at provider; System receives identity token containing
+  issuer, subject identifier, email, and profile information_
 
-:step-user-authenticates-num: 3
-{step-user-authenticates-num}. *User authenticates with Identity Provider*::
-   _User enters credentials in IdP's interface (outside our system)_
+. [[step-validate,System validates identity is new]] *System validates identity is new* +
+  _System queries whether identity (issuer + subject) already exists_
 
-:step-idp-returns-token-num: 4
-{step-idp-returns-token-num}. *Identity Provider returns OIDC token*::
-   _Token contains: `iss`, `sub`, `email`, `email_verified`, `name`, `picture`_
+. [[step-create,System creates user account]] *System creates user account* +
+  _New account created with identity information from provider_
 
-:step-extract-identity-num: 5
-{step-extract-identity-num}. *System extracts identity claims*::
-   _Parses `iss` (issuer URI) and `sub` (subject identifier)_
+. [[step-publish,System publishes registration events]] *System publishes registration events* +
+  _User registered and identity linked events emitted for downstream processing_
 
-:step-query-existing-num: 6
-{step-query-existing-num}. *System queries read model for existing identity*::
-   _Query: Find user with matching (`issuer`, `sub`)_
-
-:step-check-exists-num: 7
-{step-check-exists-num}. *Read model returns: No user found*::
-   _Identity is new, proceed with registration_
-
-:step-create-user-aggregate-num: 8
-{step-create-user-aggregate-num}. *System creates new `User` aggregate*::
-   _Generates surrogate UserId, initializes user record_
-
-:step-create-idp-entity-num: 9
-{step-create-idp-entity-num}. *System records `IdentityProviderUser` entity*::
-   _Stores: `issuer`, `sub`, `email`, `emailVerified`, `name`, `picture`_
-
-:step-publish-events-num: 10
-{step-publish-events-num}. *System publishes domain events*::
-   _`UserRegistered`, `IdentityLinked` events emitted_
-
-:step-create-session-num: 11
-{step-create-session-num}. *System creates user session*::
-   _Session established, user is authenticated_
-
-:step-redirect-app-num: 12
-{step-redirect-app-num}. *System redirects to application*::
-   _User lands on post-registration onboarding or dashboard_
+. [[step-complete,System signs in user and opens application]] *System signs in user and opens application* +
+  _User authenticated and redirected to application_
 
 == Extensions (Alternative Flows)
 
-// Extension numbering follows Cockburn convention: {main-step}{letter}.{sub-step}
-// e.g., 7a.1 = first extension at step 7, sub-step 1
-// Step numbers are maintained via attributes at the top of this file
+=== During <<step-validate>>: User Already Exists
 
-=== {step-user-authenticates-num}a. Identity Provider Error
-
-*Condition:* IdP returns error or is unreachable
+*Condition:* Identity (issuer + subject) found in system
 
 *Steps:*
+. System treats this as sign-in rather than registration
+. System updates cached profile information if changed
+. Resume at <<step-complete>>
 
-. System logs error details for troubleshooting
-. Display user-friendly message: "Unable to connect to [IdP name]"
-. Offer alternative registration methods if available
-. *ENDS* (failed)
-
-=== {step-idp-returns-token-num}a. Auth0 Account Linking Enabled
+=== During <<step-authenticate>>: Auth0 Account Linking Enabled
 
 *Condition:* Auth0 has linked multiple identities to a primary account
 
 *Steps:*
-
-. Auth0 returns the *primary* `sub` regardless of which IdP was used
-. System identifies user by primary (`iss`, `sub`)
+. Auth0 returns the primary subject identifier regardless of which IdP was used
+. System identifies user by the primary identity
 . Audit log records the specific IdP used for traceability
-. Proceed to step {step-check-exists-num} (will likely find existing user)
+. Continue with <<step-validate>> (typically finds existing user)
 
-=== {step-idp-returns-token-num}b. Required Claims Missing
+=== During <<step-validate>>: Email Exists with Different Identity
 
-*Condition:* Token missing `iss` or `sub` claims
+*Condition:* Identity not found, but email address exists with different identity
 
 *Steps:*
+. System presents options to user:
+** "Link these accounts" (if they own both identities)
+** "Create separate account"
+** "I need help"
+. If "Link accounts" selected: invoke UC-003 (Account Linking)
+. If "Create separate": continue with <<step-create>>
+. If "Help": redirect to support flow, *ENDS*
 
-. System logs security event (potential misconfiguration)
+=== During <<step-authenticate>>: Identity Provider Unavailable
+
+*Condition:* Identity Provider returns error or is unreachable
+
+*Steps:*
+. System logs error details for troubleshooting
+. Display user-friendly message: "Unable to connect to [provider name]"
+. Offer alternative registration methods if available
+. *ENDS* (failed)
+
+=== During <<step-authenticate>>: Required Claims Missing
+
+*Condition:* Identity token missing required claims (issuer or subject)
+
+*Steps:*
+. System logs security event
 . Reject registration attempt
 . Display error: "Incomplete identity information received"
 . *ENDS* (failed)
 
-=== {step-idp-returns-token-num}c. Email Not Verified
+=== During <<step-authenticate>>: Email Not Verified
 
-*Condition:* `email_verified` is false
+*Condition:* Email verification status from provider is false
 
 *Steps:*
-
-. System records this status
+. System records unverified email status
 . May restrict certain features until email verified
-. Continue to step {step-create-user-aggregate-num} (user still created)
-
-=== {step-check-exists-num}a. User Already Exists
-
-*Condition:* Read model finds existing user with matching (`issuer`, `sub`)
-
-*Steps:*
-
-. System treats this as a **login** rather than registration
-. System updates cached profile information if changed
-. Proceed to step {step-create-session-num}
-
-=== {step-check-exists-num}b. Email Exists (Different IdP)
-
-*Condition:* No match on (`iss`, `sub`), but email exists with different identity
-
-*Steps:*
-
-. System presents options to user:
-** "Link accounts" (if they own both identities)
-** "Create separate account"
-** "I need help"
-. If "Link accounts" selected: invoke UC-003 (Account Linking)
-. If "Create separate": continue to step {step-create-user-aggregate-num}
-. If "Help": redirect to support flow, *ENDS*
-
-== Hexagonal Architecture Mapping
-
-|===
-| Domain (Core)
-| `User` (Aggregate), `IdentityProviderUser` (Entity),
-  `UserRegistered`, `IdentityLinked` (Events),
-  `IdentityProviderService` (Domain Service)
-
-| Application (Ports)
-| `RegisterUserFromIdentityProviderCommand`,
-  `UserRegistrationUseCase` (Inbound Port),
-  `UserRepository`, `IdentityProviderClient` (Outbound Ports)
-
-| Infrastructure (Adapters)
-| `Auth0IdentityProviderClient`, `JpaUserRepository`,
-  `UserRegistrationController`, `DomainEventPublisher`
-|===
-
-== CQRS Considerations
-
-=== Command Side
-
-*Command:*
-[source,java]
-----
-record RegisterUserFromIdentityProviderCommand(
-  URI issuer,
-  String sub,
-  String email,
-  boolean emailVerified,
-  String name,
-  URI picture
-) {}
-----
-
-*Handler:* `RegisterUserFromIdentityProviderHandler`
-
-*Aggregate:* `User`
-
-=== Query Side
-
-*Query:* `FindUserByIdentityQuery(URI issuer, String sub)`
-
-*Read Model:*
-[source,java]
-----
-interface UserIdentityView {
-  UserId userId();
-  URI issuer();
-  String sub();
-  String email();
-  boolean emailVerified();
-  Instant registeredAt();
-}
-----
-
-== Event Sourcing
-
-|===
-| Event | Description
-| `UserRegistered` | userId, registeredAt, initialIdentity
-| `IdentityLinked` | userId, issuer, sub, linkedAt
-| `UserProfileUpdated` | userId, changedFields
-|===
-
-*Stream naming:* `user-{userId}`
-
-*Snapshot policy:* Every 50 events
-
-== Special Requirements
-
-* `iss` stored as normalized URI (no trailing slash variations)
-* `sub` stored exactly as provided (case-sensitive)
-* Email is NOT an identity key (users can change emails)
-* All IdP interactions logged for audit
+. Continue with <<step-create>> (user still created)
 
 == Technology and Data Variations
 
-* Identity Provider: Auth0, Google, Microsoft, GitHub, any OIDC provider
-* Token format: JWT or opaque (via userinfo endpoint)
-* Profile picture: URL provided or fetched separately
+=== Identity Providers Supported
+* Auth0 (OIDC)
+* Google (OIDC)
+* Microsoft/Azure AD (OIDC)
+* GitHub (OIDC)
+* Any OIDC-compliant provider
 
-== Related Use Cases
+=== Token Formats
+* JWT (JSON Web Token)
+* Opaque token (via userinfo endpoint)
 
-* xref:uc-login.adoc[UC-002: User Login via Identity Provider]
-* xref:uc-account-linking.adoc[UC-003: Account Linking]
-* xref:uc-profile-update.adoc[UC-004: Profile Update]
+=== Profile Information
+* Email address (not used as identity key - users can change emails)
+* Email verification status
+* Display name
+* Profile picture URL
+
+== Special Requirements
+
+* Issuer (provider identifier) stored as normalized URI
+* Subject identifier stored exactly as provided (case-sensitive, immutable)
+* Email addresses are not identity keys
+* All provider interactions logged for security audit
+* Idempotent registration (same identity cannot create duplicate accounts)
+
+== Frequency of Occurrence
+
+Expected to be primary user acquisition path.
+Estimated: 100-1000 registrations per day initially.
 
 == Open Issues
 
-* Auth0 Account Linking vs. our own domain-level linking?
-* IdP identity migration policy (changing Auth0 tenants)?
+* Auth0 Account Linking vs. domain-level linking?
+* Identity migration policy (changing providers or tenants)?
 * Stale registration cleanup (incomplete onboarding)?
+* Manual account linking for support staff?
+
+== Related Use Cases
+
+* UC-002: User Login via Identity Provider
+* UC-003: Account Linking (multiple IdPs)
+* UC-004: Profile Update
