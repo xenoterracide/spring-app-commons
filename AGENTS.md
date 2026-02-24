@@ -8,13 +8,13 @@ SPDX-License-Identifier: CC-BY-NC-4.0
 
 # Commands
 
-- `yarn test` must pass if `*.kts`, `*.java`, or `checkstyle/*.xml` has changed
 - `yarn ug` updates gradle dependencies
+- `./gradlew check` must pass if `*.kts`, `*.java`, or `checkstyle/*.xml` has changed
 - `gh` can be used if authenticated and available.
 
 # Quality
 
-- gradle buildHealth task does not use JPMS, and can be incorrect if JPMS is having with its suggestions.
+- gradle `buildHealth` task does not use JPMS, and can be incorrect if JPMS is having with its suggestions.
 - include links to upstream bugs in comments when relevant
 
 # Additional
