@@ -9,9 +9,9 @@
 [cols="1,3"]
 |===
 | Primary Actor | Anonymous User with Identity Provider credentials
-| Scope | Security Module - Registration Context
-| Level | User Goal
-| Trigger | User initiates registration through an Identity Provider
+| Scope         | Security Module - Registration Context
+| Level         | User Goal
+| Trigger       | User initiates registration through an Identity Provider
 |===
 
 == Stakeholders and Interests
