@@ -1,6 +1,7 @@
-// Copyright 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 package com.xenoterracide.model.security.user;
 
@@ -18,6 +19,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
+import java.net.URI;
 import java.util.Set;
 import java.util.UUID;
 import org.hibernate.envers.Audited;
@@ -90,13 +92,23 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
   /**
    * Links an identity provider to this user.
    *
-   * @param idp
-   *   identity provider
-   * @param idpUserId
-   *   the user identifier we got for that identity provider
+   * @param issuer
+   *   the identity provider issuer URL
+   * @param subject
+   *   the subject identifier from the identity provider
+   * @param email
+   *   the cached email address
+   * @param emailVerified
+   *   whether the email has been verified by the identity provider
    */
-  public void linkIdentityProvider(IdentityProviderUser.IdP idp, String idpUserId) {
-    var idpUser = IdentityProviderUser.builder().idP(idp).idPUserId(idpUserId).user(this).build();
+  public void linkIdentityProvider(URI issuer, String subject, String email, boolean emailVerified) {
+    var idpUser = IdentityProviderUser.builder()
+      .issuer(issuer)
+      .subject(subject)
+      .email(email)
+      .emailVerified(emailVerified)
+      .user(this)
+      .build();
     this.getIdentityProviderUsers().add(idpUser);
   }
 

@@ -10,14 +10,12 @@ type Mutation {
   registerUser(input: RegistrationInput!): User!
 }
 
-enum IdP {
-  AUTH0
-}
-
 input RegistrationInput {
   username: String!
-  idpUserId: String!
-  idp: IdP!
+  issuer: String!
+  subject: String!
+  email: String!
+  emailVerified: Boolean!
 }
 
 type User implements Identifiable {

@@ -1,6 +1,7 @@
-// Copyright 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 package com.xenoterracide.model.security.fixtures;
 
@@ -8,6 +9,7 @@ import com.xenoterracide.model.security.user.IdentityProviderUser;
 import com.xenoterracide.model.security.user.IdentityProviderUserBuilder;
 import com.xenoterracide.model.security.user.User;
 import com.xenoterracide.model.security.user.UserBuilder;
+import java.net.URI;
 import java.util.Optional;
 import org.immutables.builder.Builder;
 import org.immutables.value.Value;
@@ -16,28 +18,47 @@ import org.immutables.value.Value;
 @Value.Style(typeBuilder = "*TestDataBuilder", newBuilder = "create", jdkOnly = true, jdk9Collections = true)
 final class UserTestDataBuilders {
 
+  private static final URI DEFAULT_ISSUER = URI.create("https://auth0.example.com/");
+
   private UserTestDataBuilders() {}
 
   @Builder.Factory
-  static User user(Optional<String> name, Optional<IdentityProviderUser.IdP> idP, Optional<String> idPUserId) {
+  static User user(
+    Optional<String> name,
+    Optional<URI> issuer,
+    Optional<String> subject,
+    Optional<String> email,
+    Optional<Boolean> emailVerified
+  ) {
     var user = UserBuilder.create().name(name.orElse("xeno")).build();
 
-    user.linkIdentityProvider(idP.orElse(IdentityProviderUser.IdP.AUTH0), idPUserId.orElse("1234"));
+    user.linkIdentityProvider(
+      issuer.orElse(DEFAULT_ISSUER),
+      subject.orElse("1234"),
+      email.orElse("xeno@example.com"),
+      emailVerified.orElse(true)
+    );
     return user;
   }
 
   @Builder.Factory
   static IdentityProviderUser identityProviderUser(
-    Optional<IdentityProviderUser.IdP> idP,
-    Optional<String> idPUserId,
+    Optional<URI> issuer,
+    Optional<String> subject,
+    Optional<String> email,
+    Optional<Boolean> emailVerified,
     Optional<User> user
   ) {
-    var optIdP = idP.orElse(IdentityProviderUser.IdP.AUTH0);
-    var optIdPUserId = idPUserId.orElse("1234");
+    var optIssuer = issuer.orElse(DEFAULT_ISSUER);
+    var optSubject = subject.orElse("1234");
+    var optEmail = email.orElse("xeno@example.com");
+    var optEmailVerified = emailVerified.orElse(true);
 
     var ub = IdentityProviderUserBuilder.create()
-      .idP(optIdP)
-      .idPUserId(optIdPUserId)
+      .issuer(optIssuer)
+      .subject(optSubject)
+      .email(optEmail)
+      .emailVerified(optEmailVerified)
       .user(user.orElseGet(() -> UserBuilder.create().name("xeno").build()));
     return ub.build();
   }
