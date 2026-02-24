@@ -8,7 +8,7 @@
 
 [cols="1,3"]
 |===
-| Primary Actor | Anonymous User with Identity Provider credentials
+| Primary Actor | Anonymous <<Person>> with Identity Provider credentials
 | Scope | Security Module - Registration Context
 | Level | User Goal
 | Trigger | User initiates registration through an Identity Provider
@@ -16,7 +16,7 @@
 
 == Stakeholders and Interests
 
-*User*::
+*<<Person>>*::
   Wants seamless registration without creating new passwords.
   Expects to be recognized on return visits regardless of which IdP they used.
 
@@ -30,20 +30,21 @@
 
 == Preconditions
 
-* User has valid credentials with a supported Identity Provider
+* <<Person>> has valid credentials with a supported Identity Provider
 * Identity Provider is configured and accessible
 
 == Postconditions
 
 === Success Guarantee
 
-* User account created with unique identifier
-* Identity Provider identity linked to user account
+* <<User>> created with unique identifier
+* <<IdentityProviderUser>> created linking <<User>> to external identity
 * Domain events published for user registration and identity linkage
+* Personal <<Account>> created (see <<account-creation,open issue>>)
 
 === Minimal Guarantee
 
-* No duplicate accounts created for same identity
+* No duplicate <<User,Users>> created for same identity
 * Failed attempts logged for audit
 
 == Main Success Scenario
@@ -58,8 +59,11 @@
 . [[step-validate,System validates identity is new]] *System validates identity is new* +
   _System queries whether identity (issuer + subject) already exists_
 
-. [[step-create,System creates user account]] *System creates user account* +
-  _New account created with identity information from provider_
+. [[step-create,System creates User and links Identity Provider identity]] *System creates User and links Identity Provider identity* +
+  _New <<User>> created; <<IdentityProviderUser>> record created with issuer, subject, and profile information from provider_
+
+. [[step-create-account,System creates personal Account]] *System creates personal Account* +
+  _New <<Account>> created for the <<User>>; <<User>> added as owner (see open issue)_
 
 . [[step-publish,System publishes registration events]] *System publishes registration events* +
   _User registered and identity linked events emitted for downstream processing_
@@ -98,7 +102,7 @@
 ** "Create separate account"
 ** "I need help"
 . If "Link accounts" selected: invoke UC-003 (Account Linking)
-. If "Create separate": continue with <<step-create>>
+. If "Create separate": continue with <<step-create-account>>
 . If "Help": redirect to support flow, *ENDS*
 
 === During <<step-authenticate>>: Identity Provider Unavailable
@@ -128,7 +132,7 @@
 *Steps:*
 . System records unverified email status
 . May restrict certain features until email verified
-. Continue with <<step-create>> (user still created)
+. Continue with <<step-create>> (<<User>> still created)
 
 == Technology and Data Variations
 
@@ -164,10 +168,12 @@ Estimated: 100-1000 registrations per day initially.
 
 == Open Issues
 
+* [[account-creation]] Should registration auto-create a personal <<Account>>, or should that be a separate use case?
 * Auth0 Account Linking vs. domain-level linking?
 * Identity migration policy (changing providers or tenants)?
 * Stale registration cleanup (incomplete onboarding)?
 * Manual account linking for support staff?
+* Should we create a <<Person>> record separately from <<User>>, or treat them as the same concept for now?
 
 == Related Use Cases
 
