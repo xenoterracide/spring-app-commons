@@ -1,6 +1,7 @@
-// SPDX-FileCopyrightText: Copyright © 2024 - 2025 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 package com.xenoterracide.model.security;
 
@@ -12,6 +13,7 @@ import com.xenoterracide.model.security.fixtures.IdentityProviderUserTestDataBui
 import com.xenoterracide.model.security.fixtures.UserTestDataBuilder;
 import com.xenoterracide.model.security.user.IdentityProviderUser;
 import com.xenoterracide.model.security.user.User;
+import java.net.URI;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.Disabled;
@@ -19,19 +21,25 @@ import org.junit.jupiter.api.Test;
 
 public class UserTest {
 
+  private static final URI TEST_ISSUER = URI.create("https://auth0.example.com/");
+
   @Test
   void equals() {
     assertThat(User.builder().name("xeno").build()).isNotEqualTo(User.builder().name("xeno").build());
     assertThat(
       IdentityProviderUser.builder()
-        .idP(IdentityProviderUser.IdP.AUTH0)
-        .idPUserId("1234")
+        .issuer(TEST_ISSUER)
+        .subject("1234")
+        .email("xeno@example.com")
+        .emailVerified(true)
         .user(UserTestDataBuilder.create().name("xeno").build())
         .build()
     ).isNotEqualTo(
       IdentityProviderUser.builder()
-        .idP(IdentityProviderUser.IdP.AUTH0)
-        .idPUserId("1234")
+        .issuer(TEST_ISSUER)
+        .subject("1234")
+        .email("xeno@example.com")
+        .emailVerified(true)
         .user(UserTestDataBuilder.create().name("xeno").build())
         .build()
     );

@@ -1,6 +1,7 @@
-// Copyright 2024 - 2026 Caleb Cushing
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
 //
 // SPDX-License-Identifier: (AGPL-3.0-or-later WITH Universal-FOSS-exception-1.0 AND CC-BY-4.0) OR CC-BY-NC-4.0
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 package com.xenoterracide.model.security.user;
 
@@ -10,8 +11,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
@@ -22,6 +21,7 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Objects;
 import org.jmolecules.ddd.annotation.Identity;
 import org.jmolecules.ddd.annotation.ValueObject;
@@ -39,6 +39,8 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
 
   private IdentityProviderUserId id;
   private @Nullable User user;
+  private String email;
+  private boolean emailVerified;
 
   /**
    * For JPA.
@@ -82,25 +84,57 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
   }
 
   /**
-   * Get the identity provider.
+   * Get the identity provider issuer URL.
    *
-   * @return the identity provider
+   * @return the issuer URI
    */
   @NotNull
   @Transient
-  public IdP getIdP() {
-    return this.id.getIdP();
+  public URI getIssuer() {
+    return this.id.getIssuer();
   }
 
   /**
-   * Get the identity provider user id.
+   * Get the subject identifier (unique within the identity provider).
    *
-   * @return the identity provider user id
+   * @return the subject identifier
    */
   @NotNull
   @Transient
-  public String getIdPUserId() {
-    return this.id.getIdPUserId();
+  public String getSubject() {
+    return this.id.getSubject();
+  }
+
+  /**
+   * Get the cached email address.
+   * This is for communication purposes only, not for identity.
+   *
+   * @return the email address
+   */
+  @NotNull
+  @Column(nullable = false)
+  public String getEmail() {
+    return this.email;
+  }
+
+  @Initializer
+  void setEmail(String email) {
+    this.email = email;
+  }
+
+  /**
+   * Check if the email has been verified by the identity provider.
+   *
+   * @return true if email is verified
+   */
+  @Column(nullable = false)
+  public boolean isEmailVerified() {
+    return this.emailVerified;
+  }
+
+  @Initializer
+  void setEmailVerified(boolean emailVerified) {
+    this.emailVerified = emailVerified;
   }
 
   /**
@@ -157,16 +191,6 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
   }
 
   /**
-   * The identity provider.
-   */
-  public enum IdP {
-    /**
-     * Auth0.
-     */
-    AUTH0,
-  }
-
-  /**
    * The primary key for {@link IdentityProviderUser}.
    */
   @ValueObject
@@ -177,14 +201,14 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
     private static final long serialVersionUID = 1L;
 
     /**
-     * The identity provider.
+     * The identity provider issuer URL.
      */
-    private IdP idP;
+    private URI issuer;
 
     /**
-     * The identity provider user id.
+     * The subject identifier (unique within the identity provider).
      */
-    private String idPUserId;
+    private String subject;
 
     /**
      * The user.
@@ -197,21 +221,49 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
      */
     protected IdentityProviderUserId() {}
 
-    IdentityProviderUserId(IdP idP, String idPUserId, User.UserId userId) {
-      this.idP = idP;
-      this.idPUserId = idPUserId;
+    IdentityProviderUserId(URI issuer, String subject, User.UserId userId) {
+      this.issuer = issuer;
+      this.subject = subject;
       this.userId = userId;
     }
 
-    @Column(nullable = false, insertable = false, updatable = false)
-    @Enumerated(EnumType.STRING)
-    IdP getIdP() {
-      return this.idP;
+    /**
+     * Get the identity provider issuer URL.
+     *
+     * @return the issuer URI
+     */
+    @Column(nullable = false, updatable = false, name = "issuer")
+    URI getIssuer() {
+      return this.issuer;
     }
 
     @Initializer
-    void setIdP(IdP idP) {
-      this.idP = idP;
+    void setIssuer(URI issuer) {
+      this.issuer = issuer;
+    }
+
+    /**
+     * Get the subject identifier.
+     *
+     * @return the subject identifier
+     */
+    @Column(nullable = false, updatable = false, name = "subject")
+    String getSubject() {
+      return this.subject;
+    }
+
+    @Initializer
+    void setSubject(String subject) {
+      this.subject = subject;
+    }
+
+    User.UserId getUserId() {
+      return this.userId;
+    }
+
+    @Initializer
+    void setUserId(User.UserId userId) {
+      this.userId = userId;
     }
 
     /**
@@ -231,8 +283,8 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
         // CHECKSTYLE.OFF: UnnecessaryParentheses
         return (
           that.canEqual(this) &&
-          this.idP == that.idP &&
-          Objects.equals(this.idPUserId, that.idPUserId) &&
+          Objects.equals(this.issuer, that.issuer) &&
+          Objects.equals(this.subject, that.subject) &&
           Objects.equals(this.userId, that.userId)
         );
         // CHECKSTYLE.ON: UnnecessaryParentheses
@@ -242,26 +294,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
 
     @Override
     public final int hashCode() {
-      return Objects.hash(this.idP, this.idPUserId, this.userId);
-    }
-
-    @Column(nullable = false, updatable = false, name = "idp_user_id")
-    String getIdPUserId() {
-      return this.idPUserId;
-    }
-
-    @Initializer
-    void setIdPUserId(String idPUserId) {
-      this.idPUserId = idPUserId;
-    }
-
-    User.UserId getUserId() {
-      return this.userId;
-    }
-
-    @Initializer
-    void setUserId(User.UserId userId) {
-      this.userId = userId;
+      return Objects.hash(this.issuer, this.subject, this.userId);
     }
   }
 }
