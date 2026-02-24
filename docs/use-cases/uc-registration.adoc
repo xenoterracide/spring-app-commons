@@ -48,53 +48,40 @@
 
 == Main Success Scenario
 
-// Anchors use [#anchor] syntax which is inline and doesn't break list numbering
-[#step-initiate-registration]
-1. *User initiates registration via Identity Provider* +
+. [[step-initiate-registration]]*User initiates registration via Identity Provider* +
    _User clicks "Sign up with Google/Auth0/Microsoft"_
 
-[#step-redirect-idp]
-2. *System redirects to Identity Provider for authentication* +
+. [[step-redirect-idp]]*System redirects to Identity Provider for authentication* +
    _System constructs OIDC authorization request with appropriate scopes_
 
-[#step-user-authenticates]
-3. *User authenticates with Identity Provider* +
+. [[step-user-authenticates]]*User authenticates with Identity Provider* +
    _User enters credentials in IdP's interface (outside our system)_
 
-[#step-idp-returns-token]
-4. *Identity Provider returns OIDC token* +
+. [[step-idp-returns-token]]*Identity Provider returns OIDC token* +
    _Token contains: `iss`, `sub`, `email`, `email_verified`, `name`, `picture`_
 
-[#step-extract-identity]
-5. *System extracts identity claims* +
+. [[step-extract-identity]]*System extracts identity claims* +
    _Parses `iss` (issuer URI) and `sub` (subject identifier)_
 
-[#step-query-existing]
-6. *System queries read model for existing identity* +
+. [[step-query-existing]]*System queries read model for existing identity* +
    _Query: Find user with matching (`issuer`, `sub`)_
 
-[#step-check-exists]
-7. *Read model returns: No user found* +
+. [[step-check-exists]]*Read model returns: No user found* +
    _Identity is new, proceed with registration_
 
-[#step-create-user-aggregate]
-8. *System creates new `User` aggregate* +
+. [[step-create-user-aggregate]]*System creates new `User` aggregate* +
    _Generates surrogate UserId, initializes user record_
 
-[#step-create-idp-entity]
-9. *System records `IdentityProviderUser` entity* +
+. [[step-create-idp-entity]]*System records `IdentityProviderUser` entity* +
    _Stores: `issuer`, `sub`, `email`, `emailVerified`, `name`, `picture`_
 
-[#step-publish-events]
-10. *System publishes domain events* +
+. [[step-publish-events]]*System publishes domain events* +
     _`UserRegistered`, `IdentityLinked` events emitted_
 
-[#step-create-session]
-11. *System creates user session* +
+. [[step-create-session]]*System creates user session* +
     _Session established, user is authenticated_
 
-[#step-redirect-app]
-12. *System redirects to application* +
+. [[step-redirect-app]]*System redirects to application* +
     _User lands on post-registration onboarding or dashboard_
 
 == Extensions (Alternative Flows)
