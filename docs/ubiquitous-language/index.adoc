@@ -31,10 +31,10 @@ She signed up with her Google account, creating a User.
 [[User]]
 === User
 
-An entity that can authenticate with the system and perform actions.
+An identity that performs actions within the system.
 
 *A User is:*
-* An authentication identity within the system * Associated with exactly one <<IdentityProviderUser,external identity>> (for Person-Users) * Granted permissions and roles
+* An identity that may be established via authentication (<<PersonUser>>, some <<ServiceUser>>) or loaded as security context (embedded/internal users like Quartz jobs) * Granted permissions and roles for authorization
 
 *A User is NOT:*
 * Always a Person (can be a <<ServiceUser,Service User>>) * An Account (Users belong to Accounts) * A Person (though a Person may have a User)
@@ -49,12 +49,12 @@ Authenticates via Identity Provider (Auth0, Google, etc.).
 [[ServiceUser]]
 **Service User**::
 A User not linked to a Person.
-Used for API access, automation, machine-to-machine communication.
-Authenticates via API keys or service credentials.
+Used for API access, automation, machine-to-machine communication, and embedded security contexts (e.g., Quartz jobs).
+May authenticate via API keys/credentials, or be loaded as security context without authentication (e.g., internal job runners).
 
 *Relationships:*
 * A User <<has-person,may have>> an associated <<Person>> (if Person User) * A User <<belongs-to-account,belongs to>> one or more <<Account,Accounts>>
-* A User <<has-identity,has>> one <<IdentityProviderUser,Identity Provider User>> record per external IdP
+* A User <<has-identity,has>> one <<IdentityProviderUser,Identity Provider User>> record per external IdP * A User <<maps-to-principal,may be represented as>> a <<Principal>> at runtime (but not always)
 
 *Example:*
 > "Alice's User authenticates via her Google account.
@@ -85,6 +85,30 @@ Data is isolated per Account; Users belong to one or more Accounts.
 > "Acme Corp is an Account.
 Alice (Person User) and Bob (Person User) > are both members of this Account.
 The Account owns the projects and data."
+
+== Runtime vs Persistent Identity
+
+// TBD: Relationship between Principal (runtime security identity) and User (persisted entity)
+// needs more thought. See discussion: Principal may exist without User (anonymous, system context),
+// User may exist without active Principal, etc. Revisit when implementing security layer.
+
+[[Principal]]
+=== Principal
+
+The runtime identity of the entity currently performing an action.
+
+*A Principal is:*
+* The "who" at the moment of action execution * Established by the security context (authentication, system context, etc.) * Used for authorization decisions ("can this principal do X?")
+
+*A Principal is NOT:*
+* Always a persisted <<User>> (may be anonymous, system, or derived) * The same as a <<User>> (though often correlated)
+
+*Relationship to User:*
+* In interactive flows: Principal is typically derived from an authenticated <<User>>
+* In embedded contexts: Principal may exist without any <<User>> record (e.g., system principal for internal jobs) * In anonymous contexts: Principal exists but maps to no <<User>>
+
+*Examples:*
+> "The request's Principal is Alice's User." > "The Quartz job runs under a system Principal that has no associated User record." > "An unauthenticated request has an anonymous Principal."
 
 == Supporting Concepts
 
@@ -216,7 +240,7 @@ end note
 
 | "Account" when you mean "User"
 | <<User>>
-| Users authenticate. Accounts are resource containers.
+| Users are identities that perform actions (authenticated via IdP/API keys, or loaded as security context). Accounts are billing/resource containers that Users belong to.
 
 | "Account" when you mean "Identity Provider Account"
 | <<IdentityProviderUser>>
@@ -225,6 +249,10 @@ end note
 | "Login" as a noun
 | <<User>>, <<IdentityProviderUser>>
 | "Login" is vague. Use the specific concept.
+
+| "User" when you mean the runtime actor
+| <<Principal>>
+| At runtime, the entity acting is the Principal. The User is the persisted record. A Principal may exist without a User (anonymous, system context).
 |===
 
 == Architectural Constraints
