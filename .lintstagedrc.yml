@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC0-1.0
 
 # Software
-"*.java":
+"*.(java|graphql|graphqls)":
   - "reuse annotate --license 'AGPL-3.0-or-later' --copyright 'Caleb Cushing' --copyright-prefix spdx-string-symbol --merge-copyrights"
   - &prettier "prettier --cache --ignore-unknown --write"
 # Build Scripts
