@@ -26,4 +26,6 @@ import org.jspecify.annotations.NullMarked;
   requires static org.jspecify;
   requires transitive com.xenoterracide.commons.jpa;
   requires transitive com.xenoterracide.commons.model;
+  requires jakarta.mail;
+  requires org.axonframework.eventsourcing;
 }

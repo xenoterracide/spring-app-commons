@@ -23,4 +23,7 @@ import org.jspecify.annotations.NullMarked;
   requires com.xenoterracide.model.security;
   requires jakarta.persistence;
   requires spring.boot.data.jpa.test;
+  requires org.axonframework.test;
+  requires org.axonframework.eventsourcing;
+  requires jakarta.mail;
 }
