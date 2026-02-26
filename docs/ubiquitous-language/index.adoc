@@ -1,0 +1,279 @@
+// SPDX-FileCopyrightText: Copyright © 2024-2026 Caleb Cushing
+//
+// SPDX-License-Identifier: CC-BY-NC-4.0
+
+= Ubiquitous Language
+
+This document defines the core domain concepts and their relationships.
+These terms must be used consistently across all documentation, code, and discussions.
+
+== Core Concepts
+
+=== Person
+
+A human being who interacts with the system.
+
+*A Person is:*
+* A real-world individual * Identified by verifiable identity information (name, email, etc.) * May exist in the system before having login credentials
+
+*A Person is NOT:*
+* A login credential (that's a User) * A container for resources/billing (that's an Account) * A machine or automated process
+
+*Relationships:*
+* A Person <<has-user,may have>> one or more <<User,Users>>
+* A Person <<belongs-to-account,may belong to>> one or more <<Account,Accounts>>
+
+*Example:*
+> "Alice Smith is a Person.
+She signed up with her Google account, creating a User.
+> She was then invited to the Acme Corp Account as a team member."
+
+[[User]]
+=== User
+
+An identity that performs actions within the system.
+
+*A User is:*
+* An identity that may be established via authentication (<<PersonUser>>, some <<ServiceUser>>) or loaded as security context (embedded/internal users like Quartz jobs) * Granted permissions and roles for authorization
+
+*A User is NOT:*
+* Always a Person (can be a <<ServiceUser,Service User>>) * An Account (Users belong to Accounts) * A Person (though a Person may have a User)
+
+*Types of Users:*
+
+[[PersonUser]]
+**Person User**::
+A User linked to a <<Person>>.
+Authenticates via Identity Provider (Auth0, Google, etc.).
+
+[[ServiceUser]]
+**Service User**::
+A User not linked to a Person.
+Used for API access, automation, machine-to-machine communication, and embedded security contexts (e.g., Quartz jobs).
+May authenticate via API keys/credentials, or be loaded as security context without authentication (e.g., internal job runners).
+
+*Relationships:*
+* A User <<has-person,may have>> an associated <<Person>> (if Person User) * A User <<belongs-to-account,belongs to>> one or more <<Account,Accounts>>
+* A User <<has-identity,has>> one <<IdentityProviderUser,Identity Provider User>> record per external IdP * A User <<maps-to-principal,may be represented as>> a <<Principal>> at runtime (but not always)
+
+*Example:*
+> "Alice's User authenticates via her Google account.
+> The application also has a Service User for the CI/CD pipeline."
+
+[[Account]]
+=== Account
+
+A billing entity that contains resources, configuration, and access control.
+
+*Key characteristic:* Accounts are billable.
+All usage, storage, and feature access is metered and billed at the Account level.
+
+*Multi-tenancy:* The Account is the tenant boundary.
+Data is isolated per Account; Users belong to one or more Accounts.
+
+*An Account is:*
+* The primary boundary for data isolation * Where billing/subscriptions are attached * A collection of Users with shared access
+
+*An Account is NOT:*
+* A Person (multiple Persons can belong to an Account) * A User (Users belong to Accounts; Accounts don't authenticate) * An Identity Provider concept (it's our domain concept)
+
+*Relationships:*
+* An Account <<has-members,has>> one or more <<User,Users>> (members) * An Account <<has-owner,may have>> an owning <<User,User>> or <<Person,Person>>
+* An Account <<contains-resources,contains>> resources (projects, data, etc.)
+
+*Example:*
+> "Acme Corp is an Account.
+Alice (Person User) and Bob (Person User) > are both members of this Account.
+The Account owns the projects and data."
+
+== Runtime vs Persistent Identity
+
+// TBD: Relationship between Principal (runtime security identity) and User (persisted entity)
+// needs more thought. See discussion: Principal may exist without User (anonymous, system context),
+// User may exist without active Principal, etc. Revisit when implementing security layer.
+
+[[Principal]]
+=== Principal
+
+The runtime identity of the entity currently performing an action.
+
+*A Principal is:*
+* The "who" at the moment of action execution * Established by the security context (authentication, system context, etc.) * Used for authorization decisions ("can this principal do X?")
+
+*A Principal is NOT:*
+* Always a persisted <<User>> (may be anonymous, system, or derived) * The same as a <<User>> (though often correlated)
+
+*Relationship to User:*
+* In interactive flows: Principal is typically derived from an authenticated <<User>>
+* In embedded contexts: Principal may exist without any <<User>> record (e.g., system principal for internal jobs) * In anonymous contexts: Principal exists but maps to no <<User>>
+
+*Examples:*
+> "The request's Principal is Alice's User." > "The Quartz job runs under a system Principal that has no associated User record." > "An unauthenticated request has an anonymous Principal."
+
+== Supporting Concepts
+
+[[IdentityProviderUser]]
+=== Identity Provider User
+
+A record linking a <<User>> to an external identity provider.
+
+*Fields:*
+* `issuer` (URI): The Identity Provider's issuer URL * `subject` (String): Unique identifier within that IdP * `email` (String): Cached email (for communication only, not identity) * `emailVerified` (Boolean): Whether IdP has verified the email
+
+*Relationships:*
+* An Identity Provider User <<linked-to,links to>> exactly one <<User>>
+* Multiple Identity Provider Users <<can-link,may link>> to the same <<User>> (account linking)
+
+[[Membership]]
+=== Membership
+
+The association between a <<User>> and an <<Account>>.
+
+*A Membership defines:*
+* Which Account the User belongs to * What role/permissions the User has within that Account * When the User was added to the Account
+
+== Concept Relationships
+
+[plantuml]
+....
+@startuml
+skinparam classAttributeIconSize 0
+
+class Person {
+  + name
+  + email
+}
+
+class User {
+  + type: PersonUser | ServiceUser
+  + status
+}
+
+class IdentityProviderUser {
+  + issuer: URI
+  + subject: String
+  + email
+  + emailVerified: Boolean
+}
+
+class Account {
+  + name
+  + status
+}
+
+class Membership {
+  + role
+  + joinedAt
+}
+
+Person "0..1" --> "0..*" User : has
+User "1" --> "0..*" IdentityProviderUser : authenticates via
+User "0..*" --> "0..*" Account : belongs to
+(User, Account) .. Membership
+
+note right of Person
+  A human being.
+  May exist without a User.
+end note
+
+note right of User
+  Authentication identity.
+  Can be a Person User or Service User.
+end note
+
+note right of Account
+  Resource/billing container.
+  Has multiple Users as members.
+end note
+
+@enduml
+....
+
+== Use Case Scenarios
+
+=== Scenario 1: Individual Signs Up
+
+. Alice (<<Person>>) clicks "Sign up with Google"
+. System creates a Person User <<User>> for Alice
+. System creates an <<IdentityProviderUser>> linking to her Google identity
+. System creates a personal <<Account>> for Alice (she's the owner)
+. Alice is now a member of her personal Account
+
+*Result:* 1 Person, 1 User, 1 Identity Provider User, 1 Account, 1 Membership
+
+=== Scenario 2: Invited to Team Account
+
+. Bob (<<Person>>) already has a User and personal Account
+. Bob is invited to the "Acme Corp" <<Account>>
+. Bob accepts invitation
+. Bob now has <<Membership,Memberships>> in two Accounts: his personal one and Acme Corp
+
+*Result:* 1 Person, 1 User, 2 Memberships (in 2 Accounts)
+
+=== Scenario 3: Service Account for API
+
+. An <<Account>> needs automated API access
+. System admin creates a <<ServiceUser>> (no associated <<Person>>)
+. Service User is granted API key authentication
+. Service User is added as member to the Account with appropriate permissions
+
+*Result:* 0 Persons, 1 Service User, 1 Account, 1 Membership
+
+=== Scenario 4: Account Linking (Multiple IdPs)
+
+. Alice initially signed up with Google (<<IdentityProviderUser>> A)
+. Alice wants to also log in with Microsoft
+. Alice links her Microsoft account (<<IdentityProviderUser>> B)
+. Both Identity Provider Users point to the same <<User>>
+
+*Result:* 1 Person, 1 User, 2 Identity Provider Users, 1+ Accounts
+
+== Terms to Avoid
+
+[cols="1,1,1"]
+|===
+| Avoid | Use Instead | Reason
+
+| "User" when you mean "Person"
+| <<Person>>
+| A Person may not have a User yet. Not all Users are Persons.
+
+| "Account" when you mean "User"
+| <<User>>
+| Users are identities that perform actions (authenticated via IdP/API keys, or loaded as security context). Accounts are billing/resource containers that Users belong to.
+
+| "Account" when you mean "Identity Provider Account"
+| <<IdentityProviderUser>>
+| "Account" is overloaded. Be specific.
+
+| "Login" as a noun
+| <<User>>, <<IdentityProviderUser>>
+| "Login" is vague. Use the specific concept.
+
+| "User" when you mean the runtime actor
+| <<Principal>>
+| At runtime, the entity acting is the Principal. The User is the persisted record. A Principal may exist without a User (anonymous, system context).
+|===
+
+== Architectural Constraints
+
+=== Multi-Tenancy by Design
+
+The system is designed for multi-tenancy from inception:
+
+* **Tenant boundary:** <<Account>> is the isolation boundary
+* **Data isolation:** All data belongs to an Account; cross-account queries are explicit
+* **Billing granularity:** All metering and billing at Account level (accounts are billable)
+* **User membership:** <<User,Users>> belong to one or more Accounts via <<Membership>>
+
+This supports:
+* Individual users (single-tenant accounts) * Organizations (multi-user accounts) * Service providers (managing multiple client accounts) * Future SaaS scaling without architectural rework
+
+== Open Questions
+
+* Should a <<Person>> be able to exist without any <<User>>?
+(e.g., invited to an Account before creating login)
+* Should <<ServiceUser>> be in a separate bounded context from <<PersonUser>>?
+* How do we handle <<Person>> identity verification (KYC) separate from <<User>> authentication?
+* What happens to <<Account>> resources when the last <<User>> is removed?
+* Should Accounts support sub-accounts (hierarchical billing)?

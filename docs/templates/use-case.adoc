@@ -1,0 +1,112 @@
+// SPDX-FileCopyrightText: Copyright © 2026 Caleb Cushing
+//
+// SPDX-License-Identifier: CC-BY-NC-4.0
+
+// Use Case Specification Template
+// Based on Alistair Cockburn's format with semantic anchors and ubiquitous language
+//
+// CORE PRINCIPLES:
+// - Business-readable: No technical jargon (classes, code) in main scenario
+// - Semantic anchors: Use [[anchor,Reftext]] for stable references
+// - Ubiquitous language: Use <<DomainTerm>> links to define concepts
+// - Extensions reference steps by name, not number (survives reordering)
+
+= UC-XXX: {Use Case Name}
+
+== Metadata
+
+[cols="1,3"]
+|===
+| Primary Actor | {Actor description using <<UbiquitousLanguageTerm>>}
+| Scope | {Bounded Context}
+| Level | {Summary | User Goal | Subfunction}
+| Trigger | {What initiates this use case}
+|===
+
+== Stakeholders and Interests
+
+*{Stakeholder}*::
+{What they want from this use case}
+
+*{Stakeholder}*::
+{What they want from this use case}
+
+== Preconditions
+
+* {System state that must be true}
+* <<DomainEntity>> must exist / be in specific state
+
+== Postconditions
+
+=== Success Guarantee
+
+* {State that exists after success}
+* <<DomainEvent>> published
+
+=== Minimal Guarantee
+
+* {State that exists even on failure}
+
+== Main Success Scenario
+
+// Format: . [[stable-anchor,Full Human Readable Step Text]] *Full Human Readable Step Text* +
+//   _Result/description using ubiquitous language terms_
+
+. [[step-initiate,{Actor} initiates {action}]] *{Actor} initiates {action}* +
+_{What happens, using <<UbiquitousLanguage>>}_
+
+. [[step-validate,System validates {condition}]] *System validates {condition}* +
+_System checks {business rule using <<DomainEntity>>}_
+
+. [[step-create,System creates {entity}]] *System creates {entity}* +
+_New <<DomainEntity>> created with {attributes}_
+
+. [[step-complete,System completes {goal}]] *System completes {goal}* +
+_{Final outcome, <<DomainEvent>> published_
+
+== Extensions (Alternative Flows)
+
+// Use <<step-anchor>> to reference steps. Renders as the full step text.
+
+=== During <<step-validate>>: {Condition Name}
+
+*Condition:* {Business condition}
+
+*Steps:*
+. {Action}
+. {Action}
+. *Resume:* Continue at <<step-create>> (or *ENDS*)
+
+=== During <<step-validate>>: {Failure Condition}
+
+*Condition:* {What went wrong}
+
+*Steps:*
+. {Failure handling} . *ENDS* (failed)
+
+== Technology and Data Variations
+
+// Technical details that don't affect business flow
+
+* {Data format, API, or technical variation}
+* {Alternative implementation option}
+
+== Special Requirements
+
+* {Business rule or constraint}
+* {Security, performance, or compliance requirement}
+
+== Open Issues
+
+* [[issue-1]] {Question about scope or implementation}
+* {Unresolved decision}
+
+== Related Use Cases
+
+* xref:uc-xxx.adoc[UC-XXX: Related Use Case Name]
+* {Other related use cases}
+
+== Domain Model References
+
+// Link to ubiquitous language definitions
+Referenced terms: <<DomainEntity>>, <<DomainEvent>>, <<ValueObject>>
