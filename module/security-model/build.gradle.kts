@@ -20,13 +20,16 @@ dependencies {
   api(sbd4.jakarta.validation.api)
   api(sbd4.spring.data.jpa)
   api(sbd4.jakarta.mail.api)
-  runtimeOnly(libs.axon.spring.boot.starter)
+  api(platform(libs.axon.bom))
   implementation(libs.axon.eventsourcing)
-  implementation(platform(libs.axon.bom))
+  implementation(libs.axon.spring)
   implementation(libs.java.tools)
+  runtimeOnly(libs.axon.spring.boot.autoconfigure) {
+    exclude(group = "org.axonframework", module = "axon-server-connector")
+  }
   runtimeOnly(sbd4.spring.boot.starter.data.jpa)
   plantuml(libs.plantuml)
-  testFixturesCompileOnly(sbd4.jakarta.annotation.api)
+  testFixturesImplementation(libs.axon.eventsourcing)
 }
 
 testing {

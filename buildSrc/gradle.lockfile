@@ -3,7 +3,7 @@
 # This file is expected to be part of source control.
 com.autonomousapps:antlr:4.13.2.0=buildScriptClasspath,precompiledScriptPluginAccessorsGenerationClasspath
 com.autonomousapps:asm-relocated:9.9.0=buildScriptClasspath,precompiledScriptPluginAccessorsGenerationClasspath
-com.autonomousapps:dependency-analysis-gradle-plugin:3.6.0=buildScriptClasspath,compileClasspath,precompiledScriptPluginAccessorsGenerationClasspath
+com.autonomousapps:dependency-analysis-gradle-plugin:3.6.1=buildScriptClasspath,compileClasspath,precompiledScriptPluginAccessorsGenerationClasspath
 com.autonomousapps:graph-support:0.9.0=buildScriptClasspath,precompiledScriptPluginAccessorsGenerationClasspath
 com.autonomousapps:kotlin-editor-relocated:0.20.0=buildScriptClasspath,precompiledScriptPluginAccessorsGenerationClasspath
 com.autonomousapps:variant-artifacts:0.3.3=buildScriptClasspath,precompiledScriptPluginAccessorsGenerationClasspath

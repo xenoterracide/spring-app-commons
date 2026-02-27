@@ -28,4 +28,8 @@ import org.jspecify.annotations.NullMarked;
   requires transitive com.xenoterracide.commons.model;
   requires jakarta.mail;
   requires org.axonframework.eventsourcing;
+  requires org.axonframework.messaging;
+  requires org.axonframework.extension.spring;
+  requires org.axonframework.common;
+  requires spring.context;
 }

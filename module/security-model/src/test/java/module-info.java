@@ -7,7 +7,14 @@ import org.jspecify.annotations.NullMarked;
 
 @NullMarked module com.xenoterracide.security.test {
   opens com.xenoterracide.model.security.user.test
-    to org.junit.platform.commons, org.hibernate.orm.core, net.bytebuddy, spring.core;
+    to
+      org.junit.platform.commons,
+      org.hibernate.orm.core,
+      net.bytebuddy,
+      spring.core,
+      spring.beans,
+      spring.context,
+      org.axonframework.common;
   requires static org.jspecify;
 
   requires org.assertj.core;
@@ -25,5 +32,9 @@ import org.jspecify.annotations.NullMarked;
   requires spring.boot.data.jpa.test;
   requires org.axonframework.test;
   requires org.axonframework.eventsourcing;
+  requires org.axonframework.messaging;
+  requires org.axonframework.modelling;
+  requires org.axonframework.extension.spring;
   requires jakarta.mail;
+  requires spring.modulith.test;
 }

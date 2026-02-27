@@ -6,9 +6,11 @@ package com.xenoterracide.model.security.user;
 
 import jakarta.mail.internet.InternetAddress;
 import java.net.URI;
+import org.axonframework.messaging.commandhandling.annotation.Command;
 import org.immutables.builder.Builder;
 
 @Builder
+@Command
 public record RegisterNewUser(URI issuer, OIDCSubject subject, InternetAddress email, boolean emailVerified) {
   public static RegisterNewUserBuilder builder() {
     return new RegisterNewUserBuilder();
