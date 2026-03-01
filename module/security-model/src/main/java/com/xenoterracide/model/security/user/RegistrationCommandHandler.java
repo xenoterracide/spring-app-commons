@@ -13,7 +13,7 @@ public class RegistrationCommandHandler {
 
   @CommandHandler
   void handle(RegisterNewUser command, EventAppender eventAppender) {
-    var event = new UserCreated(User.UserId.create());
+    var event = UserCreated.builder().id(User.UserId.create()).name(command.email().getAddress()).build();
     eventAppender.append(event);
   }
 }

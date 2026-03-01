@@ -60,4 +60,31 @@ class RegisterNewUserTest {
           });
       });
   }
+
+  @Test
+  void registerTwice() throws AddressException {
+    var registration = RegisterNewUser.builder()
+      .subject(new OIDCSubject("google:12345"))
+      .issuer(URI.create("https://example.com"))
+      .email(new InternetAddress("xenoterracide@gmail.com"))
+      .emailVerified(true)
+      .build();
+
+    fixture
+      .when()
+      .command(registration)
+      .then()
+      .success()
+      .eventsSatisfy(events -> {
+        assertThat(events)
+          .hasSize(1)
+          .anySatisfy(message -> {
+            assertThat(message)
+              .extracting(Message::payload)
+              .isInstanceOf(UserCreated.class)
+              .hasFieldOrProperty("id")
+              .hasNoNullFieldsOrProperties();
+          });
+      });
+  }
 }

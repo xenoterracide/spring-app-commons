@@ -8,7 +8,7 @@ import org.axonframework.eventsourcing.annotation.EventTag;
 import org.immutables.builder.Builder;
 
 @Builder
-public record UserCreated(@EventTag User.UserId id) {
+public record UserCreated(@EventTag User.UserId id, String name) {
   public static UserCreatedBuilder builder() {
     return new UserCreatedBuilder();
   }
