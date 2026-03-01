@@ -55,6 +55,16 @@ testing {
   }
 }
 
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask>().configureEach {
+  auxClassPaths.from(
+    configurations.runtimeClasspath.map {
+      it.filter { file ->
+        file.name.contains("commons-lang3")
+      }
+    },
+  )
+}
+
 classDiagrams {
   renderClasspath(plantuml)
   diagram {

@@ -4,6 +4,7 @@
 
 package com.xenoterracide.model.security.user.test;
 
+import com.xenoterracide.model.security.fixtures.AxonConfig;
 import com.xenoterracide.model.security.user.OIDCSubject;
 import com.xenoterracide.model.security.user.RegisterNewUser;
 import jakarta.mail.internet.AddressException;
@@ -21,7 +22,7 @@ class RegisterNewUserTest {
 
   @BeforeEach
   void beforeEach() {
-    fixture = AxonTestFixture.with(EventSourcingConfigurer.create());
+    fixture = AxonTestFixture.with(AxonConfig.configure(EventSourcingConfigurer.create()));
   }
 
   @AfterEach
@@ -37,5 +38,7 @@ class RegisterNewUserTest {
       .email(new InternetAddress("xenoterracide@gmail.com"))
       .emailVerified(true)
       .build();
+
+    fixture.when().command(registration).then().success();
   }
 }
