@@ -4,13 +4,17 @@
 
 package com.xenoterracide.model.security.user.test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.xenoterracide.model.security.fixtures.AxonConfig;
 import com.xenoterracide.model.security.user.OIDCSubject;
 import com.xenoterracide.model.security.user.RegisterNewUser;
+import com.xenoterracide.model.security.user.UserCreated;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import java.net.URI;
 import org.axonframework.eventsourcing.configuration.EventSourcingConfigurer;
+import org.axonframework.messaging.core.Message;
 import org.axonframework.test.fixture.AxonTestFixture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,6 +43,21 @@ class RegisterNewUserTest {
       .emailVerified(true)
       .build();
 
-    fixture.when().command(registration).then().success();
+    fixture
+      .when()
+      .command(registration)
+      .then()
+      .success()
+      .eventsSatisfy(events -> {
+        assertThat(events)
+          .hasSize(1)
+          .anySatisfy(message -> {
+            assertThat(message)
+              .extracting(Message::payload)
+              .isInstanceOf(UserCreated.class)
+              .hasFieldOrProperty("id")
+              .hasNoNullFieldsOrProperties();
+          });
+      });
   }
 }
