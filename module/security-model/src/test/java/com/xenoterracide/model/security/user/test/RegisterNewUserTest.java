@@ -83,6 +83,7 @@ class RegisterNewUserTest {
               .extracting(Message::payload)
               .isInstanceOf(UserCreated.class)
               .hasFieldOrProperty("id")
+              .hasFieldOrProperty("name")
               .hasNoNullFieldsOrProperties();
           });
       });
