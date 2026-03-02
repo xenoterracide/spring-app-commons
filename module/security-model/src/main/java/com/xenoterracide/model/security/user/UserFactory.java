@@ -9,14 +9,12 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 import org.immutables.builder.Builder;
-import org.immutables.value.Value;
 import org.jmolecules.architecture.layered.InfrastructureLayer;
 
 /**
  * Do not use directly, this class is for generating builders that you should use instead.
  */
 @InfrastructureLayer
-@Value.Style(newBuilder = "create", jdk9Collections = true, jdkOnly = true, jakarta = true)
 final class UserFactory {
 
   private UserFactory() {}

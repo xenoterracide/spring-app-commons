@@ -66,12 +66,7 @@ uuid-creator = "com.github.f4b6a3:uuid-creator:6.+"
 
 [bundles]
 compile = ["jakarta-annotation", "jspecify"]
-immutables = [
-  "immutables-annotate",
-  "immutables-annotations",
-  "immutables-builder",
-  #  "immutables-data"
-]
+immutables = ["immutables-annotate", "immutables-annotations", "immutables-builder", "immutables-data"]
 ep = ["errorprone-core", "errorprone-nullaway"]
 jakarta-transaction = [
   "jakarta-transaction",

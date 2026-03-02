@@ -4,7 +4,6 @@
 
 import com.xenoterracide.gradle.convention.publish.GithubPublicRepositoryConfiguration
 import org.gradle.accessors.dm.LibrariesForLibs
-import org.gradle.api.publish.tasks.GenerateModuleMetadata
 
 
 plugins {
@@ -39,6 +38,12 @@ dependencies {
 java {
   toolchain {
     languageVersion.set(JavaLanguageVersion.of(25))
+  }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+  options.compilerArgumentProviders.addLast {
+    listOf("-Aimmutables.annotations.pick=jakarta")
   }
 }
 

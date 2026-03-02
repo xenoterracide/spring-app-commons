@@ -23,6 +23,7 @@ import org.jspecify.annotations.NullMarked;
   requires spring.context;
   requires spring.data.commons;
   requires spring.data.jpa;
+  requires static com.google.errorprone.annotations;
   requires static com.xenoterracide.tools.java;
   requires static jakarta.annotation;
   requires static org.immutables.annotate;

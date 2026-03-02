@@ -6,9 +6,7 @@
 package com.xenoterracide.model.security.fixtures;
 
 import com.xenoterracide.model.security.user.IdentityProviderUser;
-import com.xenoterracide.model.security.user.IdentityProviderUserBuilder;
 import com.xenoterracide.model.security.user.User;
-import com.xenoterracide.model.security.user.UserBuilder;
 import java.net.URI;
 import java.util.Optional;
 import org.immutables.builder.Builder;
@@ -30,7 +28,7 @@ final class UserTestDataBuilders {
     Optional<String> email,
     Optional<Boolean> emailVerified
   ) {
-    var user = UserBuilder.create().name(name.orElse("xeno")).build();
+    var user = User.builder().name(name.orElse("xeno")).build();
 
     user.linkIdentityProvider(
       issuer.orElse(DEFAULT_ISSUER),
@@ -54,12 +52,12 @@ final class UserTestDataBuilders {
     var optEmail = email.orElse("xeno@example.com");
     var optEmailVerified = emailVerified.orElse(true);
 
-    var ub = IdentityProviderUserBuilder.create()
+    var ub = IdentityProviderUser.builder()
       .issuer(optIssuer)
       .subject(optSubject)
       .email(optEmail)
       .emailVerified(optEmailVerified)
-      .user(user.orElseGet(() -> UserBuilder.create().name("xeno").build()));
+      .user(user.orElseGet(() -> User.builder().name("xeno").build()));
     return ub.build();
   }
 }

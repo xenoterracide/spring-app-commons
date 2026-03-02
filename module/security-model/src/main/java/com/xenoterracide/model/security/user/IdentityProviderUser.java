@@ -63,7 +63,7 @@ public class IdentityProviderUser implements Entity<User, IdentityProviderUser.I
    * @return the builder
    */
   public static IdentityProviderUserBuilder builder() {
-    return IdentityProviderUserBuilder.create();
+    return new IdentityProviderUserBuilder();
   }
 
   boolean hasUser() {

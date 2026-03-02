@@ -45,7 +45,7 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
   protected User() {}
 
   /**
-   * use {@link UserBuilder#create()} instead of this directly.
+   * use {@link #builder()} instead of this directly.
    *
    * @param id
    *   identity
@@ -66,7 +66,7 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
    * @return A new builder.
    */
   public static UserBuilder builder() {
-    return UserBuilder.create();
+    return new UserBuilder();
   }
 
   @NotAudited
