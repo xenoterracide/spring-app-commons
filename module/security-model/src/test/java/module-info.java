@@ -37,4 +37,5 @@ import org.jspecify.annotations.NullMarked;
   requires org.axonframework.extension.spring;
   requires jakarta.mail;
   requires spring.modulith.test;
+  requires org.axonframework.common;
 }

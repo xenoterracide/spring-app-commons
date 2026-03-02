@@ -7,6 +7,7 @@ package com.xenoterracide.model.security.user.test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.xenoterracide.model.security.fixtures.AxonConfig;
+import com.xenoterracide.model.security.user.Datatypes_UserCreated.UserCreated_;
 import com.xenoterracide.model.security.user.OIDCSubject;
 import com.xenoterracide.model.security.user.RegisterNewUser;
 import com.xenoterracide.model.security.user.UserCreated;
@@ -82,8 +83,8 @@ class RegisterNewUserTest {
             assertThat(message)
               .extracting(Message::payload)
               .isInstanceOf(UserCreated.class)
-              .hasFieldOrProperty("id")
-              .hasFieldOrProperty("name")
+              .hasFieldOrProperty(UserCreated_.ID_)
+              .hasFieldOrPropertyWithValue(UserCreated_.NAME_, registration.email().getAddress())
               .hasNoNullFieldsOrProperties();
           });
       });
