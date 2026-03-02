@@ -6,8 +6,10 @@ package com.xenoterracide.model.security.user;
 
 import org.axonframework.eventsourcing.annotation.EventTag;
 import org.immutables.builder.Builder;
+import org.immutables.datatype.Data;
 
 @Builder
+@Data
 public record UserCreated(@EventTag User.UserId id, String name) {
   public static UserCreatedBuilder builder() {
     return new UserCreatedBuilder();
