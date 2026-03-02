@@ -5,18 +5,10 @@ SPDX-License-Identifier: CC-BY-NC-4.0
 -->
 
 - architecture is hexagonal, CQRS
-
-# Commands
-
-- `yarn test` must pass if `*.kts`, `*.java`, or `checkstyle/*.xml` has changed
+- github jobs have a 10 minute timeout, gradle tasks shouldn't take more than 5 minutes
+- `./gradlew check` must pass if `*.kts`, `*.java`, or `checkstyle/*.xml` has changed
 - `yarn ug` updates gradle dependencies
 - `gh` can be used if authenticated and available.
-
-# Quality
-
 - gradle buildHealth task does not use JPMS, and can be incorrect if JPMS is having with its suggestions.
 - include links to upstream bugs in comments when relevant
-
-# Additional
-
 - packages under group `com.xenoterracide` can be changed by us.
