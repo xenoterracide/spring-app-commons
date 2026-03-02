@@ -10,6 +10,7 @@ import com.xenoterracide.model.security.fixtures.AxonConfig;
 import com.xenoterracide.model.security.user.Datatypes_UserCreated.UserCreated_;
 import com.xenoterracide.model.security.user.OIDCSubject;
 import com.xenoterracide.model.security.user.RegisterNewUser;
+import com.xenoterracide.model.security.user.User;
 import com.xenoterracide.model.security.user.UserCreated;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
@@ -56,7 +57,8 @@ class RegisterNewUserTest {
             assertThat(message)
               .extracting(Message::payload)
               .isInstanceOf(UserCreated.class)
-              .hasFieldOrProperty("id")
+              .hasFieldOrProperty(UserCreated_.ID_)
+              .hasFieldOrPropertyWithValue(UserCreated_.NAME_, registration.email().getAddress())
               .hasNoNullFieldsOrProperties();
           });
       });
@@ -71,22 +73,8 @@ class RegisterNewUserTest {
       .emailVerified(true)
       .build();
 
-    fixture
-      .when()
-      .command(registration)
-      .then()
-      .success()
-      .eventsSatisfy(events -> {
-        assertThat(events)
-          .hasSize(1)
-          .anySatisfy(message -> {
-            assertThat(message)
-              .extracting(Message::payload)
-              .isInstanceOf(UserCreated.class)
-              .hasFieldOrProperty(UserCreated_.ID_)
-              .hasFieldOrPropertyWithValue(UserCreated_.NAME_, registration.email().getAddress())
-              .hasNoNullFieldsOrProperties();
-          });
-      });
+    var userCreated = UserCreated.builder().id(User.UserId.create()).name("xenoterracide@gmail.com").build();
+
+    fixture.given().event(userCreated).when().command(registration).then().success().noEvents();
   }
 }
