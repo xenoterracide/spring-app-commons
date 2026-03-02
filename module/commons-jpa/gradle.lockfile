@@ -1,7 +1,7 @@
 # This is a Gradle generated file for dependency locking.
 # Manual edits can break the build and are not advised.
 # This file is expected to be part of source control.
-com.fasterxml:classmate:1.7.3=annotationProcessor,compileClasspath,runtimeClasspath,testFixturesAnnotationProcessor,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
+com.fasterxml:classmate:1.7.3=compileClasspath,runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
 com.github.ben-manes.caffeine:caffeine:3.0.5=testAnnotationProcessor,testWhiteboxAnnotationProcessor
 com.github.ben-manes.caffeine:caffeine:3.2.3=annotationProcessor,testFixturesAnnotationProcessor
 com.github.f4b6a3:uuid-creator:6.1.1=testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
@@ -44,8 +44,7 @@ io.github.eisop:dataflow-errorprone:3.41.0-eisop1=annotationProcessor,testAnnota
 io.github.java-diff-utils:java-diff-utils:4.12=annotationProcessor,testAnnotationProcessor,testFixturesAnnotationProcessor,testWhiteboxAnnotationProcessor
 io.micrometer:micrometer-commons:1.16.3=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
 io.micrometer:micrometer-observation:1.16.3=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
-io.smallrye:jandex:3.2.0=annotationProcessor,testFixturesAnnotationProcessor
-io.smallrye:jandex:3.3.2=runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
+io.smallrye:jandex:3.3.2=annotationProcessor,runtimeClasspath,testFixturesAnnotationProcessor,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
 jakarta.activation:jakarta.activation-api:2.1.4=annotationProcessor,runtimeClasspath,testFixturesAnnotationProcessor,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
 jakarta.annotation:jakarta.annotation-api:3.0.0=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesAnnotationProcessor,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
 jakarta.el:jakarta.el-api:6.0.1=annotationProcessor,compileClasspath,testCompileClasspath,testFixturesAnnotationProcessor,testFixturesCompileClasspath,testWhiteboxCompileClasspath
@@ -103,12 +102,15 @@ org.eclipse.angus:angus-activation:2.0.3=annotationProcessor,runtimeClasspath,te
 org.glassfish.jaxb:jaxb-core:4.0.6=annotationProcessor,runtimeClasspath,testFixturesAnnotationProcessor,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
 org.glassfish.jaxb:jaxb-runtime:4.0.6=annotationProcessor,runtimeClasspath,testFixturesAnnotationProcessor,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
 org.glassfish.jaxb:txw2:4.0.6=annotationProcessor,runtimeClasspath,testFixturesAnnotationProcessor,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
-org.hibernate.common:hibernate-commons-annotations:7.0.3.Final=annotationProcessor,testFixturesAnnotationProcessor
 org.hibernate.models:hibernate-models:1.0.1=annotationProcessor,runtimeClasspath,testFixturesAnnotationProcessor,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
-org.hibernate.orm:hibernate-core:7.2.4.Final=annotationProcessor,compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesAnnotationProcessor,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
+org.hibernate.orm:hibernate-core:7.2.4.Final=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
+org.hibernate.orm:hibernate-core:7.3.0.CR2=annotationProcessor,testFixturesAnnotationProcessor
 org.hibernate.orm:hibernate-envers:7.2.4.Final=compileClasspath,runtimeClasspath,testCompileClasspath,testFixturesCompileClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxCompileClasspath,testWhiteboxRuntimeClasspath
-org.hibernate.orm:hibernate-jpamodelgen:6.6.44.Final=annotationProcessor,testFixturesAnnotationProcessor
+org.hibernate.orm:hibernate-jpamodelgen:7.3.0.CR2=annotationProcessor,testFixturesAnnotationProcessor
+org.hibernate.orm:hibernate-processor:7.3.0.CR2=annotationProcessor,testFixturesAnnotationProcessor
 org.hibernate.validator:hibernate-validator:9.0.1.Final=compileClasspath,runtimeClasspath,testFixturesRuntimeClasspath,testRuntimeClasspath,testWhiteboxRuntimeClasspath
+org.immutables:bom:2.12.1=annotationProcessor
+org.immutables:value:2.12.1=annotationProcessor
 org.jacoco:org.jacoco.agent:0.8.14=jacocoAgent,jacocoAnt
 org.jacoco:org.jacoco.ant:0.8.14=jacocoAnt
 org.jacoco:org.jacoco.core:0.8.14=jacocoAnt

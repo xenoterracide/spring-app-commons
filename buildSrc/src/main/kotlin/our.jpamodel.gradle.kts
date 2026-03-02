@@ -18,8 +18,7 @@ dependencies {
   annotationProcessor(platform(libs.jakarta.bom))
   annotationProcessor(platform(libs.spring.bom))
   annotationProcessor(platform(libs.immutables.bom))
-  annotationProcessor(libs.immutables.core)
-  annotationProcessor(libs.hibernate.jpa.modelgen)
+  annotationProcessor(libs.bundles.preprocessor)
 
   compileOnly(platform(libs.immutables.bom))
   compileOnly(libs.bundles.immutables)
@@ -35,7 +34,7 @@ dependencies {
   testFixturesAnnotationProcessor(platform(libs.jakarta.bom))
   testFixturesAnnotationProcessor(platform(libs.spring.bom))
   testFixturesAnnotationProcessor(platform(libs.immutables.bom))
-  testFixturesAnnotationProcessor(libs.immutables.core)
+  testFixturesAnnotationProcessor(libs.bundles.preprocessor)
 
   testFixturesCompileOnly(platform(libs.immutables.bom))
   testFixturesCompileOnly(libs.bundles.immutables)

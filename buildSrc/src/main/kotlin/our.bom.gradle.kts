@@ -29,10 +29,11 @@ configurations.configureEach {
     }
     componentSelection {
       all {
+        if (candidate.version.endsWith("-SNAPSHOT")) reject("no snapshots")
+
         val nonRelease = Regex("^[\\d.]+-(RC|M|ea|beta|alpha).*$")
         if (candidate.group != "com.xenoterracide") {
           if (candidate.version.matches(nonRelease)) reject("no pre-release")
-          if (candidate.version.endsWith("-SNAPSHOT")) reject("no snapshots")
         } else if (candidate.version.matches(nonRelease)) {
           logger.info("allowing: {}", candidate)
         }

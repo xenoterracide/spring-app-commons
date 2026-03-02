@@ -10,6 +10,7 @@ jakarta = "11.+"
 plugin-convention = "0.16.+"
 spring-boot = "4.+"
 spring-modulith = "2.+"
+jpamodelgen = "7.+"
 
 [libraries]
 
@@ -25,13 +26,13 @@ axon-test = { module = "org.axonframework:axon-test" }
 equalsverifier = "nl.jqno.equalsverifier:equalsverifier:3.+"
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "ep" }
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
-hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.strictly = "6.+" }
+hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.ref = "jpamodelgen" }
 immutables-annotate = { module = "org.immutables:annotate" }
 immutables-annotations = { module = "org.immutables:value-annotations" }
 immutables-bom = { module = "org.immutables:bom", version.ref = "immutables" }
 immutables-builder = { module = "org.immutables:builder" }
 immutables-core = { module = "org.immutables:value" }
-immutables-data = { module = "org.immutables:data" }
+immutables-datatype = { module = "org.immutables:datatype" }
 jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
 jakarta-bom = { module = "jakarta.platform:jakarta.jakartaee-bom", version.ref = "jakarta" }
 jakarta-cdi = { module = "jakarta.enterprise:jakarta.enterprise.cdi-api" }
@@ -66,7 +67,8 @@ uuid-creator = "com.github.f4b6a3:uuid-creator:6.+"
 
 [bundles]
 compile = ["jakarta-annotation", "jspecify"]
-immutables = ["immutables-annotate", "immutables-annotations", "immutables-builder", "immutables-data"]
+preprocessor = ["immutables-core"]
+immutables = ["immutables-annotate", "immutables-annotations", "immutables-builder", "immutables-datatype"]
 ep = ["errorprone-core", "errorprone-nullaway"]
 jakarta-transaction = [
   "jakarta-transaction",

@@ -19,6 +19,8 @@ plugins {
 val libs = the<LibrariesForLibs>()
 
 dependencies {
+  annotationProcessor(platform(libs.immutables.bom))
+  annotationProcessor(libs.bundles.preprocessor)
   spotbugs(libs.spotbugs)
 }
 
@@ -42,9 +44,13 @@ java {
 }
 
 tasks.withType<JavaCompile>().configureEach {
-  options.compilerArgumentProviders.addLast {
-    listOf("-Aimmutables.annotations.pick=jakarta")
-  }
+  options.compilerArgs.addAll(
+    listOf(
+      "-Aimmutables.gradle.incremental",
+      "-Aimmutables.annotations.pick=jakarta",
+      "-Aimmutables.guava.suppress",
+    ),
+  )
 }
 
 tasks.javadoc {
