@@ -13,16 +13,17 @@ import com.xenoterracide.commons.model.Nameable;
 import com.xenoterracide.tools.java.annotation.Initializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.net.URI;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import org.hibernate.envers.Audited;
+import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
+import org.axonframework.eventsourcing.annotation.reflection.EntityCreator;
+import org.axonframework.extension.spring.stereotype.EventSourced;
 import org.hibernate.envers.NotAudited;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.jmolecules.ddd.annotation.ValueObject;
@@ -30,10 +31,8 @@ import org.jmolecules.ddd.annotation.ValueObject;
 /**
  * A user.
  */
-@Audited
-@Entity
 @AggregateRoot
-@Table(name = "users")
+@EventSourced(tagKey = "id")
 public class User extends AbstractAggregate<User.UserId, User> implements Nameable {
 
   private String name;
@@ -43,6 +42,13 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
    * For JPA.
    */
   protected User() {}
+
+  @EntityCreator
+  protected User(UserCreated userCreated) {
+    super(userCreated.id());
+    this.name = userCreated.name();
+    this.identityProviderUsers = new HashSet<>();
+  }
 
   /**
    * use {@link #builder()} instead of this directly.
@@ -89,6 +95,18 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
     return Set.copyOf(this.getIdentityProviderUsers());
   }
 
+  @EventSourcingHandler
+  public void linkIdentityProvider(IdentityProviderAssociated association) {
+    var idpUser = IdentityProviderUser.builder()
+      .issuer(association.issuer())
+      .subject(association.subject().raw())
+      .email(association.email().getAddress())
+      .emailVerified(association.emailVerified())
+      .user(this)
+      .build();
+    this.getIdentityProviderUsers().add(idpUser);
+  }
+
   /**
    * Links an identity provider to this user.
    *
@@ -101,6 +119,7 @@ public class User extends AbstractAggregate<User.UserId, User> implements Nameab
    * @param emailVerified
    *   whether the email has been verified by the identity provider
    */
+  @Deprecated
   public void linkIdentityProvider(URI issuer, String subject, String email, boolean emailVerified) {
     var idpUser = IdentityProviderUser.builder()
       .issuer(issuer)

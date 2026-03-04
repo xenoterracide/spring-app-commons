@@ -10,7 +10,7 @@ import org.immutables.datatype.Data;
 
 @Builder
 @Data
-public record UserCreated(@EventTag User.UserId id, String name) {
+public record UserCreated(@EventTag User.UserId id, @EventTag String name) {
   public static UserCreatedBuilder builder() {
     return new UserCreatedBuilder();
   }

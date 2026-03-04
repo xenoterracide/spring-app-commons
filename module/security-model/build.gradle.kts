@@ -38,7 +38,7 @@ testing {
       dependencies {
         runtimeOnly(sbd4.h2)
         runtimeOnly(projects.testAppCore)
-        implementation(libs.axon.test)
+        implementation.bundle(libs.bundles.axon.test)
         implementation(platform(libs.axon.bom))
         implementation(sbd4.spring.beans)
         implementation(sbd4.spring.boot.data.jpa.test)

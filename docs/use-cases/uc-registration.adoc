@@ -175,6 +175,86 @@ Estimated: 100-1000 registrations per day initially.
 * Manual account linking for support staff?
 * Should we create a <<Person>> record separately from <<User>>, or treat them as the same concept for now?
 
+== Design Decisions
+
+=== Email Uniqueness Constraint
+
+*Problem:*
+In event sourcing, aggregates are identified by their aggregate ID (UUID in this case).
+However, we need to enforce that email addresses are globally unique to prevent duplicate user registrations.
+Unlike an SQL database, we cannot simply add a `UNIQUE` constraint on a column.
+
+*Options Considered:*
+
+[cols="1,3,3"]
+|===
+| Option | Description | Trade-offs
+
+| **Email as Aggregate ID**
+| Use the email string as the `User` aggregate identifier instead of a UUID.
+| *Pros:* Simplest code; Axon enforces uniqueness automatically via ID collision.
+*Cons:* Email changes become operationally complex (requires rewriting event streams);
+email (PII) appears in all stream IDs and logs; external references must use email as FK.
+
+| **Actor Model (Separate Aggregate)**
+| Create an `EmailClaim` aggregate with email as its ID;
+chain creation to `User` aggregate creation.
+| *Pros:* Uses Axon's built-in locking; no race conditions.
+*Cons:* More boilerplate (new aggregate, events, command handlers);
+complex orchestration between aggregates.
+
+| **EventStore Tag Query (Chosen)**
+| Tag `UserCreated` events with email;
+query EventStore by tag before creating user.
+| *Pros:* Minimal code; keeps UUID as stable ID; email can change in future.
+*Cons:* Requires understanding of Axon 5 tags;
+slight risk of race condition (mitigated by `AppendCondition`).
+|===
+
+*Decision:*
+Use **EventStore Tag Query** with idempotent behavior.
+When `RegisterNewUser` is received, query EventStore for existing events tagged with the email.
+If found, return success with no new events (idempotent).
+If not found, append `UserCreated` event.
+
+*Rationale:*
+Email changes should be "extremely rare but possible" - using mutable data as aggregate ID is an anti-pattern.
+The UUID provides a stable identifier for external references and future email changes.
+The tag query provides the minimal code solution while maintaining flexibility.
+
+=== Dynamic Consistency Boundary (DCB) and the User Aggregate
+
+*Context:*
+Axon Framework 5 introduces Dynamic Consistency Boundary (DCB), which shifts from the traditional aggregate-centric model.
+In DCB, events are tagged with multiple identifiers (not just aggregate ID), allowing queries by any business key.
+
+*Why the User aggregate isn't loaded in the first step:*
+
+Registration has two conceptual steps:
+1. **Create User** (current step) - emits `UserCreated` event 2. **Link Identity Provider** (next step) - loads `User` aggregate, calls `linkIdentityProvider()`
+
+In the first step, we don't load the `User` aggregate because:
+- The user doesn't exist yet (we're checking if email is available) - We don't know the aggregate ID yet (it's generated as a new UUID) - We only have the email (a tag, not the aggregate identifier) - The check is simple existence - no state transitions needed
+
+DCB allows us to query by email tag directly without needing an aggregate.
+
+*When the User aggregate IS used:*
+
+The `User` aggregate is used for the second step (linking the IdP) and any operation that requires:
+- Loading existing state by aggregate ID - State evolution (calling methods that emit events) - Instance-level business rules (e.g., "can only link if email verified")
+
+*Example of aggregate usage:*
+
+```
+LinkIdentityProvider command → Load User by ID →
+user.linkIdentityProvider(issuer, subject) → Append IdentityProviderLinked event
+```
+
+*Summary:*
+The registration command handler uses DCB tags for existence checking (step 1).
+The `User` aggregate is created by the `UserCreated` event and will be used in subsequent steps.
+DCB enables querying by business keys (email) while aggregates remain the primary model for state transitions.
+
 == Related Use Cases
 
 * UC-002: User Login via Identity Provider

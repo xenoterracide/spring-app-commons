@@ -13,3 +13,6 @@ SPDX-License-Identifier: CC-BY-NC-4.0
 - gradle buildHealth task does not use JPMS, and can be incorrect if JPMS is having with its suggestions.
 - include links to upstream bugs in comments when relevant
 - packages under group `com.xenoterracide` can be changed by us.
+- terminology: avoid "relational database" as ambiguous (means Codd's relational algebra in theory, but colloquially just "things are related")
+  - SQL databases (PostgreSQL, MySQL, Oracle): prefer "SQL database", "RDBMS", or "table-oriented"
+  - Graph databases (Neo4j, AGE): prefer "graph database" or "graph-oriented" (based on graph theory, nodes and edges)

@@ -7,7 +7,9 @@ package com.xenoterracide.model.security.user.test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.xenoterracide.model.security.fixtures.AxonConfig;
+import com.xenoterracide.model.security.user.Datatypes_IdentityProviderAssociated.IdentityProviderAssociated_;
 import com.xenoterracide.model.security.user.Datatypes_UserCreated.UserCreated_;
+import com.xenoterracide.model.security.user.IdentityProviderAssociated;
 import com.xenoterracide.model.security.user.OIDCSubject;
 import com.xenoterracide.model.security.user.RegisterNewUser;
 import com.xenoterracide.model.security.user.User;
@@ -52,13 +54,19 @@ class RegisterNewUserTest {
       .success()
       .eventsSatisfy(events -> {
         assertThat(events)
-          .hasSize(1)
+          .hasSize(2)
+          .extracting(Message::payload)
           .anySatisfy(message -> {
             assertThat(message)
-              .extracting(Message::payload)
               .isInstanceOf(UserCreated.class)
               .hasFieldOrProperty(UserCreated_.ID_)
               .hasFieldOrPropertyWithValue(UserCreated_.NAME_, registration.email().getAddress())
+              .hasNoNullFieldsOrProperties();
+          })
+          .anySatisfy(message -> {
+            assertThat(message)
+              .isInstanceOf(IdentityProviderAssociated.class)
+              .hasFieldOrProperty(IdentityProviderAssociated_.ID_)
               .hasNoNullFieldsOrProperties();
           });
       });
@@ -66,14 +74,15 @@ class RegisterNewUserTest {
 
   @Test
   void registerTwice() throws AddressException {
+    var email = "ex@example.com";
     var registration = RegisterNewUser.builder()
       .subject(new OIDCSubject("google:12345"))
       .issuer(URI.create("https://example.com"))
-      .email(new InternetAddress("xenoterracide@gmail.com"))
+      .email(new InternetAddress(email))
       .emailVerified(true)
       .build();
 
-    var userCreated = UserCreated.builder().id(User.UserId.create()).name("xenoterracide@gmail.com").build();
+    var userCreated = UserCreated.builder().id(User.UserId.create()).name(email).build();
 
     fixture.given().event(userCreated).when().command(registration).then().success().noEvents();
   }

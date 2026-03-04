@@ -4,11 +4,21 @@
 
 package com.xenoterracide.model.security.user;
 
+import jakarta.mail.internet.InternetAddress;
+import java.net.URI;
 import org.axonframework.eventsourcing.annotation.EventTag;
 import org.immutables.builder.Builder;
+import org.immutables.datatype.Data;
 
+@Data
 @Builder
-public record IdentityProviderAssociated(@EventTag User.UserId id) {
+public record IdentityProviderAssociated(
+  @EventTag User.UserId id,
+  URI issuer,
+  OIDCSubject subject,
+  InternetAddress email,
+  boolean emailVerified
+) {
   public static IdentityProviderAssociatedBuilder builder() {
     return new IdentityProviderAssociatedBuilder();
   }

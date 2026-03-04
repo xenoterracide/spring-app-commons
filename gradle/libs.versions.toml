@@ -23,6 +23,7 @@ axon-spring = { module = "org.axonframework.extensions.spring:axon-spring" }
 axon-spring-boot-autoconfigure = { module = "org.axonframework.extensions.spring:axon-spring-boot-autoconfigure" }
 axon-spring-boot-starter = { module = "org.axonframework.extensions.spring:axon-spring-boot-starter" }
 axon-test = { module = "org.axonframework:axon-test" }
+axon-test-junit5 = { module = "org.axonframework:axon-test-junit5" }
 equalsverifier = "nl.jqno.equalsverifier:equalsverifier:3.+"
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "ep" }
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
@@ -66,6 +67,7 @@ spring-modulith-test = { module = "org.springframework.modulith:spring-modulith-
 uuid-creator = "com.github.f4b6a3:uuid-creator:6.+"
 
 [bundles]
+axon-test = ["axon-test"]
 compile = ["jakarta-annotation", "jspecify"]
 preprocessor = ["immutables-core"]
 immutables = ["immutables-annotate", "immutables-annotations", "immutables-builder", "immutables-datatype"]
