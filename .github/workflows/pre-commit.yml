@@ -6,9 +6,9 @@ name: precommit
 on: [push, workflow_call]
 jobs:
   license:
-    uses: xenoterracide/github/.github/workflows/license.yml@b6b7159195cd246e0d9f8a9b4ecd1e2f91928b34
+    uses: xenoterracide/github/.github/workflows/license.yml@29a3d18797fea084c08dd6551099c1726baef8b4
   format:
-    uses: xenoterracide/github/.github/workflows/format.yml@b6b7159195cd246e0d9f8a9b4ecd1e2f91928b34
+    uses: xenoterracide/github/.github/workflows/format.yml@29a3d18797fea084c08dd6551099c1726baef8b4
   format-kotlin:
     runs-on: ubuntu-24.04
     steps:
