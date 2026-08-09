@@ -7,7 +7,7 @@ axon = "5.+"
 ep = "2.+"
 immutables = "2.+"
 jakarta = "11.+"
-plugin-convention = "0.16.+"
+plugin-convention = "0.18.+"
 spring-boot = "4.+"
 spring-modulith = "2.+"
 
