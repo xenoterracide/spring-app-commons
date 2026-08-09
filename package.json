@@ -1,6 +1,6 @@
 {
   "name": "spring-app-commons",
-  "packageManager": "yarn@4.12.0",
+  "packageManager": "yarn@4.18.0",
   "private": true,
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
