@@ -24,7 +24,7 @@ configurations.configureEach {
   resolutionStrategy {
     capabilitiesResolution {
       withCapability("jakarta.el", "jakarta.el-impl") {
-        select("org.apache.tomcat.embed:tomcat-embed-el:0")
+        select("org.apache.tomcat.embed:tomcat-embed-el:11.0.22")
       }
     }
     componentSelection {
