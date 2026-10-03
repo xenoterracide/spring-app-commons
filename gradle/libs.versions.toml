@@ -18,7 +18,7 @@ archunit-junit-api = "com.tngtech.archunit:archunit-junit5-api:1.+"
 axon-bom = { module = "org.axonframework:axon-framework-bom", version.ref = "axon" }
 axon-spring-boot-starter = { module = "org.axonframework.extensions.spring:axon-spring-boot-starter" }
 axon-test = { module = "org.axonframework:axon-test" }
-equalsverifier = "nl.jqno.equalsverifier:equalsverifier:3.+"
+equalsverifier = "nl.jqno.equalsverifier:equalsverifier:4.+"
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "ep" }
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
 hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.strictly = "6.+" }
