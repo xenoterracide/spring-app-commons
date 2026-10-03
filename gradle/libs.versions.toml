@@ -21,7 +21,7 @@ axon-test = { module = "org.axonframework:axon-test" }
 equalsverifier = "nl.jqno.equalsverifier:equalsverifier:3.+"
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "ep" }
 errorprone-nullaway = "com.uber.nullaway:nullaway:0.+"
-hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.strictly = "6.+" }
+hibernate-jpa-modelgen = { module = "org.hibernate.orm:hibernate-jpamodelgen", version.strictly = "7.+" }
 immutables-annotate = { module = "org.immutables:annotate" }
 immutables-annotations = { module = "org.immutables:value-annotations" }
 immutables-bom = { module = "org.immutables:bom", version.ref = "immutables" }
